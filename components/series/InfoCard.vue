@@ -3,7 +3,7 @@
     <v-layout row>
       <v-flex xs7>
         <v-card-title primary-title>
-            <h1 class="display-2">{{ serie.title }}</h1>
+          <slot name="title"></slot>
         </v-card-title>
         <v-card-actions class="pa-3">
           <div class="d-flex">
@@ -22,18 +22,13 @@
           </div>
         </v-card-actions>
          <v-card color="purple">
-          <v-card-text>
-            {{ serie.synopsis }}
-          </v-card-text>
+           <v-card-text><slot name="synopsis"></slot></v-card-text>
         </v-card>
         <v-divider light></v-divider>
-        <v-card-text v-html="serie.body">
-        </v-card-text>
+        <v-card-text><slot name="body"></slot></v-card-text>
       </v-flex>
       <v-flex xs5>
-        <v-img :src="serie.poster" :aspect-ratio="9/16">
-          <div class="fill-height bottom-gradient"></div>
-        </v-img>
+        <slot name="img"></slot>
       </v-flex>
     </v-layout>
   </v-card>
@@ -41,7 +36,6 @@
 
 <script>
 export default {
-  props: ['serie'],
   data: () => ({
     reviews: 413,
     value: 4.5
