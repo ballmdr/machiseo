@@ -1,12 +1,15 @@
 import axios from 'axios'
 
 export const state = () => {
-  series: []
+  state: {
+    series: []
+  }
 }
 
 export const mutations = {
-  setSerie (state, serie) {
-    //state.series.push(serie)
+  setSerie (state, payload) {
+    console.log(payload)
+    state.series.push(payload)
   }
 }
 
@@ -17,11 +20,11 @@ export const getters = {
 export const actions = {
   async GET_SERIE ({ commit }, title) {
     const url = process.env.baseUrl + '/jsonapi/series?filter[title]=' + title + '&include=field_poster'
-    const { data } = await axios.get(url)
-    console.log(data)
+    const res = await axios.get(url)
     const serie = {
-     // title: data.data[0].attributes.title,
-     // poster: data.included[0].url
+      uuid: res.data.data[0].attributes.uuid,
+      title: res.data.data[0].attributes.title,
+      poster: res.data.included[0].attributes.url
     }
     commit('setSerie', serie)
   }

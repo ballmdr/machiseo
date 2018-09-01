@@ -11,8 +11,9 @@ import InfoCard from '~/components/series/InfoCard'
 
 export default {
   components: { InfoCard },
-  //async fetch ({ store, params }) {
-    //await store.dispatch('serie/GET_SERIE', params.title)
+  async fetch ({ store, params }) {
+    await store.dispatch('serie/GET_SERIE', params.title)
+  },
   async asyncData ({ app, params }) {
     const url = '/jsonapi/series?filter[title]=' + params.title + '&include=field_poster'
     let res = await app.$axios.$get(url)
