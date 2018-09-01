@@ -1,7 +1,19 @@
 const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
+const environment = {
+  API_URL: 'http://93.190.138.237'
+}
 
 module.exports = {
+  env: {
+    baseUrl: environment.API_URL
+  },
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  axios: {
+    baseURL: environment.API_URL
+  },
   /*
   ** Headers of the page
   */
