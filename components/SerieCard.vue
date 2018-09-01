@@ -1,0 +1,50 @@
+<template>
+  <v-hover>
+    <v-card
+      slot-scope="{ hover }"
+      :class="'elevation-${hover ? 12 : 2}'"
+      class="mx-auto"
+      width="344"
+    >
+      <v-img
+        :aspect-ratio="9/16"
+        :src="serie.poster"
+        @click="$router.push('/series/' + serie.title)"
+      ></v-img>
+      <v-card-title>
+        <div>
+          <span class="headline">{{ serie.title }}</span>
+          <div class="d-flex">
+            <v-rating
+              :value="value"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="14"
+            ></v-rating>
+            <div class="ml-2 grey--text text--darken-2">
+              <span>{{ value }}</span>
+              <span>({{ reviews }})</span>
+            </div>
+          </div>
+        </div>
+        <v-spacer></v-spacer>
+        <v-btn icon class="mr-0">
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-card-title>
+    </v-card>
+  </v-hover>
+</template>
+
+<script>
+
+export default {
+  props: ['serie'],
+  data: () => ({
+    reviews: 413,
+    value: 4.5
+  })
+}
+</script>
