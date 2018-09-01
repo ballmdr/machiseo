@@ -10,8 +10,8 @@ import SeriesList from '~/components/SeriesList'
 
 export default {
   components: { SeriesList },
-  async asyncData ({ app }) {
-    let series = await api.getSeriesCard(app, '/jsonapi/series?sort=-nid&page[limit]=10')
+  async asyncData () {
+    const series = await api.getSeriesCard('/jsonapi/series?sort=-nid&page[limit]=10')
     return { series }
   }
 }

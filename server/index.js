@@ -1,26 +1,40 @@
-'use strict'
-const path = require('path')
-const feathers = require('feathers')
-const configuration = require('feathers-configuration')
-const middleware = require('./middleware')
 
-const app = feathers()
+const Koa = require('koa')
+const { Nuxt, Builder } = require('nuxt')
 
-app.configure(configuration(path.join(__dirname, './')))
-  .configure(middleware)
+const app = new Koa()
+const host = process.env.HOST || '127.0.0.1'
+const port = process.env.PORT || 3000
 
-const host = app.get('host')
-const port = app.get('port')
+// Import and Set Nuxt.js options
+let config = require('../nuxt.config.js')
+config.dev = !(app.env === 'production')
 
-process.on('nuxt:build:done', (err) => {
-  if (err) {
-    console.error(err) // eslint-disable-line no-console
-    process.exit(1)
+async function start() {
+  // Instantiate nuxt.js
+  const nuxt = new Nuxt(config)
+
+  // Build in development
+  if (config.dev) {
+    const builder = new Builder(nuxt)
+    await builder.build()
   }
-  const server = app.listen(port)
-  server.on('listening', () =>
-    console.log(`Feathers application started on ${host}:${port}`) // eslint-disable-line no-console
-  )
-})
 
-module.exports = app
+  app.use(ctx => {
+    ctx.status = 200 // koa defaults to 404 when it sees that status is unset
+
+    return new Promise((resolve, reject) => {
+      ctx.res.on('close', resolve)
+      ctx.res.on('finish', resolve)
+      nuxt.render(ctx.req, ctx.res, promise => {
+        // nuxt.render passes a rejected promise into callback on error.
+        promise.then(resolve).catch(reject)
+      })
+    })
+  })
+
+  app.listen(port, host)
+  console.log('Server listening on http://' + host + ':' + port) // eslint-disable-line no-console
+}
+
+start()
