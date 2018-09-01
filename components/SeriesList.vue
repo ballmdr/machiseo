@@ -11,6 +11,10 @@ import SerieCard from '~/components/SerieCard'
 
 export default {
   components: { SerieCard },
-  props: ['series']
+  data () {
+    return {
+      series: this.$store.state.series.series
+    }
+  }
 }
 </script>

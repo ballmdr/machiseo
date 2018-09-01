@@ -1,6 +1,6 @@
 <template>
   <v-layout column wrap>
-    <SeriesList :series="series" />
+    <SeriesList />
   </v-layout>
 </template>
 
@@ -10,9 +10,10 @@ import SeriesList from '~/components/SeriesList'
 
 export default {
   components: { SeriesList },
-  async asyncData () {
-    const series = await api.getSeriesCard('/jsonapi/series?sort=-nid&page[limit]=10')
-    return { series }
+  async fetch ({ store }) {
+    if (typeof (store.state.series.series) === 'undefined') {
+      await store.dispatch('series/GET_SERIES_LIST')
+    }
   }
 }
 </script>
