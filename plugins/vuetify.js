@@ -41,6 +41,6 @@ Vue.use(Vuetify, {
     warning: colors.amber.base,
     error: colors.deepOrange.accent4,
     success: colors.green.accent3,
-    infoBack: colors.grey.lighten2
+    infoBgcolor: colors.grey.lighten2
   }
 })

@@ -8,12 +8,6 @@ module.exports = {
   env: {
     baseUrl: environment.API_URL
   },
-  modules: [
-    '@nuxtjs/axios'
-  ],
-  axios: {
-    baseURL: environment.API_URL
-  },
   /*
   ** Headers of the page
   */
@@ -52,7 +46,8 @@ module.exports = {
       ]
     },
     vendor: [
-      '~/plugins/vuetify.js'
+      '~/plugins/vuetify.js',
+      '~/plugins/axios.js'
     ],
     extractCSS: true,
     /*
