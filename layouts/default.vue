@@ -24,7 +24,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
+    <v-toolbar fixed app :clipped-left="clipped" color="warning">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn
         icon
@@ -48,7 +48,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
-      <v-container>
+      <v-container grid-list-lg>
         <nuxt />
       </v-container>
     </v-content>
