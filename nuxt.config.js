@@ -47,7 +47,9 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      '~/plugins/axios.js'
+      '~/plugins/axios.js',
+      'waterwheel',
+      'jsonapi-parse'
     ],
     extractCSS: true,
     /*

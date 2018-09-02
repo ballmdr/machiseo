@@ -1,4 +1,18 @@
 import axios from 'axios'
+import jsonApiClient from './jsonApiClient'
+const jsonApi = jsonApiClient()
+
+export async function findOneSerieByTitle (title) {
+  const query = {
+    filter: {
+      title: {
+        value: title
+      }
+    },
+    include: 'field_poster'
+  }
+  return await jsonApi.get('series', query)
+}
 
 const api = {
   async getPoster (uuid) {

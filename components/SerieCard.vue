@@ -2,7 +2,7 @@
   <v-hover>
     <v-card
       slot-scope="{ hover }"
-      :class="'elevation-${hover ? 12 : 2}'"
+      :class="`elevation-${hover ? 12 : 2}`"
       class="mx-auto"
       width="344"
     >
@@ -10,7 +10,16 @@
         :aspect-ratio="9/16"
         :src="serie.poster"
         @click="$router.push('/series/' + serie.title)"
-      ></v-img>
+      ><v-layout
+                      slot="placeholder"
+                      fill-height
+                      align-center
+                      justify-center
+                      ma-0
+                    >
+                      <v-progress-circular indeterminate color="purple"></v-progress-circular>
+                    </v-layout>
+                   <!-- <div class="fill-height bottom-gradient"></div> --></v-img>
       <v-card-title>
         <div>
           <span class="headline">{{ serie.title }}</span>
@@ -48,3 +57,9 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+.bottom-gradient {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px);
+}
+</style>
