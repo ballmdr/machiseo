@@ -1,1 +1,10 @@
-Hello World
+Series Page 
+
+url : series/:title
+
+components: 
+- InfoCard
+- ReviewCard
+- Episodes
+- Trailors
+- OtherImgs
