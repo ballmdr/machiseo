@@ -17,9 +17,11 @@
       </InfoCard>
     </v-flex>
     <v-flex xs12>
-      <ReviewCard>
-
+      <v-layout row wrap>
+      <ReviewCard v-for="review in reviews" :key="review.id">
+        <span slot="comment_body" v-html="review.comment_body[0].processed"></span>
       </ReviewCard>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -27,7 +29,8 @@
 <script>
 import InfoCard from '~/components/series/InfoCard'
 import ReviewCard from '~/components/series/ReviewCard'
-import { findOneSerieByTitle, getAllReviewBySerie } from '~/assets/js/api'
+import { findOneSerieByTitle, getAllReviewBySerie } from '~/assets/js/apiWaterwheel'
+import { getRecentCommentFromSerie } from '~/assets/js/drupalRest'
 
 export default {
   components: { InfoCard, ReviewCard },
@@ -37,7 +40,7 @@ export default {
     }
   },
   data: () => ({
-    tmpBaseUrl: 'http://93.190.138.237',
+    tmpBaseUrl: process.env.baseUrl,
     reviews: 413,
     value: 4.5
   }),
@@ -48,9 +51,8 @@ export default {
   }*/
   async asyncData ({ params }) {
     const serie = await findOneSerieByTitle(params.title)
-    const review = await getAllReviewBySerie(serie[0].id)
-    console.log(review)
-    return { serie }
+    const reviews = await getRecentCommentFromSerie(serie[0].id)
+    return { serie, reviews }
   }
 }
 </script>

@@ -1,44 +1,8 @@
 import axios from 'axios'
-import jsonApiClient from './jsonApiClient'
-const jsonApi = jsonApiClient()
-import Waterwheel from "waterwheel"
-import jsonapiParse from "jsonapi-parse"
 
-const waterwheel2 = new Waterwheel(
-  {
-    base: process.env.baseUrl,
-    timeout: 3000,
-    accessCheck: false
-  }
-)
-
-export async function findOneSerieByTitle (title) {
-  const query = {
-    filter: {
-      title: {
-        value: title
-      }
-    },
-    include: 'field_poster'
-  }
-  return await jsonApi.get('series', query)
-}
-
-export async function getAllReviewBySerie (id) {
-  const query = {
-    filter: {
-      relationships: {
-        entity_id: {
-          id: id
-        }
-      }
-    }
-  }
-  console.log(waterwheel2)
-  // return await jsonApi.get('comment', query)
-}
 
 const api = {
+
   async getPoster (uuid) {
     const { data } = await axios.get(process.env.baseUrl + '/jsonapi/series/' + uuid + '/field_poster')
     let tmpPoster
