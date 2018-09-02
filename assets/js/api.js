@@ -1,6 +1,16 @@
 import axios from 'axios'
 import jsonApiClient from './jsonApiClient'
 const jsonApi = jsonApiClient()
+import Waterwheel from "waterwheel"
+import jsonapiParse from "jsonapi-parse"
+
+const waterwheel2 = new Waterwheel(
+  {
+    base: process.env.baseUrl,
+    timeout: 3000,
+    accessCheck: false
+  }
+)
 
 export async function findOneSerieByTitle (title) {
   const query = {
@@ -14,15 +24,18 @@ export async function findOneSerieByTitle (title) {
   return await jsonApi.get('series', query)
 }
 
-export async function getAllReviewBySerie (uuid) {
+export async function getAllReviewBySerie (id) {
   const query = {
     filter: {
-      entity_id: {
-        id: uuid
+      relationships: {
+        entity_id: {
+          id: id
+        }
       }
     }
   }
-  return await jsonApi.get('comment/comment', query)
+  console.log(waterwheel2)
+  // return await jsonApi.get('comment', query)
 }
 
 const api = {

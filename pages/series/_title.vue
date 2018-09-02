@@ -48,7 +48,7 @@ export default {
   }*/
   async asyncData ({ params }) {
     const serie = await findOneSerieByTitle(params.title)
-    const review = await getAllReviewBySerie(serie[0].uuid)
+    const review = await getAllReviewBySerie(serie[0].id)
     console.log(review)
     return { serie }
   }
