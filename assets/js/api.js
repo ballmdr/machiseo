@@ -14,6 +14,17 @@ export async function findOneSerieByTitle (title) {
   return await jsonApi.get('series', query)
 }
 
+export async function getAllReviewBySerie (uuid) {
+  const query = {
+    filter: {
+      entity_id: {
+        id: uuid
+      }
+    }
+  }
+  return await jsonApi.get('comment/comment', query)
+}
+
 const api = {
   async getPoster (uuid) {
     const { data } = await axios.get(process.env.baseUrl + '/jsonapi/series/' + uuid + '/field_poster')

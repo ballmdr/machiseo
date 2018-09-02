@@ -5,7 +5,15 @@
         <h1 class="display-2" slot="title">{{ serie[0].title }}</h1>
         <span slot="synopsis">{{ serie[0].synopsis }}</span>
         <span slot="body" v-html="serie[0].body.processed"></span>
-        <v-img :src="tmpBaseUrl + serie[0].field_poster[0].url" :aspect-ratio="9/16" slot="img"><div class="fill-height bottom-gradient"></div></v-img>
+        <v-img :src="tmpBaseUrl + serie[0].field_poster[0].url" :aspect-ratio="9/16" slot="img"><v-layout
+                      slot="placeholder"
+                      fill-height
+                      align-center
+                      justify-center
+                      ma-0
+                    >
+                      <v-progress-circular indeterminate color="purple"></v-progress-circular>
+                    </v-layout><div class="fill-height bottom-gradient"></div></v-img>
       </InfoCard>
     </v-flex>
     <v-flex xs12>
@@ -19,7 +27,7 @@
 <script>
 import InfoCard from '~/components/series/InfoCard'
 import ReviewCard from '~/components/series/ReviewCard'
-import { findOneSerieByTitle } from '~/assets/js/api'
+import { findOneSerieByTitle, getAllReviewBySerie } from '~/assets/js/api'
 
 export default {
   components: { InfoCard, ReviewCard },
@@ -40,8 +48,9 @@ export default {
   }*/
   async asyncData ({ params }) {
     const serie = await findOneSerieByTitle(params.title)
+    const review = await getAllReviewBySerie(serie[0].uuid)
+    console.log(review)
     return { serie }
   }
-
 }
 </script>

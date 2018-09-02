@@ -67,7 +67,8 @@
         fixed: false,
         items: [
           { icon: 'apps', title: 'มาชิสซอ', to: '/' },
-          { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' }
+          { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
+          { icon: 'search', title: 'Moon Lover', to: '/series/moon lovers' }
         ],
         miniVariant: false,
         right: true,
