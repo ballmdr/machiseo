@@ -32,11 +32,6 @@ export default {
       tmpBaseUrl: process.env.baseUrl,
       dialog: false
     }
-  },
-  methods: {
-    getClick () {
-      console.log('asdfasdf')
-    }
   }
 }
 </script>
