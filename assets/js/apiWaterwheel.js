@@ -26,3 +26,15 @@ export async function findOneSerieByTitle(title) {
   const res = await waterwheel.jsonapi.get('series', query)
   return jsonapiParse.parse(res).data
 }
+
+export async function getSeriesCard (limit = 5) {
+  const query = {
+    page: {
+      limit
+    },
+    include: 'field_poster',
+    sort: '-nid'
+  }
+  const res = await waterwheel.jsonapi.get('series', query)
+  return jsonapiParse.parse(res).data
+}
