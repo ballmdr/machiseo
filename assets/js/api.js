@@ -1,20 +1,8 @@
 import axios from 'axios'
-import jsonApiClient from './jsonApiClient'
-const jsonApi = jsonApiClient()
 
-export async function findOneSerieByTitle (title) {
-  const query = {
-    filter: {
-      title: {
-        value: title
-      }
-    },
-    include: 'field_poster'
-  }
-  return await jsonApi.get('series', query)
-}
 
 const api = {
+
   async getPoster (uuid) {
     const { data } = await axios.get(process.env.baseUrl + '/jsonapi/series/' + uuid + '/field_poster')
     let tmpPoster
@@ -36,7 +24,8 @@ const api = {
         poster: await this.getPoster(res.data.data[i].attributes.uuid),
         body: res.data.data[i].attributes.body.processed,
         synopsis: res.data.data[i].attributes.field_synopsis,
-        trailors: res.data.data[i].attributes.field_trailor
+        trailors: res.data.data[i].attributes.field_trailor,
+        reviews_count: res.data.data[i].attributes.field_reviews.comment_count
       })
     }
     return series
