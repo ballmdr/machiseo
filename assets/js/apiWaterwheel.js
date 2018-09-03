@@ -6,19 +6,12 @@ const waterwheel = new Waterwheel({
 });
 import jsonapiParse from "jsonapi-parse"
 
-
-export async function getAllReviewBySerie(id) {
+export async function getUserById (id) {
   const query = {
-    filter: {
-      comment_type: {
-        value: 'comment'
-      }
-    }
+    include: 'user_picture'
   }
-  const res = await waterwheel.jsonapi.get('comment', query)
-  console.log(res)
-  // console.log(jsonapiParse.parse(res).data)
-  // return await jsonApi.get('comment', query)
+  const res = await waterwheel.jsonapi.get('user', query, id)
+  return jsonapiParse.parse(res).data
 }
 
 export async function findOneSerieByTitle(title) {

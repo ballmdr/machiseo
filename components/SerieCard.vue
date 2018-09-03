@@ -38,11 +38,12 @@
             </div>
           </div>
         </div>
-        <v-spacer></v-spacer>
-        <v-btn icon class="mr-0">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
       </v-card-title>
+      <v-spacer></v-spacer>
+      <v-card-actions>
+        <v-icon dark="">rate_review</v-icon>
+        <small>{{ serie.reviews_count }}</small>
+      </v-card-actions>
     </v-card>
   </v-hover>
 </template>
