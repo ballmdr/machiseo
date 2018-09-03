@@ -1,4 +1,4 @@
-import api from '~/assets/js/api'
+import { getSeriesCard } from '~/assets/js/apiWaterwheel'
 
 export const state = () => {
   series: []
@@ -27,7 +27,7 @@ export const getters = {
 
 export const actions = {
   async GET_SERIES_LIST ({ commit }) {
-    const series = await api.getSeriesCard('/jsonapi/series?sort=-nid&page[limit]=10')
+    const series = await getSeriesCard(5)
     commit('setSeries', series)
   },
   loadCurrentSerie ({ commit }, title) {
