@@ -51,11 +51,20 @@ export default {
   }*/
   async asyncData ({ params }) {
     const serie = await findOneSerieByTitle(params.title)
-    const reviews = await getRecentCommentFromSerie(serie[0].id)
-    const len = reviews.length
+    const tempReviews = await getRecentCommentFromSerie(serie[0].id)
+    const len = tempReviews.length
+    // console.log(tempReviews)
     let users = []
+    let reviews = []
+    let j = 0
     for (let i = 0; i < len; i++) {
-        users[i] = await getUserById(reviews[i].uid[0].target_uuid)
+      const tmp = tempReviews[i].thread[0].value.split('.')
+      // console.log(tmp)
+      if (tmp.length === 1) {
+        reviews[j] = tempReviews[i]
+        users[j] = await getUserById(tempReviews[i].uid[0].target_uuid)
+        j++
+      }
     }
     return { serie, reviews, users }
   }
