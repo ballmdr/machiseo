@@ -18,11 +18,9 @@
     </v-flex>
     <v-flex xs12>
       <v-layout row wrap>
-      <ReviewCard v-for="(review, i) in reviews" :key="i">
-        <h5 slot="username" class="headline">{{ users[i].name }}</h5>
-        <v-img slot="user_picture" :src="tmpBaseUrl + users[i].user_picture.url"></v-img>
-        <span slot="comment_body" v-html="review.comment_body[0].processed"></span>
-      </ReviewCard>
+        <v-flex d-flex xs4 v-for="(review, i) in reviews" :key="i">
+          <ReviewCard :review="review" :user="users[i]" />
+        </v-flex>
       </v-layout>
     </v-flex>
   </v-layout>
@@ -53,11 +51,20 @@ export default {
   }*/
   async asyncData ({ params }) {
     const serie = await findOneSerieByTitle(params.title)
-    const reviews = await getRecentCommentFromSerie(serie[0].id)
-    const len = reviews.length
+    const tempReviews = await getRecentCommentFromSerie(serie[0].id)
+    const len = tempReviews.length
+    // console.log(tempReviews)
     let users = []
+    let reviews = []
+    let j = 0
     for (let i = 0; i < len; i++) {
-        users[i] = await getUserById(reviews[i].uid[0].target_uuid)
+      const tmp = tempReviews[i].thread[0].value.split('.')
+      // console.log(tmp)
+      if (tmp.length === 1) {
+        reviews[j] = tempReviews[i]
+        users[j] = await getUserById(tempReviews[i].uid[0].target_uuid)
+        j++
+      }
     }
     return { serie, reviews, users }
   }
