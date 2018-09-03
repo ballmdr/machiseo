@@ -1,12 +1,5 @@
 Currently Progress
 
-Series Page 
+Branch /
+Series Page
 
-url : series/:title
-
-components: 
-- InfoCard
-- ReviewCard
-- Episodes
-- Trailors
-- OtherImgs
