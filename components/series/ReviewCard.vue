@@ -1,17 +1,43 @@
 <template>
-  <v-flex d-flex xs4>
-    <v-card color="grey lighten-3" light>
+<div @click="dialog = true">
+  <v-hover>
+    <v-card color="grey lighten-3" light slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
       <v-card-title>
         <v-avatar size="36px">
-          <slot name="user_picture"></slot>
+          <v-img :src="tmpBaseUrl + user.user_picture.url"></v-img>
         </v-avatar>
         <v-spacer></v-spacer>
-        <slot name="username"></slot>
+        <h5 class="headline">{{ user.name }}</h5>
       </v-card-title>
       <v-divider light></v-divider>
       <v-card-text>
-        <slot name="comment_body"></slot>
+        <span v-html="review.comment_body[0].processed"></span>
       </v-card-text>
     </v-card>
-  </v-flex>
+  </v-hover>
+  <v-dialog v-model="dialog" scrollable>
+    <ReviewCardModal :review="review" :user="user" />
+  </v-dialog>
+</div>
 </template>
+
+<script>
+import ReviewCardModal from './ReviewCardModal'
+
+export default {
+  components: { ReviewCardModal },
+  props: ['review', 'user'],
+  data () {
+    return {
+      tmpBaseUrl: process.env.baseUrl,
+      dialog: false
+    }
+  },
+  methods: {
+    getClick () {
+      console.log('asdfasdf')
+    }
+  }
+}
+</script>
+

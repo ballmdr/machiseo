@@ -18,11 +18,9 @@
     </v-flex>
     <v-flex xs12>
       <v-layout row wrap>
-      <ReviewCard v-for="(review, i) in reviews" :key="i">
-        <h5 slot="username" class="headline">{{ users[i].name }}</h5>
-        <v-img slot="user_picture" :src="tmpBaseUrl + users[i].user_picture.url"></v-img>
-        <span slot="comment_body" v-html="review.comment_body[0].processed"></span>
-      </ReviewCard>
+        <v-flex d-flex xs4 v-for="(review, i) in reviews" :key="i">
+          <ReviewCard :review="review" :user="users[i]" />
+        </v-flex>
       </v-layout>
     </v-flex>
   </v-layout>

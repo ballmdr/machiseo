@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app >
     <v-navigation-drawer
       :mini-variant.sync="miniVariant"
       :clipped="clipped"
@@ -68,7 +68,8 @@
         items: [
           { icon: 'apps', title: 'มาชิสซอ', to: '/' },
           { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
-          { icon: 'search', title: 'Moon Lover', to: '/series/moon lovers' }
+          { icon: 'search', title: 'Moon Lover', to: '/series/moon lovers' },
+          { icon: 'search', title: 'Hotel King', to: '/series/hotel king' }
         ],
         miniVariant: false,
         right: true,
