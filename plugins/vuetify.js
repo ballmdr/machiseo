@@ -17,7 +17,9 @@ import {
   VProgressCircular,
   VChip,
   VAvatar,
-  VDialog
+  VDialog,
+  VCarousel,
+  VResponsive
 } from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
 
@@ -39,7 +41,9 @@ Vue.use(Vuetify, {
     VProgressCircular,
     VChip,
     VAvatar,
-    VDialog
+    VDialog,
+    VCarousel,
+    VResponsive
   },
   theme: {
     primary: '#121212', // a color that is not in the material colors palette

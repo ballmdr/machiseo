@@ -5,15 +5,27 @@
         <h1 class="display-2" slot="title">{{ serie[0].title }}</h1>
         <span slot="synopsis">{{ serie[0].field_synopsis }}</span>
         <span slot="body" v-html="serie[0].body.processed"></span>
-        <v-img :src="tmpBaseUrl + serie[0].field_poster[0].url" :aspect-ratio="9/16" slot="img"><v-layout
-                      slot="placeholder"
-                      fill-height
-                      align-center
-                      justify-center
-                      ma-0
-                    >
-                      <v-progress-circular indeterminate color="purple"></v-progress-circular>
-                    </v-layout><div class="fill-height bottom-gradient"></div></v-img>
+        <div @click="getClick()" slot="img" style="cursor:pointer">
+         <!-- <v-carousel hide-delimiters hide-controls interval="3000">
+            <v-carousel-item
+              v-for="(item,i) in serie[0].field_poster"
+              :key="i"
+              :src="tmpBaseUrl + item.url"
+              transition="fade"
+              width="100%"
+            ></v-carousel-item>
+          </v-carousel> -->
+          <v-img :src="tmpBaseUrl + serie[0].field_poster[0].url" :aspect-ratio="9/16" slot="img">
+          <v-layout
+            slot="placeholder"
+            fill-height
+            align-center
+            justify-center
+            ma-0
+          >
+            <v-progress-circular indeterminate color="purple"></v-progress-circular>
+          </v-layout><div class="fill-height bottom-gradient"></div></v-img>
+        </div>
       </InfoCard>
     </v-flex>
     <v-flex xs12>
@@ -23,6 +35,9 @@
         </v-flex>
       </v-layout>
     </v-flex>
+      <v-dialog v-model="dialog">
+        <InfoCardPoster :trailors="serie[0].field_trailor" :otherImgs="serie[0].field_other_img"></InfoCardPoster>
+      </v-dialog>
   </v-layout>
 </template>
 
@@ -31,9 +46,10 @@ import InfoCard from '~/components/series/InfoCard'
 import ReviewCard from '~/components/series/ReviewCard'
 import { findOneSerieByTitle, getAllReviewBySerie, getUserById } from '~/assets/js/apiWaterwheel'
 import { getRecentCommentFromSerie } from '~/assets/js/drupalRest'
+import InfoCardPoster from '~/components/series/InfoCardPoster'
 
 export default {
-  components: { InfoCard, ReviewCard },
+  components: { InfoCard, ReviewCard, InfoCardPoster },
   head () {
     return {
       title: this.serie[0].title
@@ -42,8 +58,14 @@ export default {
   data: () => ({
     tmpBaseUrl: process.env.baseUrl,
     reviews: 413,
-    value: 4.5
+    value: 4.5,
+    dialog: false
   }),
+  methods: {
+    getClick(){
+      this.dialog = true
+    }
+  },
   /*asyncData ({ store, params }) {
     const serie = store.getters['series/getSerie'](params.title)
     return { serie }
