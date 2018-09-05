@@ -15,7 +15,7 @@
       </v-card-text>
     </v-card>
   </v-hover>
-  <v-dialog v-model="dialog" scrollable>
+  <v-dialog v-model="dialog" scrollable max-width="800">
     <ReviewCardModal :review="review" :user="user" />
   </v-dialog>
 </div>

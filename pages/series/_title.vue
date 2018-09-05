@@ -1,6 +1,6 @@
 <template> 
   <v-layout column>
-    <v-flex xs12>
+    <v-flex xs12> 
       <InfoCard>
         <h1 class="display-2" slot="title">{{ serie[0].title }}</h1>
         <span slot="synopsis">{{ serie[0].field_synopsis }}</span>
@@ -24,19 +24,30 @@
             ma-0
           >
             <v-progress-circular indeterminate color="purple"></v-progress-circular>
-          </v-layout><div class="fill-height bottom-gradient"></div></v-img>
+          </v-layout></v-img>
         </div>
       </InfoCard>
     </v-flex>
     <v-flex xs12>
       <v-layout row wrap>
-        <v-flex d-flex xs4 v-for="(review, i) in reviews" :key="i">
+        <v-flex d-flex xs4 v-for="(review, i) in reviews" :key="i" style="cursor:pointer">
           <ReviewCard :review="review" :user="users[i]" />
         </v-flex>
       </v-layout>
     </v-flex>
-      <v-dialog v-model="dialog">
-        <InfoCardPoster :trailors="serie[0].field_trailor" :otherImgs="serie[0].field_other_img"></InfoCardPoster>
+      <v-dialog v-model="dialog"
+          hide-overlay
+          transition="dialog-bottom-transition"
+          scrollable
+          max-width="800" @closeDialog="dialog = false">
+            <v-card dark flat>
+    <v-toolbar card dark color="primary">
+              <v-btn icon dark @click="closeDialog()">
+                <v-icon>close</v-icon>
+              </v-btn>
+              </v-toolbar>
+              <InfoCardPoster :trailors="serie[0].field_trailor" :otherImgs="serie[0].field_other_img"></InfoCardPoster>
+            </v-card>
       </v-dialog>
   </v-layout>
 </template>
@@ -62,8 +73,11 @@ export default {
     dialog: false
   }),
   methods: {
-    getClick(){
+    getClick () {
       this.dialog = true
+    },
+    closeDialog () {
+      this.dialog = false
     }
   },
   /*asyncData ({ store, params }) {
