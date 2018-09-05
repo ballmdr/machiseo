@@ -69,7 +69,8 @@
           { icon: 'apps', title: 'มาชิสซอ', to: '/' },
           { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
           { icon: 'search', title: 'Moon Lover', to: '/series/moon lovers' },
-          { icon: 'search', title: 'Hotel King', to: '/series/hotel king' }
+          { icon: 'search', title: 'Hotel King', to: '/series/hotel king' },
+          { icon: 'search', title: 'carousel', to: '/example/carousel' }
         ],
         miniVariant: false,
         right: true,

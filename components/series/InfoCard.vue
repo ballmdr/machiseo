@@ -28,7 +28,9 @@
         <v-card-text><slot name="body"></slot></v-card-text>
       </v-flex>
       <v-flex xs5>
-        <slot name="img"></slot>
+        <v-card hover>
+          <slot name="img"></slot>
+        </v-card>
       </v-flex>
     </v-layout>
   </v-card>

@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <v-layout column >
     <v-flex xs12>
       <v-card color="grey lighten-3" light>
         <v-card-title>
