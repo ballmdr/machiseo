@@ -46,7 +46,7 @@
                 <v-icon>close</v-icon>
               </v-btn>
               </v-toolbar>
-              <InfoCardPoster :trailors="serie[0].field_trailor" :otherImgs="serie[0].field_other_img"></InfoCardPoster>
+              <InfoCardPoster :posters="serie[0].field_poster" :trailors="serie[0].field_trailor" :otherImgs="serie[0].field_other_img"></InfoCardPoster>
             </v-card>
       </v-dialog>
   </v-layout>
