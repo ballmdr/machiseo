@@ -1,19 +1,19 @@
 <template>
 <div>
-    <v-card-title>
-      <v-flex xs12 text-xs-center fill-height>
-      <v-responsive :aspect-ratio="16/9" max-height="400">
-        <v-card height="100%"><span v-html="bigScreen"></span></v-card>
-      </v-responsive>
-      </v-flex>
-    </v-card-title>
-    <v-card-text>
-    <v-layout row align-center-start fill-height>
-      <v-flex xs2 v-for="(item, i) in playList" :key="i">
-        <v-responsive contain class="thumbnail" @click="changeSlide(i)" style="cursor:pointer"><v-img :aspect-ratio="1/1" :src="item.thumbnail"></v-img></v-responsive>
-      </v-flex>
-    </v-layout>
-    </v-card-text>
+  <v-card-title>
+    <v-flex xs12 text-xs-center fill-height>
+    <v-responsive :aspect-ratio="16/9" max-height="400">
+      <v-card height="100%"><span v-html="bigScreen"></span></v-card>
+    </v-responsive>
+    </v-flex>
+  </v-card-title>
+  <v-card-text>
+  <v-layout row align-center-start fill-height>
+    <v-flex xs2 v-for="(item, i) in playList" :key="i">
+      <v-responsive contain class="thumbnail" @click="changeSlide(i)" style="cursor:pointer"><v-img :aspect-ratio="1/1" :src="item.thumbnail"></v-img></v-responsive>
+    </v-flex>
+  </v-layout>
+  </v-card-text>
 </div>
 </template>
 
@@ -21,7 +21,7 @@
 import { getYoutubeId } from '~/assets/js/util'
 
 export default {
-  props: ['trailors', 'otherImgs'],
+  props: ['posters','trailors', 'otherImgs'],
   data () {
     return {
       bigScreen: null,
@@ -38,6 +38,15 @@ export default {
         code: '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' + youtubeId + '" frameborder="0" allowfullscreen></iframe>',
         thumbnail: 'https://img.youtube.com/vi/' + youtubeId + '/default.jpg',
         type: 'vid'
+      }
+      this.playList.push(tmp)
+    }
+    len = this.posters.length
+    for (let i = 0; i < len; i++) {
+      const tmp = {
+        code: '<img src="' + process.env.baseUrl + this.posters[i].url + '" height="100%">',
+        thumbnail: process.env.baseUrl + this.posters[i].url,
+        type: 'img'
       }
       this.playList.push(tmp)
     }

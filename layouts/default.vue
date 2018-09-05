@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app dark>
     <v-navigation-drawer
       :mini-variant.sync="miniVariant"
       :clipped="clipped"
@@ -80,3 +80,9 @@
     }
   }
 </script>
+
+<style>
+.container {
+  max-width: 1200px;
+}
+</style>
