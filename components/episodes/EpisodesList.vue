@@ -13,22 +13,14 @@
   <v-layout row justify-center>
     <v-dialog v-model="epDialog" scrollable max-width="800px">
       <v-card light>
-        <v-card-title class="purple white--text headline">{{ title }}</v-card-title>
+        <v-card-title class="purple white--text headline">{{ title }}
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
+        </v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 100%; padding:50px;">
           <v-responsive :aspect-ratio="16/9" contain>
-            <v-carousel>
-              <v-carousel-item
-                v-for="(item,i) in imgStreaming"
-                :key="i"
-                :src="tmpBaseUrl + item.url"
-              ></v-carousel-item>
-            </v-carousel>
-<!--<agile :arrows="false" :speed="750"
-    :timing="'linear'" :fade="true"
-    :autoplay="true" :pauseOnHover="false">
-    <div class="slide" v-for="(item,i) in 5" :key="i"><v-img :src="tmpBaseUrl + imgStreaming[i].url"></v-img></div>
-</agile>-->
+            <carousel-ep :imgStreaming="imgStreaming"></carousel-ep>
           </v-responsive>
           <p v-html="body"></p>
         </v-card-text>
@@ -45,8 +37,11 @@
 </template>
 
 <script>
+import CarouselEp from '~/components/episodes/CarouselEp'
+
 export default {
   props: ['episodes'],
+  components: { 'carousel-ep': CarouselEp },
   data () {
     return {
       tmpBaseUrl: process.env.baseUrl,
@@ -69,9 +64,6 @@ export default {
       this.imgStreaming = this.episodes[index].field_img_streaming
       this.epDialog = true
     }
-  },
-  mounted(){
-    console.log(this.episodes)
   }
 }
 </script>
