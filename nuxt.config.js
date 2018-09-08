@@ -23,7 +23,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
-  plugins: [ { src: '~/plugins/vuetify.js' }],
+  plugins: [ { src: '~/plugins/vuetify.js' }, { src: '~/plugins/agile', ssr: false }],
   css: [
     { src: '~/assets/style/app.styl' }
   ],
@@ -49,7 +49,8 @@ module.exports = {
       '~/plugins/vuetify.js',
       '~/plugins/axios.js',
       'waterwheel',
-      'jsonapi-parse'
+      'jsonapi-parse',
+      'vue-agile'
     ],
     extractCSS: true,
     /*

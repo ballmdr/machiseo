@@ -21,7 +21,7 @@ export async function findOneSerieByTitle(title) {
         value: title
       }
     },
-    include: 'field_poster, field_other_img'
+    include: 'field_poster, field_other_img, field_episode_series, field_episode_series.field_thumbnail, field_episode_series.field_img_streaming'
   }
   const res = await waterwheel.jsonapi.get('series', query)
   return jsonapiParse.parse(res).data

@@ -34,14 +34,13 @@
           <ReviewCard :review="review" :user="users[i]" />
         </v-flex>
       </v-layout>
-    </v-flex>
-      <v-dialog v-model="dialog"
+        <v-dialog v-model="dialog"
           hide-overlay
           transition="dialog-bottom-transition"
           scrollable
           max-width="800" @closeDialog="dialog = false">
             <v-card dark flat>
-    <v-toolbar card dark color="primary">
+        <v-toolbar card dark color="primary">
               <v-btn icon dark @click="closeDialog()">
                 <v-icon>close</v-icon>
               </v-btn>
@@ -49,6 +48,10 @@
               <InfoCardPoster :posters="serie[0].field_poster" :trailors="serie[0].field_trailor" :otherImgs="serie[0].field_other_img"></InfoCardPoster>
             </v-card>
       </v-dialog>
+    </v-flex>
+    <v-flex xs12>
+      <EpisodesList :episodes="episodes"></EpisodesList>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -58,9 +61,10 @@ import ReviewCard from '~/components/series/ReviewCard'
 import { findOneSerieByTitle, getAllReviewBySerie, getUserById } from '~/assets/js/apiWaterwheel'
 import { getRecentCommentFromSerie } from '~/assets/js/drupalRest'
 import InfoCardPoster from '~/components/series/InfoCardPoster'
+import EpisodesList from '~/components/episodes/EpisodesList'
 
 export default {
-  components: { InfoCard, ReviewCard, InfoCardPoster },
+  components: { InfoCard, ReviewCard, InfoCardPoster, EpisodesList },
   head () {
     return {
       title: this.serie[0].title
@@ -89,20 +93,19 @@ export default {
     const serie = await findOneSerieByTitle(params.title)
     const tempReviews = await getRecentCommentFromSerie(serie[0].id)
     const len = tempReviews.length
-    // console.log(tempReviews)
     let users = []
     let reviews = []
     let j = 0
     for (let i = 0; i < len; i++) {
       const tmp = tempReviews[i].thread[0].value.split('.')
-      // console.log(tmp)
       if (tmp.length === 1) {
         reviews[j] = tempReviews[i]
         users[j] = await getUserById(tempReviews[i].uid[0].target_uuid)
         j++
       }
     }
-    return { serie, reviews, users }
+    const episodes = serie[0].field_episode_series
+    return { serie, reviews, users, episodes }
   }
 }
 </script>
