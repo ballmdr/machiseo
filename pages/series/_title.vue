@@ -29,6 +29,9 @@
       </InfoCard>
     </v-flex>
     <v-flex xs12>
+      <celebs-list :celebs="celebs"></celebs-list>
+    </v-flex>
+    <v-flex xs12>
       <v-layout row wrap>
         <v-flex d-flex xs4 v-for="(review, i) in reviews" :key="i" style="cursor:pointer">
           <ReviewCard :review="review" :user="users[i]" />
@@ -50,7 +53,7 @@
       </v-dialog>
     </v-flex>
     <v-flex xs12>
-      <EpisodesList :episodes="episodes"></EpisodesList>
+      <episodes-list :episodes="episodes"></episodes-list>
     </v-flex>
   </v-layout>
 </template>
@@ -62,9 +65,13 @@ import { findOneSerieByTitle, getAllReviewBySerie, getUserById } from '~/assets/
 import { getRecentCommentFromSerie } from '~/assets/js/drupalRest'
 import InfoCardPoster from '~/components/series/InfoCardPoster'
 import EpisodesList from '~/components/episodes/EpisodesList'
+import CelebsList from '~/components/celebs/CelebsList'
 
 export default {
-  components: { InfoCard, ReviewCard, InfoCardPoster, EpisodesList },
+  components: { InfoCard, ReviewCard, InfoCardPoster,
+    'episodes-list': EpisodesList,
+    'celebs-list': CelebsList
+  },
   head () {
     return {
       title: this.serie[0].title
@@ -105,7 +112,8 @@ export default {
       }
     }
     const episodes = serie[0].field_episode_series
-    return { serie, reviews, users, episodes }
+    const celebs = serie[0].field_celeb
+    return { serie, reviews, users, episodes, celebs }
   }
 }
 </script>

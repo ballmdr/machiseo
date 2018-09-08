@@ -10,29 +10,32 @@
       </v-card>
     </v-flex>
   </v-layout>
-  <v-layout row justify-center>
-    <v-dialog v-model="epDialog" scrollable max-width="800px">
+    <v-dialog v-model="epDialog" scrollable max-width="1100px">
       <v-card light>
-        <v-card-title class="purple white--text headline">{{ title }}
+        <v-toolbar class="purple white--text headline">{{ title }}
           <v-spacer></v-spacer>
           <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text style="height: 100%; padding:50px;">
-          <v-responsive :aspect-ratio="16/9" contain>
-            <carousel-ep :imgStreaming="imgStreaming"></carousel-ep>
-          </v-responsive>
-          <p v-html="body"></p>
-        </v-card-text>
-        <v-divider></v-divider>
+        </v-toolbar>
+        <v-layout row style="height:500px">
+          <v-flex xs6 justify-center>
+              <v-responsive :aspect-ratio="16/9">
+                <carousel-ep :imgStreaming="imgStreaming"></carousel-ep>
+              </v-responsive>
+          </v-flex>
+          <v-flex xs6 style="overflow:auto;">
+            <v-card-text style="padding:50px;">
+              <p v-html="body"></p>
+            </v-card-text>
+          </v-flex>
+        </v-layout>
         <v-card-actions class="purple white--text">
+          <v-spacer></v-spacer>
           <v-btn round @click.native="showEp(epIndex - 1)"><v-icon>skip_previous</v-icon>ตอนที่แล้ว</v-btn>
           <v-btn round @click.native="epDialog = false">Close</v-btn>
           <v-btn round @click.native="showEp(epIndex + 1)">ตอนต่อไป<v-icon>skip_next</v-icon></v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-layout>
 </div>
 </template>
 
