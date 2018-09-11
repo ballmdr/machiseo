@@ -1,8 +1,18 @@
-FROM node:8
-WORKDIR /usr/src/app
-COPY package*.json ./
+FROM node:8.2.1
+
+ENV NODE_ENV=production
+ENV HOST 0.0.0.0
+
+RUN mkdir -p /app
+COPY . /app
+WORKDIR /app
+
+COPY package.json /app
+COPY package-lock.json /app
 RUN npm install
-COPY . .
-RUN npm run generate
+
 EXPOSE 3000
-CMD npm start
+
+RUN npm run build
+
+CMD ["npm", "start"]
