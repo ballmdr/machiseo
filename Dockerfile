@@ -1,18 +1,13 @@
-FROM node:8
+FROM node:latest
 
-RUN mkdir -p /app
 WORKDIR /app
+ADD . /app
 
-COPY package.json /app
-COPY package-lock.json /app
 RUN npm install
+RUN npm run build
+RUN npm run generate
 
 ENV NODE_ENV=production
-
-COPY . /app
-RUN npm run build
-
-
 ENV HOST 0.0.0.0
 EXPOSE 3000
 
