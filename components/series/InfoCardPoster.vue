@@ -1,19 +1,17 @@
 <template>
 <div>
-  <v-card-title>
-    <v-flex xs12 text-xs-center fill-height>
+  <v-flex xs12 text-xs-center fill-height>
     <v-responsive :aspect-ratio="16/9" max-height="400">
       <v-card height="100%"><span v-html="bigScreen"></span></v-card>
     </v-responsive>
-    </v-flex>
-  </v-card-title>
-  <v-card-text>
-  <v-layout row align-center-start fill-height>
-    <v-flex xs2 v-for="(item, i) in playList" :key="i">
-      <v-responsive contain class="thumbnail" @click="changeSlide(i)" style="cursor:pointer"><v-img :aspect-ratio="1/1" :src="item.thumbnail"></v-img></v-responsive>
-    </v-flex>
-  </v-layout>
-  </v-card-text>
+  </v-flex>
+  <v-flex xs12>
+    <v-layout row align-center-start fill-height>
+      <v-flex xs2 v-for="(item, i) in playList" :key="i">
+        <v-responsive contain class="thumbnail" @click="changeSlide(i)" style="cursor:pointer"><v-img :aspect-ratio="1/1" :src="item.thumbnail"></v-img></v-responsive>
+      </v-flex>
+    </v-layout>
+  </v-flex>
 </div>
 </template>
 
