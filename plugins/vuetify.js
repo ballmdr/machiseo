@@ -20,7 +20,10 @@ import {
   VDialog,
   VCarousel,
   VResponsive,
-  VTextField
+  VTextField,
+  VForm,
+  VTextarea,
+  VMenu
 } from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
 
@@ -45,7 +48,10 @@ Vue.use(Vuetify, {
     VDialog,
     VCarousel,
     VResponsive,
-    VTextField
+    VTextField,
+    VForm,
+    VTextarea,
+    VMenu
   },
   theme: {
     primary: '#121212', // a color that is not in the material colors palette
