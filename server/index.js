@@ -41,9 +41,12 @@ app.post('/reviews/add', (req, res) => {
 })
 
 app.put('/reviews/edit', (req, res) => {
-  db.collection('reviews').updateOne(
-    { _id: new ObjectID(req.body._id) }, 
-    { $set: { reviewText:req.body.reviewText }}, (err, result) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.body._id) }, 
+    { $set: 
+      { 
+        reviewText:req.body.reviewText 
+      }
+    }, (err, result) => {
     if (err) return console.log(err)
     res.status(200).send(result)
   })
@@ -51,6 +54,19 @@ app.put('/reviews/edit', (req, res) => {
 
 app.delete('/reviews/delete/:id', (req, res) => {
  db.collection('reviews').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
+    if (err) return console.log(err)
+    res.status(200).send(result)
+  })
+})
+
+app.put('/reviews/vote/:id', (req, res) => {
+  console.log(req.params.id)
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
+  { $inc:
+    {
+      like: 1
+    }
+  }, (err, result) => {
     if (err) return console.log(err)
     res.status(200).send(result)
   })

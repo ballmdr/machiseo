@@ -11,7 +11,9 @@
             required
           ></v-textarea>
           <v-card-actions>
-          คุณแนะนำซีรีส์เรื่องนี้หรือไม่&nbsp;<v-btn flat round color="success"><v-icon>thumb_up</v-icon> แนะนำ</v-btn> <v-btn flat round color="error"><v-icon>thumb_down</v-icon> ไม่แนะนำ</v-btn>
+          คุณแนะนำซีรีส์เรื่องนี้หรือไม่&nbsp;
+          <v-btn flat round color="success" @click="vote(true)"><v-icon large :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
+          <v-btn flat round color="error" @click="vote(false)"><v-icon large :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
           <v-btn large color="secondary" @click="reviewSave">โพสต์รีวิว</v-btn>
           </v-card-actions>
         </v-card-text>
@@ -42,17 +44,30 @@
             </v-list>
           </v-menu>
         </v-card-title>
-        <v-divider dark></v-divider>
         <v-card-text>
           {{ review.reviewText }}
         </v-card-text>
         <v-card-actions>
-          <span v-if="review.replyCount > 0"><v-icon>comment</v-icon>&nbsp;{{ review.replyCount }}</span>
+          <span><v-btn icon @click="voteReview(review._id, index)"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
+          <span><v-btn icon @click="replyForm(review._id, index)"><v-icon small>comment</v-icon></v-btn>&nbsp;{{ review.replyCount }}</span>
         </v-card-actions>
       </v-card>
     </v-flex>
     <v-dialog v-model="replyDialog">
-
+      <v-card dark color="primary">
+        <v-card-text>
+          <v-textarea
+            dark
+            flat
+            v-model="reply_text"
+            label="ตอบกลับรีวิว"
+            required
+          ></v-textarea>
+          <v-card-actions>
+            <v-btn large color="secondary" @click="replySave">ตอบกลับรีวิว</v-btn>
+          </v-card-actions>
+        </v-card-text>
+      </v-card>
     </v-dialog>
     <v-dialog v-model="reviewEditDialog">
       <v-card dark color="primary">
@@ -80,6 +95,7 @@ export default {
   data () {
     return {
       valid: false,
+      recommend: null,
       review_text: '',
       reviews: [],
       upvote: false,
@@ -88,8 +104,14 @@ export default {
       replyIndex: 0,
       reviewEditDialog: false,
       currentEdit: {
-        _id: '',
+        _id: null,
         reviewText: '',
+        index: ''
+      },
+      reply_text: '',
+      currentReviewReply: {
+        _id: null,
+        replyText: '',
         index: ''
       }
     }
@@ -99,6 +121,28 @@ export default {
     return { reviews }
   },
   methods: {
+    async voteReview (id, index) {
+      const res = await this.$axios.$put(process.env.restMongoUrl + '/reviews/vote/' + id)
+      this.reviews[index].like++
+    },
+    replyForm (id, index) {
+      this.currentReviewReply._id = id
+      this.currentReviewReply.index = index
+      this.replyDialog = true
+    },
+    async replyFormSave () {
+      const res = await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/save',
+      { _id: this.currentReviewReply._id, replyText: this.reply_text })
+    },
+    vote (bias) {
+      if (bias) {
+        this.upvote = true
+        this.downvote = false
+      } else {
+        this.upvote = false
+        this.downvote = true
+      }
+    },
     reviewEditClick (index) {
       this.currentEdit.reviewText = this.reviews[index].reviewText
       this.currentEdit._id = this.reviews[index]._id
@@ -119,8 +163,29 @@ export default {
       const res = await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', tmp)
     },
     async reviewSave () {
-      const res = await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.review)
+      if (this.upvote === true && this.downvote === false) {
+        this.recommend = true
+      } else if (this.upvote === false && this.downvote === true) {
+        this.recommend = false
+      }
+      const res = await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', 
+      {
+        user: {
+          user_id: 1,
+          avatar: 'https://materiell.com/wp-content/uploads/2015/03/doug_full1.png',
+          name: 'Doug Clark'
+        },
+        reviewText: this.review_text,
+        created: new Date(),
+        updated: new Date(),
+        recommend: this.recommend,
+        like: 0,
+        replyCount: 0,
+        reply: []
+      })
       this.review_text = ''
+      this.upvote = false
+      this.downvote = false
     },
     reviewGet () {
       const res = this.$axios.$get(process.env.restMongoUrl + '/reviews')
@@ -129,78 +194,12 @@ export default {
       this.replyIndex = index 
       this.replyDialog = true
     }
-  },
-  mounted () {
-    const tmp = {
-      user: {
-        user_id: 1,
-        avatar: 'https://materiell.com/wp-content/uploads/2015/03/doug_full1.png',
-        name: 'Doug Clark'
-      },
-      reviewText: `แรกๆแฮซูมีความสุขมากตอนย้อนอดีตมาใหม่ๆตอนที่เป็นน้องเมียขององค์ชาย8 แต่พอหลังๆอะไรจะดราม่าขนาดนั้น ร้องไห้ตลอด สงสารมาก พวกองค์ชายคนอื่นๆก็เหมือนกัน ยิ่งตอนหลังๆที่ต้องตายแบบจ้องจะฆ่ากันเพื่อบังลลังก์โอยยยย ปวดใจเครียดตาม หายใจไม่ทั่วท้อง แต่ยังไงก็เป็นอีกเรื่องที่ชอบมากๆเลย ต้องฟินก็ฟิ๊นฟิน 
-  ปล. องค์ชายสี่หมี่เกี๊ยวนี่หล่อทะลุหน้ากากมากกกกกกกกกกกกกก`,
-      created: new Date(),
-      updated: new Date(),
-      recommend: true,
-      like: 2,
-      replyCount: 1,
-      reply: [{
-        user: {
-          user_id: 2,
-          avatar: 'http://www.machiseo.com/sites/default/files/styles/thumbnail/public/pictures/2018-08/Screen%20Shot%202560-09-18%20at%2017.01.42_0.png?itok=BeKMb_Ip',
-          name: 'ballmdr'
-        },
-        replyText: 'ดีจริงดิ',
-        created: new Date(),
-        updated: new Date()
-      }]
-    }
-    const tmp2 = {
-      user: {
-        user_id: 4,
-        avatar: 'https://materiell.com/wp-content/uploads/2015/03/john-full.png',
-        name: 'John Reeve'
-      },
-      reviewText: `เน่าเกิ๊น ดูแต่ไอ้ฉากถอดเสื้อนั่นแหละ`,
-      created: new Date(),
-      updated: new Date(),
-      recommend: false,
-      like: 0,
-      replyCount: 0,
-      reply: [{
-        user: {
-        },
-        replyText: '',
-        created: null,
-        updated: null
-      }]
-    }
-    const tmp3 = {
-      user: {
-        user_id: 3,
-        avatar: 'https://materiell.com/wp-content/uploads/2015/04/susan-full.png',
-        name: 'Susan C. Daniero'
-      },
-      reviewText: `เป็นเรื่องที่องค์ชายแต่ละคนดีงามมากๆ โดยเฉพาะองค์ชายสี่ทูนหัวของหม่อมชั้น
-ติดตามมาตั้งแต่เวอร์ชั่นจีนแล้ว ปู้ปู้ จิงชิง มาเวอร์ชั่นเกาหลีโครงเรื่องมาแบบเวอร์ชั่นจีนก็จริงแต่ก็ต้องมานั่งลุ้นกันต่อ
-ว่าจะมีจุดจบแบบไหน `,
-      created: new Date(),
-      updated: new Date(),
-      recommend: true,
-      like: 10,
-      replyCount: 0,
-      reply: [{
-        user: {
-        },
-        replyText: '',
-        created: null,
-        updated: null
-      }]
-    }
-    const listTmp = [tmp, tmp2, tmp3]
-    for (let i=0;i<3;i++) {
-      this.reviewInit(listTmp[i])
-    }
-  },
+  }
 }
 </script>
+
+<style scoped>
+.no-vote {
+  color: grey;
+}                                          
+</style> 
