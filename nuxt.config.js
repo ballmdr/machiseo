@@ -25,7 +25,11 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
     ]
   },
-  plugins: [ { src: '~/plugins/vuetify.js' }, { src: '~/plugins/axios-port' }],
+  plugins: [ 
+    { src: '~/plugins/vuetify.js' }, 
+    { src: '~/plugins/axios-port' },
+    { src: '~/plugins/vue-authenticate', ssr: false}
+  ],
   css: [
     { src: '~/assets/style/app.styl' }
   ],
@@ -56,7 +60,8 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      'jsonapi-parse'
+      'jsonapi-parse',
+      'vue-authenticate'
     ],
     extractCSS: true,
     /*
