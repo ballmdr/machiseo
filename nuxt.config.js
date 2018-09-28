@@ -1,12 +1,14 @@
 const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 const environment = {
-  API_URL: 'http://93.190.138.237'
+  API_URL: 'http://93.190.138.237',
+  REST_MONGO: 'http://localhost:3000'
 }
 
 module.exports = {
   env: {
-    baseUrl: environment.API_URL
+    baseUrl: environment.API_URL,
+    restMongoUrl: environment.REST_MONGO
   },
   /*
   ** Headers of the page
@@ -20,10 +22,13 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
     ]
   },
-  plugins: [ { src: '~/plugins/vuetify.js' }, { src: '~/plugins/axios-port' }],
+  plugins: [ 
+    { src: '~/plugins/vuetify.js' }, 
+    { src: '~/plugins/axios-port' }
+  ],
   css: [
     { src: '~/assets/style/app.styl' }
   ],
