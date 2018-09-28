@@ -1,7 +1,5 @@
 <template>
-  <v-layout 
-    column
-    wrap>
+  <v-layout columnwrap>
     <series-list></series-list>
   </v-layout>
 </template>
