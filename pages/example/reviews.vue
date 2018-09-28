@@ -21,12 +21,12 @@ export default {
     return { reviews }
   },
   methods: {
-    auth: function (provider) {
-      console.log(this.$auth)
-      this.$auth.authenticate(provider).then(function () {
-        // Execute application logic after successful social authentication
-
-      })
+    async auth (provider) {
+      console.log('auth', this.$auth)
+      const res = await this.$auth.authenticate(provider)
+      console.log('res', res)
+      console.log('token', this.$auth.getToken)
+      this.$auth.setToken(res.access_token)
     }
   }
 }

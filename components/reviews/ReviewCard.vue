@@ -28,7 +28,7 @@
     </v-card-text>
     <v-card-actions>
       <span><v-btn icon @click="voteReview"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
-      <span><v-btn icon @click="replyForm"><v-icon small>comment</v-icon></v-btn>&nbsp;{{ review.replyCount }}</span>
+      <span><v-btn icon ><v-icon small>comment</v-icon></v-btn>&nbsp;{{ review.replyCount }}</span>
     </v-card-actions>
     <v-dialog v-model="reviewEditDialog">
       <v-card dark color="primary">

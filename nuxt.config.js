@@ -27,8 +27,7 @@ module.exports = {
   },
   plugins: [ 
     { src: '~/plugins/vuetify.js' }, 
-    { src: '~/plugins/axios-port' },
-    { src: '~/plugins/vue-authenticate', ssr: false}
+    { src: '~/plugins/axios-port' }
   ],
   css: [
     { src: '~/assets/style/app.styl' }
@@ -60,8 +59,7 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      'jsonapi-parse',
-      'vue-authenticate'
+      'jsonapi-parse'
     ],
     extractCSS: true,
     /*
