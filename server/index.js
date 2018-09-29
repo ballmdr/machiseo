@@ -25,9 +25,29 @@ MongoClient.connect('mongodb://localhost:27017', {
   db = client.db('machiseo')
 })
 
-app.get('/reviews', (req, res) => {
-  db.collection('reviews').find().toArray((err, result) => {
+app.get('/user/:id', (req, res) => {
+  db.collection('users').find().toArray((err, result) => {
     if (err) return console.log(err)
+    res.status(200).send(result)
+  })
+})
+
+app.get('/reviews', (req, res) => {
+  /*db.collection('reviews').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.status(200).send(result)
+  })*/
+  db.collection('reviews').aggregate([
+    { $lookup:
+      {
+        from: 'users',
+        localField: 'user_id',
+        foreignField: '_id',
+        as: 'user'
+      }
+    }
+  ]).toArray((err, result) => {
+    if (err) throw err
     res.status(200).send(result)
   })
 })
