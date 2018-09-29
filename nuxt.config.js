@@ -35,11 +35,13 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
+
   loading: { //color: '#3B8070' 
     name: 'chasing-dots',
     color: '#ff5638',
     background: 'white',
     height: '4px'
+
   },
   /*
   ** Build configuration
