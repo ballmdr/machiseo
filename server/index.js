@@ -25,13 +25,6 @@ MongoClient.connect('mongodb://localhost:27017', {
   db = client.db('machiseo')
 })
 
-app.get('/user/:id', (req, res) => {
-  db.collection('users').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    res.status(200).send(result)
-  })
-})
-
 app.get('/reviews', (req, res) => {
   /*db.collection('reviews').find().toArray((err, result) => {
     if (err) return console.log(err)
@@ -53,8 +46,16 @@ app.get('/reviews', (req, res) => {
 })
 
 app.post('/reviews/add', (req, res) => {
-  db.collection('reviews').insertOne(req.body, (err, result) => {
-    console.log(req.body)
+  db.collection('reviews').insertOne(
+    {
+      user_id: new ObjectID(req.body.user_id),
+      reviewText: req.body.reviewText,
+      created: new Date(),
+      updated: new Date(),
+      recommend: req.body.recommend,
+      like: 0,
+      replyCount: 0
+    }, (err, result) => {
     if (err) return console.log(err)
     res.status(200).send(result)
   })
@@ -64,30 +65,101 @@ app.put('/reviews/edit', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.body._id) }, 
     { $set: 
       { 
-        reviewText:req.body.reviewText 
+        reviewText:req.body.reviewText,
+        recommend: req.body.recommend,
+        updated: new Date()
       }
     }, (err, result) => {
-    if (err) return console.log(err)
+    if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.delete('/reviews/delete/:id', (req, res) => {
  db.collection('reviews').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
-    if (err) return console.log(err)
+    if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.put('/reviews/vote/:id', (req, res) => {
-  console.log(req.params.id)
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
   { $inc:
     {
       like: 1
     }
   }, (err, result) => {
-    if (err) return console.log(err)
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.get('/reviews/replies/:review_id', (req, res) => {
+  db.collection('review_replies').aggregate([
+    {$match: { 'review_id': new ObjectID(req.params.review_id) }},
+    {$lookup:
+      {
+        from: 'users',
+        localField: 'user_id',
+        foreignField: '_id',
+        as: 'user'
+      }
+    }
+  ]).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.post('/reviews/reply/add', (req, res) => {
+  req.body.user_id = new ObjectID(req.body.user_id)
+  req.body.review_id = new ObjectID(req.body.review_id)
+  db.collection('review_replies').insertOne(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.put('/reviews/replyCount/add/:id', (req, res) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
+  { $inc:
+    {
+      replyCount: 1
+    }
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.delete('/reviews/reply/delete/:id', (req, res) => {
+  db.collection('review_replies').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.put('/reviews/replyCount/del/:id', (req, res) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
+  { $inc:
+    {
+      replyCount: -1
+    }
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.put('/reviews/reply/edit', (req, res) => {
+  db.collection('review_replies').updateOne({ _id: new ObjectID(req.body._id) }, 
+    { $set: 
+      { 
+        replyText:req.body.replyText,
+        updated: new Date()
+      }
+    }, (err, result) => {
+    if (err) console.log(err)
     res.status(200).send(result)
   })
 })
