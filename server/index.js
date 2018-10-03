@@ -25,6 +25,46 @@ MongoClient.connect('mongodb://localhost:27017', {
   db = client.db('machiseo')
 })
 
+app.get('/users/sub/:sub', (req, res) => {
+  db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.post('/users/create', (req, res) => {
+  db.collection('users').insertOne(
+    {
+      sub: req.body.sub,
+      name: req.body.name,
+      nickname: req.body.nickname,
+      email: req.body.email,
+      picture: req.body.picture,
+      updated_at: req.body.updated_at
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    }
+  )
+})
+
+app.put('/users/update/:id', (req, res) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) }, 
+    { $set: 
+      { 
+        sub: req.body.sub,
+        name: req.body.name,
+        nickname: req.body.nickname,
+        email: req.body.email,
+        picture: req.body.picture,
+        updated_at: req.body.updated_at
+      }
+    }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })  
+})
+
 app.get('/reviews', (req, res) => {
   /*db.collection('reviews').find().toArray((err, result) => {
     if (err) return console.log(err)
@@ -34,8 +74,8 @@ app.get('/reviews', (req, res) => {
     { $lookup:
       {
         from: 'users',
-        localField: 'user_id',
-        foreignField: '_id',
+        localField: 'user_sub',
+        foreignField: 'sub',
         as: 'user'
       }
     }
@@ -48,7 +88,7 @@ app.get('/reviews', (req, res) => {
 app.post('/reviews/add', (req, res) => {
   db.collection('reviews').insertOne(
     {
-      user_id: new ObjectID(req.body.user_id),
+      user_sub: req.body.user_sub,
       reviewText: req.body.reviewText,
       created: new Date(),
       updated: new Date(),

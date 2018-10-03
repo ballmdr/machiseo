@@ -24,7 +24,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped" color="purple">
+    <v-toolbar light fixed app :clipped-left="clipped" color="white">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn
         icon
@@ -70,7 +70,7 @@
           { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
           { icon: 'search', title: 'Moon Lover', to: '/series/moon lovers' },
           { icon: 'search', title: 'Suspicious Partner', to: '/series/suspicious partner' },
-          { icon: 'search', title: 'carousel', to: '/example/carousel' }
+          { icon: 'search', title: 'Reviews', to: '/example/reviews' }
         ],
         miniVariant: false,
         right: true,

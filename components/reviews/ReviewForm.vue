@@ -1,5 +1,9 @@
 <template>
-  <v-card dark color="primary">
+  <v-card color="primary" >
+    <v-card-title>
+      <v-avatar size="38"><v-img :src="$auth.$state.user.picture"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $auth.$state.user.name }}</span>
+    </v-card-title>
+    <v-divider dark></v-divider>
     <v-card-text>
       <v-textarea
         dark
@@ -7,6 +11,7 @@
         v-model="review_text"
         label="เขียนรีวิว"
         required
+        outline
       ></v-textarea>
       <v-card-actions>
       คุณแนะนำซีรีส์เรื่องนี้หรือไม่&nbsp;
@@ -22,7 +27,6 @@
 export default {
   data () {
     return {
-      user_id: "5bade30809c71f0008abec60",
       review_text: '',
       recommend: null,
       upvote: false,
@@ -45,9 +49,11 @@ export default {
       } else if (this.upvote === false && this.downvote === true) {
         this.recommend = false
       }
+      console.log('this auth', this.$auth)
+      const user_id = this.$auth.$state.user.sub.split("|")
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', 
       {
-        user_id: this.user_id,
+        user_sub: this.$auth.$state.user.sub,
         reviewText: this.review_text,
         recommend: this.recommend,
       })

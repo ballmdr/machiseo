@@ -2,7 +2,7 @@
 <v-layout>
   <v-card dark>
     <v-card-title>
-      <v-avatar size="38"><v-img :src="review.user[0].picture.data.url"></v-img></v-avatar>
+      <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
       <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
       <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
       <v-spacer></v-spacer>
@@ -56,7 +56,7 @@
       <v-flex xs12>
       <v-card dark>
         <v-card-title>
-          <v-avatar size="38"><v-img :src="review.user[0].picture.data.url"></v-img></v-avatar>
+          <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
           <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
           <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
           <v-spacer></v-spacer>
