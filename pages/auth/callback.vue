@@ -21,7 +21,12 @@ export default {
       value: {type: Boolean, default: false},
       message: {type: String, default: null},
       progressColor: {type: String, default: 'purple'},
-  }
+  },
+  async mounted() {
+    await this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+    });
+  },
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn @click="auth0">AUTH0</v-btn>
-    <v-btn @click="logout">Logout</v-btn>
+    <nuxt-link to="/auth/logout"><v-btn>Logout</v-btn></nuxt-link>
     <v-divider></v-divider>
     <v-flex xs12 v-if="$auth.loggedIn">LOG IN</v-flex>
     <v-flex xs12 v-else>NOT LOG</v-flex>
@@ -9,9 +9,14 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
 
   methods: {
+    ...mapMutations({
+      clearUserDone: 'users/clearUserDone'
+    }),
     async facebook() {
       const res = await this.$auth.loginWith('facebook').catch(e => {
         this.$toast.show('Error', {icon: "fingerprint"});
@@ -21,9 +26,6 @@ export default {
     async auth0() {
       const res = await this.$auth.loginWith('auth0')
       this.$toast.show('Loggin')
-    },
-    async logout() {
-      await this.$auth.logout()
     }
   }
 }

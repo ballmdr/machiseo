@@ -17,18 +17,19 @@ import ReviewLogin from '~/components/reviews/ReviewLogin'
 
 export default {
   components: { ReviewForm, ReviewCard, ReviewLogin },
-  async fetch({ app }) {
-    const res = await app.$axios.$get(process.env.restMongoUrl + '/users/sub/' + app.$auth.$state.user.sub)
-    console.log('res', res)
-    if (res.length > 0) {
-      await app.$axios.$put(process.env.restMongoUrl + '/users/update/' + res[0]._id, app.$auth.$state.user)
-    } else {
-      await app.$axios.$post(process.env.restMongoUrl + '/users/create', app.$auth.$state.user)
+  async fetch({ app, store }) {
+    if (!store.state.users.userDone && app.$auth.loggedIn) {
+      const res = await app.$axios.$get(process.env.restMongoUrl + '/users/sub/' + app.$auth.$state.user.sub)
+      if (res.length > 0) {
+        await app.$axios.$put(process.env.restMongoUrl + '/users/update/' + res[0]._id, app.$auth.$state.user)
+      } else {
+        await app.$axios.$post(process.env.restMongoUrl + '/users/create', app.$auth.$state.user)
+      }
+      store.dispatch('users/setUserDone')
     }
   },
   async asyncData ({ app }) {
     const reviews = await app.$axios.$get(process.env.restMongoUrl + '/reviews')
-    console.log(reviews)
     return { reviews }
   },
   computed: {

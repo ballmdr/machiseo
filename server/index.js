@@ -140,8 +140,8 @@ app.get('/reviews/replies/:review_id', (req, res) => {
     {$lookup:
       {
         from: 'users',
-        localField: 'user_id',
-        foreignField: '_id',
+        localField: 'user_sub',
+        foreignField: 'sub',
         as: 'user'
       }
     }
@@ -152,9 +152,14 @@ app.get('/reviews/replies/:review_id', (req, res) => {
 })
 
 app.post('/reviews/reply/add', (req, res) => {
-  req.body.user_id = new ObjectID(req.body.user_id)
-  req.body.review_id = new ObjectID(req.body.review_id)
-  db.collection('review_replies').insertOne(req.body, (err, result) => {
+  db.collection('review_replies').insertOne(
+    {
+      replyText: req.body.replyText,
+      user_sub: req.body.user_sub,
+      review_id: new ObjectID(req.body.review_id),
+      created: new Date(),
+      updated: new Date()
+    }, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })

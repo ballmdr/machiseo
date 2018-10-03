@@ -49,7 +49,6 @@ export default {
       } else if (this.upvote === false && this.downvote === true) {
         this.recommend = false
       }
-      console.log('this auth', this.$auth)
       const user_id = this.$auth.$state.user.sub.split("|")
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', 
       {
