@@ -35,13 +35,11 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-
   loading: { //color: '#3B8070' 
     name: 'chasing-dots',
     color: '#ff5638',
     background: 'white',
     height: '4px'
-
   },
   /*
   ** Build configuration
@@ -56,23 +54,22 @@ module.exports = {
     duration: 2000
   },
   auth: {
+    responseType: 'token id_token',
+    params: {
+      scope: 'profile email'
+    },
     strategies: {
-      local: {
-        endpoints: {
-          login: {url: '/user/login', method: 'post', propertyName:    'token' },
-          logout: false,
-          user: {url: '/user/user', method: 'get', propertyName: 'data'},
-        },
-        tokenRequired: true,
-        tokenType: 'Bearer'
+      auth0: {
+        domain: 'machiseo2.auth0.com',
+        client_id: 'cLdQXewi42VscIIxqFm8aQFYR625Hukf'
       },
       facebook: {
         client_id: '342175946522151',
-        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=name,picture{url},email',
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
         scope: ['public_profile', 'email']
       },
       google: {
-        client_id: 'your gcloud oauth app client id'
+        client_id: '1538451672015'
       },
     },
     redirect: {

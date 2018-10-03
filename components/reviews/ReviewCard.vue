@@ -1,8 +1,8 @@
 <template>
 <v-layout>
   <v-card dark>
-    <v-card-title>
-      <v-avatar size="38"><v-img :src="review.user[0].picture.data.url"></v-img></v-avatar>
+    <v-card-title v-if="review.user.length > 0">
+      <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
       <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
       <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
       <v-spacer></v-spacer>
@@ -55,8 +55,8 @@
     <v-layout column>
       <v-flex xs12>
       <v-card dark>
-        <v-card-title>
-          <v-avatar size="38"><v-img :src="review.user[0].picture.data.url"></v-img></v-avatar>
+        <v-card-title v-if="review.user.length > 0">
+          <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
           <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
           <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
           <v-spacer></v-spacer>
@@ -89,7 +89,8 @@
       </v-flex>
       <v-divider light></v-divider>
       <v-flex xs12>
-        <reply-form :review_id="review._id"></reply-form>
+        <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id"></reply-form>
+        <review-login v-else></review-login>
       </v-flex>
       <v-divider></v-divider>
       <v-flex xs12 v-for="reply in replies" :key="reply._id">

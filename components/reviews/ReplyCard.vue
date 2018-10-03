@@ -1,7 +1,7 @@
 <template>
   <v-card dark>
-    <v-card-title>
-      <v-avatar size="38"><v-img :src="reply.user[0].picture.data.url"></v-img></v-avatar>
+    <v-card-title v-if="reply.user.length > 0">
+      <v-avatar size="38"><v-img :src="reply.user[0].picture"></v-img></v-avatar>
       <v-spacer></v-spacer>
       <v-menu name="more" bottom left>
         <v-btn
