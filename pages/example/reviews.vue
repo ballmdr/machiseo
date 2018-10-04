@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <review-form v-if="$auth.$state.loggedIn"></review-form>
+      <review-form v-if="$auth.$state.loggedIn" @reviewUpdateNew="updateLatest"></review-form>
       <review-login v-else></review-login>
     </v-flex>
     <v-flex xs12 v-for="(review, index) in reviews" :key="index">
@@ -32,10 +32,11 @@ export default {
     const reviews = await app.$axios.$get(process.env.restMongoUrl + '/reviews')
     return { reviews }
   },
-  computed: {
-    user () { return (this.$store.state.auth || {}).user || null }
-  },
   methods: {
+    async updateLatest() {
+      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest')
+      this.reviews.push(res[0])
+    }
   }
 }
 </script>
