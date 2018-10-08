@@ -56,6 +56,7 @@ export default {
     async replyDel() {
       await this.$axios.$delete(process.env.restMongoUrl + '/reviews/reply/delete/' + this.reply._id)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/del/' + this.review_id)
+      this.$emit('replyDelete', this.reply._id)
     },
     async replyEditSubmit() {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/edit', {
