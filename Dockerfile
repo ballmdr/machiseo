@@ -1,11 +1,10 @@
-FROM node:latest
+FROM node
 
-WORKDIR /app
-ADD . /app
+WORKDIR /usr/src/app
+ADD . /usr/src/app
 
 RUN npm install
 RUN npm run build
-RUN npm run generate
 
 ENV NODE_ENV=production
 ENV HOST 0.0.0.0
