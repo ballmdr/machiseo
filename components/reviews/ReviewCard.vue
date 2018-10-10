@@ -1,5 +1,5 @@
 <template>
-<v-layout>
+<div>
   <v-card dark>
     <v-card-title v-if="review.user.length > 0">
       <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
@@ -51,54 +51,22 @@
       </v-card-text>
     </v-card>
   </v-dialog>
-  <v-dialog v-model="replyCardDialog">
+  <v-flex xs8 offset-xs2 v-if="replyCardDialog">
     <v-layout column>
       <v-flex xs12>
-      <v-card dark>
-        <v-card-title v-if="review.user.length > 0">
-          <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
-          <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
-          <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
-          <v-spacer></v-spacer>
-          <v-menu name="more" bottom left>
-            <v-btn
-              slot="activator"
-              dark
-              icon
-            >
-              <v-icon>more_vert</v-icon>
-            </v-btn>
-            <v-list>
-              <v-list-tile @click="reviewEditDialog = true">
-                <v-list-tile-title>แก้ไข</v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile @click="reviewDel">
-                <v-list-tile-title>ลบ</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </v-card-title>
-        <v-card-text>
-          {{ review.reviewText }}
-        </v-card-text>
-        <v-card-actions>
-          <span><v-btn icon @click="voteReview"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
-          <span><v-btn icon><v-icon small>comment</v-icon></v-btn>{{ review.replyCount }}</span>
-        </v-card-actions>
-      </v-card>
-      </v-flex>
-      <v-divider light></v-divider>
-      <v-flex xs12>
-        <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id"></reply-form>
+        <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id" @replyUpdate="replyUpdateLatest($event)"></reply-form>
         <review-login v-else></review-login>
       </v-flex>
       <v-divider></v-divider>
+      <v-flex xs12 v-for="(newReply, index) in newReplies" :key="index">
+        <div class="animated flash"><reply-card :reply="newReply" :review_id="review._id"></reply-card></div>
+      </v-flex>
       <v-flex xs12 v-for="reply in replies" :key="reply._id">
-        <reply-card :reply="reply" :review_id="review._id"></reply-card>
+        <reply-card :reply="reply" :review_id="review._id" @replyDelete="replyRemove($event)"></reply-card>
       </v-flex>
     </v-layout>
-    </v-dialog>
-  </v-layout>
+    </v-flex>
+  </div>
 </template>
 
 <script>
@@ -115,7 +83,8 @@ export default {
       replies: [],
       upvote: false,
       downvote: false,
-      recommend: null
+      recommend: null,
+      newReplies: []
     }
   },
   mounted() {
@@ -128,6 +97,21 @@ export default {
     }
   },
   methods: {    
+    replyRemove(reply_id){
+      const index = this.replies.find((reply) => {
+        console.log('reply', reply)
+        return reply._id = reply_id
+      })
+      console.log('index', index)
+      console.log('reply id', reply_id)
+      if (index !== -1) this.replies.splice(index, 1)
+      this.review.replyCount--
+    },
+    async replyUpdateLatest(newReply) {
+      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/latest/' + this.review._id)
+      this.review.replyCount++
+      this.newReplies.unshift(res[0])
+    },
     vote (bias) {
       if (bias) {
         this.upvote = true
@@ -138,8 +122,12 @@ export default {
       }
     },
     async showReply() {
-      this.replies = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/' + this.review._id)
-      this.replyCardDialog = true
+      if (!this.replyCardDialog) {
+        this.replies = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/' + this.review._id)
+      } else {
+        this.newReplies = []
+      }
+      this.replyCardDialog = !this.replyCardDialog
     },
     async voteReview () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/vote/' + this.review._id)

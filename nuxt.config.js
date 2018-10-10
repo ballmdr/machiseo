@@ -1,7 +1,7 @@
 const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 const environment = {
-  API_URL: 'http://93.190.138.237',
+  API_URL: 'http://machiseo.com:8080',
   REST_MONGO: 'http://localhost:3000'
 }
 
@@ -22,7 +22,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
   plugins: [ 
@@ -96,7 +96,8 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      'jsonapi-parse'
+      'jsonapi-parse',
+      'animate.css'
     ],
     extractCSS: true,
     /*

@@ -38,18 +38,14 @@ export default {
       if (bias) {
         this.upvote = true
         this.downvote = false
+        this.recommend = true
       } else {
         this.upvote = false
         this.downvote = true
+        this.recommend = false
       }
     },
     async reviewSave () {
-      if (this.upvote === true && this.downvote === false) {
-        this.recommend = true
-      } else if (this.upvote === false && this.downvote === true) {
-        this.recommend = false
-      }
-      const user_id = this.$auth.$state.user.sub.split("|")
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', 
       {
         user_sub: this.$auth.$state.user.sub,
@@ -59,6 +55,7 @@ export default {
       this.review_text = ''
       this.upvote = false
       this.downvote = false
+      this.$emit('reviewUpdateNew')
     },
   }
 }

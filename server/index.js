@@ -85,6 +85,21 @@ app.get('/reviews', (req, res) => {
   })
 })
 
+app.get('/reviews/latest', (req, res) => {
+  db.collection('reviews').aggregate([
+    { $lookup:
+      {
+        from: 'users',
+        localField: 'user_sub',
+        foreignField: 'sub',
+        as: 'user'
+      }
+    },{ $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    }) 
+})
+
 app.post('/reviews/add', (req, res) => {
   db.collection('reviews').insertOne(
     {
@@ -132,6 +147,22 @@ app.put('/reviews/vote/:id', (req, res) => {
     if (err) throw err
     res.status(200).send(result)
   })
+})
+
+app.get('/reviews/replies/latest/:review_id', (req, res) => {
+  db.collection('review_replies').aggregate([
+    {$match: { 'review_id': new ObjectID(req.params.review_id) }},
+    {$lookup:
+      {
+        from: 'users',
+        localField: 'user_sub',
+        foreignField: 'sub',
+        as: 'user'
+      }
+    }, { $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.get('/reviews/replies/:review_id', (req, res) => {

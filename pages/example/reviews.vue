@@ -1,10 +1,13 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <review-form v-if="$auth.$state.loggedIn"></review-form>
+      <review-form v-if="$auth.$state.loggedIn" @reviewUpdateNew="updateLatest"></review-form>
       <review-login v-else></review-login>
     </v-flex>
-    <v-flex xs12 v-for="(review, index) in reviews" :key="index">
+    <v-flex xs12 v-for="(newReviewUpdate, index) in newReviewUpdates" :key="index">
+      <div class="animated pulse"><review-card :review="newReviewUpdate"></review-card></div>
+    </v-flex>
+    <v-flex xs12 v-for="review in reviews" :key="review._id">
       <review-card :review="review"></review-card>
     </v-flex>
   </v-layout>
@@ -16,6 +19,11 @@ import ReviewCard from '~/components/reviews/ReviewCard'
 import ReviewLogin from '~/components/reviews/ReviewLogin'
 
 export default {
+  data() {
+    return {
+      newReviewUpdates: []
+    }
+  },
   components: { ReviewForm, ReviewCard, ReviewLogin },
   async fetch({ app, store }) {
     if (!store.state.users.userDone && app.$auth.loggedIn) {
@@ -32,11 +40,13 @@ export default {
     const reviews = await app.$axios.$get(process.env.restMongoUrl + '/reviews')
     return { reviews }
   },
-  computed: {
-    user () { return (this.$store.state.auth || {}).user || null }
-  },
   methods: {
+    async updateLatest() {
+      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest')
+      this.newReviewUpdates.unshift(res[0])
+    }
   }
 }
 </script>
+
 

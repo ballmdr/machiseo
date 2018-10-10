@@ -15,17 +15,17 @@ export default {
     return {
       reply: {
         replyText: '',
-        review_id: this.review_id
+        review_id: this.review_id,
+        user_sub: this.$auth.user.sub
       }
     }
   },
   methods: {
     async replySubmit() {
-      this.reply.user_sub = this.$auth.user.sub
-      console.log('reply', this.reply)
-      console.log('review_id prop', this.review_id)
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/reply/add', this.reply)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/add/' + this.reply.review_id)
+      this.reply.replyText = ''
+      this.$emit('replyUpdate', this.reply)
     }
   }
 }
