@@ -18,3 +18,11 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: M3n17v11
+  node:
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    links:
+      - mongo:db
+
