@@ -52,6 +52,27 @@ export default {
         reviewText: this.review_text,
         recommend: this.recommend,
       })
+      //const token = await this.$axios.$get('/rest/session/token')
+      /*let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': token
+        }
+      }*/
+      let votePoint = 0
+      if (this.recommend) {
+        votePoint = 1
+      } else {
+        votePoint = -1
+      }
+      await this.$axios.$post('/entity/vote?_format=json',
+      {
+        "type": "serie_review",
+        "entity_type": ["node"],
+        "entity_id": ["357"],
+        "value": [votePoint],
+        "value_type": ["points"]
+      })
       this.review_text = ''
       this.upvote = false
       this.downvote = false

@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var db
-MongoClient.connect('mongodb://db:27017', {
+MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
