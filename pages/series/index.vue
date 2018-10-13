@@ -1,18 +1,24 @@
 <template>
-  <v-layout columnwrap>
-    <series-list></series-list>
+  <v-layout row wrap>
+    <v-flex v-for="serie in series" :key="serie.id">
+      <serie-card :serie="serie"></serie-card>
+    </v-flex>
   </v-layout>
 </template>
 
 <script>
-import SeriesList from '~/components/SeriesList'
+import SerieCard from '~/components/series/SerieCard'
 
 export default {
-  components: {  'series-list': SeriesList },
-  async fetch({ store }) {
-    if (typeof (store.state.series.series) === 'undefined') {
-      await store.dispatch('series/GET_SERIES_LIST')
+  components: { SerieCard },
+  data () {
+    return {
+
     }
+  },
+  async asyncData({ app }) {
+    const series = await app.$axios.$get('/series?_format=json', { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
+    return { series }
   }
 }
 </script>

@@ -2,13 +2,17 @@ const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 const environment = {
   API_URL: 'http://machiseo.com:8080',
-  REST_MONGO: 'http://localhost:3000'
+  REST_MONGO: 'http://localhost:3000',
+  USER_DRUPAL: 'ballmdr',
+  PASS_DRUPAL: 'M3n17v11'
 }
 
 module.exports = {
   env: {
     baseUrl: environment.API_URL,
-    restMongoUrl: environment.REST_MONGO
+    restMongoUrl: environment.REST_MONGO,
+    userDrupal: environment.USER_DRUPAL,
+    passDrupal: environment.PASS_DRUPAL
   },
   /*
   ** Headers of the page
