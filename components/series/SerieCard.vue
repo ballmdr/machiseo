@@ -5,10 +5,11 @@
       :class="`elevation-${hover ? 12 : 2}`"
       class="mx-auto"
       width="344"
+      style="cursor:pointer"
     >
       <v-img
         :aspect-ratio="9/16"
-        :src="serie.poster"
+        :src="baseUrl + serie.field_poster"
         @click="$router.push('/series/' + serie.title)"
       ><v-layout
                       slot="placeholder"
@@ -19,7 +20,7 @@
                     >
                       <v-progress-circular indeterminate color="purple"></v-progress-circular>
                     </v-layout>
-                   <!-- <div class="fill-height bottom-gradient"></div> --></v-img>
+                   <div class="fill-height bottom-gradient"></div> </v-img>
       <v-card-title>
         <div>
           <span class="headline">{{ serie.title }}</span>
@@ -42,7 +43,7 @@
       <v-spacer></v-spacer>
       <v-card-actions>
         <v-icon dark="">rate_review</v-icon>
-        <small>{{ serie.reviews_count }}</small>
+        <!--<small>{{ serie.reviews_count }}</small>-->
       </v-card-actions>
     </v-card>
   </v-hover>
@@ -54,8 +55,13 @@ export default {
   props: ['serie'],
   data: () => ({
     reviews: 413,
-    value: 4.5
-  })
+    value: 4.5,
+    baseUrl: process.env.baseUrl
+  }),
+  created() {
+    const tmp = this.serie.field_poster.split(",")
+    this.serie.field_poster = tmp[0]
+  }
 }
 </script>
 
