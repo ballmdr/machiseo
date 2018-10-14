@@ -101,7 +101,8 @@ module.exports = {
     vendor: [
       '~/plugins/vuetify.js',
       'jsonapi-parse',
-      'animate.css'
+      'animate.css',
+      'hover.css'
     ],
     extractCSS: true,
     /*
