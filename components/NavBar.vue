@@ -26,24 +26,6 @@
     </v-navigation-drawer>
     <v-toolbar light fixed app :clipped-left="clipped" color="white">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -60,7 +42,7 @@ export default {
       items: [
         { icon: 'apps', title: 'มาชิสซอ', to: '/' },
         { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
-        { icon: 'search', title: 'Moon Lover', to: '/series/moon lovers' },
+        { icon: 'search', title: 'Moon Lover', to: '/series/118/moon-lovers' },
         { icon: 'search', title: 'Suspicious Partner', to: '/series/suspicious partner' },
         { icon: 'search', title: 'Reviews', to: '/example/reviews' }
       ],
