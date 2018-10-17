@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <v-card color="primary" class="card u-clearfix hvr-grow"
+  <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
       style="cursor:pointer"
       @click.native="$router.push(serie.view_node)">
     <v-card-text class="card-media">
@@ -18,43 +18,16 @@
 export default {
   props: ['serie'],
   data: () => ({
-    reviews: 413,
-    value: 4.5,
     baseUrl: process.env.baseUrl
   }),
   created() {
     const tmp = this.serie.field_poster.split(",")
     this.serie.field_poster = tmp[0]
-  },
-  methods: {
-    copy () {
-      const markup = this.$refs.link
-      markup.focus()
-      document.execCommand('selectAll', false, null)
-      this.copied = document.execCommand('copy')
-    }
   }
 }
 </script>
 
 <style scoped>
-/* Grow */
-.hvr-grow {
-    display: inline-block;
-    vertical-align: middle;
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    transition-duration: 0.3s;
-    transition-property: transform;
-}
-
-.hvr-grow:hover,
-.hvr-grow:focus,
-.hvr-grow:active {
-    transform: scale(1.1);
-}
 
 .u-float-right {
   float: right;

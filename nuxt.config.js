@@ -31,7 +31,8 @@ module.exports = {
   },
   plugins: [ 
     { src: '~/plugins/vuetify.js' }, 
-    { src: '~/plugins/axios-port' }
+    { src: '~/plugins/axios-port' },
+    { src: '~/plugins/vue-masonry-css', ssr: false }
   ],
   css: [
     { src: '~/assets/style/app.styl' }
@@ -100,7 +101,6 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      'jsonapi-parse',
       'animate.css',
       'hover.css'
     ],
