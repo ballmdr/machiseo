@@ -34,7 +34,7 @@ export default {
     }
   },
   async asyncData({ app }) {
-    let offset = 280
+    let offset = 0
     const series = await getSeriesList(offset)
     offset += 10
     return { offset, series }
