@@ -2,13 +2,13 @@
 <div class="container">
   <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
       style="cursor:pointer"
-      @click.native="$router.push(serie.view_node)">
+      @click.native="$router.push(serie.path.alias)">
     <v-card-text class="card-media">
-      <v-img :src="baseUrl + serie.field_poster" class="card-media-img"></v-img>
+      <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
     </v-card-text>
     <v-card-title>
       <h2>{{ serie.title }}</h2>
-      <h4>{{ serie.field_series_type_1 }}</h4>
+      <h4><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></h4>
     </v-card-title>
   </v-card>
 </div>
@@ -18,12 +18,9 @@
 export default {
   props: ['serie'],
   data: () => ({
-    baseUrl: process.env.baseUrl
-  }),
-  created() {
-    const tmp = this.serie.field_poster.split(",")
-    this.serie.field_poster = tmp[0]
-  }
+    baseUrl: process.env.baseUrl,
+    poster: ''
+  })
 }
 </script>
 

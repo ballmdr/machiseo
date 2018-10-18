@@ -25,17 +25,15 @@
       </v-layout>
     </v-flex>
     <v-flex xs12 d-flex>
-      
       <masonry
         :cols="4"
-        :gutter="30"
+        :gutter="15"
         >
         <div v-for="(img, index) in celeb.field_other_img" :key="index">
           <img :src="baseUrl + img.url" class="card-media-img"/>
         </div>
       </masonry>
     </v-flex>
-
   </v-layout>
 </template>
 

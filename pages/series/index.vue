@@ -8,13 +8,36 @@
 
 <script>
 import SerieCard from '~/components/series/SerieCard'
+import { getSeriesList } from '~/assets/js/api'
 
 export default {
   layout: 'browse',
   components: { SerieCard },
+  data () {
+    return {
+      limit: 10
+    }
+  },
+  mounted() {
+    console.log(this.series)
+    window.onscroll = () => {
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      if (bottomOfWindow) {
+        getSeriesList(this.offset, this.limit).then(newSeries => {
+          console.log(newSeries)
+          this.offset += 10
+          for (let i=0;i<newSeries.length;i++) {
+            this.series.push(newSeries[i])
+          }
+        })        
+      }
+    }
+  },
   async asyncData({ app }) {
-    const series = await app.$axios.$get('/series?_format=json', { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
-    return { series }
+    let offset = 280
+    const series = await getSeriesList(offset)
+    offset += 10
+    return { offset, series }
   }
 }
 </script>

@@ -54,3 +54,8 @@ export async function getCelebByPath (path, env) {
   ], { auth: { username: env.userDrupal, password: env.passDrupal }})
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
+
+export async function getSeriesList (offset = 0, limit = 10) {
+  const { data } = await apiClient.get(prefix + '/series?page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster,field_series_type,field_serie_year')
+  return jsonapiParse.parse(data).data
+}
