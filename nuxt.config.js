@@ -51,8 +51,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
-    '@nuxtjs/toast'
+    '@nuxtjs/auth'
   ],
   toast: {
     position: 'top-right',

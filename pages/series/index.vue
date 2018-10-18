@@ -1,43 +1,18 @@
 <template>
   <v-layout row wrap justify-center>
-    <v-flex xs12 sm6 md5 lg4 v-for="serie in series" :key="serie.id">
-      <serie-card :serie="serie"></serie-card>
+    <v-flex xs12>
+      <series-nav></series-nav>
+    </v-flex>
+    <v-flex xs12>
+      <nuxt-child :key="$route.params.type" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import SerieCard from '~/components/series/SerieCard'
-import { getSeriesList } from '~/assets/js/api'
+import SeriesNav from '~/components/series/SeriesNav'
 
 export default {
-  layout: 'browse',
-  components: { SerieCard },
-  data () {
-    return {
-      limit: 10
-    }
-  },
-  mounted() {
-    console.log(this.series)
-    window.onscroll = () => {
-      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        getSeriesList(this.offset, this.limit).then(newSeries => {
-          console.log(newSeries)
-          this.offset += 10
-          for (let i=0;i<newSeries.length;i++) {
-            this.series.push(newSeries[i])
-          }
-        })        
-      }
-    }
-  },
-  async asyncData({ app }) {
-    let offset = 0
-    const series = await getSeriesList(offset)
-    offset += 10
-    return { offset, series }
-  }
+  components: { SeriesNav }
 }
 </script>

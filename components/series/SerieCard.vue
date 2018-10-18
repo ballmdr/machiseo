@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container animated slideInDown">
   <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
       style="cursor:pointer"
       @click.native="$router.push(serie.path.alias)">

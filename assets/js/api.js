@@ -59,3 +59,23 @@ export async function getSeriesList (offset = 0, limit = 10) {
   const { data } = await apiClient.get(prefix + '/series?page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster,field_series_type,field_serie_year')
   return jsonapiParse.parse(data).data
 }
+
+export async function getSeriesType () {
+  const { data } = await apiClient.get(prefix + '/taxonomy_term/praephthsiiriiy')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesYear () {
+  const { data } = await apiClient.get(prefix + '/taxonomy_term/serie_year')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesByTerm (type) {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_series_type][condition][path]=field_series_type.name&filter[field_series_type][condition][value]=' + type + '&include=field_poster')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesByYear (year) {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_serie_year][condition][path]=field_serie_year.name&filter[field_serie_year][condition][value]=' + year + '&include=field_poster')
+  return jsonapiParse.parse(data).data 
+}

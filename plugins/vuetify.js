@@ -24,7 +24,8 @@ import {
   VForm,
   VTextarea,
   VMenu,
-  VTabs
+  VTabs,
+  VAlert
 } from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
 import transitions from 'vuetify/es5/components/transitions'
@@ -55,7 +56,8 @@ Vue.use(Vuetify, {
     VTextarea,
     VMenu,
     transitions,
-    VTabs
+    VTabs,
+    VAlert
   },
   theme: {
     primary: '#7952b3', // a color that is not in the material colors palette

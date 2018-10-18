@@ -56,6 +56,9 @@ export default {
       title: this.serie.title
     }
   },
+  mounted() {
+    window.onscroll = () => { return false }
+  },
   async asyncData ({ params, env }) {
     const serie = await getSerieByPath(params.title, env)
     return { serie }
