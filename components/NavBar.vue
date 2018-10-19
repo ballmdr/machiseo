@@ -42,8 +42,8 @@ export default {
       items: [
         { icon: 'apps', title: 'มาชิสซอ', to: '/' },
         { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
-        { icon: 'search', title: 'Moon Lover', to: '/series/118/moon-lovers' },
-        { icon: 'search', title: 'Suspicious Partner', to: '/series/suspicious partner' },
+        { icon: 'search', title: 'Moon Lovers', to: '/series/moon-lovers' },
+        { icon: 'search', title: 'While Sleeping', to: '/series/while-you-were-sleeping'},
         { icon: 'search', title: 'Reviews', to: '/example/reviews' }
       ],
       miniVariant: false,
