@@ -17,7 +17,6 @@ import SerieCardGroup from '~/components/series/SerieCardGroup'
 import { getSeriesList } from '~/assets/js/api'
 
 export default {
-  layout: 'browse',
   components: { SerieCardGroup },
   mounted() {
     window.onscroll = () => {
