@@ -33,7 +33,9 @@
     </v-flex>
     <v-flex xs12>
       <v-card dark><v-card-text><div class="">{{ serie.field_synopsis }}</div></v-card-text></v-card>
-      <!-- <episodes-list :episodes="episodes"></episodes-list>  -->
+    </v-flex>
+    <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+      <episodes-list :uuid="serie.uuid"></episodes-list>
     </v-flex>
   </v-layout>
 </template>

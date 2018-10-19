@@ -89,3 +89,8 @@ export async function getSeriesByChannel (offset = 0, limit = 10, channel) {
   const { data } = await apiClient.get(prefix + '/series?filter[field_channel][condition][path]=field_channel.name&filter[field_channel][condition][value]=' + channel + '&page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster')
   return jsonapiParse.parse(data).data
 }
+
+export async function getEpisodesBySerie (uuid) {
+  const { data } = await apiClient.get(prefix + '/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]=' + uuid + '&include=field_thumbnail,field_img_streaming')
+  return jsonapiParse.parse(data).data
+}
