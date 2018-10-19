@@ -1,8 +1,6 @@
 <template>
   <v-layout row wrap justify-center>
-    <v-flex xs12 sm6 md5 lg4 v-for="serie in series" :key="serie.id">
-      <serie-card :serie="serie"></serie-card>
-    </v-flex>
+    <serie-card-group :series="series"></serie-card-group>
     <v-flex xs12 class="text-xs-center">
       <v-progress-circular
         indeterminate
@@ -13,12 +11,12 @@
 </template>
 
 <script>
-import SerieCard from '~/components/series/SerieCard'
+import SerieCardGroup from '~/components/series/SerieCardGroup'
 import { getSeriesList } from '~/assets/js/api'
 
 export default {
   layout: 'browse',
-  components: { SerieCard },
+  components: { SerieCardGroup },
   data () {
     return {
       limit: 10

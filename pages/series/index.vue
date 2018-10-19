@@ -4,7 +4,7 @@
       <series-nav></series-nav>
     </v-flex>
     <v-flex xs12>
-      <nuxt-child :key="$route.params.type" />
+      <nuxt-child :key="$route.params.term" />
     </v-flex>
   </v-layout>
 </template>
