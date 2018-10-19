@@ -7,7 +7,7 @@
           color="primary"
           dark
         >
-          ประเภทซีรีส์
+            แนวซีรีส์
         </v-btn>
         <v-list>
           <v-list-tile
@@ -19,7 +19,6 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-
       <v-menu open-on-hover down offset-y>
         <v-btn
           slot="activator"
@@ -38,18 +37,37 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+            <v-menu open-on-hover down offset-y>
+        <v-btn
+          slot="activator"
+          color="primary"
+          dark
+        >
+          ช่องที่ฉาย
+        </v-btn>
+        <v-list>
+          <v-list-tile
+            v-for="channel in seriesChannel"
+            :key="channel.id"
+            style="cursor:pointer"
+          >
+            <v-list-tile-title><nuxt-link :to="'/series/channel/' + channel.name">{{ channel.name }}</nuxt-link></v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { getSeriesType, getSeriesYear } from '~/assets/js/api'
+import { getSeriesType, getSeriesYear, getSeriesChannel } from '~/assets/js/api'
 
 export default {
   data () {
     return {
       seriesType: [],
-      seriesYear: []
+      seriesYear: [],
+      seriesChannel: []
     }
   },
   mounted() {
@@ -58,6 +76,9 @@ export default {
     })
     getSeriesYear().then(seriesYear => {
       this.seriesYear = seriesYear
+    })
+    getSeriesChannel().then(seriesChannel => {
+      this.seriesChannel = seriesChannel
     })
   }
 }

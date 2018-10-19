@@ -8,21 +8,44 @@
       <h1 class="headline" style="color:black">ซีรีส์เกาหลี แนว{{ $route.params.type }}</h1>
       </v-alert>
     </v-flex>
-    <v-flex xs12 sm6 md5 lg4 v-for="serie in series" :key="serie.id">
-      <serie-card :serie="serie"></serie-card>
+    <v-flex xs12>
+      <serie-card-group :series="series"></serie-card-group>
+    </v-flex>
+    <v-flex xs12 class="text-xs-center">
+      <v-progress-circular
+        indeterminate
+        color="amber"
+      ></v-progress-circular>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { getSeriesByTerm } from '~/assets/js/api'
-import SerieCard from '~/components/series/SerieCard'
+import { getSeriesByType } from '~/assets/js/api'
+import SerieCardGroup from '~/components/series/SerieCardGroup'
 
 export default {
-  components: { SerieCard },
-  async asyncData ({ params }) {
-    const series = await getSeriesByTerm(params.type)
-    return { series }
+  components: { SerieCardGroup },
+  mounted() {
+    window.onscroll = () => {
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      if (bottomOfWindow) {
+        getSeriesByType(this.offset, this.limit, this.type).then(newSeries => {
+          this.offset += 10
+          for (let i=0;i<newSeries.length;i++) {
+            this.series.push(newSeries[i])
+          }
+        })        
+      }
+    }
+  },
+  async asyncData({ params }) {
+    let offset = 0
+    let limit = 10
+    const type = params.type
+    const series = await getSeriesByType(offset, limit, type)
+    offset += 10
+    return { offset, limit, type, series }
   }
 }
 </script>

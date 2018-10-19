@@ -70,12 +70,22 @@ export async function getSeriesYear () {
   return jsonapiParse.parse(data).data
 }
 
-export async function getSeriesByTerm (type) {
-  const { data } = await apiClient.get(prefix + '/series?filter[field_series_type][condition][path]=field_series_type.name&filter[field_series_type][condition][value]=' + type + '&include=field_poster')
+export async function getSeriesChannel () {
+  const { data } = await apiClient.get(prefix + '/taxonomy_term/chxng')
   return jsonapiParse.parse(data).data
 }
 
-export async function getSeriesByYear (year) {
-  const { data } = await apiClient.get(prefix + '/series?filter[field_serie_year][condition][path]=field_serie_year.name&filter[field_serie_year][condition][value]=' + year + '&include=field_poster')
-  return jsonapiParse.parse(data).data 
+export async function getSeriesByType (offset = 0, limit = 10, type) {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_series_type][condition][path]=field_series_type.name&filter[field_series_type][condition][value]=' + type + '&page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesByYear (offset = 0, limit = 10, year) {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_serie_year][condition][path]=field_serie_year.name&filter[field_serie_year][condition][value]=' + year + '&page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesByChannel (offset = 0, limit = 10, channel) {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_channel][condition][path]=field_channel.name&filter[field_channel][condition][value]=' + channel + '&page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster')
+  return jsonapiParse.parse(data).data
 }
