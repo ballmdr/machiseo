@@ -18,7 +18,8 @@ MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
-    password: 'M3n17v11'
+    password: 'M3n17v11',
+    authSource: 'admin'
   }
 }, (err, client) => {
   if (err) return console.log(err)
@@ -66,10 +67,6 @@ app.put('/users/update/:id', (req, res) => {
 })
 
 app.get('/reviews', (req, res) => {
-  /*db.collection('reviews').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    res.status(200).send(result)
-  })*/
   db.collection('reviews').aggregate([
     { $lookup:
       {
