@@ -24,33 +24,19 @@
         </v-list>
       </v-menu>
     </v-card-title>
-    <v-card-text>
-      {{ review.reviewText }}
-    </v-card-text>
+    <v-card-text v-show="!reviewEditDialog" v-model="newReviewText">{{ review.reviewText }}</v-card-text>
+    <div v-show="reviewEditDialog">
+      <v-textarea v-model="newReviewText"></v-textarea>
+      <v-btn flat round color="success" @click="vote(true)"><v-icon :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
+      <v-btn flat round color="error" @click="vote(false)"><v-icon :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
+      <v-btn round color="warning" @click="reviewEditSubmit"><span style="color:black">แก้ไขรีวิว</span></v-btn>
+      <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
+    </div>
     <v-card-actions>
       <span><v-btn icon @click="voteReview"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
       <span><v-btn icon @click="showReply"><v-icon small>comment</v-icon></v-btn>{{ review.replyCount }}</span>
     </v-card-actions>
   </v-card>
-  <v-dialog v-model="reviewEditDialog">
-    <v-card dark color="primary">
-      <v-card-text>
-        <v-textarea
-          dark
-          flat
-          v-model="review.reviewText"
-          label="แก้ไขรีวิว"
-          required
-        ></v-textarea>
-        <v-card-actions>
-          แนะนำซีรีส์เรื่องนี้หรือไม่       
-          <v-btn flat round color="success" @click="vote(true)"><v-icon large :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
-          <v-btn flat round color="error" @click="vote(false)"><v-icon large :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
-          <v-btn large color="secondary" @click="reviewEditSubmit">แก้ไขรีวิว</v-btn>
-        </v-card-actions>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
   <v-flex xs8 offset-xs2 v-if="replyCardDialog">
     <v-layout column>
       <v-flex xs12>
@@ -83,8 +69,9 @@ export default {
       replies: [],
       upvote: false,
       downvote: false,
-      recommend: null,
-      newReplies: []
+      newRecommend: this.review.recommend,
+      newReplies: [],
+      newReviewText: this.review.reviewText
     }
   },
   mounted() {
@@ -99,11 +86,8 @@ export default {
   methods: {    
     replyRemove(reply_id){
       const index = this.replies.find((reply) => {
-        console.log('reply', reply)
         return reply._id = reply_id
       })
-      console.log('index', index)
-      console.log('reply id', reply_id)
       if (index !== -1) this.replies.splice(index, 1)
       this.review.replyCount--
     },
@@ -116,9 +100,11 @@ export default {
       if (bias) {
         this.upvote = true
         this.downvote = false
+        this.newRecommend = true
       } else {
         this.upvote = false
         this.downvote = true
+        this.newRecommend = false
       }
     },
     async showReply() {
@@ -134,18 +120,15 @@ export default {
       this.review.like++
     },
     async reviewEditSubmit () {
-      if (this.upvote === true && this.downvote === false) {
-        this.recommend = true
-      } else if (this.upvote === false && this.downvote === true) {
-        this.recommend = false
-      }
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/edit',
       { 
         _id: this.review._id, 
-        reviewText: this.review.reviewText,
-        recommend: this.recommend
+        reviewText: this.newReviewText,
+        recommend: this.newRecommend
       })
       this.reviewEditDialog = false
+      this.review.recommend = this.newRecommend
+      this.review.reviewText = this.newReviewText
     },
     async reviewDel () {
       await this.$axios.$delete(process.env.restMongoUrl + '/reviews/delete/' + this.review._id)

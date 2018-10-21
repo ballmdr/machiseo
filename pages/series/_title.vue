@@ -37,6 +37,9 @@
     <v-flex xs12 v-if="serie.field_episode_series.length > 0">
       <episodes-list :uuid="serie.uuid"></episodes-list>
     </v-flex>
+    <v-flex xs12>
+      <reviews :reviewSerie="reviewSerie"></reviews>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -45,9 +48,10 @@ import RatingCard from '~/components/series/RatingCard'
 import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
+import Reviews from '~/components/reviews/Reviews'
 
 export default {
-  components: { RatingCard, EpisodesList, CelebsCast },
+  components: { RatingCard, EpisodesList, CelebsCast, Reviews },
   data () {
     return {
       baseUrl: process.env.baseUrl
@@ -63,7 +67,13 @@ export default {
   },
   async asyncData ({ params, env }) {
     const serie = await getSerieByPath(params.title, env)
-    return { serie }
+    const reviewSerie = {
+      uuid: serie.uuid,
+      nid: serie.nid,
+      poster: serie.field_poster[0].url,
+      path: serie.path.alias
+    }
+    return { serie, reviewSerie }
   }
 }
 </script>

@@ -66,8 +66,9 @@ app.put('/users/update/:id', (req, res) => {
   })  
 })
 
-app.get('/reviews', (req, res) => {
+app.get('/reviews/:uuid', (req, res) => {
   db.collection('reviews').aggregate([
+    { $match: { 'serie_uuid': req.params.uuid }},
     { $lookup:
       {
         from: 'users',
@@ -82,8 +83,9 @@ app.get('/reviews', (req, res) => {
   })
 })
 
-app.get('/reviews/latest', (req, res) => {
+app.get('/reviews/latest/:uuid', (req, res) => {
   db.collection('reviews').aggregate([
+    { $match: { 'serie_uuid': req.params.uuid }},
     { $lookup:
       {
         from: 'users',
@@ -101,6 +103,10 @@ app.post('/reviews/add', (req, res) => {
   db.collection('reviews').insertOne(
     {
       user_sub: req.body.user_sub,
+      serie_uuid: req.body.uuid,
+      serie_nid: req.body.nid,
+      serie_poster: req.body.poster,
+      serie_path: req.body.path,
       reviewText: req.body.reviewText,
       created: new Date(),
       updated: new Date(),
@@ -130,7 +136,7 @@ app.put('/reviews/edit', (req, res) => {
 app.delete('/reviews/delete/:id', (req, res) => {
  db.collection('reviews').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
     if (err) throw err
-    res.status(200).send(result)
+    db.collection
   })
 })
 
