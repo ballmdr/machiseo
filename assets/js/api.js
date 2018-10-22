@@ -26,7 +26,7 @@ export async function getSerieByPath (path, env) {
     {
       "requestId": "node",
       "action": "view",
-      "uri": "/jsonapi/series/{{router.body@$.entity.uuid}}?include=field_poster,field_celeb,field_celeb.field_celeb_profile,field_series_type,field_serie_year",
+      "uri": "/jsonapi/series/{{router.body@$.entity.uuid}}?include=field_poster,field_celeb,field_celeb.field_celeb_profile,field_series_type,field_serie_year,field_channel",
       "Accept": "application/json",
       "waitFor": ["router"]
     }

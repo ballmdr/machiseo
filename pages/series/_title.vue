@@ -12,8 +12,11 @@
             <v-flex xs7>
               <v-card-title>
                 <h1 class="display-2 font-weight-bold">{{ serie.title }}</h1>
-                <v-chip color="warning" v-for="(type, index) in serie.field_series_type" :key="index"><strong>{{ type.name }}</strong></v-chip>
               </v-card-title>
+              <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
+              |
+              <v-btn small flat nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
+              <v-btn small flat nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
