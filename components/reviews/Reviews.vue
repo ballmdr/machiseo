@@ -4,11 +4,8 @@
       <review-form v-if="$auth.$state.loggedIn" :reviewSerie="reviewSerie" @reviewUpdateNew="updateLatest"></review-form>
       <review-login v-else></review-login>
     </v-flex>
-    <v-flex xs12 v-for="(newReviewUpdate, index) in newReviewUpdates" :key="index">
-      <div class="animated pulse"><review-card :review="newReviewUpdate"></review-card></div>
-    </v-flex>
-    <v-flex xs12 v-for="review in reviews" :key="review._id">
-      <review-card :review="review"></review-card>
+    <v-flex xs12 v-for="(review, index) in reviews" :key="review._id">
+      <review-card class="animated" :class="{pulse:isNew(index)}" :review="review" @delReview="deleteReview(index)"></review-card>
     </v-flex>
   </v-layout>
 </template>
@@ -23,7 +20,7 @@ export default {
   data() {
     return {
       reviews: [],
-      newReviewUpdates: []
+      new: false
     }
   },
   components: { ReviewForm, ReviewCard, ReviewLogin },
@@ -44,9 +41,22 @@ export default {
     })  
   },
   methods: {
+    isNew (index) {
+      if (this.new && index === 0) {
+        return true
+      } else {
+        return false
+      }
+    },
     async updateLatest() {
       const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest/' + this.reviewSerie.uuid)
-      this.newReviewUpdates.unshift(res[0])
+      this.new = true
+      this.$toast.success('รีวิวของคุณมีค่า ขอบคุณที่ร่วมรีวิว')
+      this.reviews.unshift(res[0])
+    },
+    async deleteReview(index) {
+      this.$toast.success('ลบรีวิวแล้ว')
+      this.reviews.splice(index, 1)
     }
   }
 }
