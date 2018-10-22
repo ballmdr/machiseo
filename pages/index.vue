@@ -17,15 +17,12 @@ export default {
     ...mapMutations({
       clearUserDone: 'users/clearUserDone'
     }),
-    async facebook() {
-      const res = await this.$auth.loginWith('facebook').catch(e => {
-        this.$toast.show('Error', {icon: "fingerprint"});
-      })
-      this.$toast.success('Logged In!')
-    },
     async auth0() {
       const res = await this.$auth.loginWith('auth0')
       this.$toast.show('Loggin')
+    },
+    mounted() {
+      console.log(this.$auth)
     }
   }
 }

@@ -136,7 +136,10 @@ app.put('/reviews/edit', (req, res) => {
 app.delete('/reviews/delete/:id', (req, res) => {
  db.collection('reviews').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
     if (err) throw err
-    db.collection
+    db.collection('review_replies').deleteMany({ review_id: new ObjectID(req.params.id) }, (err, result) => {
+      if (err) throw err
+      res.status(200).send("Deleted")
+    })
   })
 })
 

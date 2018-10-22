@@ -6,7 +6,7 @@
       <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
       <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
       <v-spacer></v-spacer>
-      <v-menu name="more" bottom left>
+      <v-menu v-if="canAccess" name="more" bottom left>
         <v-btn
           slot="activator"
           dark
@@ -18,13 +18,13 @@
           <v-list-tile @click="reviewEditDialog = true">
             <v-list-tile-title>แก้ไข</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile @click="reviewDel">
+          <v-list-tile @click="confirmDel = true">
             <v-list-tile-title>ลบ</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
     </v-card-title>
-    <v-card-text v-show="!reviewEditDialog" v-model="newReviewText">{{ review.reviewText }}</v-card-text>
+    <v-card-text v-show="!reviewEditDialog">{{ review.reviewText }}</v-card-text>
     <div v-show="reviewEditDialog">
       <v-textarea v-model="newReviewText"></v-textarea>
       <v-btn flat round color="success" @click="vote(true)"><v-icon :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
@@ -43,15 +43,36 @@
         <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id" @replyUpdate="replyUpdateLatest($event)"></reply-form>
         <review-login v-else></review-login>
       </v-flex>
-      <v-divider></v-divider>
-      <v-flex xs12 v-for="(newReply, index) in newReplies" :key="index">
-        <div class="animated flash"><reply-card :reply="newReply" :review_id="review._id"></reply-card></div>
-      </v-flex>
-      <v-flex xs12 v-for="reply in replies" :key="reply._id">
-        <reply-card :reply="reply" :review_id="review._id" @replyDelete="replyRemove($event)"></reply-card>
+      <v-flex xs12 v-for="(reply, index) in replies" :key="reply._id">
+        <reply-card class="animated" :class="{fadeInDown:isNew(index)}" :reply="reply" :review_id="review._id" @replyDelete="replyRemove(index)"></reply-card>
       </v-flex>
     </v-layout>
     </v-flex>
+      <v-dialog
+        v-model="confirmDel"
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title class="headline">แน่ใจหรือไม่ว่าจะลบ</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              flat="flat"
+              @click="confirmDel = false"
+            >
+              ยกเลิก
+            </v-btn>
+            <v-btn
+              color="red darken-1"
+              flat="flat"
+              @click="reviewDel"
+            >
+              ยืนยันการลบ
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
   </div>
 </template>
 
@@ -64,14 +85,26 @@ export default {
   props: ['review'],
   data () {
     return {
+      new: false,
+      confirmDel: false,
       reviewEditDialog: false,
       replyCardDialog: false,
       replies: [],
       upvote: false,
       downvote: false,
       newRecommend: this.review.recommend,
-      newReplies: [],
       newReviewText: this.review.reviewText
+    }
+  },
+  computed: {
+    canAccess() {
+      if (this.$auth.$state.loggedIn) {
+        if (this.review.user[0].sub === this.$auth.$state.user.sub) {
+          return true
+        }
+      } else {
+        return false
+      }
     }
   },
   mounted() {
@@ -84,17 +117,24 @@ export default {
     }
   },
   methods: {    
-    replyRemove(reply_id){
-      const index = this.replies.find((reply) => {
-        return reply._id = reply_id
-      })
-      if (index !== -1) this.replies.splice(index, 1)
+    replyRemove(index){
+      this.$toast.success('ลบตอบกลับแล้ว')
+      this.replies.splice(index, 1)
       this.review.replyCount--
     },
     async replyUpdateLatest(newReply) {
       const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/latest/' + this.review._id)
+      this.$toast.success('ตอบรีวิวแล้ว')
+      this.new = true
       this.review.replyCount++
-      this.newReplies.unshift(res[0])
+      this.replies.unshift(res[0])
+    },
+    isNew (index) {
+      if (this.new && index === 0) {
+        return true
+      } else {
+        return false
+      }
     },
     vote (bias) {
       if (bias) {
@@ -110,8 +150,6 @@ export default {
     async showReply() {
       if (!this.replyCardDialog) {
         this.replies = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/' + this.review._id)
-      } else {
-        this.newReplies = []
       }
       this.replyCardDialog = !this.replyCardDialog
     },
@@ -126,12 +164,14 @@ export default {
         reviewText: this.newReviewText,
         recommend: this.newRecommend
       })
+      this.$toast.success('แก้ไขรีวิวแล้ว')
       this.reviewEditDialog = false
       this.review.recommend = this.newRecommend
       this.review.reviewText = this.newReviewText
     },
     async reviewDel () {
       await this.$axios.$delete(process.env.restMongoUrl + '/reviews/delete/' + this.review._id)
+      this.$emit('delReview')
     }
   }
 }

@@ -51,11 +51,12 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/toast'
   ],
   toast: {
-    position: 'top-right',
-    duration: 2000
+    position: 'bottom-right',
+    duration: 5000
   },
   auth: {
     responseType: 'token id_token',
