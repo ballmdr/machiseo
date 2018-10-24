@@ -12,8 +12,11 @@
             <v-flex xs7>
               <v-card-title>
                 <h1 class="display-2 font-weight-bold">{{ serie.title }}</h1>
-                <v-chip color="warning" v-for="(type, index) in serie.field_series_type" :key="index"><strong>{{ type.name }}</strong></v-chip>
               </v-card-title>
+              <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
+              |
+              <v-btn small flat nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
+              <v-btn small flat nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
@@ -37,6 +40,9 @@
     <v-flex xs12 v-if="serie.field_episode_series.length > 0">
       <episodes-list :uuid="serie.uuid"></episodes-list>
     </v-flex>
+    <v-flex xs12>
+      <reviews :reviewSerie="reviewSerie"></reviews>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -45,9 +51,10 @@ import RatingCard from '~/components/series/RatingCard'
 import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
+import Reviews from '~/components/reviews/Reviews'
 
 export default {
-  components: { RatingCard, EpisodesList, CelebsCast },
+  components: { RatingCard, EpisodesList, CelebsCast, Reviews },
   data () {
     return {
       baseUrl: process.env.baseUrl
@@ -63,7 +70,13 @@ export default {
   },
   async asyncData ({ params, env }) {
     const serie = await getSerieByPath(params.title, env)
-    return { serie }
+    const reviewSerie = {
+      uuid: serie.uuid,
+      nid: serie.nid,
+      poster: serie.field_poster[0].url,
+      path: serie.path.alias
+    }
+    return { serie, reviewSerie }
   }
 }
 </script>

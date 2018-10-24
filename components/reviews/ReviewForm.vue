@@ -17,7 +17,7 @@
       คุณแนะนำซีรีส์เรื่องนี้หรือไม่&nbsp;
       <v-btn flat round color="success" @click="vote(true)"><v-icon large :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
       <v-btn flat round color="error" @click="vote(false)"><v-icon large :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
-      <v-btn large color="warning" @click="reviewSave"><span style="color:black">โพสต์รีวิว</span></v-btn>
+      <v-btn large round color="warning" @click="reviewSave"><span style="color:black">โพสต์รีวิว</span></v-btn>
       </v-card-actions>
     </v-card-text>
   </v-card>
@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  props: ['reviewSerie'],
   data () {
     return {
       review_text: '',
@@ -46,19 +47,10 @@ export default {
       }
     },
     async reviewSave () {
-      await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', 
-      {
-        user_sub: this.$auth.$state.user.sub,
-        reviewText: this.review_text,
-        recommend: this.recommend,
-      })
-      //const token = await this.$axios.$get('/rest/session/token')
-      /*let config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': token
-        }
-      }*/
+      this.reviewSerie.user_sub = this.$auth.$state.user.sub
+      this.reviewSerie.reviewText = this.review_text,
+      this.reviewSerie.recommend = this.recommend
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
       let votePoint = 0
       if (this.recommend) {
         votePoint = 1
@@ -69,7 +61,7 @@ export default {
       {
         "type": "serie_review",
         "entity_type": ["node"],
-        "entity_id": ["357"],
+        "entity_id": [this.reviewSerie.nid],
         "value": [votePoint],
         "value_type": ["points"]
       })

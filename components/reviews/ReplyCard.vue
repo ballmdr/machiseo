@@ -3,7 +3,7 @@
     <v-card-title v-if="reply.user.length > 0">
       <v-avatar size="38"><v-img :src="reply.user[0].picture"></v-img></v-avatar>
       <v-spacer></v-spacer>
-      <v-menu name="more" bottom left>
+      <v-menu v-if="canAccess" name="more" bottom left>
         <v-btn
           slot="activator"
           dark
@@ -15,32 +15,43 @@
           <v-list-tile @click="replyEditDialog = true">
             <v-list-tile-title>แก้ไข</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile @click="replyDel">
+          <v-list-tile @click="confirmDel = true">
             <v-list-tile-title>ลบ</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
     </v-card-title>
-    <v-card-text>
-      <span>{{ reply.replyText }}</span>
-    </v-card-text>
-
-    <v-dialog v-model="replyEditDialog">
-    <v-card dark color="primary">
-      <v-card-text>
-        <v-textarea
-          dark
-          flat
-          v-model="reply.replyText"
-          label="แก้ไขตอบกลับ"
-          required
-        ></v-textarea>
-        <v-card-actions>
-          <v-btn color="warning" @click="replyEditSubmit">แก้ไขตอบกลับ</v-btn>
-        </v-card-actions>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
+    <v-card-text v-show="!replyEditDialog">{{ reply.replyText }}</v-card-text>
+    <div v-show="replyEditDialog">
+      <v-textarea v-model="newReplyText"></v-textarea>
+      <v-btn round color="warning" @click="replyEditSubmit"><span style="color:black">แก้ไข</span></v-btn>
+      <v-btn round color="danger" @click="replyEditDialog = false">ยกเลิก</v-btn>
+    </div>
+          <v-dialog
+        v-model="confirmDel"
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title class="headline">แน่ใจหรือไม่ว่าจะลบ</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              flat="flat"
+              @click="confirmDel = false"
+            >
+              ยกเลิก
+            </v-btn>
+            <v-btn
+              color="red darken-1"
+              flat="flat"
+              @click="replyDel"
+            >
+              ยืนยันการลบ
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
   </v-card>
 </template>
 
@@ -49,20 +60,36 @@ export default {
   props: ['reply', 'review_id'],
   data() {
     return {
-      replyEditDialog: false
+      confirmDel: false,
+      replyEditDialog: false,
+      newReplyText: this.reply.replyText
+    }
+  },
+  computed: {
+    canAccess() {
+      if (this.$auth.$state.loggedIn) {
+        if (this.reply.user[0].sub === this.$auth.$state.user.sub) {
+          return true
+        }
+      } else {
+        return false
+      }
     }
   },
   methods: {
     async replyDel() {
       await this.$axios.$delete(process.env.restMongoUrl + '/reviews/reply/delete/' + this.reply._id)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/del/' + this.review_id)
-      this.$emit('replyDelete', this.reply._id)
+      this.$emit('replyDelete')
     },
     async replyEditSubmit() {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/edit', {
         _id: this.reply._id,
-        replyText: this.reply.replyText
+        replyText: this.newReplyText
       })
+      this.$toast.success('แก้ไขตอบกลับแล้ว')
+      this.replyEditDialog = false
+      this.reply.replyText = this.newReplyText
     }
   }
 }

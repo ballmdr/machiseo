@@ -6,16 +6,14 @@
           slot="activator"
           color="primary"
           dark
-        >
-            แนวซีรีส์
+        >แนวซีรีส์
         </v-btn>
         <v-list>
           <v-list-tile
             v-for="type in seriesType"
             :key="type.id"
-            style="cursor:pointer"
           >
-            <v-list-tile-title><nuxt-link :to="'/series/type/' + type.name">{{ type.name }}</nuxt-link></v-list-tile-title>
+          <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/type/' + type.name">{{ type.name }}</v-btn>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -25,15 +23,14 @@
           color="primary"
           dark
         >
-          ปีที่เริ่มออนแอร์
+          ปีที่เริ่มฉาย
         </v-btn>
         <v-list>
           <v-list-tile
             v-for="year in seriesYear"
             :key="year.id"
-            style="cursor:pointer"
           >
-            <v-list-tile-title><nuxt-link :to="'/series/year/' + year.name">{{ year.name }}</nuxt-link></v-list-tile-title>
+            <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/year/' + year.name">{{ year.name }}</v-btn>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -49,9 +46,8 @@
           <v-list-tile
             v-for="channel in seriesChannel"
             :key="channel.id"
-            style="cursor:pointer"
           >
-            <v-list-tile-title><nuxt-link :to="'/series/channel/' + channel.name">{{ channel.name }}</nuxt-link></v-list-tile-title>
+            <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/channel/' + channel.name">{{ channel.name }}</v-btn>
           </v-list-tile>
         </v-list>
       </v-menu>
