@@ -44,7 +44,9 @@ export default {
         { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
         { icon: 'search', title: 'Moon Lovers', to: '/series/moon-lovers' },
         { icon: 'search', title: 'While Sleeping', to: '/series/while-you-were-sleeping'},
-        { icon: 'search', title: 'Reviews', to: '/example/reviews' }
+        { icon: 'search', title: 'Suspicious Partner', to: '/series/suspicious-partner' },
+        { icon: 'search', title: 'Emperor Owner Mask', to: '/series/emperor-owner-mask'},
+        { icon: 'search', title: 'Secretary Kim', to: '/series/what%E2%80%99s-wrong-secretary-kim'}
       ],
       miniVariant: false,
       right: true,

@@ -36,15 +36,22 @@
         </v-flex>
       </v-layout> 
     </v-flex>
-    <v-flex xs12>
-      <v-card dark><v-card-text><div class="">{{ serie.field_synopsis }}</div></v-card-text></v-card>
-    </v-flex>
-    <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-      <episodes-list :uuid="serie.uuid"></episodes-list>
-    </v-flex>
-    <v-flex xs12>
-      <reviews :reviewSerie="reviewSerie"></reviews>
-    </v-flex>
+    <v-layout row wrap>
+      <v-flex xs8>
+        <v-flex xs12>
+          <v-card dark><v-card-text><div class="">{{ serie.field_synopsis }}</div></v-card-text></v-card>
+        </v-flex>
+        <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+          <episodes-list  :uuid="serie.uuid"></episodes-list>
+        </v-flex>
+        <v-flex xs12>
+          <reviews :reviewSerie="reviewSerie"></reviews>
+        </v-flex>
+      </v-flex>
+      <v-flex xs4>
+        Sidebar
+      </v-flex>
+    </v-layout>
   </v-layout>
 </template>
 
