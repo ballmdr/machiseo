@@ -8,8 +8,6 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 
-package-lock.json
-
 # Runtime data
 pids
 *.pid
