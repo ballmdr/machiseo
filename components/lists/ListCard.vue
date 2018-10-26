@@ -3,6 +3,17 @@
       <v-divider></v-divider>
       <v-flex xs12>
         <h2>{{ listName }}</h2>
+        <carousel>
+
+    <img src="https://placeimg.com/200/200/any?1">
+
+    <img src="https://placeimg.com/200/200/any?2">
+
+    <img src="https://placeimg.com/200/200/any?3">
+
+    <img src="https://placeimg.com/200/200/any?4">
+
+</carousel>
       </v-flex>
       <v-flex xs12>
         <v-layout row>
