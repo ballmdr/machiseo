@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = 9000
-const HOST = '0.0.0.0'
+const HOST = '127.0.0.1'
 
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
@@ -13,22 +13,16 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var db
-MongoClient.connect('mongodb://mongo:27017', {
+MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
     password: 'M3n17v11',
     authSource: 'admin'
-  },
-  reconnectTries: 60,
-  reconnectInterval: 1000
+  }
 }, (err, client) => {
   if (err) return console.log(err)
   db = client.db('machiseo')
-})
-
-app.get('/testapi', (req, res) => {
-  res.status(200).send("ok")
 })
 
 app.get('/users/sub/:sub', (req, res) => {
