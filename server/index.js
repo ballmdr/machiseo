@@ -246,60 +246,6 @@ app.put('/reviews/reply/edit', (req, res) => {
   })
 })
 
-app.get('/list/admin', (req, res) => {
-  db.collection('list_admin').find().toArray((err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
-})
-
-app.get('/list/admin/:id', (req, res) => {
-  db.collection('series').find({ list_admin: new ObjectID(req.params.id)}).toArray((err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
-})
-
-app.get('/series/:uuid', (req, res) => {
-  db.collection('series').find( { uuid: req.params.uuid }).toArray((err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
-})
-
-app.put('/series/list/update', (req, res) => {
-  db.collection('series').updateOne( { uuid: req.body.uuid }, 
-    { $push : { list_admin: new ObjectID(req.body.listID) }}, (err, result) => {
-      if (err) throw err
-      res.status(200).send(result)
-    })
-})
-
-app.post('/series/add', (req, res) => {
-  db.collection('series').insertOne(
-    {
-      title: req.body.title,
-      nid: req.body.nid,
-      uuid: req.body.uuid,
-      poster: req.body.poster,
-      path: req.body.path,
-      list_admin: []
-    }, (err, result) => {
-      if (err) throw err
-      res.status(200).send(result)
-    }
-  )
-})
-
-app.put('/series/list/delete', (req, res) => {
-  db.collection('series').updateOne( { uuid: req.body.uuid },
-    { $pull : { list_admin: new ObjectID(req.body.listID) }}, (err, result) => {
-      if (err) throw err
-      res.status(200).send(result)
-    }
-  )
-})
-
 app.set('port', port)
 
 // Import and Set Nuxt.js options
