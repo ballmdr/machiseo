@@ -32,7 +32,8 @@ module.exports = {
   plugins: [ 
     { src: '~/plugins/vuetify.js' }, 
     { src: '~/plugins/axios-port' },
-    { src: '~/plugins/vue-masonry-css', ssr: false }
+    { src: '~/plugins/vue-masonry-css', ssr: false },
+    { src: '~/plugins/vue-owl-carousel', ssr: false }
   ],
   css: [
     { src: '~/assets/style/app.styl' }

@@ -6,11 +6,8 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
-<<<<<<< HEAD
-yarn.lock
-=======
->>>>>>> f152977c4acfd6fa24f7eb9886d70ba0e400d827
+package-lock.json*
+yarn.lock*
 
 # Runtime data
 pids
