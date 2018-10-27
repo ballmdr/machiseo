@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
-const PORT = 9000
-const HOST = '127.0.0.1'
+const port = 9000
 
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
@@ -13,7 +12,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var db
-MongoClient.connect('mongodb://localhost:27017', {
+MongoClient.connect('mongodb://mongo:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
@@ -24,6 +23,11 @@ MongoClient.connect('mongodb://localhost:27017', {
   if (err) return console.log(err)
   db = client.db('machiseo')
 })
+
+app.get('/testapi', (req, res) => {
+  res.status(200).send("It's OK")
+})
+
 
 app.get('/users/sub/:sub', (req, res) => {
   db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
@@ -245,5 +249,4 @@ app.put('/reviews/reply/edit', (req, res) => {
   })
 })
 
-app.listen(PORT, HOST)
-console.log(`Running on http://${HOST}:${PORT}`)
+app.listen(port, () => console.log('Running on port:' + port))
