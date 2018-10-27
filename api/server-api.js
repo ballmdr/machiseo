@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = 9000
-const HOST = '127.0.0.1'
+const HOST = '0.0.0.0'
 
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
