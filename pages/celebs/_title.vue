@@ -69,7 +69,7 @@ h2 a {
   color: #FDFEFF;
 }
 .poster {
-  border-radius: 18px;
+  border-radius: 12px;
 }
 .card-media-img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
