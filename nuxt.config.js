@@ -2,7 +2,7 @@ const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 const environment = {
   API_URL: 'http://machiseo.com:8080',
-  REST_MONGO: 'http://localhost:3000',
+  REST_MONGO: 'http://localhost:9000',
   USER_DRUPAL: 'ballmdr',
   PASS_DRUPAL: 'M3n17v11'
 }

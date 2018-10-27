@@ -5,8 +5,8 @@
   "author": "ballmdr <ball.mdr@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "nodemon index.js --watch server",
-    "start": "node index.js"
+    "dev": "nodemon server-api.js --watch server",
+    "start": "node server-api.js"
   },
   "dependencies": {
     "express": "^4.16.4",
