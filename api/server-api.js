@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const port = 9000
+const PORT = 9000
+const HOST = '127.0.0.1'
 
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
@@ -11,8 +12,15 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next()
+})
+
 var db
-MongoClient.connect('mongodb://mongo:27017', {
+MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
@@ -27,7 +35,6 @@ MongoClient.connect('mongodb://mongo:27017', {
 app.get('/testapi', (req, res) => {
   res.status(200).send("It's OK")
 })
-
 
 app.get('/users/sub/:sub', (req, res) => {
   db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
@@ -249,4 +256,5 @@ app.put('/reviews/reply/edit', (req, res) => {
   })
 })
 
-app.listen(port, () => console.log('Running on port:' + port))
+app.listen(PORT, HOST)
+console.log(`Running on http://${HOST}:${PORT}`)
