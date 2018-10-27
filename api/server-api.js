@@ -32,6 +32,10 @@ MongoClient.connect('mongodb://localhost:27017', {
   db = client.db('machiseo')
 })
 
+app.get('/testapi', (req, res) => {
+  res.status(200).send("It's OK")
+})
+
 app.get('/users/sub/:sub', (req, res) => {
   db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
     if (err) throw err
