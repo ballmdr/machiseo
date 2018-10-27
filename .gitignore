@@ -9,6 +9,7 @@ yarn-error.log*
 package-lock.json*
 yarn.lock*
 
+
 # Runtime data
 pids
 *.pid
@@ -83,3 +84,4 @@ dist
 .idea
 
 data
+api/docker-compose.yml
