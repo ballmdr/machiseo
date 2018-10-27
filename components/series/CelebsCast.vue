@@ -1,7 +1,7 @@
 <template>
   <div style="cursor:pointer" @click="$router.push(celeb.path.alias)">
     <v-avatar size="150"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
-    <h4>{{ celeb.title }}</h4>
+    <h3><nuxt-link :to="celeb.path.alias">{{ celeb.title }}</nuxt-link></h3>
   </div>
 </template>
 
@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+h3 a {
+  text-decoration: none;
+  color: #FDFEFF;
+}
+</style>

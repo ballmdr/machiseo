@@ -1,33 +1,37 @@
 <template>
+<v-container>
   <v-layout row wrap>
-    <v-flex xs4>
-      <v-card color="primary">
-        <v-layout justify-center>
-          <v-card-title>
-            <v-avatar size="200"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
-          </v-card-title>
-        </v-layout>
-        <v-card-text>     
-          <h1 class="headline" style="text-align:center">{{ celeb.title }}</h1>
-          <p class="subheading" style="padding:20px" v-html="celeb.body.processed"></p>
-        </v-card-text>
-        <v-card-text>
-        <!-- <p class="subheading" style="padding:20px" v-html="celeb.field_celeb_reward.processed"></p> -->
-        </v-card-text>
-      </v-card>
+    <v-flex xs10 sm5 md4>
+      <div class="wrapper">
+        <div class="profile">
+          <v-avatar size="200"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
+          <h3 class="name">{{ celeb.title }}</h3>
+          <p class="description" v-html="celeb.body.processed"></p>
+        </div>
+        <div class="social-icons">
+          <div class="icon instagram" v-if="celeb.field_instagram !== null">
+            <a target="_blank" :href="'https://www.instagram.com/' + celeb.field_instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+          <div class="icon twitter" v-if="celeb.field_twitter !== null">
+            <a target="_blank" :href="'https://www.twitter.com/' + celeb.field_twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
     </v-flex>
-    <v-flex xs8>
+    <v-flex xs12 sm7 md8 d-flex>
       <v-layout row wrap>
-        <v-flex class="hvr-float-shadow" xs4 v-for="serie in celeb.field_series_actors" :key="serie.id" style="cursor:pointer" @click="$router.push(serie.path.alias)">
-        <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
-          <h2>{{ serie.title }}</h2>
+        <v-flex class="hvr-float" xs6 sm6 md4 v-for="serie in celeb.field_series_actors" :key="serie.id" style="cursor:pointer">
+          <v-img @click="$router.push(serie.path.alias)" :src="baseUrl + serie.field_poster[0].url" class="card-media-img poster"></v-img>
+          <h2><nuxt-link :to="serie.path.alias">{{ serie.title }}</nuxt-link></h2>
         </v-flex>
       </v-layout>
     </v-flex>
+  </v-layout>
+  <v-layout>
     <v-flex xs12 d-flex>
       <masonry
-        :cols="4"
-        :gutter="15"
+        :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
+        :gutter="{default: '30px', 700: '15px'}"
         >
         <div v-for="(img, index) in celeb.field_other_img" :key="index">
           <img :src="baseUrl + img.url" class="card-media-img"/>
@@ -35,14 +39,13 @@
       </masonry>
     </v-flex>
   </v-layout>
+  </v-container>
 </template>
 
 <script>
 import { getCelebByPath } from '~/assets/js/api'
 
-
 export default {
-  
   data () {
     return {
       baseUrl: process.env.baseUrl
@@ -61,9 +64,87 @@ export default {
 </script>
 
 <style scoped>
+h2 a {
+  text-decoration: none;
+  color: #FDFEFF;
+}
+.poster {
+  border-radius: 12px;
+}
 .card-media-img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
   width: 100%;
 }
-
+.wrapper {
+  background: #31394D;
+  transition: background .6s ease;
+  border-radius: 10px;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+.wrapper .profile {
+  margin-top: 2.2em;
+  position: relative;
+  margin: auto;
+  text-align: center;
+}
+.wrapper .profile .thumbnail {
+  width: 124px;
+  height: 124px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5em;
+  border-radius: 100%;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+.wrapper .profile .name {
+  color: #FDFEFF;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+.wrapper .profile .description {
+  color: #FDFEFF;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 1.3em;
+}
+.wrapper .social-icons {
+  margin: auto;
+  display: flex;
+}
+.wrapper .social-icons .icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.wrapper .social-icons .icon a {
+  margin: 5px;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  line-height: 62px;
+  text-align: center;
+  border-radius: 30px;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+.wrapper .social-icons .instagram a {
+  background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
+}
+.wrapper .social-icons .twitter a {
+  background: linear-gradient(to bottom right, #5E5AEC, #3F9EFC);
+}
+.wrapper .social-icons .icon h4 {
+  color: #FFFFFF;
+  font-size: 1em;
+  margin-top: 1.3em;
+  margin-bottom: .2em;
+}
+.wrapper .social-icons .icon p {
+  color: #666B7D;
+  font-size: 12px;
+}
 </style>

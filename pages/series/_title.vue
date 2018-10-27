@@ -31,7 +31,7 @@
     </v-flex>
     <v-flex xs12>
       <v-layout row wrap justify-start>
-        <v-flex xs5 sm4 md3 lg2 v-for="celeb in serie.field_celeb" :key="celeb.id" class="text-xs-center hvr-grow-shadow">
+        <v-flex xs5 sm4 md3 lg2 v-for="celeb in serie.field_celeb" :key="celeb.id" class="text-xs-center hvr-grow">
           <celebs-cast :celeb="celeb"></celebs-cast>
         </v-flex>
       </v-layout> 
