@@ -103,7 +103,8 @@ module.exports = {
     vendor: [
       '~/plugins/vuetify.js',
       'animate.css',
-      'hover.css'
+      'hover.css',
+      '~/plugins/vue-owl-carousel'
     ],
     extractCSS: true,
     /*

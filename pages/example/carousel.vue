@@ -1,24 +1,21 @@
 <template>
-  <v-layout d-flex row wrap justify-center>
-    <v-flex xs12 sm12 md6 height="200">
-      <v-carousel dark height="100%">
-        <v-carousel-item
-          v-for="(item,i) in imgStreaming"
-          :key="i"
-        >
-          <v-img :src="baseUrl + item"></v-img>
-        </v-carousel-item>
-      </v-carousel>
-    </v-flex>
-    <v-flex xs12 sm12 md6 style="overflow:scroll;">
-      <v-card-text style="padding:50px;">
-        <p v-html="body"></p>
-      </v-card-text>
-    </v-flex>
-  </v-layout>
+<div>
+<carousel>
+
+  <img src="https://placeimg.com/200/200/any?1">
+
+  <img src="https://placeimg.com/200/200/any?2">
+
+  <img src="https://placeimg.com/200/200/any?3">
+
+  <img src="https://placeimg.com/200/200/any?4">
+
+</carousel>
+</div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -31,7 +28,5 @@ export default {
 </script>
 
 <style scoped>
-.carousel {
-  height: 100px !important;
-}
+
 </style>
