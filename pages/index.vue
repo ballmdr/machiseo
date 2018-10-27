@@ -9,21 +9,27 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 
 export default {
 
   methods: {
-    ...mapMutations({
-      clearUserDone: 'users/clearUserDone'
-    }),
     async auth0() {
       const res = await this.$auth.loginWith('auth0')
       this.$toast.show('Loggin')
-    },
-    mounted() {
-      console.log(this.$auth)
     }
+  },
+  mounted() {
+    this.$axios.$get(process.env.restMongoUrl + '/users/sub/' + this.$auth.$state.user.sub).then(user => {
+      if (user.length > 0) {
+        // user exist
+        if (this.$auth.$state.user.name !== user[0].name || this.$auth.$state.user.picture !== user[0].picture) {
+          this.$axios.$put(process.env.restMongoUrl + '/users/update/' + user[0]._id, this.$auth.$state.user)
+        }
+      } else {
+        // not exist
+        this.$axios.$post(process.env.restMongoUrl + '/users/create', this.$auth.$state.user)
+      }
+    })
   }
 }
 </script>
