@@ -30,11 +30,19 @@
       </div>
     </v-flex>
     <v-flex xs12>
-      <v-layout row wrap justify-start>
+     <!-- <v-layout row wrap justify-start>
         <v-flex xs5 sm4 md3 lg2 v-for="celeb in serie.field_celeb" :key="celeb.id" class="text-xs-center hvr-grow">
           <celebs-cast :celeb="celeb"></celebs-cast>
         </v-flex>
-      </v-layout> 
+      </v-layout> -->
+      <div v-swiper:mySwiper="swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="celeb in serie.field_celeb" :key="celeb.id">
+            <celebs-cast :celeb="celeb"></celebs-cast>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
     </v-flex>
     <v-layout row wrap>
       <v-flex xs8>
@@ -67,7 +75,39 @@ export default {
   components: { RatingCard, EpisodesList, CelebsCast, Reviews, SerieTrailors },
   data () {
     return {
-      baseUrl: process.env.baseUrl
+      baseUrl: process.env.baseUrl,
+      swiperOption: {
+        slidesPerView: 5,
+        spaceBetween: 50,
+        // init: false,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        breakpoints: {
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 40
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 30
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20
+          },
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 10
+          }
+        }
+      }
+    }
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper
     }
   },
   head () {

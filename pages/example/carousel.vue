@@ -1,30 +1,58 @@
 <template>
-<div>
-<carousel>
-
-  <img src="https://placeimg.com/200/200/any?1">
-
-  <img src="https://placeimg.com/200/200/any?2">
-
-  <img src="https://placeimg.com/200/200/any?3">
-
-  <img src="https://placeimg.com/200/200/any?4">
-
-</carousel>
-</div>
+  <div >
+    <div v-swiper:mySwiper="swiperOption">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" v-for="(banner, index) in banners" :key="index">
+        <v-avatar size="250"><v-img :src="banner"></v-img></v-avatar>
+      </div>
+    </div>
+    <div class="swiper-pagination swiper-pagination-bullets"></div>
+  </div>
+  </div>
 </template>
 
 <script>
-
-export default {
-  data () {
-    return {
-      baseUrl: process.env.baseUrl,
-      body: '<p>   บงฮีเจอกับจีอุคในขบวนรถไฟฟ้า บงฮีเข้าใจผิดว่าจีอุคเป็นพวกบ้ากาม และต่อว่าจีอุคต่อหน้าคนมากมายบนรถไฟฟ้าทำให้จีอุคต้องอับอายเป็นอย่างมาก จีอุคยืนกรานปฏิเสธเพราะเขาไม่ได้เป็นคนจับก้นและบ้ากามตามที่บงฮีกล่าวหา<br />\n   บงฮีไปที่โรงแรมแห่งหนึ่งตามข้อความที่เธอได้รับ และที่นั่นเองเธอเห็นจางฮีจุน แฟนของเธอควงผู้หญิงอื่นต่อหน้าต่อตา จางฮีจุนพยายามขอโทษบงฮีแต่ก็ไม่ได้รู้สึกรู้สาหรือสำนึกผิดอะไรมากมาย บงฮีจึงพูดออกไปว่างั้นเธอจะก็จะทำแบบเขาบ้างนั่นก็คือ</p>\n\n<blockquote>เธอจะนอนกับผู้ชายที่เธอชนเป็นคนแรก และคนที่เธอชนนั้นก็คือจีอุค</blockquote>\n\n<p>จีอุคตกลงช่วยเธอบงฮี บงฮีจึงเนียนกอดคอจีอุคและพยายามบอกเลิกกับฮีจุน จีอุคยังคงปฎิเสธเรื่องที่บงฮีคิดว่าเขาเป็นพวกบ้ากามโรคจิตแต่บงฮีก็ยังไม่ยอมเชื่อ แต่จนแล้วจนรอดคืนนั้นบงฮีเอาแต่กระดกโซจูเข้าไปจนเมาไม่ได้สติ ตื่นเช้ามารู้สึกตัวอีกทีก็นอนอยู่บ้านจีอุคซะแล้ว พอได้สติจึงรีบเผ่นหนีออกมาจากบ้านจีอุคและได้แต่ด่าตัวเองแล้วยังจำเรื่องราวเมื่อคืนไม่ได้เลยด้วยซ้ำ<br />\n   บงฮีต้องไปฝึกงาน และโชคชะตาก็นำพาให้เธอต้องมาเจอกับจีอุคอีกครั้ง เพราะจีอุคก็คือพี่เลี้ยงที่ดูแลเด็กฝึกงานซึ่งก็คือบงฮีนั่นเอง จีอุคขึ้นชื่อในเรื่องความโหด แค่เริ่มต้นบงอีก็ต้องทำงานหามรุ่งหามค่ำ แต่บงฮ',
-      imgStreaming: ['/sites/default/files/2018-09/2018-09-01_105551.jpg', '/sites/default/files/2018-09/2018-09-01_105600.jpg', '/sites/default/files/2018-09/2018-09-01_105611.jpg']
+  export default {
+    data () {
+      return {
+        banners: [
+          'http://machiseo.com:8080/sites/default/files/2018-09/lee-joon-gi-540x683.jpg',
+          'http://machiseo.com:8080/sites/default/files/2018-09/lee-joon-gi-540x683.jpg',
+          'http://machiseo.com:8080/sites/default/files/2018-09/lee-joon-gi-540x683.jpg'
+        ],
+        swiperOption: {
+          loop: true,
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          spaceBetween: 30,
+          pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true
+          },
+          on: {
+            slideChange() {
+              console.log('onSlideChangeEnd', this);
+            },
+            tap() {
+              console.log('onTap', this);
+            }
+          }
+        }
+      }
+    },
+    mounted() {
+      console.log('app init', this)
+      setTimeout(() => {
+        this.banners.push('/5.jpg')
+        console.log('banners update')
+      }, 3000)
+      console.log(
+        'This is current swiper instance object', this.mySwiper, 
+        'I will slideTo banners 3')
+       this.mySwiper.slideTo(3)
     }
+  
   }
-}
 </script>
 
 <style scoped>

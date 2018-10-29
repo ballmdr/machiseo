@@ -12,7 +12,7 @@
       <v-card light>
         <v-img :aspect-ratio="16/9" :src="baseUrl + ep.field_thumbnail.url"></v-img>
       <v-card-text>
-        {{ ep.title }}
+        {{ ep.field_series_korea.name }} ตอนที่ {{ ep.title }}
       </v-card-text>
       </v-card>
     </v-flex>
@@ -85,6 +85,7 @@ export default {
     getEpisodesBySerie(this.uuid).then(episodes => {
       this.episodes = episodes
       this.loading = false
+      console.log(episodes)
     })
   }
 }
