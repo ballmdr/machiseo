@@ -28,28 +28,14 @@
           pagination: {
             el: '.swiper-pagination',
             dynamicBullets: true
-          },
-          on: {
-            slideChange() {
-              console.log('onSlideChangeEnd', this);
-            },
-            tap() {
-              console.log('onTap', this);
-            }
           }
         }
       }
     },
     mounted() {
-      console.log('app init', this)
-      setTimeout(() => {
-        this.banners.push('/5.jpg')
-        console.log('banners update')
-      }, 3000)
       console.log(
         'This is current swiper instance object', this.mySwiper, 
         'I will slideTo banners 3')
-       this.mySwiper.slideTo(3)
     }
   
   }
