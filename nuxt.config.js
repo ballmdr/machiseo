@@ -26,7 +26,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Kanit|Material+Icons' },
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.4.2/css/all.css' }
     ]
   },
@@ -37,7 +37,8 @@ module.exports = {
     { src: '~/plugins/vue-awesome-swiper' }
   ],
   css: [
-    { src: '~/assets/style/app.styl' }
+    { src: '~/assets/style/app.styl' },
+    { src: 'swiper/dist/css/swiper.css' }
   ],
   /*
   ** Customize the progress bar color

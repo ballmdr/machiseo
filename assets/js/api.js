@@ -94,3 +94,13 @@ export async function getEpisodesBySerie (uuid) {
   const { data } = await apiClient.get(prefix + '/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]=' + uuid + '&include=field_thumbnail,field_img_streaming,field_series_korea')
   return jsonapiParse.parse(data).data
 }
+
+export async function getLatestEpisodes (limit = 5) {
+  const { data } = await apiClient.get(prefix + '/episodes?page[limit]=' + limit + '&sort=-nid&include=field_thumbnail,field_series_episode,field_series_episode.field_poster')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesOnair () {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&include=field_poster')
+  return jsonapiParse.parse(data).data
+}

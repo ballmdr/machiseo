@@ -20,7 +20,19 @@ import Footer from '~/components/Footer'
 </script>
 
 <style>
+.application {
+  font-family: 'Kanit', sans-serif;
+  font-size: 100%;
+}
 .container {
   max-width: 1200px;
 }
+.v-card {
+  border-radius: 10px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+
 </style>

@@ -21,8 +21,7 @@
     <v-flex xs12 sm7 md8 d-flex>
       <v-layout row wrap>
         <v-flex class="hvr-float" xs6 sm6 md4 v-for="serie in celeb.field_series_actors" :key="serie.id" style="cursor:pointer">
-          <v-img @click="$router.push(serie.path.alias)" :src="baseUrl + serie.field_poster[0].url" class="card-media-img poster"></v-img>
-          <h2><nuxt-link :to="serie.path.alias">{{ serie.title }}</nuxt-link></h2>
+          <poster-card :serie="serie"></poster-card>
         </v-flex>
       </v-layout>
     </v-flex>
@@ -44,8 +43,10 @@
 
 <script>
 import { getCelebByPath } from '~/assets/js/api'
+import PosterCard from '~/components/series/PosterCard'
 
 export default {
+  components: { PosterCard },
   data () {
     return {
       baseUrl: process.env.baseUrl
@@ -64,13 +65,6 @@ export default {
 </script>
 
 <style scoped>
-h2 a {
-  text-decoration: none;
-  color: #FDFEFF;
-}
-.poster {
-  border-radius: 12px;
-}
 .card-media-img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
   width: 100%;

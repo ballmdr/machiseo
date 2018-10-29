@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs12 sm6 md8>
               <v-card-title>
-                <h1 class="display-2 font-weight-bold">{{ serie.title }}</h1>
+                <h1>{{ serie.title }}</h1>
               </v-card-title>
               <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
               |
@@ -30,18 +30,12 @@
       </div>
     </v-flex>
     <v-flex xs12>
-     <!-- <v-layout row wrap justify-start>
-        <v-flex xs5 sm4 md3 lg2 v-for="celeb in serie.field_celeb" :key="celeb.id" class="text-xs-center hvr-grow">
-          <celebs-cast :celeb="celeb"></celebs-cast>
-        </v-flex>
-      </v-layout> -->
       <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="celeb in serie.field_celeb" :key="celeb.id">
             <celebs-cast :celeb="celeb"></celebs-cast>
           </div>
         </div>
-        <div class="swiper-pagination"></div>
       </div>
     </v-flex>
     <v-layout row wrap>
@@ -105,11 +99,6 @@ export default {
       }
     }
   },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper
-    }
-  },
   head () {
     return {
       title: this.serie.title
@@ -117,6 +106,7 @@ export default {
   },
   mounted() {
     window.onscroll = () => { return false }
+    console.log('celeb swiper', this.celebSwiper)
   },
   async asyncData ({ params, env }) {
     const serie = await getSerieByPath(params.title, env)
