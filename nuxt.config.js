@@ -34,7 +34,7 @@ module.exports = {
     { src: '~/plugins/vuetify.js' }, 
     { src: '~/plugins/axios-port' },
     { src: '~/plugins/vue-masonry-css', ssr: false },
-    { src: '~/plugins/vue-owl-carousel', ssr: false }
+    { src: '~/plugins/vue-awesome-swiper' }
   ],
   css: [
     { src: '~/assets/style/app.styl' }
@@ -104,8 +104,7 @@ module.exports = {
     vendor: [
       '~/plugins/vuetify.js',
       'animate.css',
-      'hover.css',
-      '~/plugins/vue-owl-carousel'
+      'hover.css'
     ],
     extractCSS: true,
     /*
