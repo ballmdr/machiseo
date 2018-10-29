@@ -23,4 +23,7 @@ import Footer from '~/components/Footer'
 .container {
   max-width: 1200px;
 }
+.v-card {
+  border-radius: 10px;
+}
 </style>
