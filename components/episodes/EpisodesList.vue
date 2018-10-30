@@ -8,35 +8,31 @@
         indeterminate
       ></v-progress-circular>
     </v-flex>
-    <v-flex class="hvr-grow" xs6 sm4 md3 lg2 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer" @click="showEp(index)">
-      <v-card light>
-        <v-img :aspect-ratio="16/9" :src="baseUrl + ep.field_thumbnail.url"></v-img>
-      <v-card-text>
-        {{ ep.field_series_korea.name }} ตอนที่ {{ ep.title }}
-      </v-card-text>
+    <v-flex class="hvr-grow episode" xs6 sm4 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer" @click="showEp(index)">
+      <v-card dark>
+        <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
+        <div class="number">ตอนที่ {{ ep.title }}</div>
       </v-card>
     </v-flex>
-    <v-dialog v-model="epDialog" scrollable max-width="1100px">
+    <v-dialog fullscreen hide-overlay transition="dialog-bottom-transition" v-model="epDialog" scrollable max-width="1100px">
       <v-card light>
-        <v-toolbar class="purple white--text headline">{{ title }}
+        <v-toolbar class="purple white--text headline">{{ fieldName }} {{ title }}
           <v-spacer></v-spacer>
           <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
         </v-toolbar>
-        <v-layout row style="max-height:356px">
-          <v-flex xs6>
-            <v-responsive>
-              <v-carousel height="356" style="padding-bottom:48px">
+        <v-layout column>
+          <v-flex xs12>
+              <v-carousel style="max-height:400px;">
                 <v-carousel-item
                   v-for="(item,i) in imgStreaming"
                   :key="i"
                   :src="baseUrl + item.url"
                 ></v-carousel-item>
               </v-carousel>
-            </v-responsive>
           </v-flex>
-          <v-flex xs6 style="overflow:auto;">
+          <v-flex xs12 style="overflow:auto;">
             <v-card-text style="padding:50px;">
-              <p v-html="body"></p>
+              <p v-html="body" style="overflow:auto;"></p>
             </v-card-text>
           </v-flex>
         </v-layout>
@@ -65,7 +61,8 @@ export default {
       body: null,
       title: null,
       epIndex: null,
-      imgStreaming: []
+      imgStreaming: [],
+      fieldName: ''
     }
   },
   methods: {
@@ -76,6 +73,7 @@ export default {
       this.epDialog = false
       this.body = this.episodes[index].body.processed
       this.title = this.episodes[index].title
+      this.fieldName = this.episodes[index].field_series_korea.name
       this.epIndex = index
       this.imgStreaming = this.episodes[index].field_img_streaming
       this.epDialog = true
@@ -90,3 +88,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.episode .number {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  background: #e74c3c;
+  padding: 5px 10px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+}
+</style>
