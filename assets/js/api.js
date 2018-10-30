@@ -101,6 +101,6 @@ export async function getLatestEpisodes (limit = 5) {
 }
 
 export async function getSeriesOnair () {
-  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&include=field_poster')
+  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
   return jsonapiParse.parse(data).data
 }

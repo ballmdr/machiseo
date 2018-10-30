@@ -15,6 +15,10 @@
       <h1>ซีรีส์ออนแอร์</h1>
       <series-onair :series="onair"></series-onair>
     </v-flex>
+    <v-flex xs12>
+      <h1>ดาราออนแอร์</h1>
+      <celebs-onair :series="onair"></celebs-onair>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -22,16 +26,17 @@
 import { getLatestEpisodes, getSeriesOnair } from '~/assets/js/api'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
+import CelebsOnair from '~/components/home/CelebsOnair'
 
 export default {
-  components: { LatestEpisodes, SeriesOnair },
+  components: { LatestEpisodes, SeriesOnair, CelebsOnair },
   methods: {
     async auth0() {
       const res = await this.$auth.loginWith('auth0')
     }
   },
   mounted() {
-    console.log(this.episodes)
+    console.log(this.onair[0])
     if (this.$auth.loggedIn) {
       this.$axios.$get(process.env.restMongoUrl + '/users/sub/' + this.$auth.$state.user.sub).then(user => {
         if (user.length > 0) {

@@ -14,9 +14,8 @@
                 <h1>{{ serie.title }}</h1>
               </v-card-title>
               <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
-              |
-              <v-btn small nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
-              <v-btn small nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
+              <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
+              <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
@@ -30,6 +29,7 @@
       </div>
     </v-flex>
     <v-flex xs12>
+      <h2>ดารานักแสดง</h2>
       <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="celeb in serie.field_celeb" :key="celeb.id">
@@ -38,19 +38,29 @@
         </div>
       </div>
     </v-flex>
+    <v-flex xs12>
+      <v-card color="primary">
+        <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
+        <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
+      </v-card>
+    </v-flex>
     <v-layout row wrap>
-      <v-flex xs8>
+      <v-flex xs12 sm8>
         <v-flex xs12>
-          <v-card dark><v-card-text><div class="">{{ serie.field_synopsis }}</div></v-card-text></v-card>
+          <v-card dark>
+            <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
+            <v-card-text><div class="">{{ serie.field_synopsis }}</div></v-card-text></v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+          <h2>สปอยด์รายตอน</h2>
           <episodes-list  :uuid="serie.uuid"></episodes-list>
         </v-flex>
         <v-flex xs12>
+          <h2>รีวิวจากผู้ชม</h2>
           <reviews :reviewSerie="reviewSerie"></reviews>
         </v-flex>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs12 sm8>
         Sidebar
       </v-flex>
     </v-layout>
