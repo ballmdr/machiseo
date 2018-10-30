@@ -38,7 +38,7 @@
         </div>
       </div>
     </v-flex>
-    <v-flex xs12>
+    <v-flex xs12 v-if="serie.field_web_review !== null">
       <v-card color="primary">
         <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
         <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
