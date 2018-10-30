@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-card dark>
+  <div>
     <v-card-title v-if="review.user.length > 0">
       <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
       <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
@@ -36,7 +36,7 @@
       <span><v-btn icon @click="voteReview"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
       <span><v-btn icon @click="showReply"><v-icon small>comment</v-icon></v-btn>{{ review.replyCount }}</span>
     </v-card-actions>
-  </v-card>
+  </div>
   <v-flex xs8 offset-xs2 v-if="replyCardDialog">
     <v-layout column>
       <v-flex xs12>

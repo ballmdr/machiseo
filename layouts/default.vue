@@ -22,7 +22,7 @@ import Footer from '~/components/Footer'
 <style>
 .application {
   font-family: 'Kanit', sans-serif;
-  font-size: 100%;
+  font-size: 16px;
 }
 .container {
   max-width: 1200px;

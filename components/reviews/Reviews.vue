@@ -6,6 +6,7 @@
     </v-flex>
     <v-flex xs12 v-for="(review, index) in reviews" :key="review._id">
       <review-card class="animated" :class="{pulse:isNew(index)}" :review="review" @delReview="deleteReview(index)"></review-card>
+      <v-divider></v-divider>
     </v-flex>
   </v-layout>
 </template>
