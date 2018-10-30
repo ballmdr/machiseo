@@ -14,14 +14,14 @@
         <div class="number">ตอนที่ {{ ep.title }}</div>
       </v-card>
     </v-flex>
-    <v-dialog fullscreen hide-overlay transition="dialog-bottom-transition" v-model="epDialog" scrollable max-width="1100px">
+    <v-dialog transition="dialog-bottom-transition" v-model="epDialog" scrollable max-width="1100px">
       <v-card light>
         <v-toolbar class="purple white--text headline">{{ fieldName }} {{ title }}
           <v-spacer></v-spacer>
           <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
         </v-toolbar>
         <v-layout column>
-          <v-flex xs12>
+          <v-flex xs8>
               <v-carousel style="max-height:400px;">
                 <v-carousel-item
                   v-for="(item,i) in imgStreaming"
@@ -30,7 +30,7 @@
                 ></v-carousel-item>
               </v-carousel>
           </v-flex>
-          <v-flex xs12 style="overflow:auto;">
+          <v-flex xs8 style="overflow:auto;">
             <v-card-text style="padding:50px;">
               <p v-html="body" style="overflow:auto;"></p>
             </v-card-text>
