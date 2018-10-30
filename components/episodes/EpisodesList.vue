@@ -92,11 +92,12 @@ export default {
 <style scoped>
 .episode .number {
   position: absolute;
-  top: 0px;
-  left: 0;
-  background: #e74c3c;
+  bottom: -8px;
+  left: -4%;
+  background: #303030;
   padding: 5px 10px;
   color: #FFFFFF;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
 }

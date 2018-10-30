@@ -15,10 +15,3 @@ export default {
   }
 }
 </script>y
-
-<style scoped>
-h3 a {
-  text-decoration: none;
-  color: #FDFEFF;
-}
-</style>
