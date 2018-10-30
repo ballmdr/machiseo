@@ -19,6 +19,8 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
+                <h2 style="margin:auto">ดูซับไทยที่</h2>
+                <a :href="serie.field_viu" rel="nofollow" target="_blank"><v-img style="width:120px;cursor:pointer;" :src="baseUrl + '/sites/default/files/logo_viu_nav-crop.png'"></v-img></a>
               </v-card-text>
             </v-flex>
             <v-flex xs12 v-if="serie.field_trailor !== null">
@@ -38,14 +40,14 @@
         </div>
       </div>
     </v-flex>
-    <v-flex xs12 v-if="serie.field_web_review !== null">
-      <v-card color="primary">
-        <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
-        <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
-      </v-card>
-    </v-flex>
     <v-layout row wrap>
       <v-flex xs12 sm8>
+        <v-flex xs12 v-if="serie.field_web_review !== null">
+          <v-card color="primary">
+            <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
+            <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
+          </v-card>
+        </v-flex>
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
@@ -116,7 +118,7 @@ export default {
   },
   mounted() {
     window.onscroll = () => { return false }
-    console.log('celeb swiper', this.celebSwiper)
+    console.log('serie', this.serie)
   },
   async asyncData ({ params, env }) {
     const serie = await getSerieByPath(params.title, env)
@@ -132,6 +134,9 @@ export default {
 </script>
 
 <style scoped>
+.logo .viu {
+  width: 200px;
+}
 .u-clearfix:before,
 .u-clearfix:after {
   content: " ";
@@ -159,5 +164,7 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
   margin-top: -50px;
   width: 100%;
+  border-radius: 12px;
+  margin-left: 10px;
 }
 </style>
