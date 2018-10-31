@@ -19,8 +19,9 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
-                <div v-if="serie.field_viu !== null"><h2 style="margin:auto">ดูซับไทยที่</h2>
-                  <a :href="serie.field_viu" rel="nofollow" target="_blank"><v-img style="width:120px;cursor:pointer;" :src="baseUrl + '/sites/default/files/logo_viu_nav-crop.png'"></v-img></a>
+                <div v-if="serie.field_viu !== null">
+                  <h2 style="margin:auto">ดูซับไทยที่</h2>
+                  <a :href="serie.field_viu" rel="nofollow" target="_blank"><img style="width:120px;" :src="baseUrl + '/sites/default/files/logo_viu_nav-crop.png'" /></a>
                 </div>
               </v-card-text>
             </v-flex>
