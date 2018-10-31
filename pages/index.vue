@@ -19,6 +19,30 @@
       <h1>ดาราออนแอร์</h1>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
+    <v-dialog transition="dialog-bottom-transition" v-model="epDialog" scrollable max-width="700px">
+      <v-card light>
+        <v-toolbar class="purple white--text headline">สปอยด์ {{ fieldName }} ตอนที่ {{ title }}
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
+        </v-toolbar>
+        <v-layout column>
+          <v-flex xs8>
+              <v-carousel style="max-height:300px;">
+                <v-carousel-item
+                  style="background-color:black;"
+                  v-for="(item,i) in imgStreaming"
+                  :key="i"
+                ><v-img :src="baseUrl + item.url" style="max-width:500px;margin:auto;"></v-img></v-carousel-item>
+              </v-carousel>
+          </v-flex>
+          <v-flex xs8 style="overflow:auto;">
+            <v-card-text style="padding:50px;">
+              <p v-html="body"></p>
+            </v-card-text>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
@@ -30,6 +54,12 @@ import CelebsOnair from '~/components/home/CelebsOnair'
 
 export default {
   components: { LatestEpisodes, SeriesOnair, CelebsOnair },
+  data () {
+    return {
+      epDialog: false
+      
+    }
+  },
   methods: {
     async auth0() {
       const res = await this.$auth.loginWith('auth0')
