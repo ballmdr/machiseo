@@ -19,10 +19,7 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
-                <div v-if="serie.field_viu !== null">
-                  <h2 style="margin:auto">ดูซับไทยที่</h2>
-                  <a :href="serie.field_viu" rel="nofollow" target="_blank"><img style="width:120px;" :src="baseUrl + '/sites/default/files/logo_viu_nav-crop.png'" /></a>
-                </div>
+                <h2>ดูซับไทยที่ </h2><img style="width:120px;" :src="baseUrl + '/sites/default/files/logo_viu_nav-crop.png'" />
               </v-card-text>
             </v-flex>
             <v-flex xs12 v-if="serie.field_trailor !== null">
