@@ -1,13 +1,6 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <v-btn @click="auth0">AUTH0</v-btn>
-      <nuxt-link to="/auth/logout"><v-btn>Logout</v-btn></nuxt-link>
-      <v-divider></v-divider>
-      <v-flex xs12 v-if="$auth.loggedIn">LOG IN</v-flex>
-      <v-flex xs12 v-else>NOT LOG</v-flex>
-    </v-flex>
-    <v-flex xs12>
       <h1>สปอยด์ตอนล่าสุด</h1>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>

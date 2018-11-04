@@ -24,10 +24,22 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar light fixed app :clipped-left="clipped" color="white">
+    <v-toolbar light fixed app :clipped-left="clipped" color="warning">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+        <v-btn v-if="!$auth.loggedIn" flat color="primary" round @click="auth0">เข้าสู่ระบบ</v-btn>
+        <v-menu v-else offset-y :nudge-width="100" class="pa-0">
+          <v-toolbar-title slot="activator">
+            <v-avatar size="40" v-if="$auth.$state.user !== null"><v-img :src="$auth.$state.user.picture"></v-img></v-avatar>
+            &nbsp;<span v-text="$auth.$state.user.name"></span>
+          </v-toolbar-title>
+          <v-list>
+            <v-list-tile>
+              <v-btn flat @click="$auth.logout('auth0')">ออกจากระบบ</v-btn>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
     </v-toolbar>
 </span>
 </template>
@@ -52,6 +64,15 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'มาชิสซอ maChiseo.com'
+    } 
+  },
+  mounted() {
+    console.log('auth', this.$auth)
+    console.log('auth state', this.$auth.$state)
+  },
+  methods: {
+    async auth0() {
+      const res = await this.$auth.loginWith('auth0')
     }
   }
 }
