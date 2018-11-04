@@ -22,7 +22,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js + Vuetify.js project' },
+      { hid: 'description', name: 'description', content: 'ซีรีส์​เกาหลี ซีรีย์เกาหลี เรื่องย่อซีรีส์เกาหลี ดาราเกาหลี รีวิวซีรีส์เกาหลี พูดคุยซีรีส์เกาหลี เว็บบอร์ดซีรีส์เกาหลี' },
       { name: "google-site-verification", content: "rgWusjEPsoA8fiiuTVzNWFsAVOxl7_Om0OVztVuFnwc" }
     ],
     link: [
