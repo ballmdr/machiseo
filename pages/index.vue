@@ -12,6 +12,10 @@
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
     <v-flex xs12>
+      <h1>ซีรีส์ที่กำลังเป็นกระแส</h1>
+      <series-sticky :sticky="sticky"></series-sticky>
+    </v-flex>
+    <v-flex xs12>
       <h1>ซีรีส์ออนแอร์</h1>
       <series-onair :series="onair"></series-onair>
     </v-flex>
@@ -47,13 +51,14 @@
 </template>
 
 <script>
-import { getLatestEpisodes, getSeriesOnair } from '~/assets/js/api'
+import { getLatestEpisodes, getSeriesOnair, getSeriesSticky } from '~/assets/js/api'
+import SeriesSticky from '~/components/home/SeriesSticky'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
 import CelebsOnair from '~/components/home/CelebsOnair'
 
 export default {
-  components: { LatestEpisodes, SeriesOnair, CelebsOnair },
+  components: { SeriesSticky, LatestEpisodes, SeriesOnair, CelebsOnair },
   data () {
     return {
       epDialog: false
@@ -66,7 +71,8 @@ export default {
     }
   },
   mounted() {
-    console.log(this.onair[0])
+    console.log('onair', this.onair[0])
+    console.log('sticky', this.sticky)
     if (this.$auth.loggedIn) {
       this.$axios.$get(process.env.restMongoUrl + '/users/sub/' + this.$auth.$state.user.sub).then(user => {
         if (user.length > 0) {
@@ -84,7 +90,8 @@ export default {
   async asyncData () {
     const episodes = await getLatestEpisodes()
     const onair = await getSeriesOnair()
-    return { episodes, onair }
+    const sticky = await getSeriesSticky()
+    return { episodes, onair, sticky }
   }
 }
 </script>
