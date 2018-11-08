@@ -4,7 +4,9 @@ const environment = {
   API_URL: 'http://machiseo.com:8080',
   REST_MONGO: 'http://machiseo.com:9000',
   USER_DRUPAL: 'ballmdr',
-  PASS_DRUPAL: 'M3n17v11'
+  PASS_DRUPAL: 'M3n17v11',
+  DISCOURSE_URL: 'http://forums.machiseo.com',
+  DISCOURSE_API_KEY: '71696264866640b9a7f1d58c61bdd3046ae3e72ae9664000c2fc8ee94bde7baf'
 }
 
 module.exports = {
@@ -12,7 +14,9 @@ module.exports = {
     baseUrl: environment.API_URL,
     restMongoUrl: environment.REST_MONGO,
     userDrupal: environment.USER_DRUPAL,
-    passDrupal: environment.PASS_DRUPAL
+    passDrupal: environment.PASS_DRUPAL,
+    discourseUrl: environment.DISCOURSE_URL,
+    discourseAPI: environment.DISCOURSE_API_KEY
   },
   /*
   ** Headers of the page
@@ -89,6 +93,7 @@ module.exports = {
   },
   axios: {
     baseURL: environment.API_URL,
+    
     retry: { retries: 3 }
   },
   build: {
