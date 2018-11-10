@@ -63,6 +63,8 @@ Vue.use(Vuetify, {
   },
   theme: {
     primary: '#7952b3', // a color that is not in the material colors palette
+    secondary: colors.purple.darken2,
+    subprimary: '#BB86FC',
     accent: colors.grey.darken3,
     info: colors.teal.lighten1,
     warning: colors.amber.base,
