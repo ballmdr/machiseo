@@ -5,9 +5,9 @@
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
    <!-- <v-flex xs12>
-      <h1>ซีรีส์ที่กำลังเป็นกระแส</h1>
+      <h1>ซีรีส์กำลังฮิต</h1>
       <series-sticky :sticky="sticky"></series-sticky>
-    </v-flex> -->
+    </v-flex>-->
     <v-flex xs12>
       <h1>ซีรีส์ออนแอร์</h1>
       <series-onair :series="onair"></series-onair>

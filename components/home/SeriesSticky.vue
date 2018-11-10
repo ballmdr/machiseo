@@ -2,7 +2,7 @@
   <v-layout row wrap justify-center align-center>
     <v-flex d-flex xs10 sm10 md6 v-for="serie in sticky" :key="serie.id" >
       <v-card>
-        <v-toolbar color="primary"><h3>{{ serie.title }} | เรตติ้งตอนล่าสุด&nbsp;</h3>     
+        <v-toolbar dense color="primary"><h3>{{ serie.title }} | อันดับความแรง&nbsp;</h3>     
           <v-progress-circular
           :rotate="360"
           size="60"
@@ -23,15 +23,15 @@
             ></v-img>
           </v-flex>
           <v-flex xs4>
-            <h3>ดารานักแสดง</h3>
+            <h3>คู่พระนาง</h3>
             <v-flex xs12 v-for="(celeb, index) in serie.field_celeb" :key="celeb.id">
-              <div v-if="index < 4"><v-avatar size="50"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
+              <div v-if="index < 2"><v-avatar size="50"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
               {{ celebName(celeb.title) }}
               </div>
             </v-flex>
           </v-flex>
           <v-flex xs4>
-            <h3 style="margin-bottom:10px;">บทวิจารณ์</h3>
+            <h3 style="margin-bottom:10px;">รีวิว</h3>
             <p>"รอเรื่องนี้เรื่องเดียว"</p>
             <p>"ยังกวนเหมือนเดิม ฮามาก"</p>
             <p>"พระเอกหล่อทะลุจอมาก หล่อยังกับหลุดออกมาจากเว็บตูน คุณพระ"</p>
