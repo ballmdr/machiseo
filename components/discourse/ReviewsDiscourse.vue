@@ -36,20 +36,28 @@ export default {
   },
   methods: {
     reviewSave() {
+      const tmpHeaders = this.$axios.defaults.headers
+      console.log(this.$axios.defaults.headers)
+      this.$axios.defaults.headers = {
+        "Accept": "application/json"
+      }
       this.$axios.$get(process.env.discourseUrl + '/u/by-external/' + this.$auth.$state.user.sub + '.json')
         .then(res => {
-          console.log('res external id', res)
           this.$axios.$post(process.env.discourseUrl + '/posts?api_key=' + process.env.discourseAPI + '&api_username=' + res.user.username, 
           {
             topic_id: this.reviews[0].topic_id,
             raw: this.review_text
           }).then(res => {
             console.log('respost', res)
+            this.$axios.defaults.headers = tmpHeaders
+            //console.log(this.$axios.defaults.headers)
           }).catch(err => {
             console.log('err post', err.response.data)
+            this.$axios.defaults.headers = tmpHeaders
           })
         }).catch(err => {
           console.log('err exter', err.response.data)
+          this.$axios.defaults.headers = tmpHeaders
         })
     }
   }

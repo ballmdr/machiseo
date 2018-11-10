@@ -120,17 +120,17 @@ export default {
   },
   mounted() {
     window.onscroll = () => { return false }
-    console.log('serie', this.serie)
-    this.$axios.defaults.headers = {
-        'Content-Type': 'application/json'
-    }
     if (this.serie.field_topic !== null) {
+      const tmpHeaders = this.$axios.defaults.headers
+      this.$axios.defaults.headers = {
+        "Accept": "application/json"
+      }
       this.$axios.$get(process.env.discourseUrl + '/t/' + this.serie.field_topic + '/posts.json')
         .then(res => {
           this.discourseReviews = res.post_stream.posts
           this.discourseReviews.splice(0,1)
-          console.log('discourse', this.discourseReviews)
           this.discourseTopicUrl = process.env.discourseUrl + '/t/' + this.discourseReviews[0].topic_slug + '/' + this.discourseReviews[0].topic_id
+          this.$axios.defaults.headers = tmpHeaders
         })
         .catch(err => {
           console.log('err', err.response.data)

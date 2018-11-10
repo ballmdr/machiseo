@@ -73,7 +73,7 @@ module.exports = {
     strategies: {
       auth0: {
         domain: 'machiseo2.auth0.com',
-        client_id: 'cLdQXewi42VscIIxqFm8aQFYR625Hukf'
+        client_id: 'w3hUEZ1Mz7p4IvmNMUeNZt33jYG0bVP7'
       },
       facebook: {
         client_id: '342175946522151',

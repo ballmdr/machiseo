@@ -15,6 +15,12 @@ export default {
     }
   },
   mounted() {
+    const tmp = [
+      sub => 'testsub',
+      email => 'ball.mdr@gmail.com',
+      name => 'ballmdr'
+    ]
+    console.log('encode', window.atob(window.btoa(tmp)))
     this.$axios.$get('http://forums.machiseo.com/t/23.json')
       .then(res => {
         console.log('res', res)
