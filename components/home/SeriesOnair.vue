@@ -5,7 +5,6 @@
         <poster-card :serie="serie"></poster-card>
       </div>
     </div>
-
   </div>
 </template>
 

@@ -3,6 +3,11 @@ import jsonapiParse from 'jsonapi-parse'
 const prefix = '/jsonapi'
 const findRouterPath = "/router/translate-path?path="
 
+export async function searchSeries (query) {
+  const { data } = await apiClient.get(prefix + '/series?filter[status][value]=1&filter[title][operator]=CONTAINS&filter[title][value]=' + query + '&include=field_poster')
+  return jsonapiParse.parse(data).data
+}
+
 export async function getSeriesSticky () {
   const { data } = await apiClient.get(prefix + '/series?filter[sticky][condition][path]=sticky&filter[sticky][condition][operator]=%3D&filter[sticky][condition][value]=1&page[limit]=5&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
   return jsonapiParse.parse(data).data
@@ -106,6 +111,6 @@ export async function getLatestEpisodes (limit = 5) {
 }
 
 export async function getSeriesOnair () {
-  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&sort=-nid&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
   return jsonapiParse.parse(data).data
 }
