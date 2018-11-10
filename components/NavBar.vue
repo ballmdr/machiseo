@@ -86,7 +86,7 @@
           </v-toolbar-title>
           <v-list>
             <v-list-tile>
-              <v-btn flat @click="$auth.logout('auth0')">ออกจากระบบ</v-btn>
+              <v-btn flat @click="logout">ออกจากระบบ</v-btn>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -154,6 +154,9 @@ export default {
     console.log('auth state', this.$auth.$state)
   },
   methods: {
+    async logout() {
+      const res = await this.$auth.logout('auth0')
+    },
     async auth0() {
       const res = await this.$auth.loginWith('auth0')
     }

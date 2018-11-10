@@ -50,7 +50,7 @@
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
-            <v-card-text><div class="">{{ serie.field_synopsis }}</div></v-card-text>
+            <v-card-text v-text="serie.field_synopsis"></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
@@ -58,8 +58,8 @@
           <episodes-list  :uuid="serie.uuid"></episodes-list>
         </v-flex>
         <v-flex xs12>
-          <h2>รีวิวจากผู้ชม</h2>
-          <reviews :reviewSerie="reviewSerie"></reviews>
+          <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-float" target="_blank" :href="discourseTopicUrl">ดูทั้งหมด <v-icon>fas fa-external-link-alt</v-icon></a></span></h2>
+          <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex>
       </v-flex>
       <v-flex xs12 sm8>
@@ -74,13 +74,15 @@ import RatingCard from '~/components/series/RatingCard'
 import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
-import Reviews from '~/components/reviews/Reviews'
+import ReviewsDiscourse from '~/components/discourse/ReviewsDiscourse'
 import SerieTrailors from '~/components/series/SerieTrailors'
 
 export default {
-  components: { RatingCard, EpisodesList, CelebsCast, Reviews, SerieTrailors },
+  components: { RatingCard, EpisodesList, CelebsCast, ReviewsDiscourse, SerieTrailors },
   data () {
     return {
+      discourseReviews: [],
+      discourseTopicUrl: null,
       baseUrl: process.env.baseUrl,
       swiperOption: {
         slidesPerView: 5,
@@ -118,25 +120,31 @@ export default {
   },
   mounted() {
     window.onscroll = () => { return false }
-    console.log('serie', this.serie)
+    if (this.serie.field_topic !== null) {
+      const tmpHeaders = this.$axios.defaults.headers
+      this.$axios.defaults.headers = {
+        "Accept": "application/json"
+      }
+      this.$axios.$get(process.env.discourseUrl + '/t/' + this.serie.field_topic + '/posts.json')
+        .then(res => {
+          this.discourseReviews = res.post_stream.posts
+          this.discourseReviews.splice(0,1)
+          this.discourseTopicUrl = process.env.discourseUrl + '/t/' + this.discourseReviews[0].topic_slug + '/' + this.discourseReviews[0].topic_id
+          this.$axios.defaults.headers = tmpHeaders
+        })
+        .catch(err => {
+          console.log('err', err.response.data)
+        })
+    }
   },
   async asyncData ({ params, env }) {
     const serie = await getSerieByPath(params.title, env)
-    const reviewSerie = {
-      uuid: serie.uuid,
-      nid: serie.nid,
-      poster: serie.field_poster[0].url,
-      path: serie.path.alias
-    }
-    return { serie, reviewSerie }
+    return { serie }
   }
 }
 </script>
 
 <style scoped>
-.logo .viu {
-  width: 200px;
-}
 .u-clearfix:before,
 .u-clearfix:after {
   content: " ";
