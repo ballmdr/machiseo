@@ -18,6 +18,11 @@ export async function getSerieById (id) {
   return jsonapiParse.parse(data).data
 }
 
+export async function getSerieCelebByUuid (uuid) {
+  const { data } = await apiClient.get(prefix + '/series/' + uuid + '?include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  return jsonapiParse.parse(data).data
+}
+
 export async function getCelebById (id) {
   const { data } = await apiClient.get(prefix + '/celebs?filter[nid]=' + id + '&include=field_celeb_profile,field_series_actors,field_series_actors.field_poster')
   return jsonapiParse.parse(data).data
