@@ -36,6 +36,26 @@ app.get('/testapi', (req, res) => {
   res.status(200).send("It's OK")
 })
 
+app.get('/series_hit', (req, res) => {
+  db.collection('series_hit').find().sort({ rank: 1 }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.get('/series_hit/clear', (req, res) => {
+  db.collection('series_hit').deleteMany({}, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+app.post('/series_hit/save', (req, res) => {
+  db.collection('series_hit').insertMany(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.get('/users/sub/:sub', (req, res) => {
   db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
     if (err) throw err

@@ -26,7 +26,8 @@ import {
   VMenu,
   VTabs,
   VAlert,
-  VAutocomplete
+  VAutocomplete,
+  VTooltip
 } from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
 import transitions from 'vuetify/es5/components/transitions'
@@ -59,7 +60,8 @@ Vue.use(Vuetify, {
     transitions,
     VTabs,
     VAlert,
-    VAutocomplete
+    VAutocomplete,
+    VTooltip
   },
   theme: {
     primary: '#7952b3', // a color that is not in the material colors palette
@@ -75,4 +77,8 @@ Vue.use(Vuetify, {
     subTitle: colors.grey.darken2,
     bodyBg: '#ff5638'
   }
+})
+
+Vue.filter('truncate', function (text, stop, clamp) {
+  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
 })
