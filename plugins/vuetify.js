@@ -27,7 +27,8 @@ import {
   VTabs,
   VAlert,
   VAutocomplete,
-  VTooltip
+  VTooltip,
+  VBadge
 } from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
 import transitions from 'vuetify/es5/components/transitions'
@@ -61,7 +62,8 @@ Vue.use(Vuetify, {
     VTabs,
     VAlert,
     VAutocomplete,
-    VTooltip
+    VTooltip,
+    VBadge
   },
   theme: {
     primary: '#7952b3', // a color that is not in the material colors palette

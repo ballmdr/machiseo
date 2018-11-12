@@ -1,16 +1,51 @@
 <template>
-  <div class="text-xs-center" style="cursor:pointer" @click="$router.push(celeb.path.alias)">
-    <v-avatar size="150"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
-    <h3><nuxt-link :to="celeb.path.alias">{{ celeb.title }}</nuxt-link></h3>
+  <div v-swiper:mySwiper="swiperOption">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" v-for="celeb in celebs" :key="celeb.id">
+        <celeb-card :celeb="celeb"></celeb-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import CelebCard from '~/components/celebs/CelebCard'
+
 export default {
-  props: ['celeb'],
+  props: ['celebs'],
+  components: { CelebCard },
+  mounted() {
+    console.log(this.celebs)
+  },
   data () {
     return {
-      baseUrl: process.env.baseUrl
+      swiperOption: {
+        slidesPerView: 5,
+        spaceBetween: 50,
+        // init: false,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        breakpoints: {
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 40
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 30
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20
+          },
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 10
+          }
+        }
+      }
     }
   }
 }
