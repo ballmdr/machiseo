@@ -49,7 +49,7 @@ export default {
         this.series[i].uuid = res.id
         this.series[i].nid = res.nid
         this.series[i].poster = res.field_poster[0].url
-        //this.series[i].topic_id = res.field_topic
+        this.series[i].topic_id = res.field_topic
         this.series[i].celebs = [
           {
             uuid: res.field_celeb[0].uuid,
