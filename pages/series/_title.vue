@@ -58,7 +58,7 @@
           <episodes-list  :uuid="serie.uuid"></episodes-list>
         </v-flex>
         <v-flex xs12>
-          <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-float" target="_blank" :href="discourseTopicUrl">ดูทั้งหมด <v-icon>fas fa-external-link-alt</v-icon></a></span></h2>
+          <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex>
       </v-flex>
