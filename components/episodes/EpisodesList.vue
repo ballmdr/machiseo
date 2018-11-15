@@ -8,62 +8,27 @@
         indeterminate
       ></v-progress-circular>
     </v-flex>
-    <v-flex class="hvr-grow episode" xs6 sm4 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer" @click="showEp(index)">
-      <v-card dark>
-        <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
-        <div class="number">ตอนที่ {{ ep.title }}</div>
-      </v-card>
+    <v-flex class="hvr-grow" xs6 sm4 v-for="(ep, index) in $store.state.episodes.ep" :key="ep.id" style="cursor:pointer" @click="showEp(index)">
+      <episode-card :ep="ep"></episode-card>
     </v-flex>
-    <v-dialog transition="dialog-bottom-transition" v-model="epDialog" scrollable max-width="700px">
-      <v-card light>
-        <v-toolbar class="purple white--text headline">สปอยด์ {{ fieldName }} ตอนที่ {{ title }}
-          <v-spacer></v-spacer>
-          <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
-        </v-toolbar>
-        <v-layout column>
-          <v-flex xs8>
-              <v-carousel style="max-height:300px;">
-                <v-carousel-item
-                  style="background-color:black;"
-                  v-for="(item,i) in imgStreaming"
-                  :key="i"
-                  
-                ><v-img :src="baseUrl + item.url" style="max-width:500px;margin:auto;"></v-img></v-carousel-item>
-              </v-carousel>
-          </v-flex>
-          <v-flex xs8 style="overflow:auto;">
-            <v-card-text style="padding:50px;">
-              <p v-html="body"></p>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-        <v-card-actions class="purple white--text">
-          <v-spacer></v-spacer>
-          <v-btn round @click.native="showEp(epIndex - 1)"><v-icon>skip_previous</v-icon>ตอนที่แล้ว</v-btn>
-          <v-btn round @click.native="epDialog = false">Close</v-btn>
-          <v-btn round @click.native="showEp(epIndex + 1)">ตอนต่อไป<v-icon>skip_next</v-icon></v-btn>
-        </v-card-actions>
-      </v-card>
+    <v-dialog transition="dialog-bottom-transition" v-model="showDialog" scrollable max-width="900px">
+      <episode-show @closeDialog="showDialog = false" :showDialog="showDialog" :currentEp="currentEp"></episode-show>
     </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import { getEpisodesBySerie } from '~/assets/js/api'
+import EpisodeCard from '~/components/episodes/EpisodeCard'
+import EpisodeShow from '~/components/episodes/EpisodeShow'
 
 export default {
-  props: ['uuid'],
-  data () {
+  components: { EpisodeCard, EpisodeShow },
+  data () {  
     return {
+      showDialog: false,
       loading: true,
-      episodes: [],
-      baseUrl: process.env.baseUrl,
-      epDialog: false,
-      body: null,
-      title: null,
-      epIndex: null,
-      imgStreaming: [],
-      fieldName: ''
+      currentEp: 0
     }
   },
   methods: {
@@ -71,35 +36,15 @@ export default {
       this.epDialog = false
     },
     showEp (index) {
-      this.epDialog = false
-      this.body = this.episodes[index].body.processed
-      this.title = this.episodes[index].title
-      this.fieldName = this.episodes[index].field_series_korea.name
-      this.epIndex = index
-      this.imgStreaming = this.episodes[index].field_img_streaming
-      this.epDialog = true
+      this.showDialog = true
+      this.currentEp = index
     }
   },
   mounted() {
-    getEpisodesBySerie(this.uuid).then(episodes => {
-      this.episodes = episodes
+    if (this.$store.state.episodes.ep.length > 0) {
       this.loading = false
-      console.log(episodes)
-    })
+    }
   }
 }
 </script>
 
-<style scoped>
-.episode .number {
-  position: absolute;
-  bottom: -8px;
-  left: -4%;
-  background: #303030;
-  padding: 5px 10px;
-  color: #FFFFFF;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-}
-</style>

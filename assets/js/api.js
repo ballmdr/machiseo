@@ -18,6 +18,11 @@ export async function getSerieById (id) {
   return jsonapiParse.parse(data).data
 }
 
+export async function getSerieByUuid (uuid) {
+  const { data } = await apiClient.get(prefix + '/series/' + uuid)
+  return jsonapiParse.parse(data).data
+}
+
 export async function getCelebById (id) {
   const { data } = await apiClient.get(prefix + '/celebs?filter[nid]=' + id + '&include=field_celeb_profile,field_series_actors,field_series_actors.field_poster')
   return jsonapiParse.parse(data).data
@@ -42,6 +47,48 @@ export async function getSerieByPath (path, env) {
     }
   ], { auth: { username: env.userDrupal, password: env.passDrupal }})
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
+}
+
+export async function getSmallSerieByPath (path) {
+  const uri = findRouterPath + "/series/" + path
+  const { data } = await apiClient.post('/subrequests?_format=json', 
+  [
+    {
+      "requestId": "router",
+      "action": "view",
+      "uri": uri,
+      "headers": {"Accept": "application/vnd.application+json"}
+    },
+    {
+      "requestId": "node",
+      "action": "view",
+      "uri": "/jsonapi/series/{{router.body@$.entity.uuid}}?sort=-nid",
+      "Accept": "application/json",
+      "waitFor": ["router"]
+    }
+  ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
+  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data 
+}
+
+export async function getAllEpisodesBySeriesPath (path) {
+  const uri = findRouterPath + "/series/" + path
+  const { data } = await apiClient.post('/subrequests?_format=json', 
+  [
+    {
+      "requestId": "router",
+      "action": "view",
+      "uri": uri,
+      "headers": {"Accept": "application/vnd.application+json"}
+    },
+    {
+      "requestId": "node",
+      "action": "view",
+      "uri": "/jsonapi/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]={{router.body@$.entity.uuid}}&sort=-nid&include=field_thumbnail,field_img_streaming",
+      "Accept": "application/json",
+      "waitFor": ["router"]
+    }
+  ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
+  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data  
 }
 
 export async function getCelebByPath (path, env) {
@@ -112,5 +159,10 @@ export async function getLatestEpisodes (limit = 5) {
 
 export async function getSeriesOnair () {
   const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getAllEpisodes (offset = 0, limit = 10) {
+  const { data } = await apiClient.get(prefix + '/episodes?page[offset]=' + offset + '&page[limit]=' + limit + '&sort=-nid&include=field_thumbnail,field_series_episode,field_series_episode.field_poster')
   return jsonapiParse.parse(data).data
 }

@@ -55,7 +55,7 @@
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
           <h2>สปอยด์รายตอน</h2>
-          <episodes-list  :uuid="serie.uuid"></episodes-list>
+          <episodes-list></episodes-list>
         </v-flex>
         <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-float" target="_blank" :href="discourseTopicUrl">ดูทั้งหมด <v-icon>fas fa-external-link-alt</v-icon></a></span></h2>
@@ -137,9 +137,13 @@ export default {
         })
     }
   },
-  async asyncData ({ params, env }) {
+  async asyncData ({ params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
+    await store.dispatch('series/setSerie', params.title)
     return { serie }
+  },
+  async fetch ({ params, store }) {
+    await store.dispatch('episodes/setEp', params.title)
   }
 }
 </script>

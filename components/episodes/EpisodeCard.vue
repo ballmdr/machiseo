@@ -1,37 +1,30 @@
 <template>
-  <v-card dark>
+  <v-card dark class="episode">
     <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
-    <v-card-title class="poster-above">
-      <v-img class="poster" :src="baseUrl + ep.field_series_episode.field_poster[0].url"></v-img>
-      <div class="heading"><h3>{{ ep.field_series_episode.title }}</h3> ตอนที่ <span class="subheading">{{ ep.title }}</span></div>
-    </v-card-title>
+    <div class="number">ตอนที่ {{ ep.title }}</div>
   </v-card>
 </template>
 
 <script>
 export default {
   props: ['ep'],
-  data () {
+  data() {
     return {
       baseUrl: process.env.baseUrl
     }
   }
 }
 </script>
-
 <style scoped>
-.poster-above {
-  z-index: 1;
-  margin-top: -70px;
- 
-}
-.poster-above .poster {
+.episode .number {
+  position: absolute;
+  bottom: -8px;
+  left: -4%;
+  background: #303030;
+  padding: 5px 10px;
+  color: #FFFFFF;
   border-radius: 10px;
-  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
-  max-width: 80px;
-}
-.poster-above .heading {
-  margin-top: 50px;
-  margin-left: 1em;
+  font-size: 14px;
+  font-weight: 600;
 }
 </style>

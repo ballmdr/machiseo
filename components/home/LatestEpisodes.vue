@@ -2,18 +2,18 @@
   <div v-swiper:latestEpSwiper="swiperOption">
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="ep in episodes" :key="ep.id">
-        <episode-card :ep="ep"></episode-card>
+        <episode-card-poster :ep="ep"></episode-card-poster>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EpisodeCard from '~/components/episodes/EpisodeCard'
+import EpisodeCardPoster from '~/components/episodes/EpisodeCardPoster'
 
 export default {
   props: ['episodes'],
-  components: { EpisodeCard },
+  components: { EpisodeCardPoster },
   data () {
     return {
       swiperOption: {
