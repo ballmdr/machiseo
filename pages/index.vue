@@ -4,10 +4,10 @@
       <h1>สปอยด์ตอนล่าสุด</h1>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
-   <!-- <v-flex xs12>
-      <h1>ซีรีส์ที่กำลังเป็นกระแส</h1>
-      <series-sticky :sticky="sticky"></series-sticky>
-    </v-flex> -->
+    <v-flex xs12>
+      <h1>ซีรีส์กำลังฮิต</h1>
+      <series-hit :seriesHit="seriesHit"></series-hit>
+    </v-flex>
     <v-flex xs12>
       <h1>ซีรีส์ออนแอร์</h1>
       <series-onair :series="onair"></series-onair>
@@ -16,42 +16,18 @@
       <h1>ดาราออนแอร์</h1>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
-    <v-dialog transition="dialog-bottom-transition" v-model="epDialog" scrollable max-width="700px">
-      <v-card light>
-        <v-toolbar class="purple white--text headline">สปอยด์ {{ fieldName }} ตอนที่ {{ title }}
-          <v-spacer></v-spacer>
-          <v-btn icon dark @click="closeEpDialog()"><v-icon>close</v-icon></v-btn>
-        </v-toolbar>
-        <v-layout column>
-          <v-flex xs8>
-              <v-carousel style="max-height:300px;">
-                <v-carousel-item
-                  style="background-color:black;"
-                  v-for="(item,i) in imgStreaming"
-                  :key="i"
-                ><v-img :src="baseUrl + item.url" style="max-width:500px;margin:auto;"></v-img></v-carousel-item>
-              </v-carousel>
-          </v-flex>
-          <v-flex xs8 style="overflow:auto;">
-            <v-card-text style="padding:50px;">
-              <p v-html="body"></p>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import { getLatestEpisodes, getSeriesOnair, getSeriesSticky } from '~/assets/js/api'
-import SeriesSticky from '~/components/home/SeriesSticky'
+import SeriesHit from '~/components/home/SeriesHit'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
 import CelebsOnair from '~/components/home/CelebsOnair'
 
 export default {
-  components: { SeriesSticky, LatestEpisodes, SeriesOnair, CelebsOnair },
+  components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair },
   data () {
     return {
       epDialog: false
@@ -64,8 +40,6 @@ export default {
     }
   },
   mounted() {
-    console.log('onair', this.onair[0])
-    console.log('sticky', this.sticky)
     if (this.$auth.loggedIn) {
       this.$axios.$get(process.env.restMongoUrl + '/users/sub/' + this.$auth.$state.user.sub).then(user => {
         if (user.length > 0) {
@@ -80,11 +54,13 @@ export default {
       })
     }
   },
-  async asyncData () {
+  async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes()
     const onair = await getSeriesOnair()
-    const sticky = await getSeriesSticky()
-    return { episodes, onair, sticky }
+    console.log('url', env.restMongoUrl + '/series_hit')
+    const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
+    console.log('home', seriesHit)
+    return { episodes, onair, seriesHit }
   }
 }
 </script>

@@ -23,6 +23,11 @@ export async function getSerieByUuid (uuid) {
   return jsonapiParse.parse(data).data
 }
 
+export async function getSerieCelebByUuid (uuid) {
+  const { data } = await apiClient.get(prefix + '/series/' + uuid + '?include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  return jsonapiParse.parse(data).data
+}
+
 export async function getCelebById (id) {
   const { data } = await apiClient.get(prefix + '/celebs?filter[nid]=' + id + '&include=field_celeb_profile,field_series_actors,field_series_actors.field_poster')
   return jsonapiParse.parse(data).data
@@ -158,7 +163,7 @@ export async function getLatestEpisodes (limit = 5) {
 }
 
 export async function getSeriesOnair () {
-  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&sort=-nid&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
   return jsonapiParse.parse(data).data
 }
 

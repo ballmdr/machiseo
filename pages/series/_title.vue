@@ -31,13 +31,7 @@
     </v-flex>
     <v-flex xs12>
       <h2>ดารานักแสดง</h2>
-      <div v-swiper:mySwiper="swiperOption">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="celeb in serie.field_celeb" :key="celeb.id">
-            <celebs-cast :celeb="celeb"></celebs-cast>
-          </div>
-        </div>
-      </div>
+      <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
     </v-flex>
     <v-layout row wrap>
       <v-flex xs12 sm8>
@@ -58,7 +52,7 @@
           <episodes-list></episodes-list>
         </v-flex>
         <v-flex xs12>
-          <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-float" target="_blank" :href="discourseTopicUrl">ดูทั้งหมด <v-icon>fas fa-external-link-alt</v-icon></a></span></h2>
+          <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex>
       </v-flex>
@@ -83,34 +77,7 @@ export default {
     return {
       discourseReviews: [],
       discourseTopicUrl: null,
-      baseUrl: process.env.baseUrl,
-      swiperOption: {
-        slidesPerView: 5,
-        spaceBetween: 50,
-        // init: false,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        breakpoints: {
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 40
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 30
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20
-          },
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10
-          }
-        }
-      }
+      baseUrl: process.env.baseUrl
     }
   },
   head () {

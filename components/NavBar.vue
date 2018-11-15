@@ -24,7 +24,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar dark fixed app :clipped-left="clipped" color="red lighten-1">
+    <v-toolbar dense dark fixed app :clipped-left="clipped" color="secondary">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
