@@ -16,7 +16,7 @@
           exact
         >
           <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
@@ -70,7 +70,7 @@
           <v-img max-width="30" style="margin:5px;border-radius:2px;" :src="baseUrl + item.field_poster[0].url"></v-img>
           <v-list-tile-content @click="$router.push(item.path.alias)">
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
-            <v-list-tile-sub-title>แนวซีรีส์​</v-list-tile-sub-title>
+            <!--<v-list-tile-sub-title>แนวซีรีส์​</v-list-tile-sub-title>-->
           </v-list-tile-content>
           <v-list-tile-action>
             <v-icon>mdi-coin</v-icon>
@@ -104,8 +104,9 @@ export default {
       drawer: false,
       fixed: false,
       menuItems: [
-        { icon: 'apps', title: 'มาชิสซอ', to: '/' },
-        { icon: 'bubble_chart', title: 'ซีรีส์เกาหลี', to: '/series' },
+        { icon: 'fas fa-home', title: 'มาชิสซอ', to: '/' },
+        { icon: 'fas fa-film', title: 'ซีรีส์เกาหลี', to: '/series' },
+        { icon: 'fas fa-book-reader', title: 'สปอยด์รายตอน', to: '/episodes'},
         { icon: 'search', title: 'Secretary Kim', to: '/series/what%E2%80%99s-wrong-secretary-kim'},
         { icon: 'search', title: 'While Sleeping', to: '/series/while-you-were-sleeping'},
         { icon: 'search', title: 'Suspicious Partner', to: '/series/suspicious-partner' },
