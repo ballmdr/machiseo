@@ -171,3 +171,8 @@ export async function getAllEpisodes (offset = 0, limit = 10) {
   const { data } = await apiClient.get(prefix + '/episodes?page[offset]=' + offset + '&page[limit]=' + limit + '&sort=-nid&include=field_thumbnail,field_series_episode,field_series_episode.field_poster')
   return jsonapiParse.parse(data).data
 }
+
+export async function getImgStreamingByUuid (uuid) {
+  const { data } = await apiClient.get(prefix + '/episodes/' + uuid + '?include=field_img_streaming')
+  return jsonapiParse.parse(data).data
+}

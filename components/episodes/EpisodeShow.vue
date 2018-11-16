@@ -2,7 +2,7 @@
   <v-card light>
     <v-toolbar flat class="primary white--text font-weight-bold title">สปอยด์ {{ $store.state.series.serie.title }} ตอนที่ {{ $store.state.episodes.ep[currentEp].title }}
       <v-spacer></v-spacer>
-      <v-btn icon dark @click="closeDialog"><v-icon>far fa-times-circle</v-icon></v-btn>
+      <v-btn icon dark @click="$emit('closeDialog')"><v-icon>far fa-times-circle</v-icon></v-btn>
     </v-toolbar>
     <v-layout column>
       <v-flex xs8>
@@ -46,11 +46,6 @@ export default {
     currentEp () {
       let container = this.$el.querySelector("#ep-show-container")
       container.scrollTop = 0
-    }
-  },
-  methods: {
-    closeDialog(){
-      this.$emit('closeDialog')
     }
   }
 }

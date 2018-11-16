@@ -1,5 +1,5 @@
 <template>
-  <v-card dark flat style="cursor:pointer" @click="$router.push('/episodes')">
+  <v-card dark flat style="cursor:pointer">
     <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
     <v-card-title class="poster-above">
       <v-img class="poster" :src="baseUrl + ep.field_series_episode.field_poster[0].url"></v-img>
@@ -9,11 +9,13 @@
 </template>
 
 <script>
+
 export default {
   props: ['ep'],
   data () {
     return {
-      baseUrl: process.env.baseUrl
+      baseUrl: process.env.baseUrl,
+      epDialog: false
     }
   }
 }
