@@ -15,15 +15,16 @@
 export default {
   data () {
     return {
-      root: true
+
     }
   },
-  mounted() {
-    console.log('route', this.$route.params)
-    if (typeof (this.$route.params.ep) !== 'undefined') {
-      this.root = false
-    } else { 
-      this.root = true
+  computed: {
+    root() {
+      if (Object.keys(this.$route.params).length === 0) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
