@@ -55,7 +55,7 @@ export default {
 .v-carousel .numpic {
   position: absolute;
   top: 20px;
-  left: 617px;
+  left: 671px;
   z-index: 5;
 }
 </style>

@@ -6,7 +6,7 @@
       </div>
     </div>
     <v-dialog v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
-      <episode-show-one :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
+      <episode-show-one :currentEp="currentEp" :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
     </v-dialog>
   </div>
 </template>
@@ -23,6 +23,7 @@ export default {
     async showEp(index) {
       this.epDialog = true
       this.ep = this.episodes[index]
+      this.currentEp = index
       const res = await getImgStreamingByUuid(this.ep.uuid)
       this.imgStreaming = res.field_img_streaming
     }
@@ -32,6 +33,7 @@ export default {
       epDialog: false,
       ep: this.episodes[0],
       imgStreaming: null,
+      currentEp: 0,
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 50,

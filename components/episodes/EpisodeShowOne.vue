@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  props: ['ep', 'imgStreaming'],
+  props: ['ep', 'imgStreaming', 'currentEp'],
   data () {
     return {
       baseUrl: process.env.baseUrl
@@ -46,6 +46,12 @@ export default {
       let str = this.ep.field_series_episode.path.alias
       str = str.replace('/series/', '')
       return str
+    }
+  },
+  watch: {
+    currentEp () {
+      let container = this.$el.querySelector("#ep-show-container")
+      container.scrollTop = 0
     }
   }
 }
