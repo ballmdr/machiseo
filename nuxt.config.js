@@ -5,7 +5,7 @@ const environment = {
   REST_MONGO: 'http://localhost:9000',
   USER_DRUPAL: 'ballmdr',
   PASS_DRUPAL: 'M3n17v11',
-  DISCOURSE_URL: 'http://forums.machiseo.com',
+  DISCOURSE_URL: 'https://forums.machiseo.com',
   DISCOURSE_API_KEY: '71696264866640b9a7f1d58c61bdd3046ae3e72ae9664000c2fc8ee94bde7baf'
 }
 
