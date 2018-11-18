@@ -3,7 +3,7 @@
     <v-flex class="hvr-grow" xs12 sm4 md3 v-for="(episode, index) in episodes" :key="episode.id" @click="showEp(index)">
       <episode-card-poster :ep="episode"></episode-card-poster>
     </v-flex>
-    <v-dialog v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
+    <v-dialog :fullscreen="$vuetify.breakpoint.xsOnly" v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
       <episode-show-one :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
     </v-dialog>
   </v-layout>

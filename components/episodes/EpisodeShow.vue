@@ -7,8 +7,8 @@
     <v-layout column>
       <v-flex xs8>
         <v-carousel style="max-height:280px;" hide-delimiters
-        next-icon="far fa-arrow-alt-circle-right"
-        prev-icon="far fa-arrow-alt-circle-left"
+          next-icon="far fa-arrow-alt-circle-right"
+          prev-icon="far fa-arrow-alt-circle-left"
         >
           <v-carousel-item
             style="background-color:black;"
@@ -21,7 +21,7 @@
         </v-carousel>
       </v-flex>
       <v-flex xs8 style="overflow:auto;" id="ep-show-container">
-        <v-card-text style="padding:50px;">
+        <v-card-text style="padding:25px;">
           <p v-html="$store.state.episodes.ep[currentEp].body.processed"></p>
         </v-card-text>
       </v-flex>

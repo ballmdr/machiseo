@@ -21,7 +21,7 @@
         </v-carousel>
       </v-flex>
       <v-flex xs8 style="overflow:auto;" id="ep-show-container">
-        <v-card-text style="padding:50px;">
+        <v-card-text style="padding:25px;">
           <p v-html="ep.body.processed"></p>
         </v-card-text>
       </v-flex>
