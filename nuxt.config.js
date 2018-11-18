@@ -22,12 +22,14 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'มาชิสซอ machiseo.com',
+    title: 'มาชิสซอ - แหล่งข้อมูลซีรีส์เกาหลี พูดคุยแสดงความเห็น รีวิว - Machiseo.com',
+    titleTemplate: '%s - มาชิสซอ',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'ซีรีส์​เกาหลี ซีรีย์เกาหลี เรื่องย่อซีรีส์เกาหลี ดาราเกาหลี รีวิวซีรีส์เกาหลี พูดคุยซีรีส์เกาหลี เว็บบอร์ดซีรีส์เกาหลี' },
-      { name: "google-site-verification", content: "rgWusjEPsoA8fiiuTVzNWFsAVOxl7_Om0OVztVuFnwc" }
+      { hid: 'description', name: 'description', content: 'ร่วมพูดคุยแสดงความคิดเห็นในเรื่องซีรีส์เกาหลีที่ดูมา อ่านซีรีส์เกาหลี สปอยด์ซีรีส์เกาหลี ดูรูปดารา หาข้อมูล ประวัติดารา เรื่องนี้ใครเล่นบ้าง ซีรีส์​เกาหลี ซีรีย์เกาหลี เรื่องย่อซีรีส์เกาหลี ดาราเกาหลี รีวิวซีรีส์เกาหลี พูดคุยซีรีส์เกาหลี เว็บบอร์ดซีรีส์เกาหลี' },
+      { name: "google-site-verification", content: "rgWusjEPsoA8fiiuTVzNWFsAVOxl7_Om0OVztVuFnwc" },
+      { hid: 'robots', name: 'robots', content: 'index, follow' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

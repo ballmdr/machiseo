@@ -6,7 +6,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
-                <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
+                <v-img :alt="serie.title" :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
               </v-card-text>
             </v-flex>
             <v-flex xs12 sm6 md8>
@@ -19,7 +19,7 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
-                <h2>ดูซับไทยที่</h2><img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'" />
+                <span v-if="serie.field_viu !== null"><h2>ดูซับไทยที่</h2><img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'" /></span>
               </v-card-text>
             </v-flex>
             <v-flex xs12 v-if="serie.field_trailor !== null">
@@ -44,20 +44,20 @@
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
-            <v-card-text v-text="serie.field_synopsis"></v-card-text>
+            <v-card-text><p v-text="serie.field_synopsis"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
           <h2>สปอยด์รายตอน</h2>
           <episodes-list></episodes-list>
         </v-flex>
-        <v-flex xs12>
+       <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
-        </v-flex>
+        </v-flex> -->
       </v-flex>
       <v-flex xs12 sm8>
-        Sidebar
+        
       </v-flex>
     </v-layout>
   </v-layout>
@@ -81,11 +81,31 @@ export default {
     }
   },
   head () {
+    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const synopsis = 'เรื่องย่อ : ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     return {
-      title: this.serie.title
+      title: this.serie.title,
+      meta: [
+        { hid: 'description', name: 'description', content: synopsis },
+        { hid: 'og_type', name: 'og:type', content: 'article' },
+        { hid: 'og_title', name: 'og:title', content: this.serie.title + ' - มาชิสซอ' },
+        { hid: 'og_description', name: 'og:description', content: synopsis },
+        { hid: 'og_image', name: 'og:image', content: this.baseUrl + this.serie.field_poster[0].url },
+        { hid: 'og_url', name: 'og:url', content: canonical },
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'twitter_title', name: 'twitter:title', content: this.serie.title },
+        { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
+        { hid: 'twitter_image', name: 'twitter:image', content: this.baseUrl + this.serie.field_poster[0].url },
+        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+      ],
+      link: [
+        { rel: 'canonical', href: canonical }
+      ]
     }
   },
   mounted() {
+    console.log('serie', this.serie)
     window.onscroll = () => { return false }
     if (this.serie.field_topic !== null) {
       const tmpHeaders = this.$axios.defaults.headers

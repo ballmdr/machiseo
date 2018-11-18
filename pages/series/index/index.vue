@@ -43,7 +43,7 @@ export default {
     let empty = false
     const series = await getSeriesList(offset, limit)
     if (series.length < limit) {
-      empty = true
+      empty = true 
     }
     offset += 9
     return { empty, offset, limit, series }
