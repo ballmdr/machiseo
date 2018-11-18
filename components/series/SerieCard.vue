@@ -1,15 +1,16 @@
 <template>
 <div class="container animated slideInDown">
   <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
-      style="cursor:pointer"
+      style="cursor:pointer;width:350px;"
       @click.native="$router.push(serie.path.alias)">
     <v-card-text class="card-media">
       <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
     </v-card-text>
-    <v-card-title>
-      <h2>{{ serie.title }}</h2>
-      <h4><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></h4>
+    <v-card-title style="height:150px">
+      <nuxt-link :to="serie.path.alias"><h2>{{ serie.title }}</h2></nuxt-link>
+      <div v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</div>
     </v-card-title>
+    <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
   </v-card>
 </div>
 </template>

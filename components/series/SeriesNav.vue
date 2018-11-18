@@ -3,6 +3,7 @@
     <v-flex xs12 class="text-xs-center">
       <v-menu open-on-hover down offset-y>
         <v-btn
+          round
           slot="activator"
           color="warning"
           dark
@@ -20,6 +21,7 @@
       </v-menu>
       <v-menu open-on-hover down offset-y>
         <v-btn
+        round
           slot="activator"
           color="warning"
           dark
@@ -38,6 +40,7 @@
       </v-menu>
           <v-menu open-on-hover down offset-y>
         <v-btn
+        round
           slot="activator"
           color="warning"
           dark

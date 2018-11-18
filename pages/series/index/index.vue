@@ -29,6 +29,7 @@ export default {
             if (newSeries.length < this.limit) {
               if (this.index < this.year.length) {
                 this.index++
+                this.offset = 0
               } else {
                 this.empty = true
               }

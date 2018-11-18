@@ -31,8 +31,8 @@
        >
          <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
        </v-btn>
-       <v-toolbar-title v-text="title"></v-toolbar-title>
-       <v-spacer></v-spacer>
+       <v-toolbar-title>{{ title }}</v-toolbar-title>
+       <v-spacer></v-spacer><v-icon>fas fa-flask</v-icon> <small>อยู่ในระหว่างทดลองระบบ</small>
      </v-toolbar>
  </span>
  </template>
