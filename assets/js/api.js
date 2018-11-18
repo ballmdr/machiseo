@@ -118,7 +118,12 @@ export async function getCelebByPath (path, env) {
 }
 
 export async function getSeriesList (offset = 0, limit = 10) {
-  const { data } = await apiClient.get(prefix + '/series?page[offset]=' + offset + '&page[limit]=' + limit + '&include=field_poster,field_series_type,field_serie_year')
+  const { data } = await apiClient.get(prefix + '/series?page[offset]=' + offset + '&page[limit]=' + limit + '&sort=-created&include=field_poster,field_series_type,field_serie_year')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesListWithYear (offset = 0, limit = 10, year = '2018') {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_serie_year][condition][path]=field_serie_year.name&filter[field_serie_year][condition][value]=' + year + '&page[offset]=' + offset + '&page[limit]=' + limit + '&sort=-nid&include=field_poster,field_series_type,field_serie_year')
   return jsonapiParse.parse(data).data
 }
 

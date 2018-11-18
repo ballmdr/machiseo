@@ -15,7 +15,7 @@
 
 <script>
 import SerieCardGroup from '~/components/series/SerieCardGroup'
-import { getSeriesList } from '~/assets/js/api'
+import { getSeriesList, getSeriesListWithYear } from '~/assets/js/api'
 
 export default {
   components: { SerieCardGroup },
@@ -24,10 +24,14 @@ export default {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
       if (bottomOfWindow) {
         if (!this.empty) {
-          getSeriesList(this.offset, this.limit).then(newSeries => {
+          getSeriesListWithYear(this.offset, this.limit, this.year[this.index]).then(newSeries => {
             this.offset += 9
             if (newSeries.length < this.limit) {
-              this.empty = true
+              if (this.index < this.year.length) {
+                this.index++
+              } else {
+                this.empty = true
+              }
             }
             for (let i=0;i<newSeries.length;i++) {
               this.series.push(newSeries[i])
@@ -41,12 +45,18 @@ export default {
     let offset = 0
     let limit = 9
     let empty = false
-    const series = await getSeriesList(offset, limit)
+    let year = ['2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', 'ก่อน%202010']
+    let index = 0
+    const series = await getSeriesListWithYear(offset, limit, year[index])
     if (series.length < limit) {
-      empty = true 
+      if (index < year.length) {
+        index++
+      } else {
+        empty = true
+      }
     }
     offset += 9
-    return { empty, offset, limit, series }
+    return { year, index, empty, offset, limit, series }
   }
 }
 </script>

@@ -41,7 +41,6 @@ export default {
     for (let i=0;i < this.trailors.length;i++) {
       this.youtubeId[i] = getYoutubeId(this.trailors[i])
     }
-    console.log(this.youtubeId)
   }
 }
 </script>

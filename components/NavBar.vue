@@ -23,7 +23,7 @@
          </v-list-tile>
        </v-list>
      </v-navigation-drawer>
-     <v-toolbar dense fixed app :clipped-left="clipped" color="primary">
+     <v-toolbar dense fixed app color="primary">
        <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
        <v-btn
          icon
@@ -83,10 +83,6 @@ export default {
         })
         .finally(() => (this.isLoading = false))
     }
-  },
-  mounted() {
-    console.log('auth', this.$auth)
-    console.log('auth state', this.$auth.$state)
   },
   methods: {
     async logout() {

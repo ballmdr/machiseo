@@ -55,7 +55,7 @@ export default {
     if (series.length < limit) {
       empty = true
     }
-    return { offset, limit, year, series }
+    return { empty, offset, limit, year, series }
   }
 }
 </script>

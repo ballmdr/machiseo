@@ -4,8 +4,9 @@
       <v-menu open-on-hover down offset-y>
         <v-btn
           slot="activator"
-          color="primary"
+          color="warning"
           dark
+          class="black--text"
         >แนวซีรีส์
         </v-btn>
         <v-list>
@@ -20,8 +21,9 @@
       <v-menu open-on-hover down offset-y>
         <v-btn
           slot="activator"
-          color="primary"
+          color="warning"
           dark
+          class="black--text"
         >
           ปีที่เริ่มฉาย
         </v-btn>
@@ -34,11 +36,12 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-            <v-menu open-on-hover down offset-y>
+          <v-menu open-on-hover down offset-y>
         <v-btn
           slot="activator"
-          color="primary"
+          color="warning"
           dark
+          class="black--text"
         >
           ช่องที่ฉาย
         </v-btn>

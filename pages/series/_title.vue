@@ -105,7 +105,6 @@ export default {
     }
   },
   mounted() {
-    console.log('serie', this.serie)
     window.onscroll = () => { return false }
     if (this.serie.field_topic !== null) {
       const tmpHeaders = this.$axios.defaults.headers
