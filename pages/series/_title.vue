@@ -22,12 +22,15 @@
                 <span v-if="serie.field_viu !== null"><h2>ดูซับไทยที่</h2><img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'" /></span>
               </v-card-text>
             </v-flex>
-            <v-flex xs12 v-if="serie.field_trailor !== null">
+            <!--<v-flex xs12 v-if="serie.field_trailor !== null">
               <serie-trailors :trailors="serie.field_trailor"></serie-trailors>
-            </v-flex>
+            </v-flex>-->
           </v-layout>
         </v-card>
       </div>
+    </v-flex>
+    <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
+      <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
     </v-flex>
     <v-flex xs12>
       <h2>ดารานักแสดง</h2>
@@ -70,9 +73,10 @@ import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
 import ReviewsDiscourse from '~/components/discourse/ReviewsDiscourse'
 import SerieTrailors from '~/components/series/SerieTrailors'
+import ViuWidget from '~/components/series/ViuWidget'
 
 export default {
-  components: { RatingCard, EpisodesList, CelebsCast, ReviewsDiscourse, SerieTrailors },
+  components: { RatingCard, EpisodesList, CelebsCast, ReviewsDiscourse, SerieTrailors, ViuWidget },
   data () {
     return {
       discourseReviews: [],
