@@ -11,3 +11,11 @@ export default {
   props: ['vid_id', 'serie_title']
 }
 </script>
+
+<style scoped>
+@media only screen and (max-width: 600px) {
+  iframe {
+    height:200px;
+  }
+} 
+</style>
