@@ -19,7 +19,7 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <p v-html="serie.body.processed"></p>
-                <span v-if="serie.field_viu !== null"><h2>ดูซับไทยที่</h2><img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'" /></span>
+                <span v-if="serie.field_viu !== null"><viu-link :link="serie.field_viu"></viu-link></span>
               </v-card-text>
             </v-flex>
             <!--<v-flex xs12 v-if="serie.field_trailor !== null">
@@ -74,9 +74,10 @@ import { getSerieByPath } from '~/assets/js/api'
 import ReviewsDiscourse from '~/components/discourse/ReviewsDiscourse'
 import SerieTrailors from '~/components/series/SerieTrailors'
 import ViuWidget from '~/components/series/ViuWidget'
+import ViuLink from '~/components/series/ViuLink'
 
 export default {
-  components: { RatingCard, EpisodesList, CelebsCast, ReviewsDiscourse, SerieTrailors, ViuWidget },
+  components: { RatingCard, EpisodesList, CelebsCast, ReviewsDiscourse, SerieTrailors, ViuWidget, ViuLink },
   data () {
     return {
       discourseReviews: [],
