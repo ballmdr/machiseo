@@ -22,7 +22,7 @@ export default {
 <style scoped>
 @media only screen and (max-width: 600px) {
   iframe {
-    height:220px;
+    height:250px;
   }
 } 
 </style>
