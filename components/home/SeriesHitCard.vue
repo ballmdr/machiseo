@@ -52,6 +52,7 @@ export default {
     }
   },
   mounted() {
+    /*
     const tmpHeaders = this.$axios.defaults.headers
     this.$axios.defaults.headers = {
       "Accept": "application/json"
@@ -64,7 +65,7 @@ export default {
       }).finally(() => {
         this.$axios.defaults.headers = tmpHeaders
         console.log(this.reviews)
-      })
+      }) */
   },
   methods: {
     celebName (name) {

@@ -1,9 +1,9 @@
 <template>
   <v-card dark flat style="cursor:pointer">
     <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
-    <v-card-title class="poster-above">
+    <v-card-title class="poster-above" style="height:100px;">
       <v-img class="poster" :src="baseUrl + ep.field_series_episode.field_poster[0].url"></v-img>
-      <div class="heading"><h3>{{ ep.field_series_episode.title }}</h3> ตอนที่ <span class="subheading">{{ ep.title }}</span></div>
+      <span style="position:absolute;font-weight:bold;margin-top:33px;margin-left:90px;"><div>{{ ep.field_series_episode.title }}</div> ตอนที่ {{ ep.title }}</span>
     </v-card-title>
   </v-card>
 </template>
@@ -31,7 +31,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
   max-width: 70px;
-  min-width:30px;
+  min-width: 50px;
 }
 .poster-above .heading {
   margin-top: 50px;

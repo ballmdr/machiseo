@@ -5,6 +5,7 @@
         <episode-card-poster :ep="ep"></episode-card-poster>
       </div>
     </div>
+    
     <v-dialog v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
       <episode-show-one :currentEp="currentEp" :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
     </v-dialog>
@@ -35,13 +36,10 @@ export default {
       imgStreaming: null,
       currentEp: 0,
       swiperOption: {
-        slidesPerView: 3,
-        spaceBetween: 50,
-        // init: false,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
+        initialSlide: 0,
+        slidesPerView: 2,
+        spaceBetween: 30,
+        centeredSlides: true,
         breakpoints: {
           1024: {
             slidesPerView: 2,
@@ -67,3 +65,14 @@ export default {
 }
 </script>
 
+<style scoped>
+  .swiper-slide {
+    width: 60%;
+  }
+  .swiper-slide:nth-child(2n) {
+      width: 40%;
+  }
+  .swiper-slide:nth-child(3n) {
+      width: 20%;
+  }
+</style>
