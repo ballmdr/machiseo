@@ -7,9 +7,9 @@
       bottom
     >
       <v-icon slot="badge">fab fa-instagram</v-icon>
-      <v-avatar size="150"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
+      <v-avatar style="cursor:pointer" size="150" @click="$router.push(celeb.path.alias)"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
     </v-badge>
-    <h2><nuxt-link :to="celeb.path.alias">{{ celeb.title }}</nuxt-link></h2>
+    <div style="font-weight:bold;"><nuxt-link :to="celeb.path.alias">{{ celeb.title }}</nuxt-link></div>
   </span>
 </template>
 

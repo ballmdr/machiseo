@@ -1,7 +1,7 @@
 <template>
   <div class="text-xs-center" @click="$router.push(serie.path.alias)" style="cursor:pointer">
     <v-img :src="baseUrl + serie.field_poster[0].url" class="poster"></v-img>
-    <h2><nuxt-link :to="serie.path.alias">{{ serie.title }}</nuxt-link></h2>
+    <span style="font-weight:bold;"><nuxt-link :to="serie.path.alias">{{ serie.title }}</nuxt-link></span>
   </div>
 </template>
 
