@@ -6,7 +6,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
-                <v-img :alt="serie.title" :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
+                <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
               </v-card-text>
             </v-flex>
             <v-flex xs12 sm6 md8>
@@ -75,13 +75,13 @@ import ViuLink from '~/components/series/ViuLink'
 
 export default {
   components: { EpisodesList, CelebsCast, ViuWidget, ViuLink },
- /* data () {
+  data () {
     return {
       discourseReviews: [],
       discourseTopicUrl: null,
       baseUrl: process.env.baseUrl
     }
-  },*/
+  },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'เรื่องย่อ : ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
