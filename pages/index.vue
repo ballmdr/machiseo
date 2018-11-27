@@ -1,23 +1,23 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <h1>อ่านสปอยด์</h1>
+      <h1>อ่านสปอยด์ <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h1>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
-    <v-flex xs12>
-      <h1>ตัวอย่างซีรีส์</h1>
+    <v-flex xs12 class="text-xs-center">
+      <h1>ตัวอย่างซีรีส์ <v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="WidgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
-      <h1>ช่วงนี้ดูอะไรดี</h1>
+      <h1>ช่วงนี้อะไรโคตรฮิต <v-icon large style="margin-bottom:10px;">fab fa-hotjar</v-icon></h1>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
     <v-flex xs12>
-      <h1>เรื่องอะไรออนแอร์</h1>
+      <h1>เรื่องอะไรออนแอร์ <v-icon large style="margin-bottom:10px;">fas fa-broadcast-tower</v-icon></h1>
       <series-onair :series="onair"></series-onair>
     </v-flex>
     <v-flex xs12>
-      <h1>ดาราฮอตตอนนี้</h1>
+      <h1>ดาราฮอตตอนนี้ <v-icon large style="margin-bottom:10px;">fas fa-user-circle</v-icon></h1>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
   </v-layout>
