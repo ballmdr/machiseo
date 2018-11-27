@@ -1,19 +1,19 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <h1>สปอยด์ตอนล่าสุด</h1>
+      <h1>อ่านสปอยด์</h1>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
     <v-flex xs12>
-      <h1>ซีรีส์กำลังฮิต</h1>
+      <h1>ช่วงนี้ดูอะไรดี</h1>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
     <v-flex xs12>
-      <h1>ซีรีส์ออนแอร์</h1>
+      <h1>เรื่องอะไรออนแอร์</h1>
       <series-onair :series="onair"></series-onair>
     </v-flex>
     <v-flex xs12>
-      <h1>ดาราออนแอร์</h1>
+      <h1>ดาราฮอตตอนนี้</h1>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
   </v-layout>
