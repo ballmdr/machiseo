@@ -5,7 +5,7 @@
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
-      <h1>ตัวอย่างซีรีส์ <v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
+      <h1><nuxt-link to="/series/encounter">ตัวอย่างซีรีส์เกาหลี Encounter</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="WidgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
