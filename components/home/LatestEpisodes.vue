@@ -2,12 +2,17 @@
   <div v-swiper:latestEpSwiper="swiperOption">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <v-card dark color="primary" flat style="margin-top:120px;cursor:pointer;" @click="$router.push('/episodes')">
-          <v-card-title style="height:100px;"><v-spacer></v-spacer><div style="font-size:30px;">ดูทั้งหมด</div></v-card-title>
+        <v-card dark color="primary" flat style="cursor:pointer;" @click="$router.push('/episodes')">
+          <v-card-title style="height:200px;"><div style="margin:auto;font-size:24px;">ดูทั้งหมด</div></v-card-title>
         </v-card>
       </div>
       <div class="swiper-slide" v-for="(ep, index) in episodes" :key="ep.id" @click="showEp(index)">
         <episode-card-poster :ep="ep"></episode-card-poster>
+      </div>
+      <div class="swiper-slide">
+        <v-card dark color="primary" flat style="cursor:pointer;" @click="$router.push('/episodes')">
+          <v-card-title style="height:200px;"><div style="margin:auto;font-size:24px;">ดูทั้งหมด</div></v-card-title>
+        </v-card>
       </div>
     </div>
     <v-dialog v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
@@ -40,8 +45,8 @@ export default {
       imgStreaming: null,
       currentEp: 0,
       swiperOption: {
-        initialSlide: 1,
-        slidesPerView: 2,
+        initialSlide: 2,
+        slidesPerView: 3.5,
         spaceBetween: 30,
         centeredSlides: true,
         breakpoints: {

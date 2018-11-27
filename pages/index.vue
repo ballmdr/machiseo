@@ -40,7 +40,7 @@ export default {
     }
   },
   async asyncData ({ app, env }) {
-    const episodes = await getLatestEpisodes()
+    const episodes = await getLatestEpisodes(10)
     const onair = await getSeriesOnair()
     console.log('url', env.restMongoUrl + '/series_hit')
     const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
