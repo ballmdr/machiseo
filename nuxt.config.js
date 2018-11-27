@@ -41,7 +41,7 @@ module.exports = {
     { src: '~/plugins/vuetify.js' }, 
     { src: '~/plugins/axios-port' },
     { src: '~/plugins/vue-masonry-css', ssr: false },
-    { src: '~/plugins/vue-awesome-swiper' }
+    { src: '~/plugins/vue-awesome-swiper', ssr: false }
   ],
   css: [
     { src: '~/assets/style/app.styl' },

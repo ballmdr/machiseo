@@ -5,6 +5,10 @@
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
     <v-flex xs12>
+      <h1>ตัวอย่างซีรีส์</h1>
+      <viu-widget :vid_id="widgetId" :serie_title="WidgetTitle"></viu-widget>
+    </v-flex>
+    <v-flex xs12>
       <h1>ช่วงนี้ดูอะไรดี</h1>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
@@ -25,9 +29,16 @@ import SeriesHit from '~/components/home/SeriesHit'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
 import CelebsOnair from '~/components/home/CelebsOnair'
+import ViuWidget from '~/components/series/ViuWidget'
 
 export default {
-  components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair },
+  components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget },
+  data () {
+    return {
+      widgetId: '115882',
+      widgetTitle: 'Encounter'
+    }
+  },
   async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes()
     const onair = await getSeriesOnair()

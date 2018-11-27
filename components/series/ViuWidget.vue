@@ -1,6 +1,6 @@
 <template>
-  <div style="margin:auto;max-width:600px;">
-    <iframe :src="widgetSrc" frameborder="0" width="80%" height="300"></iframe>
+  <div style="margin:auto;max-width:700px;">
+    <iframe :src="widgetSrc" frameborder="0" width="80%" height="350"></iframe>
   </div>
 </template>
 
