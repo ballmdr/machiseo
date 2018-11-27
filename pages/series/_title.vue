@@ -67,24 +67,21 @@
 </template>
 
 <script>
-import RatingCard from '~/components/series/RatingCard'
 import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
-import ReviewsDiscourse from '~/components/discourse/ReviewsDiscourse'
-import SerieTrailors from '~/components/series/SerieTrailors'
 import ViuWidget from '~/components/series/ViuWidget'
 import ViuLink from '~/components/series/ViuLink'
 
 export default {
-  components: { RatingCard, EpisodesList, CelebsCast, ReviewsDiscourse, SerieTrailors, ViuWidget, ViuLink },
-  data () {
+  components: { EpisodesList, CelebsCast, ViuWidget, ViuLink },
+ /* data () {
     return {
       discourseReviews: [],
       discourseTopicUrl: null,
       baseUrl: process.env.baseUrl
     }
-  },
+  },*/
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'เรื่องย่อ : ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)

@@ -60,40 +60,8 @@ module.exports = {
   ** Build configuration
   */
   modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth',
-    '@nuxtjs/toast'
+    '@nuxtjs/axios'
   ],
-  toast: {
-    position: 'bottom-right',
-    duration: 5000
-  },
-  auth: {
-    responseType: 'token id_token',
-    params: {
-      scope: 'profile email'
-    },
-    strategies: {
-      auth0: {
-        domain: 'machiseo2.auth0.com',
-        client_id: 'w3hUEZ1Mz7p4IvmNMUeNZt33jYG0bVP7'
-      },
-      facebook: {
-        client_id: '342175946522151',
-        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
-        scope: ['public_profile', 'email']
-      },
-      google: {
-        client_id: '1538451672015'
-      },
-    },
-    redirect: {
-      login: '/?login=1',
-      logout: '/',
-      user: '/profile',
-      callback:'/auth/callback'
-    }
-  },
   axios: {
     baseURL: environment.API_URL,
     
