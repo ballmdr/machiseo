@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card @click="$router.push(serie.path)" style="cursor:pointer" class="hvr-grow">
     <v-toolbar dense color="primary"><h3>#{{ serie.rank }} : <nuxt-link :to="serie.path">{{ serie.title }}</nuxt-link> | คะแนน&nbsp;</h3>     
       <v-progress-circular
       :rotate="360"
@@ -12,7 +12,7 @@
       </v-progress-circular>
     </v-toolbar>
     <v-layout row>
-      <v-flex xs5 style="cursor:pointer;padding-left:20px;padding-bottom:20px;" class="hvr-grow" @click="$router.push(serie.path)">
+      <v-flex xs5 style="padding-left:20px;padding-bottom:20px;">
         <v-img
         max-width="300"
         style="border-radius:10px;" 

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { getLatestEpisodes, getSeriesOnair, getSeriesSticky } from '~/assets/js/api'
+import { getLatestEpisodes, getSeriesOnair } from '~/assets/js/api'
 import SeriesHit from '~/components/home/SeriesHit'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
@@ -28,32 +28,6 @@ import CelebsOnair from '~/components/home/CelebsOnair'
 
 export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair },
-  data () {
-    return {
-      epDialog: false
-      
-    }
-  },
-  methods: {
-    async auth0() {
-      const res = await this.$auth.loginWith('auth0')
-    }
-  },
-  mounted() {
-    if (this.$auth.loggedIn) {
-      this.$axios.$get(process.env.restMongoUrl + '/users/sub/' + this.$auth.$state.user.sub).then(user => {
-        if (user.length > 0) {
-          // user exist
-          if (this.$auth.$state.user.name !== user[0].name || this.$auth.$state.user.picture !== user[0].picture) {
-            this.$axios.$put(process.env.restMongoUrl + '/users/update/' + user[0]._id, this.$auth.$state.user)
-          }
-        } else {
-          // not exist
-          this.$axios.$post(process.env.restMongoUrl + '/users/create', this.$auth.$state.user)
-        }
-      })
-    }
-  },
   async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes()
     const onair = await getSeriesOnair()
