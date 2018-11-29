@@ -33,6 +33,11 @@ export async function getCelebById (id) {
   return jsonapiParse.parse(data).data
 }
 
+export async function getCelebByUuid (id) {
+  const { data } = await apiClient.get(prefix + '/celebs/' + id + '?include=field_celeb_profile')
+  return jsonapiParse.parse(data).data
+}
+
 export async function getSerieByPath (path, env) {
   const uri = findRouterPath + "/series/" + path
   const { data } = await apiClient.post('/subrequests?_format=json', 
