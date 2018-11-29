@@ -18,8 +18,15 @@
               <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
-                <p v-html="serie.body.processed"></p>
-                <span v-if="serie.field_viu !== null"><viu-link :link="serie.field_viu"></viu-link></span>
+                <v-layout column>
+                  <v-flex xs12><p v-html="serie.body.processed"></p></v-flex>
+                  <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-40px;">
+                        <div style="font-size:26px;">ดูซับไทยที่</div>
+                        <a :href="serie.field_viu" target="_blank" rel="nofollow">
+                          <v-img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'"></v-img>
+                        </a>
+                  </v-flex>
+                </v-layout>
               </v-card-text>
             </v-flex>
             <!--<v-flex xs12 v-if="serie.field_trailor !== null">
