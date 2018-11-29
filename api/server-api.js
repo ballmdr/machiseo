@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 })
 
 var db
-MongoClient.connect('mongodb://mongo:27017', {
+MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
