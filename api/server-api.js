@@ -35,7 +35,12 @@ MongoClient.connect('mongodb://localhost:27017', {
 app.get('/testapi', (req, res) => {
   res.status(200).send("It's OK")
 })
-
+app.get('/series_hit', (req, res) => {
+  db.collection('series_hit').find().sort({ rank: 1 }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
 app.get('/admin/home/:name', (req, res) => {
   db.collection(req.params.name).find().sort({ rank: 1 }).toArray((err, result) => {
     if (err) throw err
