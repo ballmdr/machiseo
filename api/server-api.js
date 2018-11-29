@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 })
 
 var db
-MongoClient.connect('mongodb://localhost:27017', {
+MongoClient.connect('mongodb://mongo:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'root',
@@ -35,6 +35,7 @@ MongoClient.connect('mongodb://localhost:27017', {
 app.get('/testapi', (req, res) => {
   res.status(200).send("It's OK")
 })
+
 app.get('/series_hit', (req, res) => {
   db.collection('series_hit').find().sort({ rank: 1 }).toArray((err, result) => {
     if (err) throw err
@@ -47,7 +48,6 @@ app.get('/admin/home/:name', (req, res) => {
     res.status(200).send(result)
   })
 })
-
 app.get('/admin/home/clear/:name', (req, res) => {
   db.collection(req.params.name).deleteMany({}, (err, result) => {
     if (err) throw err
@@ -56,6 +56,19 @@ app.get('/admin/home/clear/:name', (req, res) => {
 })
 app.post('/admin/home/save/:name', (req, res) => {
   db.collection(req.params.name).insertMany(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.get('/series_hit/clear', (req, res) => {
+  db.collection('series_hit').deleteMany({}, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+app.post('/series_hit/save', (req, res) => {
+  db.collection('series_hit').insertMany(req.body, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
@@ -131,7 +144,7 @@ app.get('/reviews/latest/:uuid', (req, res) => {
     },{ $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
       if (err) throw err
       res.status(200).send(result)
-    })
+    }) 
 })
 
 app.post('/reviews/add', (req, res) => {
