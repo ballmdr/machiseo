@@ -78,10 +78,9 @@ import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
-import ViuLink from '~/components/series/ViuLink'
 
 export default {
-  components: { EpisodesList, CelebsCast, ViuWidget, ViuLink },
+  components: { EpisodesList, CelebsCast, ViuWidget },
   data () {
     return {
       discourseReviews: [],
