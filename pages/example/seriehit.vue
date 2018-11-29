@@ -23,7 +23,16 @@
 import { getSerieCelebByUuid } from '~/assets/js/api'
 
 export default {
-  props: ['series'],
+  data () {
+    return {
+      series: []
+    }
+  },
+  async asyncData ({ app }) {
+    const { data } = await app.$axios.get(process.env.restMongoUrl + '/series_hit')
+    const series = data
+    return { series }
+  },
   methods: {
     del (index) {
       this.series.splice(index, 1)
@@ -55,9 +64,9 @@ export default {
             title: res.field_celeb[1].title
           }
         ]
-        await this.$axios.get(process.env.restMongoUrl + '/admin/home/clear/series_recommend')
-        await this.$axios.post(process.env.restMongoUrl + '/admin/home/save/series_recommend', this.series)
-        const { data } = await this.$axios.get(process.env.restMongoUrl + '/admin/home/series_recommend')
+        await this.$axios.get(process.env.restMongoUrl + '/series_hit/clear')
+        await this.$axios.post(process.env.restMongoUrl + '/series_hit/save', this.series)
+        const { data } = await this.$axios.get(process.env.restMongoUrl + '/series_hit')
         this.series = data
       }
     }
