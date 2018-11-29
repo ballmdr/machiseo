@@ -42,6 +42,24 @@ app.get('/series_hit', (req, res) => {
     res.status(200).send(result)
   })
 })
+app.get('/admin/home/:name', (req, res) => {
+  db.collection(req.params.name).find().sort({ rank: 1 }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+app.get('/admin/home/clear/:name', (req, res) => {
+  db.collection(req.params.name).deleteMany({}, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+app.post('/admin/home/save/:name', (req, res) => {
+  db.collection(req.params.name).insertMany(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
 
 app.get('/series_hit/clear', (req, res) => {
   db.collection('series_hit').deleteMany({}, (err, result) => {
