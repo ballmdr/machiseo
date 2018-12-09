@@ -20,8 +20,8 @@
         <v-card-text>
           <v-layout row wrap>
             <draggable class="dragArea" v-model="series" :list="series" :options="{group:'serie'}">
-              <v-flex @click="addVote(index)" class="hvr-reveal" xs6 v-for="(serie, index) in series" :key="index">
-                  <v-img max-height="120" max-width="100" :src="baseUrl + serie.poster"></v-img>
+              <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs2 v-for="(serie, index) in series" :key="index">
+                  <v-img  max-width="100" :src="baseUrl + serie.poster"></v-img>
                   {{ serie.title }} ({{ serie.score }})
               </v-flex>
             </draggable>
