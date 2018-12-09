@@ -43,7 +43,7 @@ app.get('/vote/series', (req, res) => {
 })
 
 app.get('/vote/result/list', (req, res) => {
-  db.collection('series_vote').find().toArray((err, result) => {
+  db.collection('series_vote').find({$query: {}, $sort: { createdAt: -1}}).limit(100).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
