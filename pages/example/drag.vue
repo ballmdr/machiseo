@@ -3,14 +3,12 @@
     <v-flex xs4 d-flex>
       <v-card flat>
         <v-card-text>
-          <draggable style="min-height:200px;" :list="listVote" :options="{group:'serie'}">
-            <v-flex xs12>ลากมาตรงนี้ | คลิกที่รูปเพื่อลบออก</v-flex>
+            <v-flex xs12>คลิกเพื่อลบออก</v-flex>
             <v-flex class="hvr-border-fade" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
               <v-img max-width="150" :src="baseUrl + element.poster"></v-img>
               <span>{{ element.title }}</span>
             </v-flex>
-          </draggable>
-          <v-text-field v-model="author" label="ใส่ชื่อ (ไม่ใส่ก็ได้)"> </v-text-field>
+          <v-text-field v-model="author" label="ชื่อผู้โหวต (ไม่ใส่ก็ได้)"> </v-text-field>
           <v-btn round color="warning" @click="voteSave" style="color:black;">โหวต</v-btn>
         </v-card-text>
       </v-card>
@@ -19,12 +17,11 @@
       <v-card flat class="scroll">
         <v-card-text>
           <v-layout row wrap>
-            <draggable class="dragArea" v-model="series" :list="series" :options="{group:'serie'}">
+            <v-flex xs12>คลิกเพื่อเพิ่ม | ซีรีส์เรียงตามตัวอักษร</v-flex>
               <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs2 v-for="(serie, index) in series" :key="index">
                   <v-img  max-width="100" :src="baseUrl + serie.poster"></v-img>
                   {{ serie.title }} ({{ serie.score }})
               </v-flex>
-            </draggable>
           </v-layout>
         </v-card-text>
       </v-card>
@@ -33,13 +30,9 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 import { getSeriesByYear } from '~/assets/js/api'
 
 export default {
-  components: {
-    draggable
-  },
   data () {
     return {
       listVote: [],
