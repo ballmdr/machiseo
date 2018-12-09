@@ -1,33 +1,63 @@
 <template>
-  <v-layout row>
-    <v-flex xs4 d-flex>
+  <v-layout row wrap>
+    <v-flex xs12 sm4 d-flex>
       <v-card flat>
         <v-card-text>
           <v-layout column>
             <v-flex xs12>คลิกเพื่อลบออก</v-flex>
             <v-flex class="hvr-reveal text-xs-center" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
-              <v-img style="margin:auto" max-width="150" :src="baseUrl + element.poster"></v-img>
+              <v-img style="margin:auto;border-radius:15px;" max-width="150" :src="baseUrl + element.poster"></v-img>
               {{ element.title }}
             </v-flex>
           </v-layout>
           <v-text-field v-model="author" label="ชื่อผู้โหวต (ไม่ใส่ก็ได้)"> </v-text-field>
-          <v-btn round color="warning" @click="voteSave" style="color:black;">โหวต</v-btn>
-        </v-card-text>
+          </v-card-text>
+          <v-card-actions>
+          <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">โหวต</v-btn>
+          </v-card-actions>
       </v-card>
     </v-flex>
-    <v-flex xs8>
+    <v-flex xs12 sm8 class="text-xs-center">
       <v-card flat class="scroll">
         <v-card-text>
           <v-layout row wrap>
-            <v-flex xs12>คลิกเพื่อเพิ่ม | ซีรีส์เรียงตามตัวอักษร</v-flex>
-              <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs2 v-for="(serie, index) in series" :key="index">
-                  <v-img  max-width="100" :src="baseUrl + serie.poster"></v-img>
-                  {{ serie.title }} ({{ serie.score }})
+            <v-flex xs12>คลิกเลือกซีรีส์ที่ชื่นชอบ | ซีรีส์เรียงตามตัวอักษร</v-flex>
+              <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs6 sm4 md3 lg2 v-for="(serie, index) in series" :key="index">
+                  <v-img style="border-radius:15px;margin:auto;" max-width="100" :src="baseUrl + serie.poster"></v-img>
+                  {{ serie.title }}
               </v-flex>
           </v-layout>
         </v-card-text>
       </v-card>
     </v-flex>
+      <v-dialog v-model="checkDialog" persistent max-width="300">
+        <v-card color="primary">
+          <v-card-title><span style="font-size: 24px;">เลือกได้ไม่เกินสิบเรื่องนะจ๊ะ</span></v-card-title>
+          <v-card-text>คลิกซีรีส์ที่เลือกเพื่อลบออก</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn round color="warning" flat @click="checkDialog = false" style="color:black">ได้เลย</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="confirmDialog" persistent max-width="300">
+        <v-card color="primary">
+          <v-card-title><span style="font-size: 24px;">ยืนยันการโหวต</span></v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn round color="red" flat @click="confirmDialog = false" style="color:black">ปิด</v-btn> <v-btn round color="success" flat @click="voteSave" style="color:black">ยืนยัน</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-bottom-nav
+        app
+        value="true"
+        color="primary"
+        fixed
+        height="40"
+      >
+        <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/10 คลิกโหวตตรงนี้ได้เลย</v-chip>
+      </v-bottom-nav>
   </v-layout>
 </template>
 
@@ -39,7 +69,9 @@ export default {
     return {
       listVote: [],
       baseUrl: process.env.baseUrl,
-      author: ''
+      author: '',
+      checkDialog: false,
+      confirmDialog: false
     }
   },
   methods: {
@@ -51,23 +83,34 @@ export default {
       this.series.unshift(this.listVote[index])
       this.listVote.splice(index, 1)
     },
+    voteConfirm () {
+      this.confirmDialog = true
+    },
     async voteSave () {
-      if (this.author === '') {
-        this.author = 'ไม่ระบุชื่อ'
-      }
-      const bucket = {
-        author: this.author,
-        series: this.listVote
-      }
-      try {
-        await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
-        for (let i=0;i<bucket.series.length;i++) {
-          await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
+      this.confirmDialog = false
+      if (this.listVote.length > 10) {
+        this.checkDialog = true
+      } else if (this.listVote.length === 0) {
+        this.$toast.error("เลือกซีรีส์ก่อนจ้า")
+      } else {
+        this.$toast.show("กำลังบันทึก รอก่อนจ้า")
+        if (this.author === '') {
+          this.author = 'ไม่ระบุชื่อ'
         }
-        this.$toast.success('โหวตสำเร็จ')
-        this.listVote = []
-      } catch (e) {
-        this.$toast.error(e)
+        const bucket = {
+          author: this.author,
+          series: this.listVote
+        }
+        try {
+          await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
+          for (let i=0;i<bucket.series.length;i++) {
+            await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
+          }
+          this.$toast.success('โหวตสำเร็จ')
+          this.listVote = []
+        } catch (e) {
+          this.$toast.error(e)
+        }
       }
     }
   },
