@@ -17,7 +17,7 @@
       <v-card flat class="scroll">
         <v-card-text>
           <v-layout row wrap>
-            <v-flex xs12>คลิกเพื่อเพิ่ม</v-flex>
+            <v-flex xs12>คลิกเพื่อเพิ่ม | ซีรีส์เรียงตามตัวอักษร</v-flex>
               <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs2 v-for="(serie, index) in series" :key="index">
                   <v-img  max-width="100" :src="baseUrl + serie.poster"></v-img>
                   {{ serie.title }} ({{ serie.score }})
