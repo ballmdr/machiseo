@@ -3,11 +3,13 @@
     <v-flex xs4 d-flex>
       <v-card flat>
         <v-card-text>
+          <v-layout column>
             <v-flex xs12>คลิกเพื่อลบออก</v-flex>
-            <v-flex class="hvr-border-fade" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
-              <v-img max-width="150" :src="baseUrl + element.poster"></v-img>
-              <span>{{ element.title }}</span>
+            <v-flex class="hvr-reveal text-xs-center" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
+              <v-img style="margin:auto" max-width="150" :src="baseUrl + element.poster"></v-img>
+              {{ element.title }}
             </v-flex>
+          </v-layout>
           <v-text-field v-model="author" label="ชื่อผู้โหวต (ไม่ใส่ก็ได้)"> </v-text-field>
           <v-btn round color="warning" @click="voteSave" style="color:black;">โหวต</v-btn>
         </v-card-text>
