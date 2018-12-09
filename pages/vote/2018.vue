@@ -15,7 +15,7 @@
           <v-card-actions>
           <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">{{ listVote.length }}/10 โหวต</v-btn>
           </v-card-actions>
-          <v-btn style="" color="primary">ดูคะแนนโหวตล่าสุด</v-btn>
+          <v-btn color="primary" nuxt to="/vote/2018-result">ดูคะแนนโหวตล่าสุด</v-btn>
       </v-card>
     </v-flex>
     <v-flex xs12 sm9 md8 class="text-xs-center">
