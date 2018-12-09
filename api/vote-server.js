@@ -32,6 +32,9 @@ MongoClient.connect('mongodb://localhost:27017', {
   db = client.db('machiseo_vote')
 })
 
+app.get('/testapi', (req, res) => {
+  res.status(200).send("It's OK That's Love")
+})
 app.get('/vote/series', (req, res) => {
   db.collection('series').find().sort({ title: 1 }).toArray((err, result) => {
     if (err) throw err
