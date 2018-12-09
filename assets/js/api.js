@@ -18,8 +18,8 @@ export async function getSerieById (id) {
   return jsonapiParse.parse(data).data
 }
 
-export async function getSerieByUuid (uuid) {
-  const { data } = await apiClient.get(prefix + '/series/' + uuid)
+export async function getSerieByUuid (uuid, include = '') {
+  const { data } = await apiClient.get(prefix + '/series/' + uuid + include)
   return jsonapiParse.parse(data).data
 }
 

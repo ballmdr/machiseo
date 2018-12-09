@@ -3,6 +3,7 @@ const resolve = (dir) => require('path').join(__dirname, dir)
 const environment = {
   API_URL: 'https://machiseo.net',
   REST_MONGO: 'https://mongo.machiseo.net',
+  VOTE_SERVER: 'http://localhost:9001',
   USER_DRUPAL: 'ballmdr',
   PASS_DRUPAL: 'M3n17v11',
   DISCOURSE_URL: 'https://forums.machiseo.com',
@@ -13,6 +14,7 @@ module.exports = {
   env: {
     baseUrl: environment.API_URL,
     restMongoUrl: environment.REST_MONGO,
+    voteServer: environment.VOTE_SERVER,
     userDrupal: environment.USER_DRUPAL,
     passDrupal: environment.PASS_DRUPAL,
     discourseUrl: environment.DISCOURSE_URL,
@@ -61,12 +63,16 @@ module.exports = {
   */
   modules: [
     [ '@nuxtjs/google-analytics', { id: 'UA-5836599-14' }],
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/toast'
   ],
   axios: {
     baseURL: environment.API_URL,
-    
     retry: { retries: 3 }
+  },
+  toast: {
+    position: 'bottom-center',
+    duration: 5000
   },
   build: {
     babel: {
