@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs4 d-flex>
-      <v-card>
+      <v-card flat>
         <v-card-text>
           <draggable style="min-height:200px;" :list="listVote" :options="{group:'serie'}">
             <v-flex xs12>ลากมาตรงนี้ | คลิกที่รูปเพื่อลบออก</v-flex>
@@ -16,14 +16,18 @@
       </v-card>
     </v-flex>
     <v-flex xs8>
-      <v-layout row wrap>
-        <draggable class="dragArea" v-model="series" :list="series" :options="{group:'serie'}">
-          <v-flex @click="addVote(index)" class="hvr-reveal" xs6 v-for="(serie, index) in series" :key="index">
-              <v-img width="200" :src="baseUrl + serie.poster"></v-img>
-              {{ serie.title }} ({{ serie.score }})
-          </v-flex>
-        </draggable>
-      </v-layout>
+      <v-card flat class="scroll">
+        <v-card-text>
+          <v-layout row wrap>
+            <draggable class="dragArea" v-model="series" :list="series" :options="{group:'serie'}">
+              <v-flex @click="addVote(index)" class="hvr-reveal" xs6 v-for="(serie, index) in series" :key="index">
+                  <v-img max-height="120" max-width="100" :src="baseUrl + serie.poster"></v-img>
+                  {{ serie.title }} ({{ serie.score }})
+              </v-flex>
+            </draggable>
+          </v-layout>
+        </v-card-text>
+      </v-card>
     </v-flex>
   </v-layout>
 </template>
