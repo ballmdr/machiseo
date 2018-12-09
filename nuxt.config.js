@@ -3,10 +3,11 @@ const resolve = (dir) => require('path').join(__dirname, dir)
 const environment = {
   API_URL: 'https://machiseo.net',
   REST_MONGO: 'https://mongo.machiseo.net',
-  VOTE_SERVER: 'https://vote.machiseo.net',
+  //VOTE_SERVER: 'https://vote.machiseo.net',
+  VOTE_SERVER: 'http://localhost:9001',
   USER_DRUPAL: 'ballmdr',
   PASS_DRUPAL: 'M3n17v11',
-  DISCOURSE_URL: 'https://forums.machiseo.com',
+  DISCOURSE_URL: 'https://community.machiseo.com',
   DISCOURSE_API_KEY: '71696264866640b9a7f1d58c61bdd3046ae3e72ae9664000c2fc8ee94bde7baf'
 }
 

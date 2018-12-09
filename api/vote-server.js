@@ -42,8 +42,34 @@ app.get('/vote/series', (req, res) => {
   })
 })
 
+app.get('/vote/result/list', (req, res) => {
+  db.collection('series_vote').find().toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.put('/vote/series/score/add/:id', (req, res) => {
+  db.collection('series').updateOne({ _id: new ObjectID(req.params.id) },
+  { $inc:
+    {
+      score: 1
+    }
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.post('/vote/series/add', (req, res) => {
   db.collection('series').insertOne(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.post('/vote/add', (req, res) => {
+  db.collection('series_vote').insertOne(req.body, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
