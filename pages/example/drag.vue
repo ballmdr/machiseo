@@ -93,7 +93,7 @@ export default {
       } else if (this.listVote.length === 0) {
         this.$toast.error("เลือกซีรีส์ก่อนจ้า")
       } else {
-        this.$toast.show("กำลังบันทึก รอก่อนจ้า")
+        this.$toast.show("กำลังโหวต รอก่อนจ้า")
         if (this.author === '') {
           this.author = 'ไม่ระบุชื่อ'
         }
