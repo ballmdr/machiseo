@@ -77,10 +77,12 @@ app.post('/vote/series/add', (req, res) => {
   })
 })
 
-app.get('/vote/ip_check/:ip', (req, res) => {
-  db.collection('ip_check').find({ ip: req.params.ip }).toArray((err, result) => {
+
+app.post('/vote/last/ip', (req, res) => {
+  console.log(req.body.ip)
+  db.collection('series_vote').find({ "ip.ip": req.body.ip }).sort({ $natural: -1 }).limit(1).toArray((err, result) => {
     if (err) throw err
-    res.status(200.)
+    res.status(200).send(result)
   })
 })
 
@@ -91,7 +93,8 @@ app.post('/vote/add', (req, res) => {
       {
         author: req.body.author,
         series: req.body.series,
-        ip: req.body.ip
+        ip: req.body.ip,
+        time: req.body.time
       }, (err, result) => {
       if (err) throw err
       res.status(200).send(result)

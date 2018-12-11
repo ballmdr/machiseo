@@ -64,8 +64,10 @@
 
 <script>
 import { getSeriesByYear } from '~/assets/js/api'
+import moment from 'moment'
 
 export default {
+  components: { moment },
   data () {
     return {
       listVote: [],
@@ -111,6 +113,25 @@ export default {
     voteConfirm () {
       this.confirmDialog = true
     },
+    async checkValidIp (ip, time) {
+      try {
+        const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
+        console.log(lastVote)
+        const now = new moment()
+        const diff = moment.duration(now.diff(lastVote[0].time))
+        console.log('now', diff._data.days)
+        if (diff._data.days > 0) {
+          console.log('greater')
+          return  true
+        } else {
+          console.log('lesser')
+          return false
+        }
+      } catch (e) {
+        console.log('false')
+        return false
+      }
+    },
     async voteSave () {
       this.confirmDialog = false
       if (this.listVote.length > 10) {
@@ -118,33 +139,41 @@ export default {
       } else if (this.listVote.length === 0) {
         this.$toast.error("เลือกซีรีส์ก่อนจ้า")
       } else {
-        this.$toast.show("กำลังโหวต รอก่อนจ้า")
-        if (this.author === '') {
-          this.author = 'ไม่ระบุชื่อ'
-        }
+        this.$toast.success("กำลังโหวต รอก่อนจ้า")
         const ip = await this.$axios.$get("https://ipinfo.io")
-        const bucket = {
-          author: this.author,
-          series: this.listVote,
-          ip: ip
-        }
-        try {
-          await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
-          for (let i=0;i<bucket.series.length;i++) {
-            await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
+        const time = moment().format()
+        if (await this.checkValidIp(ip, time)) {
+          if (this.author === '') {
+            this.author = 'ไม่ระบุชื่อ'
           }
-          this.$toast.success('โหวตสำเร็จ')
-          this.listVote = []
-          this.$router.push('/vote/2018-result') 
-        } catch (e) {
-          this.$toast.error(e)
+          const bucket = {
+            author: this.author,
+            series: this.listVote,
+            ip: ip,
+            time: time
+          }
+          try {
+            await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
+            for (let i=0;i<bucket.series.length;i++) {
+              await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
+            }
+            this.$toast.success('โหวตสำเร็จ')
+            this.listVote = []
+            this.$router.push('/vote/2018-result') 
+          } catch (e) {
+            this.$toast.error(e)
+          }
+        } else {
+          this.$toast.error('โหวตได้วันละครั้งจ้า')
         }
       }
     }
   },
   mounted() {
     console.log('series', this.series)
-  
+    const tmp = '2018-12-01T18:59:51+07:00'
+    const now = new moment()
+    console.log('moment', moment.duration(now.diff(tmp)))
   },
   async asyncData ({ app, env }) {
     const series = await app.$axios.$get(env.voteServer + '/vote/series')
