@@ -14,7 +14,7 @@
         </v-card-text>
       </v-card>
     </v-flex>
-    <v-flex d-flex xs12 v-for="vote in votes" :key="vote._id">
+    <v-flex v-if="vote.series.length > 2" d-flex xs12 v-for="vote in votes" :key="vote._id">
       <v-card>
         <v-toolbar dense color="warning" style="color:black">โหวตโดย {{ vote.author }}</v-toolbar>
         <v-card-text>
