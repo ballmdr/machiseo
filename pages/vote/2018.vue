@@ -117,6 +117,9 @@ export default {
       try {
         const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
         const now = new moment()
+        if (lastVote[0].time == null || lastVote[0].ip == null) {
+          return true
+        }
         const diff = moment.duration(now.diff(lastVote[0].time))
         if (diff._data.days > 0) {
           return  true
