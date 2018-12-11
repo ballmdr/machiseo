@@ -116,19 +116,14 @@ export default {
     async checkValidIp (ip, time) {
       try {
         const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
-        console.log(lastVote)
         const now = new moment()
         const diff = moment.duration(now.diff(lastVote[0].time))
-        console.log('now', diff._data.days)
         if (diff._data.days > 0) {
-          console.log('greater')
           return  true
         } else {
-          console.log('lesser')
           return false
         }
       } catch (e) {
-        console.log('false')
         return false
       }
     },
@@ -168,12 +163,6 @@ export default {
         }
       }
     }
-  },
-  mounted() {
-    console.log('series', this.series)
-    const tmp = '2018-12-01T18:59:51+07:00'
-    const now = new moment()
-    console.log('moment', moment.duration(now.diff(tmp)))
   },
   async asyncData ({ app, env }) {
     const series = await app.$axios.$get(env.voteServer + '/vote/series')

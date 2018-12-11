@@ -79,7 +79,6 @@ app.post('/vote/series/add', (req, res) => {
 
 
 app.post('/vote/last/ip', (req, res) => {
-  console.log(req.body.ip)
   db.collection('series_vote').find({ "ip.ip": req.body.ip }).sort({ $natural: -1 }).limit(1).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
