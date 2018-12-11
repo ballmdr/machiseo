@@ -141,10 +141,11 @@ export default {
   },
   mounted() {
     console.log('series', this.series)
+  
   },
   async asyncData ({ app, env }) {
     const series = await app.$axios.$get(env.voteServer + '/vote/series')
-    return { series }
+    return { series, ip }
   }
 }
 </script>
