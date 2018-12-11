@@ -122,7 +122,7 @@ export default {
         if (this.author === '') {
           this.author = 'ไม่ระบุชื่อ'
         }
-        const ip = this.$axios.$get("https://ipinfo.io")
+        const ip = await this.$axios.$get("https://ipinfo.io")
         const bucket = {
           author: this.author,
           series: this.listVote,
