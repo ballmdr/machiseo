@@ -3,6 +3,8 @@ const app = express()
 const PORT = 9001
 const HOST = '0.0.0.0'
 
+const moment = require('moment')
+
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
@@ -33,7 +35,7 @@ MongoClient.connect('mongodb://localhost:27017', {
 })
 
 app.get('/testapi', (req, res) => {
-  res.status(200).send("It's OK That's Love")
+  res.status(200).send("ok")
 })
 app.get('/vote/series', (req, res) => {
   db.collection('series').find().sort({ title: 1 }).toArray((err, result) => {
@@ -75,14 +77,25 @@ app.post('/vote/series/add', (req, res) => {
   })
 })
 
-app.post('/vote/add', (req, res) => {
-  db.collection('series_vote').insertOne(
-    {
-      author: req.body.author,
-      series: req.body.series
-    }, (err, result) => {
+app.get('/vote/ip_check/:ip', (req, res) => {
+  db.collection('ip_check').find({ ip: req.params.ip }).toArray((err, result) => {
     if (err) throw err
-    res.status(200).send(result)
+    res.status(200.)
+  })
+})
+
+app.post('/vote/add', (req, res) => {
+  db.collection('ip_check').find({ ip: req.connection.remoteAddress }).toArray((err, result) => {
+    if (err) throw err
+    db.collection('series_vote').insertOne(
+      {
+        author: req.body.author,
+        series: req.body.series,
+        ip: req.connection.remoteAddress
+      }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
   })
 })
 
