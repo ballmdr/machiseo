@@ -90,7 +90,8 @@ app.post('/vote/add', (req, res) => {
     db.collection('series_vote').insertOne(
       {
         author: req.body.author,
-        series: req.body.series
+        series: req.body.series,
+        ip: req.body.ip
       }, (err, result) => {
       if (err) throw err
       res.status(200).send(result)
