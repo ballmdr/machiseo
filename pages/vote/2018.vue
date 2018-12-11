@@ -122,9 +122,11 @@ export default {
         if (this.author === '') {
           this.author = 'ไม่ระบุชื่อ'
         }
+        const ip = this.$axios.$get("https://ipinfo.io")
         const bucket = {
           author: this.author,
-          series: this.listVote
+          series: this.listVote,
+          ip: ip
         }
         try {
           await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
@@ -133,6 +135,7 @@ export default {
           }
           this.$toast.success('โหวตสำเร็จ')
           this.listVote = []
+          this.$router.push('/vote/2018-result') 
         } catch (e) {
           this.$toast.error(e)
         }
@@ -145,7 +148,7 @@ export default {
   },
   async asyncData ({ app, env }) {
     const series = await app.$axios.$get(env.voteServer + '/vote/series')
-    return { series, ip }
+    return { series }
   }
 }
 </script>
