@@ -79,10 +79,10 @@ export default {
     console.log('title', this.scoreList.map((e) => { return e.title }))
   },
   async asyncData ({ app, env }) {
-    const votes = await app.$axios.$get(env.voteServer + '/vote/result/list')
+    //const votes = await app.$axios.$get(env.voteServer + '/vote/result/list')
     const scoreList = await app.$axios.$get(env.voteServer + '/vote/series/score')
     return { 
-      votes, scoreList,
+      scoreList,
       doughnutChartData: {
         labels: scoreList.map((e) => { return e.title }),
         datasets: [
