@@ -39,7 +39,7 @@ export default {
         let serie = await getSerieByUuid(router.data.entity.uuid, '?include=field_poster')
         serie = getSerieObj(serie)
         try {
-          await this.$axios.$post(process.env.voteServer + '/vote/series/add', serie)
+          await this.$axios.$post(process.env.voteServer + '/vote/final/series/add', serie)
           this.$toast.success('เพิ่มแล้ว')
           this.path = ''
           this.series.unshift(serie)
@@ -50,7 +50,7 @@ export default {
     }
   },
   async asyncData ({ app, env }) {
-    const series = await app.$axios.$get(env.voteServer + '/vote/series')
+    const series = await app.$axios.$get(env.voteServer + '/vote/final/series')
     return { series }
   }
 }
