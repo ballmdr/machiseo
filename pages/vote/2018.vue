@@ -1,5 +1,12 @@
 <template>
   <v-layout row wrap>
+    <v-flex xs12>
+      <h1>ปิดโหวตรอบแรก รอโหวตรอบชิงพรุ่งนี้จ้า</h1>
+    </v-flex>
+    <!--
+    <v-flex xs12>
+      <h1>โหวตซีรีส์เกาหลี รอบชิงชนะเลิศปี 2018</h1>
+    </v-flex>
     <v-flex xs12 sm3 md4 d-flex>
       <v-card flat>
         <v-card-text>
@@ -10,10 +17,9 @@
               {{ element.title }}
             </v-flex>
           </v-layout>
-          <v-text-field v-model="author" label="ชื่อผู้โหวต (ไม่ใส่ก็ได้)"> </v-text-field>
           </v-card-text>
           <v-card-actions>
-          <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">{{ listVote.length }}/10 โหวต</v-btn>
+          <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">{{ listVote.length }}/1 โหวต</v-btn>
           </v-card-actions>
           <v-btn color="primary" nuxt to="/vote/2018-result">ดูคะแนนโหวตล่าสุด</v-btn>
       </v-card>
@@ -33,7 +39,7 @@
     </v-flex>
       <v-dialog v-model="checkDialog" persistent max-width="300">
         <v-card color="primary">
-          <v-card-title><span style="font-size: 24px;">เลือกได้ไม่เกินสิบเรื่องนะจ๊ะ</span></v-card-title>
+          <v-card-title><span style="font-size: 24px;">เลือกได้เรื่องเดียวเน้นๆจ้า</span></v-card-title>
           <v-card-text>คลิกซีรีส์ที่เลือกเพื่อลบออก</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -57,8 +63,9 @@
         fixed
         height="40"
       >
-        <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/10 คลิกโหวตตรงนี้ได้เลย</v-chip>
+        <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/1 คลิกโหวตตรงนี้ได้เลย</v-chip>
       </v-bottom-nav>
+      -->
   </v-layout>
 </template>
 
@@ -113,7 +120,18 @@ export default {
     voteConfirm () {
       this.confirmDialog = true
     },
-    async checkValidIp (ip, time) {
+    async checkValidIp (ip) {
+
+      // final round check 1 ip 1 time
+      const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/final/last/ip', {ip: ip.ip })
+      console.log(lastVote)
+      if (lastVote === null || lastVote.length === 0) {
+        return true
+      } else {
+        return false
+      }
+
+      /* check 1 day 1 ip
       try {
         const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
         const now = new moment()
@@ -130,10 +148,11 @@ export default {
       } catch (e) {
         return false
       }
+      */
     },
     async voteSave () {
       this.confirmDialog = false
-      if (this.listVote.length > 10) {
+      if (this.listVote.length > 1) {
         this.checkDialog = true
       } else if (this.listVote.length === 0) {
         this.$toast.error("เลือกซีรีส์ก่อนจ้า")
@@ -141,35 +160,32 @@ export default {
         this.$toast.success("กำลังโหวต รอก่อนจ้า")
         const ip = await this.$axios.$get("https://ipinfo.io")
         const time = moment().format()
-        if (await this.checkValidIp(ip, time)) {
-          if (this.author === '') {
-            this.author = 'ไม่ระบุชื่อ'
-          }
+        if (await this.checkValidIp(ip)) {
           const bucket = {
-            author: this.author,
-            series: this.listVote,
+            serie: this.listVote[0]._id,
             ip: ip,
             time: time
           }
+          
           try {
-            await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
-            for (let i=0;i<bucket.series.length;i++) {
-              await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
-            }
+            await this.$axios.post(process.env.voteServer + '/vote/final/add', bucket)
+            //for (let i=0;i<bucket.series.length;i++) {
+            await this.$axios.put(process.env.voteServer + '/vote/final/series/score/add/' + bucket.serie)
+            //}
             this.$toast.success('โหวตสำเร็จ')
             this.listVote = []
             this.$router.push('/vote/2018-result') 
           } catch (e) {
             this.$toast.error(e)
-          }
+          } 
         } else {
-          this.$toast.error('โหวตได้วันละครั้งจ้า')
-        }
+          this.$toast.error('โหวตได้ครั้งเดียวจ้า')
+        } 
       }
     }
   },
   async asyncData ({ app, env }) {
-    const series = await app.$axios.$get(env.voteServer + '/vote/series')
+    const series = await app.$axios.$get(env.voteServer + '/vote/final/series')
     return { series }
   }
 }

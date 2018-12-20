@@ -44,6 +44,13 @@ app.get('/vote/series', (req, res) => {
   })
 })
 
+app.get('/vote/final/series', (req, res) => {
+  db.collection('series_final').find().sort({ title: 1 }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.get('/vote/result/list', (req, res) => {
   db.collection('series_vote').find().sort({ $natural: -1 }).limit(100).toArray((err, result) => {
     if (err) throw err
@@ -63,6 +70,18 @@ app.put('/vote/series/score/add/:id', (req, res) => {
   })
 })
 
+app.put('/vote/final/series/score/add/:id', (req, res) => {
+  db.collection('series_final').updateOne({ _id: new ObjectID(req.params.id) },
+  { $inc:
+    {
+      score: 1
+    }
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.get('/vote/series/score', (req, res) => {
   db.collection('series').find().sort({ score: -1 }).limit(10).toArray((err, result) => {
     if (err) throw err
@@ -70,8 +89,22 @@ app.get('/vote/series/score', (req, res) => {
   })
 })
 
+app.get('/vote/final/series/score', (req, res) => {
+  db.collection('series_final').find().sort({ score: -1 }).limit(10).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.post('/vote/series/add', (req, res) => {
   db.collection('series').insertOne(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.post('/vote/final/series/add', (req, res) => {
+  db.collection('series_final').insertOne(req.body, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
@@ -86,8 +119,6 @@ app.post('/vote/last/ip', (req, res) => {
 })
 
 app.post('/vote/add', (req, res) => {
-  db.collection('ip_check').find({ ip: req.connection.remoteAddress }).toArray((err, result) => {
-    if (err) throw err
     db.collection('series_vote').insertOne(
       {
         author: req.body.author,
@@ -98,6 +129,24 @@ app.post('/vote/add', (req, res) => {
       if (err) throw err
       res.status(200).send(result)
     })
+})
+
+app.post('/vote/final/last/ip', (req, res) => {
+  db.collection('series_vote_final').find({ "ip.ip": req.body.ip }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.post('/vote/final/add', (req, res) => {
+  db.collection('series_vote_final').insertOne(
+    {
+      series: new ObjectID(req.body.serie),
+      ip: req.body.ip,
+      time: req.body.time
+    }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
   })
 })
 
