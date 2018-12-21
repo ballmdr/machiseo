@@ -17,7 +17,8 @@
       </v-card>
     </v-flex>
     <v-flex xs12>
-      <div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div>
+      <h2>ผลโหวตรอบคัดเลือก</h2>
+      <v-card><v-card-text><div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div></v-card-text></v-card>
     </v-flex>
     <!--
     <v-flex d-flex xs12 v-for="vote in votes" :key="vote._id">
