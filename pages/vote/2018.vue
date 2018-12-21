@@ -1,13 +1,9 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <h1>ปิดโหวตรอบแรก รอโหวตรอบชิงพรุ่งนี้จ้า</h1>
-    </v-flex>
-    <!--
-    <v-flex xs12>
       <h1>โหวตซีรีส์เกาหลี รอบชิงชนะเลิศปี 2018</h1>
     </v-flex>
-    <v-flex xs12 sm3 md4 d-flex>
+  <!--  <v-flex xs12 sm3 md4 d-flex>
       <v-card flat>
         <v-card-text>
           <v-layout column>
@@ -28,6 +24,7 @@
       <v-card flat class="scroll">
         <v-card-text>
           <v-layout row wrap>
+            <v-flex xs12><h2>โหวตได้คนละ 1 ครั้งเท่านั้น</h2></v-flex>
             <v-flex xs12>คลิกเลือกซีรีส์ที่ชื่นชอบ | ซีรีส์เรียงตามตัวอักษร</v-flex>
               <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs6 sm4 md3 lg2 v-for="(serie, index) in series" :key="index">
                   <v-img style="border-radius:15px;margin:auto;" max-width="100" :src="baseUrl + serie.poster"></v-img>
