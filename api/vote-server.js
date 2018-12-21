@@ -41,7 +41,7 @@ app.get('/testapi', (req, res) => {
 
 
 app.get('/getip', (req, res) => {
-  var ip = req.headers['X-Real-IP'] || req.connection.remoteAddress
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   res.status(200).send(ip)
 })
 
