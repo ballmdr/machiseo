@@ -16,6 +16,9 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <v-flex xs12>
+      <div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div>
+    </v-flex>
     <!--
     <v-flex d-flex xs12 v-for="vote in votes" :key="vote._id">
       <v-card>
@@ -76,15 +79,14 @@ export default {
     }
   },
   mounted() {
-    console.log('all vote', this.votes)
-    console.log('scorelist', this.scoreList)
-    console.log('title', this.scoreList.map((e) => { return e.title }))
+    console.log('scoreAll', this.scoreAll)
   },
   async asyncData ({ app, env }) {
     //const votes = await app.$axios.$get(env.voteServer + '/vote/result/list')
     const scoreList = await app.$axios.$get(env.voteServer + '/vote/series/score')
+    const scoreAll = await app.$axios.$get(env.voteServer + '/vote/series/score/all')
     return { 
-      scoreList,
+      scoreList, scoreAll,
       doughnutChartData: {
         labels: scoreList.map((e) => { return e.title }),
         datasets: [
