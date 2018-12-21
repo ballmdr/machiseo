@@ -89,6 +89,13 @@ app.get('/vote/series/score', (req, res) => {
   })
 })
 
+app.get('/vote/series/score/all', (req, res) => {
+  db.collection('series').find().sort({ score: -1 }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.get('/vote/final/series/score', (req, res) => {
   db.collection('series_final').find().sort({ score: -1 }).limit(10).toArray((err, result) => {
     if (err) throw err
