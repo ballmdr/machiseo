@@ -3,7 +3,7 @@
     <v-flex xs12>
       <h1>โหวตซีรีส์เกาหลี รอบชิงชนะเลิศปี 2018</h1>
     </v-flex>
-  <!--  <v-flex xs12 sm3 md4 d-flex>
+    <v-flex xs12 sm3 md4 d-flex>
       <v-card flat>
         <v-card-text>
           <v-layout column>
@@ -17,7 +17,7 @@
           <v-card-actions>
           <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">{{ listVote.length }}/1 โหวต</v-btn>
           </v-card-actions>
-          <v-btn color="primary" nuxt to="/vote/2018-result">ดูคะแนนโหวตล่าสุด</v-btn>
+          <v-card-actions><v-spacer></v-spacer><v-btn color="primary" nuxt to="/vote/2018-result">ดูคะแนนโหวตล่าสุด</v-btn></v-card-actions>
       </v-card>
     </v-flex>
     <v-flex xs12 sm9 md8 class="text-xs-center">
@@ -36,7 +36,7 @@
     </v-flex>
       <v-dialog v-model="checkDialog" persistent max-width="300">
         <v-card color="primary">
-          <v-card-title><span style="font-size: 24px;">เลือกได้เรื่องเดียวเน้นๆจ้า</span></v-card-title>
+          <v-card-title><span style="font-size: 24px;">เลือกได้เรื่องเดียวจ้า</span></v-card-title>
           <v-card-text>คลิกซีรีส์ที่เลือกเพื่อลบออก</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -62,7 +62,6 @@
       >
         <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/1 คลิกโหวตตรงนี้ได้เลย</v-chip>
       </v-bottom-nav>
-      -->
   </v-layout>
 </template>
 

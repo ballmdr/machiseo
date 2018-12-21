@@ -1,8 +1,10 @@
 <template>
   <v-layout column>
     <v-flex xs12>
+      <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2018</h1><small>#ยังไม่ปิดโหวต #โหวตคนละหนึ่งครั้ง</small>
+    </v-flex>
+    <v-flex xs12>
       <v-card>
-        <v-card-title>ชาร์ตผลโหวตล่าสุด | ปิดโหวตรอบแรกวันที่ 20 ธันวาคม 2018 | คัดเลือก 10 เรื่องเข้าชิง</v-card-title>
         <v-card-text>
           <donut-chart :data="doughnutChartData" :options="{ legend: { display: false }, maintainAspectRatio: false }"></donut-chart>
           <v-layout row wrap>
