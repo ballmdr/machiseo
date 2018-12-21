@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const PORT = 9001
 const HOST = '0.0.0.0'
+const publicIp = require('public-ip')
 
 const moment = require('moment')
 
@@ -37,6 +38,14 @@ MongoClient.connect('mongodb://localhost:27017', {
 app.get('/testapi', (req, res) => {
   res.status(200).send("ok")
 })
+
+
+app.get('/getip', (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  res.status(200).send(ip)
+})
+
+
 app.get('/vote/series', (req, res) => {
   db.collection('series').find().sort({ title: 1 }).toArray((err, result) => {
     if (err) throw err
