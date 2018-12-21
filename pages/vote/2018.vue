@@ -154,9 +154,11 @@ export default {
         this.$toast.error("เลือกซีรีส์ก่อนจ้า")
       } else {
         this.$toast.success("กำลังโหวต รอก่อนจ้า")
-        const ip = await this.$axios.$get("https://ipinfo.io")
+        //const ip = await this.$axios.$get("https://ipinfo.io")
+        const ip = ''
         const time = moment().format()
-        if (await this.checkValidIp(ip)) {
+        if (true) {
+        //if (await this.checkValidIp(ip)) {
           const bucket = {
             serie: this.listVote[0]._id,
             ip: ip,
