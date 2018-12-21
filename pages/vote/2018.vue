@@ -155,10 +155,12 @@ export default {
       } else {
         this.$toast.success("กำลังโหวต รอก่อนจ้า")
         //const ip = await this.$axios.$get("https://ipinfo.io")
-        const ip = ''
+        //const ip = ''
+        const ip = await this.$axios.$get(process.env.voteServer + '/getip')
+        console.log(ip)
         const time = moment().format()
-        if (true) {
-        //if (await this.checkValidIp(ip)) {
+        //if (true) {
+        if (await this.checkValidIp(ip)) {
           const bucket = {
             serie: this.listVote[0]._id,
             ip: ip,
