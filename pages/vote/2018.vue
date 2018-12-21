@@ -119,8 +119,8 @@ export default {
     async checkValidIp (ip) {
 
       // final round check 1 ip 1 time
-      const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/final/last/ip', {ip: ip.ip })
-      console.log(lastVote)
+      const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/final/last/ip', {ip: ip })
+      console.log('last vote', lastVote)
       if (lastVote === null || lastVote.length === 0) {
         return true
       } else {
@@ -156,11 +156,13 @@ export default {
         this.$toast.success("กำลังโหวต รอก่อนจ้า")
         //const ip = await this.$axios.$get("https://ipinfo.io")
         //const ip = ''
-        const ip = await this.$axios.$get(process.env.voteServer + '/getip')
+        let ip = await this.$axios.$get(process.env.voteServer + '/getip')
+        ip = ip.split(",")
+        ip = { ip: ip[0] }
         console.log(ip)
         const time = moment().format()
         //if (true) {
-        if (await this.checkValidIp(ip)) {
+        if (await this.checkValidIp(ip.ip)) {
           const bucket = {
             serie: this.listVote[0]._id,
             ip: ip,
