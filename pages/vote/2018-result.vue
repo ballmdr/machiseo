@@ -78,9 +78,6 @@ export default {
       ]
     }
   },
-  mounted() {
-    console.log('scoreAll', this.scoreAll)
-  },
   async asyncData ({ app, env }) {
     //const votes = await app.$axios.$get(env.voteServer + '/vote/result/list')
     const scoreList = await app.$axios.$get(env.voteServer + '/vote/series/score')
