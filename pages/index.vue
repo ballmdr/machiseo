@@ -4,6 +4,7 @@
       <h1>อ่านสปอยด์ <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h1>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12 class="text-xs-center">
       <h1><nuxt-link to="/series/encounter">ตัวอย่างซีรีส์เกาหลี Encounter</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="WidgetTitle"></viu-widget>
@@ -12,6 +13,7 @@
       <h1>ช่วงนี้อะไรโคตรฮิต <v-icon large style="margin-bottom:10px;">fab fa-hotjar</v-icon></h1>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <h1>เรื่องอะไรออนแอร์ <v-icon large style="margin-bottom:10px;">fas fa-broadcast-tower</v-icon></h1>
       <series-onair :series="onair"></series-onair>

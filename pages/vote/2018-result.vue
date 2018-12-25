@@ -3,6 +3,7 @@
     <v-flex xs12>
       <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2018</h1><small>#ยังไม่ปิดโหวต #โหวตคนละหนึ่งครั้ง</small>
     </v-flex>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <v-card>
         <v-card-text>
@@ -16,6 +17,7 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <h2>ผลโหวตรอบคัดเลือก</h2>
       <v-card><v-card-text><div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div></v-card-text></v-card>

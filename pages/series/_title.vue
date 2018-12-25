@@ -1,5 +1,6 @@
 <template> 
   <v-layout column>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12> 
       <div class="container">
         <v-card color="primary" class="u-clearfix">
@@ -66,9 +67,7 @@
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex> -->
       </v-flex>
-      <v-flex xs12 sm8>
-        
-      </v-flex>
+      <v-flex xs12 sm4 class="text-xs-center"><adsbygoogle /></v-flex>
     </v-layout>
   </v-layout>
 </template>
