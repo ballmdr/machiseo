@@ -4,6 +4,7 @@
       <nuxt-link v-if="!root" :to="$store.state.series.serie.path.alias"><h1>{{ $store.state.series.serie.title }}</h1></nuxt-link>
       <h2 :class="{'grey--text subheading': !root}">สปอยด์รายตอน - ซีรีส์เกาหลี</h2>
     </v-flex>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <nuxt-child :key="$route.params.ep" />
     </v-flex>

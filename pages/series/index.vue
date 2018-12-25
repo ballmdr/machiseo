@@ -1,5 +1,6 @@
 <template>
   <v-layout row wrap justify-center>
+    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <series-nav></series-nav>
     </v-flex>
