@@ -3,6 +3,10 @@
     <v-flex xs12>
       <h1>โหวตซีรีส์เกาหลี รอบชิงชนะเลิศปี 2018</h1>
     </v-flex>
+    <v-flex xs12>
+      <v-btn nuxt large color="warning" to="/vote/2018-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
+    </v-flex>
+    <!--
     <v-flex xs12 sm3 md4 d-flex>
       <v-card flat>
         <v-card-text>
@@ -62,6 +66,7 @@
       >
         <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/1 คลิกโหวตตรงนี้ได้เลย</v-chip>
       </v-bottom-nav>
+      -->
   </v-layout>
 </template>
 

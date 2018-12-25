@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2018</h1><small>#ยังไม่ปิดโหวต #โหวตคนละหนึ่งครั้ง</small>
+      <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2018</h1><small>#ปิดโหวตแล้วจ้า</small>
     </v-flex>
     <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>

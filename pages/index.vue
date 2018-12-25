@@ -7,7 +7,7 @@
     <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12 class="text-xs-center">
       <h1><nuxt-link to="/series/encounter">ตัวอย่างซีรีส์เกาหลี Encounter</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
-      <viu-widget :vid_id="widgetId" :serie_title="WidgetTitle"></viu-widget>
+      <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
       <h1>ช่วงนี้อะไรโคตรฮิต <v-icon large style="margin-bottom:10px;">fab fa-hotjar</v-icon></h1>
