@@ -45,7 +45,7 @@ export default {
       imgStreaming: null,
       currentEp: 0,
       swiperOption: {
-        initialSlide: 2,
+        initialSlide: 1,
         slidesPerView: 3.5,
         spaceBetween: 30,
         centeredSlides: true,
