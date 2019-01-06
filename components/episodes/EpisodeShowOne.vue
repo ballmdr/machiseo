@@ -4,9 +4,10 @@
       <v-spacer></v-spacer>
       <v-btn icon dark @click="$emit('closeDialog')"><v-icon>far fa-times-circle</v-icon></v-btn>
     </v-toolbar>
-    <v-layout column>
-      <v-flex xs8>
-        <v-carousel style="max-height:280px;" hide-delimiters
+    <v-layout :column="$vuetify.breakpoint.smAndDown">
+      <v-flex xs12 sm8 md7 style="background-color:black;">
+        <v-carousel 
+        style="max-height:280px;" hide-delimiters
         next-icon="far fa-arrow-alt-circle-right"
         prev-icon="far fa-arrow-alt-circle-left"
         >
@@ -15,12 +16,12 @@
             v-for="(item,i) in imgStreaming"
             :key="i"
           >
-          <v-chip color="warning" class="numpic">{{ i+1 }}/{{ep.field_img_streaming.length}}</v-chip>
+          <v-chip color="warning" class="numpic" style="color:black">{{ i+1 }}/{{ep.field_img_streaming.length}}</v-chip>
           <v-img :src="baseUrl + item.url" style="max-width:500px;margin:auto;"></v-img>
           </v-carousel-item>
         </v-carousel>
       </v-flex>
-      <v-flex xs8 style="overflow:auto;" id="ep-show-container">
+      <v-flex xs12 sm8 md5 style="overflow:auto;" id="ep-show-container">
         <v-card-text style="padding:25px;">
           <p v-html="ep.body.processed"></p>
         </v-card-text>
@@ -56,3 +57,74 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+@media only screen and (min-width: 200px) {
+  .v-carousel {
+    max-height: 210px !important;
+  }
+  .v-carousel .numpic {
+    position: absolute;
+    top: 150px !important;
+    left: 80% !important;
+    z-index: 5;
+    font-size:12px;
+  }
+  .v-window-item{
+    height: 280px !important;
+  }
+  .v-image{
+    max-width: 300px !important;
+    height: 200px !important;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .v-carousel {
+    max-height: 230px !important;
+  }
+  .v-carousel .numpic {
+    position: absolute;
+    top: 160px !important;
+    left: 80% !important;
+    z-index: 5;
+    font-size:12px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .v-carousel {
+    max-height: 280px !important;
+  }
+  .v-carousel .numpic {
+    position: absolute;
+    top: 220px !important;
+    left: 80% !important;
+    z-index: 5;
+    font-size:12px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .v-carousel {
+    max-height: 1000px !important;
+  }
+  .v-carousel .numpic {
+    position: absolute;
+    top: 40% !important;
+    left: 85% !important;
+    z-index: 5;
+    font-size:16px;
+  }
+  .v-window-item{
+    height:1000px !important;
+  }
+  .v-image{
+    width: 100% !important;
+    max-width: 850px !important;
+    height: 500px !important;
+  }
+}
+
+</style>

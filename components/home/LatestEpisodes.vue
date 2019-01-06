@@ -15,7 +15,7 @@
         </v-card>
       </div>
     </div>
-    <v-dialog v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
+    <v-dialog fullscreen v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
       <episode-show-one :currentEp="currentEp" :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
     </v-dialog>
   </div>

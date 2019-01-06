@@ -19,7 +19,7 @@
               <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
-                <v-layout column>
+                <v-layout column>   
                   <v-flex xs12><p v-html="serie.body.processed"></p></v-flex>
                   <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-40px;">
                         <div style="font-size:26px;">ดูซับไทยที่</div>

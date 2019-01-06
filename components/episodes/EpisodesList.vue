@@ -11,7 +11,7 @@
     <v-flex v-else class="hvr-grow" xs6 sm4 v-for="(ep, index) in $store.state.episodes.ep" :key="ep.id" style="cursor:pointer" @click="showEp(index)">
       <episode-card :ep="ep"></episode-card>
     </v-flex>
-    <v-dialog :fullscreen="$vuetify.breakpoint.xsOnly" transition="dialog-bottom-transition" v-model="showDialog" scrollable max-width="900px">
+    <v-dialog fullscreen transition="dialog-bottom-transition" v-model="showDialog" scrollable>
       <episode-show @closeDialog="showDialog = false" :currentEp="currentEp"></episode-show>
     </v-dialog>
   </v-layout>
