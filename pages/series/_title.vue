@@ -22,10 +22,10 @@
                 <v-layout column>   
                   <v-flex xs12><p v-html="serie.body.processed"></p></v-flex>
                   <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-40px;">
-                        <div style="font-size:26px;">ดูซับไทยที่</div>
-                        <a :href="serie.field_viu" target="_blank" rel="nofollow">
-                          <v-img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'"></v-img>
-                        </a>
+                    <div style="font-size:26px;">ดูซับไทยที่</div>
+                    <a :href="serie.field_viu" target="_blank" rel="nofollow">
+                      <img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'">
+                    </a>
                   </v-flex>
                 </v-layout>
               </v-card-text>
@@ -77,10 +77,9 @@ import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
-import ViuLink from '~/components/series/ViuLink'
 
 export default {
-  components: { EpisodesList, CelebsCast, ViuWidget, ViuLink },
+  components: { EpisodesList, CelebsCast, ViuWidget },
   data () {
     return {
       discourseReviews: [],
