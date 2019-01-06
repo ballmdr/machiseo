@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex class="hvr-grow" xs12 sm4 md3 v-for="(episode, index) in episodes" :key="episode.id" @click="showEp(index)">
+    <v-flex class="hvr-grow" xs12 sm6 md4 v-for="(episode, index) in episodes" :key="episode.id" @click="showEp(index)">
       <episode-card-poster :ep="episode"></episode-card-poster>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
@@ -10,7 +10,7 @@
       ></v-progress-circular>
       <v-icon v-else>remove_circle_outline</v-icon>
     </v-flex>
-    <v-dialog :fullscreen="$vuetify.breakpoint.xsOnly" v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
+    <v-dialog fullscreen  v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
       <episode-show-one :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
     </v-dialog>
   </v-layout>
@@ -84,13 +84,13 @@ export default {
   },
   async asyncData () {
     let offset = 0
-    let limit = 9
+    let limit = 12
     let empty = false
     const episodes = await getAllEpisodes(offset, limit)
     if (episodes.length < limit) {
       empty = true 
     }
-    offset += 9
+    offset += 12
     const ep = episodes[0]
     return { empty, offset, limit, episodes, ep }
   }
