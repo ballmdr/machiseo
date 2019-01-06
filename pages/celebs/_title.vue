@@ -56,8 +56,27 @@ export default {
     }
   },
   head () {
+    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const synopsis = 'ประวัติดารา : ' + this.celeb.title
     return {
-      title: this.celeb.title
+      title: this.celeb.title,
+      meta: [
+        { hid: 'description', name: 'description', content: synopsis },
+        { hid: 'og_type', name: 'og:type', content: 'article' },
+        { hid: 'og_title', name: 'og:title', content: this.celeb.title + ' - มาชิสซอ' },
+        { hid: 'og_description', name: 'og:description', content: synopsis },
+        { hid: 'og_image', name: 'og:image', content: this.baseUrl + this.celeb.field_celeb_profile.url },
+        { hid: 'og_url', name: 'og:url', content: canonical },
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'twitter_title', name: 'twitter:title', content: this.celeb.title },
+        { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
+        { hid: 'twitter_image', name: 'twitter:image', content: this.baseUrl + this.celeb.field_celeb_profile.url },
+        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+      ],
+      link: [
+        { rel: 'canonical', href: canonical }
+      ]
     }
   },
   async asyncData({ params, env }) {

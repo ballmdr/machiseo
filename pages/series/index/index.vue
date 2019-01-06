@@ -48,12 +48,13 @@ export default {
     let empty = false
     let year = ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', 'ก่อน%202010']
     let index = 0
-    const series = await getSeriesListWithYear(offset, limit, year[index])
+    let series = await getSeriesListWithYear(offset, limit, year[index])
     if (series.length < limit) {
-      if (index < year.length) {
+      index++
+      const series_more = await getSeriesListWithYear(offset, limit, year[index])
+      series = series.concat(series_more)
+      if (series_more.length < limit) {
         index++
-      } else {
-        empty = true
       }
     }
     offset += 9

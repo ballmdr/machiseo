@@ -7,8 +7,8 @@
       <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
     </v-card-text>
     <v-card-title style="height:150px">
-      <nuxt-link :to="serie.path.alias"><h2>{{ serie.title }}</h2></nuxt-link>
-      <div v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</div>
+      <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
+      <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
     </v-card-title>
     <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
   </v-card>
