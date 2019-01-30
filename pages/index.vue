@@ -4,6 +4,10 @@
       <h1>อ่านสปอยด์ <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h1>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
+    <v-flex xs12>
+      <h1>มุมฟังเพลง OST อัพเดทล่าสุด</h1>
+      <sound-cloud :soundCloudId="soundId"></sound-cloud>
+    </v-flex>
     <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12 class="text-xs-center">
       <h1><nuxt-link to="/series/touch-your-heart">ตัวอย่างซีรีส์เกาหลี Touch Your Heart</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
@@ -32,13 +36,15 @@ import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
 import CelebsOnair from '~/components/home/CelebsOnair'
 import ViuWidget from '~/components/series/ViuWidget'
+import SoundCloud from '~/components/series/SoundCloud'
 
 export default {
-  components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget },
+  components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud },
   data () {
     return {
       widgetId: '124437',
-      widgetTitle: 'Touch Your Heart'
+      widgetTitle: 'Touch Your Heart',
+      soundId: '4767794'
     }
   },
   async asyncData ({ app, env }) {
