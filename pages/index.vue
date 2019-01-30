@@ -6,7 +6,7 @@
     </v-flex>
     <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12 class="text-xs-center">
-      <h1><nuxt-link to="/series/encounter">ตัวอย่างซีรีส์เกาหลี Encounter</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
+      <h1><nuxt-link to="/series/touch-your-heart">ตัวอย่างซีรีส์เกาหลี Touch Your Heart</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
@@ -37,8 +37,8 @@ export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget },
   data () {
     return {
-      widgetId: '115882',
-      widgetTitle: 'Encounter'
+      widgetId: '124437',
+      widgetTitle: 'Touch Your Heart'
     }
   },
   async asyncData ({ app, env }) {
