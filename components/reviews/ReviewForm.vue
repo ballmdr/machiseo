@@ -3,6 +3,7 @@
     <v-card-title>
       <v-avatar size="38"><v-img :src="$auth.$state.user.picture"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $auth.$state.user.name }}</span>
     </v-card-title>
+    <v-btn @click="$auth.logout()">Logout</v-btn>
     <v-divider dark></v-divider>
     <v-card-text>
       <v-textarea
