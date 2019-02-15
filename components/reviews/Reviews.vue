@@ -28,7 +28,7 @@ export default {
   mounted() {
     this.$axios.$get(process.env.restMongoUrl + '/reviews/' + this.reviewSerie.uuid).then(reviews => {
       this.reviews = reviews
-    })  
+    })
   },
   methods: {
     isNew (index) {

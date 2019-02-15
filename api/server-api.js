@@ -81,6 +81,13 @@ app.get('/users/sub/:sub', (req, res) => {
   })
 })
 
+app.post('/testuser', (req, res) => {
+  db.collection('users').insertOne(req.body, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.post('/users/create', (req, res) => {
   db.collection('users').insertOne(
     {
