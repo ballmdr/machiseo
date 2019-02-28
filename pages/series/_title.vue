@@ -68,7 +68,7 @@
         </v-flex> -->
         <v-flex xs12>
           <h2>รีวิวจากผู้ชม</h2>
-          <reviews :reviewSerie="serie"></reviews>
+          <reviews></reviews>
         </v-flex>
       </v-flex>
       <v-flex xs12 sm4 class="text-xs-center"><adsbygoogle /></v-flex>

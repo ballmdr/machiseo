@@ -17,7 +17,7 @@ import ReviewCard from '~/components/reviews/ReviewCard'
 import ReviewLogin from '~/components/reviews/ReviewLogin'
 
 export default {
-  props: ['reviewSerie'],
+
   data() {
     return {
       reviews: [],
@@ -26,9 +26,9 @@ export default {
   },
   components: { ReviewForm, ReviewCard, ReviewLogin },
   mounted() {
-    this.$axios.$get(process.env.restMongoUrl + '/reviews/' + this.reviewSerie.uuid).then(reviews => {
+    /*this.$axios.$get(process.env.restMongoUrl + '/reviews/' + this.reviewSerie.uuid).then(reviews => {
       this.reviews = reviews
-    })
+    })*/
   },
   methods: {
     isNew (index) {

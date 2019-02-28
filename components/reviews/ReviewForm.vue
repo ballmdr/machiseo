@@ -5,21 +5,21 @@
     </v-card-title>
     <v-btn @click="$auth.logout()">Logout</v-btn>
     <v-divider dark></v-divider>
+    <v-card-actions>
+      <v-btn @click="setScore(1)" :class="{'selecting': currentScore == 1}">1</v-btn>
+      <v-btn @click="setScore(2)" :class="{'selecting': currentScore == 2}">2</v-btn>
+      <v-btn @click="setScore(3)" :class="{'selecting': currentScore == 3}">3</v-btn>
+      <v-btn @click="setScore(4)" :class="{'selecting': currentScore == 4}">4</v-btn>
+    </v-card-actions>
     <v-card-text>
       <v-textarea
         dark
         flat
         v-model="review_text"
         label="เขียนรีวิว"
-        required
         outline
       ></v-textarea>
-      <v-card-actions>
-      คุณแนะนำซีรีส์เรื่องนี้หรือไม่&nbsp;
-      <v-btn flat round color="success" @click="vote(true)"><v-icon large :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
-      <v-btn flat round color="error" @click="vote(false)"><v-icon large :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
       <v-btn large round color="warning" @click="reviewSave"><span style="color:black">โพสต์รีวิว</span></v-btn>
-      </v-card-actions>
     </v-card-text>
   </v-card>
 </template>
@@ -28,61 +28,63 @@
 import { getUserObj } from '~/assets/js/util'
 
 export default {
-  props: ['reviewSerie'],
   data () {
     return {
+      currentScore: 0,
       review_text: '',
-      recommend: null,
-      upvote: false,
-      downvote: false,
-      user: { }
+      user: {},
+      reviewObj: {}
     }
   },
   mounted() {
     this.user = getUserObj(this.$auth)
   },
   methods: {
-    vote (bias) {
-      if (bias) {
-        this.upvote = true
-        this.downvote = false
-        this.recommend = true
+    setScore(selectedScore) {
+      this.currentScore = selectedScore
+    },
+    async updateUser(){
+      const tmp_user = await this.$axios.$get(process.env.restMongoUrl + '/users/' + this.user.sub_id)
+      if (tmp_user.length > 0){
+        /* User exists -> update user */
+        await this.$axios.$put(process.env.restMongoUrl + '/users/update/' + tmp_user[0]._id, this.user)
       } else {
-        this.upvote = false
-        this.downvote = true
-        this.recommend = false
+        /* User not exists -> create user */
+        await this.$axios.$post(process.env.restMongoUrl + '/users/create', this.user)
       }
     },
-    
     async reviewSave () {
-      if (this.checkUser()) {
-        this.reviewSerie.user_sub = this.$auth.$state.user.sub
-        this.reviewSerie.reviewText = this.review_text,
-        this.reviewSerie.recommend = this.recommend
-        await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
-        let votePoint = 0
-        if (this.recommend) {
-          votePoint = 1
-        } else {
-          votePoint = -1
-        }
-        await this.$axios.$post('/entity/vote?_format=json',
-        {
-          "type": "serie_review",
-          "entity_type": ["node"],
-          "entity_id": [this.reviewSerie.nid],
-          "value": [votePoint],
-          "value_type": ["points"]
-        })
-        this.review_text = ''
-        this.upvote = false
-        this.downvote = false
-        this.$emit('reviewUpdateNew')
-      } else {
-        // add new user
+      this.updateUser()
 
+      this.reviewObj = {
+        serie_id: this.$store.getters['series/nid'],
+        sub_id: this.user.sub_id,
+        review_text: this.review_text,
+        score: this.currentScore,
+        tag: []
       }
-
+      console.log('reviewObj', this.reviewObj)
+      const res = await this.$axios.$post(process.env.restMongoUrl + '/reviews/create', this.reviewObj)
+      console.log(res)
+     /* await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
+        let votePoint = 0
+      if (this.recommend) {
+        votePoint = 1
+      } else {
+        votePoint = -1
+      }
+      await this.$axios.$post('/entity/vote?_format=json',
+      {
+        "type": "serie_review",
+        "entity_type": ["node"],
+        "entity_id": [this.reviewSerie.nid],
+        "value": [votePoint],
+        "value_type": ["points"]
+      })
+      this.review_text = ''
+      this.upvote = false
+      this.downvote = false
+      this.$emit('reviewUpdateNew') */
     },
   }
 }
@@ -92,5 +94,8 @@ export default {
 <style scoped>
 .no-vote {
   color: grey;
-}                                          
+}      
+.selecting {
+  color: green;
+}                                    
 </style> 

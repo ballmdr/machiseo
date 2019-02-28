@@ -20,3 +20,9 @@ export const actions = {
     commit('setSerie', serie)
   }
 }
+
+export const getters = {
+  nid(state) {
+    return state.serie.nid
+  }
+}

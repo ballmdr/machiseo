@@ -74,15 +74,12 @@ app.post('/series_hit/save', (req, res) => {
   })
 })
 
-app.get('/users/:id', (req, res) => {
-  db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
-})
+/*************
+ * Users Management
+ */
 
-app.post('/testuser', (req, res) => {
-  db.collection('users').insertOne(req.body, (err, result) => {
+app.get('/users/:user_id', (req, res) => {
+  db.collection('users').find({ sub_id: req.params.user_id }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
@@ -91,12 +88,13 @@ app.post('/testuser', (req, res) => {
 app.post('/users/create', (req, res) => {
   db.collection('users').insertOne(
     {
-      sub: req.body.sub,
+      sub_id: req.body.sub_id,
       name: req.body.name,
       nickname: req.body.nickname,
       email: req.body.email,
       picture: req.body.picture,
-      updated_at: req.body.updated_at
+      created_at: new Date(),
+      updated_at: new Date()
     }, (err, result) => {
       if (err) throw err
       res.status(200).send(result)
@@ -104,16 +102,16 @@ app.post('/users/create', (req, res) => {
   )
 })
 
-app.put('/users/update/:id', (req, res) => {
-  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) }, 
+app.put('/users/update/:_id', (req, res) => {
+  db.collection('users').updateOne({ _id: new ObjectID(req.params._id) }, 
     { $set: 
       { 
-        sub: req.body.sub,
+        sub_id: req.body.sub_id,
         name: req.body.name,
         nickname: req.body.nickname,
         email: req.body.email,
         picture: req.body.picture,
-        updated_at: req.body.updated_at
+        updated_at: new Date()
       }
     }, (err, result) => {
     if (err) throw err
@@ -121,6 +119,9 @@ app.put('/users/update/:id', (req, res) => {
   })  
 })
 
+/** end user management */
+
+/** review begin */
 app.get('/reviews/:uuid', (req, res) => {
   db.collection('reviews').aggregate([
     { $match: { 'serie_uuid': req.params.uuid }},
@@ -134,6 +135,24 @@ app.get('/reviews/:uuid', (req, res) => {
     }
   ]).toArray((err, result) => {
     if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.post('/reviews/create', (req, res) => {
+  db.collection('reviews').insertOne(
+    {
+      serie_id: req.body.serie_id,
+      sub_id: req.body.sub_id,
+      review_text: req.body.review_text,
+      score: req.body.score,
+      tag: req.body.tag,
+      like: 0,
+      reply: 0,
+      created_at: new Date(),
+      updated_at: new Date()
+    }, (err, result) => {
+    if (err) return console.log(err)
     res.status(200).send(result)
   })
 })
@@ -154,25 +173,7 @@ app.get('/reviews/latest/:uuid', (req, res) => {
     }) 
 })
 
-app.post('/reviews/add', (req, res) => {
-  db.collection('reviews').insertOne(
-    {
-      user_sub: req.body.user_sub,
-      serie_uuid: req.body.uuid,
-      serie_nid: req.body.nid,
-      serie_poster: req.body.poster,
-      serie_path: req.body.path,
-      reviewText: req.body.reviewText,
-      created: new Date(),
-      updated: new Date(),
-      recommend: req.body.recommend,
-      like: 0,
-      replyCount: 0
-    }, (err, result) => {
-    if (err) return console.log(err)
-    res.status(200).send(result)
-  })
-})
+
 
 app.put('/reviews/edit', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.body._id) }, 
@@ -209,6 +210,8 @@ app.put('/reviews/vote/:id', (req, res) => {
     res.status(200).send(result)
   })
 })
+
+/** review end */
 
 app.get('/reviews/replies/latest/:review_id', (req, res) => {
   db.collection('review_replies').aggregate([
