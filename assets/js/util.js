@@ -20,3 +20,22 @@ export function getSerieObj (serie) {
   }
   return tmp
 }
+
+export function getUserObj(auth) {
+  const user = {}
+  switch (auth.$state.strategy) {
+    case "facebook":
+      user.user_id = auth.$state.strategy + '|' + auth.$state.user.id
+      user.name = auth.$state.user.name
+      user.picture = auth.$state.user.picture.data.url
+      user.email = auth.$state.user.email
+      break
+    case "google":
+      user.user_id = auth.$state.strategy + '|' + auth.$state.user.sub
+      user.name = auth.$state.user.name
+      user.picture = auth.$state.user.picture
+      user.email = auth.$state.user.email
+      break
+  }
+  return user
+}

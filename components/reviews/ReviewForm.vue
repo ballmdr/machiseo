@@ -1,7 +1,7 @@
 <template>
   <v-card color="primary" >
     <v-card-title>
-      <v-avatar size="38"><v-img :src="$auth.$state.user.picture"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $auth.$state.user.name }}</span>
+      <v-avatar size="38"><v-img :src="user.picture"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ user.name }}</span>
     </v-card-title>
     <v-btn @click="$auth.logout()">Logout</v-btn>
     <v-divider dark></v-divider>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { getUserObj } from '~/assets/js/util'
+
 export default {
   props: ['reviewSerie'],
   data () {
@@ -32,8 +34,12 @@ export default {
       review_text: '',
       recommend: null,
       upvote: false,
-      downvote: false
+      downvote: false,
+      user: { }
     }
+  },
+  mounted() {
+    this.user = getUserObj(this.$auth)
   },
   methods: {
     vote (bias) {
@@ -47,29 +53,36 @@ export default {
         this.recommend = false
       }
     },
+    
     async reviewSave () {
-      this.reviewSerie.user_sub = this.$auth.$state.user.sub
-      this.reviewSerie.reviewText = this.review_text,
-      this.reviewSerie.recommend = this.recommend
-      await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
-      let votePoint = 0
-      if (this.recommend) {
-        votePoint = 1
+      if (this.checkUser()) {
+        this.reviewSerie.user_sub = this.$auth.$state.user.sub
+        this.reviewSerie.reviewText = this.review_text,
+        this.reviewSerie.recommend = this.recommend
+        await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
+        let votePoint = 0
+        if (this.recommend) {
+          votePoint = 1
+        } else {
+          votePoint = -1
+        }
+        await this.$axios.$post('/entity/vote?_format=json',
+        {
+          "type": "serie_review",
+          "entity_type": ["node"],
+          "entity_id": [this.reviewSerie.nid],
+          "value": [votePoint],
+          "value_type": ["points"]
+        })
+        this.review_text = ''
+        this.upvote = false
+        this.downvote = false
+        this.$emit('reviewUpdateNew')
       } else {
-        votePoint = -1
+        // add new user
+
       }
-      await this.$axios.$post('/entity/vote?_format=json',
-      {
-        "type": "serie_review",
-        "entity_type": ["node"],
-        "entity_id": [this.reviewSerie.nid],
-        "value": [votePoint],
-        "value_type": ["points"]
-      })
-      this.review_text = ''
-      this.upvote = false
-      this.downvote = false
-      this.$emit('reviewUpdateNew')
+
     },
   }
 }

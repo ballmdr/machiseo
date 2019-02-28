@@ -74,7 +74,7 @@ app.post('/series_hit/save', (req, res) => {
   })
 })
 
-app.get('/users/sub/:sub', (req, res) => {
+app.get('/users/:id', (req, res) => {
   db.collection('users').find({ sub: req.params.sub }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
