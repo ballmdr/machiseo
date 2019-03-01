@@ -17,15 +17,15 @@ import ReviewCard from '~/components/reviews/ReviewCard'
 import ReviewLogin from '~/components/reviews/ReviewLogin'
 
 export default {
-
+  props: ['reviews'],
   data() {
     return {
-      reviews: [],
       new: false
     }
   },
   components: { ReviewForm, ReviewCard, ReviewLogin },
   mounted() {
+    console.log('reviews', this.reviews)
     /*this.$axios.$get(process.env.restMongoUrl + '/reviews/' + this.reviewSerie.uuid).then(reviews => {
       this.reviews = reviews
     })*/

@@ -1,27 +1,24 @@
 export const state = () => {
-  userDone: false
+  user: null
 }
 
 export const getters = {
-  getUserDone(state) {
-    return state.userDone
+  getUser(state){
+    return state.user
+  },
+  subId(state){
+    return state.user.sub_id
   }
 }
 
 export const mutations = {
-  setUserDone(state) {
-    state.userDone = true
-  },
-  clearUserDone(state) {
-    state.userDone = false
+  setUser(state, payload){
+    state.user = payload
   }
 }
 
 export const actions = {
-  setUserDone({ commit }) {
-    commit('setUserDone')
-  },
-  clearUserDone({ commit }) {
-    commit('clearUserDone')
+  setUser({ commit }, userObj) {
+    commit('setUser', userObj)
   }
 }

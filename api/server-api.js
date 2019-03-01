@@ -122,14 +122,14 @@ app.put('/users/update/:_id', (req, res) => {
 /** end user management */
 
 /** review begin */
-app.get('/reviews/:uuid', (req, res) => {
+app.get('/reviews/:nid', (req, res) => {
   db.collection('reviews').aggregate([
-    { $match: { 'serie_uuid': req.params.uuid }},
+    { $match: { 'serie_id': req.params.nid, 'show': "1" }},
     { $lookup:
       {
         from: 'users',
-        localField: 'user_sub',
-        foreignField: 'sub',
+        localField: 'sub_id',
+        foreignField: 'sub_id',
         as: 'user'
       }
     }
@@ -148,9 +148,11 @@ app.post('/reviews/create', (req, res) => {
       score: req.body.score,
       tag: req.body.tag,
       like: 0,
+      dislike: 0,
       reply: 0,
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: new Date(),
+      show: "1"
     }, (err, result) => {
     if (err) return console.log(err)
     res.status(200).send(result)
@@ -186,6 +188,15 @@ app.put('/reviews/edit', (req, res) => {
     }, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
+  })
+})
+
+app.put('/reviews/hide/:id', (req, res) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) } ,
+  { $set:
+    {
+      show: "0"
+    }
   })
 })
 

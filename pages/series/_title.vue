@@ -68,7 +68,7 @@
         </v-flex> -->
         <v-flex xs12>
           <h2>รีวิวจากผู้ชม</h2>
-          <reviews></reviews>
+          <reviews :reviews="reviews"></reviews>
         </v-flex>
       </v-flex>
       <v-flex xs12 sm4 class="text-xs-center"><adsbygoogle /></v-flex>
@@ -85,6 +85,7 @@ import Reviews from '~/components/reviews/Reviews'
 
 export default {
   components: { EpisodesList, CelebsCast, ViuWidget, Reviews },
+  middleware: 'user-auth',
   data () {
     return {
       discourseReviews: [],
@@ -135,10 +136,11 @@ export default {
         })
     }
   },
-  async asyncData ({ params, env, store }) {
+  async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
+    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
     await store.dispatch('series/setSerie', params.title)
-    return { serie }
+    return { serie, reviews }
   },
   async fetch ({ params, store }) {
     await store.dispatch('episodes/setEp', params.title)

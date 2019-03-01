@@ -36,55 +36,30 @@ export default {
       reviewObj: {}
     }
   },
-  mounted() {
-    this.user = getUserObj(this.$auth)
-  },
   methods: {
     setScore(selectedScore) {
       this.currentScore = selectedScore
     },
     async updateUser(){
-      const tmp_user = await this.$axios.$get(process.env.restMongoUrl + '/users/' + this.user.sub_id)
+      const tmp_user = await this.$axios.$get(process.env.restMongoUrl + '/users/' + this.$store.getters['users/subId'])
       if (tmp_user.length > 0){
         /* User exists -> update user */
-        await this.$axios.$put(process.env.restMongoUrl + '/users/update/' + tmp_user[0]._id, this.user)
+        await this.$axios.$put(process.env.restMongoUrl + '/users/update/' + tmp_user[0]._id, this.$store.getters['users/getUser'])
       } else {
         /* User not exists -> create user */
-        await this.$axios.$post(process.env.restMongoUrl + '/users/create', this.user)
+        await this.$axios.$post(process.env.restMongoUrl + '/users/create', this.$store.getters['users/getUser'])
       }
     },
     async reviewSave () {
       this.updateUser()
-
       this.reviewObj = {
-        serie_id: this.$store.getters['series/nid'],
+        serie_id: String(this.$store.getters['series/nid']),
         sub_id: this.user.sub_id,
         review_text: this.review_text,
         score: this.currentScore,
         tag: []
       }
-      console.log('reviewObj', this.reviewObj)
-      const res = await this.$axios.$post(process.env.restMongoUrl + '/reviews/create', this.reviewObj)
-      console.log(res)
-     /* await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
-        let votePoint = 0
-      if (this.recommend) {
-        votePoint = 1
-      } else {
-        votePoint = -1
-      }
-      await this.$axios.$post('/entity/vote?_format=json',
-      {
-        "type": "serie_review",
-        "entity_type": ["node"],
-        "entity_id": [this.reviewSerie.nid],
-        "value": [votePoint],
-        "value_type": ["points"]
-      })
-      this.review_text = ''
-      this.upvote = false
-      this.downvote = false
-      this.$emit('reviewUpdateNew') */
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/create', this.reviewObj)
     },
   }
 }

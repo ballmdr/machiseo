@@ -3,8 +3,8 @@
   <div>
     <v-card-title v-if="review.user.length > 0">
       <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
-      <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
-      <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
+      {{ review.user[0].name }}
+      <v-chip>{{ review.score }}</v-chip>
       <v-spacer></v-spacer>
       <v-menu v-if="canAccess" name="more" bottom left>
         <v-btn
@@ -24,16 +24,15 @@
         </v-list>
       </v-menu>
     </v-card-title>
-    <v-card-text v-show="!reviewEditDialog">{{ review.reviewText }}</v-card-text>
+    <v-card-text v-show="!reviewEditDialog">{{ review.review_text }}</v-card-text>
     <div v-show="reviewEditDialog">
       <v-textarea v-model="newReviewText"></v-textarea>
-      <v-btn flat round color="success" @click="vote(true)"><v-icon :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
-      <v-btn flat round color="error" @click="vote(false)"><v-icon :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
       <v-btn round color="warning" @click="reviewEditSubmit"><span style="color:black">แก้ไขรีวิว</span></v-btn>
       <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
     </div>
     <v-card-actions>
       <span><v-btn icon @click="voteReview"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
+      <span><v-btn icon @click="voteReview"><v-icon small>thumb_down</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
       <span><v-btn icon @click="showReply"><v-icon small>comment</v-icon></v-btn>{{ review.replyCount }}</span>
     </v-card-actions>
   </div>
@@ -93,13 +92,14 @@ export default {
       upvote: false,
       downvote: false,
       newRecommend: this.review.recommend,
-      newReviewText: this.review.reviewText
+      newReviewText: this.review.reviewText,
+      user: {}
     }
   },
   computed: {
     canAccess() {
       if (this.$auth.$state.loggedIn) {
-        if (this.review.user[0].sub === this.$auth.$state.user.sub) {
+        if (this.review.sub_id === this.user.sub_id) {
           return true
         }
       } else {
@@ -171,7 +171,7 @@ export default {
     },
     async reviewDel () {
       await this.$axios.$delete(process.env.restMongoUrl + '/reviews/delete/' + this.review._id)
-      this.$emit('delReview')
+      //this.$emit('delReview')
     }
   }
 }
