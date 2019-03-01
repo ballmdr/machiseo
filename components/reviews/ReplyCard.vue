@@ -2,6 +2,7 @@
   <v-card dark>
     <v-card-title v-if="reply.user.length > 0">
       <v-avatar size="38"><v-img :src="reply.user[0].picture"></v-img></v-avatar>
+      {{ reply.user[0].name }}
       <v-spacer></v-spacer>
       <v-menu v-if="canAccess" name="more" bottom left>
         <v-btn
@@ -68,7 +69,7 @@ export default {
   computed: {
     canAccess() {
       if (this.$auth.$state.loggedIn) {
-        if (this.reply.user[0].sub === this.$auth.$state.user.sub) {
+        if (this.reply.user[0].sub_id === this.$store.getters['users/subId']) {
           return true
         }
       } else {
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     async replyDel() {
-      await this.$axios.$delete(process.env.restMongoUrl + '/reviews/reply/delete/' + this.reply._id)
+      await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/hide/' + this.reply._id)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/del/' + this.review_id)
       this.$emit('replyDelete')
     },

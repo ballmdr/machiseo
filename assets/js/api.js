@@ -33,7 +33,7 @@ export async function getCelebById (id) {
   return jsonapiParse.parse(data).data
 }
 
-export async function getSerieByPath (path, env) {
+export async function getSerieByPath (path) {
   const uri = findRouterPath + "/series/" + path
   const { data } = await apiClient.post('/subrequests?_format=json', 
   [
@@ -50,7 +50,7 @@ export async function getSerieByPath (path, env) {
       "Accept": "application/json",
       "waitFor": ["router"]
     }
-  ], { auth: { username: env.userDrupal, password: env.passDrupal }})
+  ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 

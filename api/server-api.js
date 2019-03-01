@@ -159,14 +159,14 @@ app.post('/reviews/create', (req, res) => {
   })
 })
 
-app.get('/reviews/latest/:uuid', (req, res) => {
+app.get('/reviews/latest/:nid', (req, res) => {
   db.collection('reviews').aggregate([
-    { $match: { 'serie_uuid': req.params.uuid }},
+    { $match: { 'serie_id': req.params.nid }},
     { $lookup:
       {
         from: 'users',
-        localField: 'user_sub',
-        foreignField: 'sub',
+        localField: 'sub_id',
+        foreignField: 'sub_id',
         as: 'user'
       }
     },{ $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
@@ -181,9 +181,9 @@ app.put('/reviews/edit', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.body._id) }, 
     { $set: 
       { 
-        reviewText:req.body.reviewText,
-        recommend: req.body.recommend,
-        updated: new Date()
+        review_text:req.body.review_text,
+        score: req.body.score,
+        updated_at: new Date()
       }
     }, (err, result) => {
     if (err) throw err
@@ -197,6 +197,9 @@ app.put('/reviews/hide/:id', (req, res) => {
     {
       show: "0"
     }
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
   })
 })
 
@@ -210,11 +213,23 @@ app.delete('/reviews/delete/:id', (req, res) => {
   })
 })
 
-app.put('/reviews/vote/:id', (req, res) => {
+app.put('/reviews/like/:id', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
   { $inc:
     {
       like: 1
+    }
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
+app.put('/reviews/dislike/:id', (req, res) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id)},
+  { $inc:
+    {
+      dislike: 1
     }
   }, (err, result) => {
     if (err) throw err
@@ -230,8 +245,8 @@ app.get('/reviews/replies/latest/:review_id', (req, res) => {
     {$lookup:
       {
         from: 'users',
-        localField: 'user_sub',
-        foreignField: 'sub',
+        localField: 'sub_id',
+        foreignField: 'sub_id',
         as: 'user'
       }
     }, { $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
@@ -242,12 +257,12 @@ app.get('/reviews/replies/latest/:review_id', (req, res) => {
 
 app.get('/reviews/replies/:review_id', (req, res) => {
   db.collection('review_replies').aggregate([
-    {$match: { 'review_id': new ObjectID(req.params.review_id) }},
+    {$match: { 'review_id': new ObjectID(req.params.review_id), 'show': "1" }},
     {$lookup:
       {
         from: 'users',
-        localField: 'user_sub',
-        foreignField: 'sub',
+        localField: 'sub_id',
+        foreignField: 'sub_id',
         as: 'user'
       }
     }
@@ -261,10 +276,11 @@ app.post('/reviews/reply/add', (req, res) => {
   db.collection('review_replies').insertOne(
     {
       replyText: req.body.replyText,
-      user_sub: req.body.user_sub,
+      sub_id: req.body.sub_id,
       review_id: new ObjectID(req.body.review_id),
-      created: new Date(),
-      updated: new Date()
+      show: "1",
+      created_at: new Date(),
+      updated_at: new Date()
     }, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
@@ -275,7 +291,7 @@ app.put('/reviews/replyCount/add/:id', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
   { $inc:
     {
-      replyCount: 1
+      reply: 1
     }
   }, (err, result) => {
     if (err) throw err
@@ -283,8 +299,13 @@ app.put('/reviews/replyCount/add/:id', (req, res) => {
   })
 })
 
-app.delete('/reviews/reply/delete/:id', (req, res) => {
-  db.collection('review_replies').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
+app.put('/reviews/reply/hide/:id', (req, res) => {
+  db.collection('review_replies').updateOne({ _id: new ObjectID(req.params.id) },
+  { $set:
+    {
+      show: "0"
+    }
+  }, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
@@ -294,7 +315,7 @@ app.put('/reviews/replyCount/del/:id', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
   { $inc:
     {
-      replyCount: -1
+      reply: -1
     }
   }, (err, result) => {
     if (err) throw err

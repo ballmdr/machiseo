@@ -119,7 +119,8 @@ export default {
   },
   mounted() {
     window.onscroll = () => { return false }
-    if (this.serie.field_topic !== null) {
+    //console.log('serie2', this.serie2)
+   /* if (this.serie.field_topic !== null) {
       const tmpHeaders = this.$axios.defaults.headers
       this.$axios.defaults.headers = {
         "Accept": "application/json"
@@ -134,12 +135,13 @@ export default {
         .catch(err => {
           console.log('err', err.response.data)
         })
-    }
+    } */
   },
   async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
+    //const serie = store.getters['series/getSerie']
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
-    await store.dispatch('series/setSerie', params.title)
+    store.dispatch('series/setSerie', serie)
     return { serie, reviews }
   },
   async fetch ({ params, store }) {

@@ -8,6 +8,12 @@ export const getters = {
   },
   subId(state){
     return state.user.sub_id
+  },
+  picture(state){
+    return state.user.picture
+  },
+  name(state){
+    return state.user.name
   }
 }
 

@@ -1,7 +1,8 @@
 <template>
   <v-card color="primary">
     <v-card-text>
-      <v-avatar size="38"><v-img :src="$auth.$state.user.picture"></v-img></v-avatar>
+      <v-avatar size="38"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>
+      {{ $store.getters['users/name'] }}
       <v-textarea label="ตอบรีวิว" v-model="reply.replyText"></v-textarea>
     </v-card-text>
     <v-card-actions><v-spacer></v-spacer><v-btn @click="replySubmit" color="warning"><span style="color:black">ตอบรีวิว</span></v-btn></v-card-actions>
@@ -16,7 +17,7 @@ export default {
       reply: {
         replyText: '',
         review_id: this.review_id,
-        user_sub: this.$auth.user.sub
+        sub_id: this.$store.getters['users/subId']
       }
     }
   },
@@ -25,7 +26,7 @@ export default {
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/reply/add', this.reply)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/add/' + this.reply.review_id)
       this.reply.replyText = ''
-      this.$emit('replyUpdate', this.reply)
+      this.$emit('replyUpdate')
     }
   }
 }

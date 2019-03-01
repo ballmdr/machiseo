@@ -39,9 +39,11 @@ export default {
       }
     },
     async updateLatest() {
-      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest/' + this.reviewSerie.uuid)
+      console.log(process.env.restMongoUrl + '/reviews/latest/' + this.$store.getters['series/nid'])
+      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest/' + this.$store.getters['series/nid'])
       this.new = true
       this.$toast.success('รีวิวของคุณมีค่า ขอบคุณที่ร่วมรีวิว')
+      //this.reviews.unshift(this.$store.getters['reviews/getReview'])
       this.reviews.unshift(res[0])
     },
     async deleteReview(index) {

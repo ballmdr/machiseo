@@ -1,4 +1,3 @@
-import { getSmallSerieByPath } from '~/assets/js/api'
 
 export const state = () => ({
   serie: null,
@@ -15,13 +14,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async setSerie({ commit }, path) {
-    const serie = await getSmallSerieByPath(path)
+  async setSerie({ commit }, serie) {
+    //const serie = await getSerieByPath(path)
     commit('setSerie', serie)
   }
 }
 
 export const getters = {
+  getSerie(state){
+    return state.serie
+  },
   nid(state) {
     return state.serie.nid
   }

@@ -15,7 +15,6 @@ export default function({ store, app }){
             user.email = app.$auth.$state.user.email
             break
         }
-        console.log('user', user)
         store.dispatch('users/setUser', user)
     }
 }
