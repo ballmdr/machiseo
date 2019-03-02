@@ -1,34 +1,25 @@
 <template>
-  <v-card dark>
-    <v-card-title v-if="reply.user.length > 0">
-      <v-avatar size="38"><v-img :src="reply.user[0].picture"></v-img></v-avatar>
-      {{ reply.user[0].name }}
-      <v-spacer></v-spacer>
-      <v-menu v-if="canAccess" name="more" bottom left>
-        <v-btn
-          slot="activator"
-          dark
-          icon
-        >
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile @click="replyEditDialog = true">
-            <v-list-tile-title>แก้ไข</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="confirmDel = true">
-            <v-list-tile-title>ลบ</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </v-card-title>
-    <v-card-text v-show="!replyEditDialog">{{ reply.replyText }}</v-card-text>
-    <div v-show="replyEditDialog">
-      <v-textarea v-model="newReplyText"></v-textarea>
-      <v-btn round color="warning" @click="replyEditSubmit"><span style="color:black">แก้ไข</span></v-btn>
-      <v-btn round color="danger" @click="replyEditDialog = false">ยกเลิก</v-btn>
-    </div>
-          <v-dialog
+  <div>
+    <v-layout columns v-if="reply.user.length > 0">
+      <v-flex xs2 class="text-xs-right">
+        <div><v-avatar size="28"><v-img :src="reply.user[0].picture"></v-img></v-avatar></div>
+      </v-flex>
+      <v-flex xs10>
+        <div>{{ reply.user[0].name }}</div>
+        <div v-show="!replyEditDialog">{{ reply.replyText }}</div>
+        <div v-show="replyEditDialog">
+          <v-textarea v-model="newReplyText"></v-textarea>
+          <v-btn round color="warning" @click="replyEditSubmit"><span style="color:black">แก้ไข</span></v-btn>
+          <v-btn round color="danger" @click="replyEditDialog = false">ยกเลิก</v-btn>
+        </div>
+        <div div v-if="canAccess">
+          <v-btn icon @click="replyEditDialog = true" small><v-icon small>far fa-edit</v-icon></v-btn>
+          <v-btn icon @click="confirmDel = true" small><v-icon small>far fa-trash-alt</v-icon></v-btn>
+        </div>
+      </v-flex>
+    </v-layout>
+
+      <v-dialog
         v-model="confirmDel"
         max-width="290"
       >
@@ -53,7 +44,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -95,3 +86,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.reply-text{
+  padding-top: 10px;
+}
+</style>

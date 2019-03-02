@@ -36,6 +36,11 @@ app.get('/testapi', (req, res) => {
   res.status(200).send("It's OK")
 })
 
+app.get('/getip', (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  res.status(200).send(ip)
+})
+
 app.get('/series_hit', (req, res) => {
   db.collection('series_hit').find().sort({ rank: 1 }).toArray((err, result) => {
     if (err) throw err

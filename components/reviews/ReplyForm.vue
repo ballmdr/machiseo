@@ -1,12 +1,14 @@
 <template>
-  <v-card color="primary">
-    <v-card-text>
-      <v-avatar size="38"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>
-      {{ $store.getters['users/name'] }}
+  <div>
+    <div>
+      <v-avatar size="28"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>
       <v-textarea label="ตอบรีวิว" v-model="reply.replyText"></v-textarea>
-    </v-card-text>
-    <v-card-actions><v-spacer></v-spacer><v-btn @click="replySubmit" color="warning"><span style="color:black">ตอบรีวิว</span></v-btn></v-card-actions>
-  </v-card>
+    </div>
+    <div>
+      <v-btn round color="danger" @click="$emit('replyClose')">ยกเลิก</v-btn>
+      <v-btn @click="replySubmit" color="warning" small round><span style="color:black">ตอบรีวิว</span></v-btn>
+    </div>
+  </div>
 </template>
 
 <script>
