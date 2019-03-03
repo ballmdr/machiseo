@@ -42,10 +42,24 @@ app.get('/getip', (req, res) => {
 })
 
 app.get('/reviews/ip-like', (req, res) => {
-  db.collection('ip_like').find().toArray((err, result) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  // var ip = req.params.ip
+  db.collection('ip_like').find( { ip: ip }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
+})
+
+app.post('/reviews/ip-like/create/:id', (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  db.collection('ip_like').insertOne(
+    {
+      ip: ip,
+      review_like: req.params.id
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.get('/series_hit', (req, res) => {

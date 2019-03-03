@@ -22,7 +22,9 @@
           <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
         </div>
         <div class="icon-action">
-          <v-btn v-if="!liked" icon @click="like"><v-icon color="red">far fa-kiss-wink-heart</v-icon></v-btn>{{ review.like }}
+          <v-btn v-if="!liked" icon @click="like"><v-icon color="red">far fa-kiss-wink-heart</v-icon></v-btn>
+          <v-btn v-else icon><v-icon color="red">fas fa-kiss-wink-heart</v-icon></v-btn>
+          {{ review.like }}
           <!--<span><v-btn icon @click="dislike"><v-icon small>thumb_down</v-icon></v-btn>{{ review.dislike }}&nbsp;&nbsp;</span>-->
           <v-btn icon @click="showReply"><v-icon small>far fa-comments</v-icon></v-btn>{{ review.reply }}
         </div>
@@ -88,7 +90,8 @@ export default {
       replyCardDialog: false,
       replies: [],
       newReviewText: this.review.review_text,
-      currentScore: this.review.score
+      currentScore: this.review.score,
+      liked: false
     }
   },
   computed: {
@@ -100,18 +103,16 @@ export default {
       } else {
         return false
       }
-    },
-    liked () {
-      const likeId = this.$store.getters['reviews/likeReview']
-      if (this.isInArray(this.review_id, likeId.review_like)) {
-        return true
-      } else {
-        return false
-      }
     }
   },
   mounted () {
-    console.log('likeReview', this.$store.getters['reviews/likeReview'])
+    const likeReview = this.$store.getters['reviews/likeReview']
+    console.log(likeReview)
+    if (likeReview.includes(this.review._id)) {
+      this.liked = true
+    } else {
+      this.liked = false
+    }
   },
   methods: {
     isInArray (value, array) {
@@ -147,7 +148,9 @@ export default {
     },
     async like () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/like/' + this.review._id)
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/ip-like/create/' + this.review._id)
       this.review.like++
+      this.liked = true
     },
     async reviewEditSubmit () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/edit',
