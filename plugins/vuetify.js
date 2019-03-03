@@ -31,6 +31,7 @@ import {
   VBadge,
   VBottomNav
 } from 'vuetify'
+import { Ripple } from 'vuetify/lib/directives'
 import colors from 'vuetify/es5/util/colors'
 import transitions from 'vuetify/es5/components/transitions'
 
@@ -66,6 +67,9 @@ Vue.use(Vuetify, {
     VTooltip,
     VBadge,
     VBottomNav
+  },
+  directives: {
+    Ripple
   },
   theme: {
     primary: '#7952b3', // a color that is not in the material colors palette

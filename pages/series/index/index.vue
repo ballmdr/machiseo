@@ -15,11 +15,11 @@
 
 <script>
 import SerieCardGroup from '~/components/series/SerieCardGroup'
-import { getSeriesList, getSeriesListWithYear } from '~/assets/js/api'
+import { getSeriesListWithYear } from '~/assets/js/api'
 
 export default {
   components: { SerieCardGroup },
-  mounted() {
+  mounted () {
     window.onscroll = () => {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
       if (bottomOfWindow) {
@@ -34,15 +34,15 @@ export default {
                 this.empty = true
               }
             }
-            for (let i=0;i<newSeries.length;i++) {
+            for (let i = 0; i < newSeries.length; i++) {
               this.series.push(newSeries[i])
             }
-          })      
+          })
         }
       }
     }
   },
-  async asyncData() {
+  async asyncData () {
     let offset = 0
     let limit = 9
     let empty = false
@@ -51,9 +51,9 @@ export default {
     let series = await getSeriesListWithYear(offset, limit, year[index])
     if (series.length < limit) {
       index++
-      const series_more = await getSeriesListWithYear(offset, limit, year[index])
-      series = series.concat(series_more)
-      if (series_more.length < limit) {
+      const seriesMore = await getSeriesListWithYear(offset, limit, year[index])
+      series = series.concat(seriesMore)
+      if (seriesMore.length < limit) {
         index++
       }
     }

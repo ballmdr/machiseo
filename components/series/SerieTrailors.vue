@@ -32,13 +32,13 @@ export default {
     }
   },
   methods: {
-    openTrailor(index) {
+    openTrailor (index) {
       this.currentId = this.youtubeId[index]
       this.trailorDialog = true
     }
   },
-  mounted() {
-    for (let i=0;i < this.trailors.length;i++) {
+  mounted () {
+    for (let i = 0; i < this.trailors.length; i++) {
       this.youtubeId[i] = getYoutubeId(this.trailors[i])
     }
   }

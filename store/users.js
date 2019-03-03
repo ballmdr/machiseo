@@ -1,30 +1,30 @@
-export const state = () => {
+export const state = () => ({
   user: null
-}
+})
 
 export const getters = {
-  getUser(state){
+  getUser (state) {
     return state.user
   },
-  subId(state){
+  subId (state) {
     return state.user.sub_id
   },
-  picture(state){
+  picture (state) {
     return state.user.picture
   },
-  name(state){
+  name (state) {
     return state.user.name
   }
 }
 
 export const mutations = {
-  setUser(state, payload){
+  setUser (state, payload) {
     state.user = payload
   }
 }
 
 export const actions = {
-  setUser({ commit }, userObj) {
+  setUser ({ commit }, userObj) {
     commit('setUser', userObj)
   }
 }

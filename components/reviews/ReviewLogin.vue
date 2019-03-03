@@ -12,16 +12,16 @@
 <script>
 export default {
   methods: {
-    async auth0() {
+    async auth0 () {
       await this.$auth.loginWith('auth0')
     },
-    async github() {
+    async github () {
       await this.$auth.loginWith('github')
     },
-    async google(){
+    async google () {
       await this.$auth.loginWith('google')
     },
-    async facebook(){
+    async facebook () {
       await this.$auth.loginWith('facebook')
     }
   }

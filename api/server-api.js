@@ -10,12 +10,12 @@ const ObjectID = require('mongodb').ObjectID
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
   next()
 })
 
@@ -39,6 +39,13 @@ app.get('/testapi', (req, res) => {
 app.get('/getip', (req, res) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   res.status(200).send(ip)
+})
+
+app.get('/reviews/ip-like', (req, res) => {
+  db.collection('ip_like').find().toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
 })
 
 app.get('/series_hit', (req, res) => {
@@ -108,9 +115,9 @@ app.post('/users/create', (req, res) => {
 })
 
 app.put('/users/update/:_id', (req, res) => {
-  db.collection('users').updateOne({ _id: new ObjectID(req.params._id) }, 
-    { $set: 
-      { 
+  db.collection('users').updateOne({ _id: new ObjectID(req.params._id) },
+    { $set:
+      {
         sub_id: req.body.sub_id,
         name: req.body.name,
         nickname: req.body.nickname,
@@ -119,9 +126,9 @@ app.put('/users/update/:_id', (req, res) => {
         updated_at: new Date()
       }
     }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })  
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 /** end user management */
@@ -129,7 +136,7 @@ app.put('/users/update/:_id', (req, res) => {
 /** review begin */
 app.get('/reviews/:nid', (req, res) => {
   db.collection('reviews').aggregate([
-    { $match: { 'serie_id': req.params.nid, 'show': "1" }},
+    { $match: { 'serie_id': req.params.nid, 'show': '1' } },
     { $lookup:
       {
         from: 'users',
@@ -157,16 +164,16 @@ app.post('/reviews/create', (req, res) => {
       reply: 0,
       created_at: new Date(),
       updated_at: new Date(),
-      show: "1"
+      show: '1'
     }, (err, result) => {
-    if (err) return console.log(err)
-    res.status(200).send(result)
-  })
+      if (err) return console.log(err)
+      res.status(200).send(result)
+    })
 })
 
 app.get('/reviews/latest/:nid', (req, res) => {
   db.collection('reviews').aggregate([
-    { $match: { 'serie_id': req.params.nid }},
+    { $match: { 'serie_id': req.params.nid } },
     { $lookup:
       {
         from: 'users',
@@ -174,96 +181,73 @@ app.get('/reviews/latest/:nid', (req, res) => {
         foreignField: 'sub_id',
         as: 'user'
       }
-    },{ $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
-      if (err) throw err
-      res.status(200).send(result)
-    }) 
+    }, { $sort: { _id: -1 } }, { $limit: 1 }]).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
 })
 
-
-
 app.put('/reviews/edit', (req, res) => {
-  db.collection('reviews').updateOne({ _id: new ObjectID(req.body._id) }, 
-    { $set: 
-      { 
-        review_text:req.body.review_text,
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.body._id) },
+    { $set:
+      {
+        review_text: req.body.review_text,
         score: req.body.score,
         updated_at: new Date()
       }
     }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.put('/reviews/hide/:id', (req, res) => {
-  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) } ,
-  { $set:
-    {
-      show: "0"
-    }
-  }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
-})
-
-app.delete('/reviews/delete/:id', (req, res) => {
- db.collection('reviews').deleteOne({ _id: new ObjectID(req.params.id) }, (err, result) => {
-    if (err) throw err
-    db.collection('review_replies').deleteMany({ review_id: new ObjectID(req.params.id) }, (err, result) => {
+  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
+    { $set:
+      {
+        show: '0'
+      }
+    }, (err, result) => {
       if (err) throw err
-      res.status(200).send("Deleted")
+      res.status(200).send(result)
     })
-  })
 })
 
 app.put('/reviews/like/:id', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
-  { $inc:
-    {
-      like: 1
-    }
-  }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
-})
-
-app.put('/reviews/dislike/:id', (req, res) => {
-  db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id)},
-  { $inc:
-    {
-      dislike: 1
-    }
-  }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
+    { $inc:
+      {
+        like: 1
+      }
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 /** review end */
 
 app.get('/reviews/replies/latest/:review_id', (req, res) => {
   db.collection('review_replies').aggregate([
-    {$match: { 'review_id': new ObjectID(req.params.review_id) }},
-    {$lookup:
+    { $match: { 'review_id': new ObjectID(req.params.review_id) } },
+    { $lookup:
       {
         from: 'users',
         localField: 'sub_id',
         foreignField: 'sub_id',
         as: 'user'
       }
-    }, { $sort: { _id: -1 }}, { $limit: 1 }]).toArray((err, result) => {
-      if (err) throw err
-      res.status(200).send(result)
-    })
+    },
+    { $sort: { _id: -1 } }, { $limit: 1 }]).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
 })
 
 app.get('/reviews/replies/:review_id', (req, res) => {
   db.collection('review_replies').aggregate([
-    {$match: { 'review_id': new ObjectID(req.params.review_id), 'show': "1" }},
-    {$lookup:
+    { $match: { 'review_id': new ObjectID(req.params.review_id), 'show': '1' } },
+    { $lookup:
       {
         from: 'users',
         localField: 'sub_id',
@@ -283,62 +267,62 @@ app.post('/reviews/reply/add', (req, res) => {
       replyText: req.body.replyText,
       sub_id: req.body.sub_id,
       review_id: new ObjectID(req.body.review_id),
-      show: "1",
+      show: '1',
       created_at: new Date(),
       updated_at: new Date()
     }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.put('/reviews/replyCount/add/:id', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
-  { $inc:
-    {
-      reply: 1
-    }
-  }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
+    { $inc:
+      {
+        reply: 1
+      }
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.put('/reviews/reply/hide/:id', (req, res) => {
   db.collection('review_replies').updateOne({ _id: new ObjectID(req.params.id) },
-  { $set:
-    {
-      show: "0"
-    }
-  }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
+    { $set:
+      {
+        show: '1'
+      }
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.put('/reviews/replyCount/del/:id', (req, res) => {
   db.collection('reviews').updateOne({ _id: new ObjectID(req.params.id) },
-  { $inc:
-    {
-      reply: -1
-    }
-  }, (err, result) => {
-    if (err) throw err
-    res.status(200).send(result)
-  })
+    { $inc:
+      {
+        reply: -1
+      }
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
 })
 
 app.put('/reviews/reply/edit', (req, res) => {
-  db.collection('review_replies').updateOne({ _id: new ObjectID(req.body._id) }, 
-    { $set: 
-      { 
-        replyText:req.body.replyText,
+  db.collection('review_replies').updateOne({ _id: new ObjectID(req.body._id) },
+    { $set:
+      {
+        replyText: req.body.replyText,
         updated: new Date()
       }
     }, (err, result) => {
-    if (err) console.log(err)
-    res.status(200).send(result)
-  })
+      if (err) console.log(err)
+      res.status(200).send(result)
+    })
 })
 
 app.listen(PORT, HOST)

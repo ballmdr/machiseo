@@ -14,7 +14,7 @@ export default {
       posts: []
     }
   },
-  mounted() {
+  mounted () {
     const tmp = [
       sub => 'testsub',
       email => 'ball.mdr@gmail.com',
@@ -25,7 +25,7 @@ export default {
       .then(res => {
         console.log('res', res)
         this.posts = res.post_stream.posts
-        this.posts.splice(0,1)
+        this.posts.splice(0, 1)
       })
       .catch(err => {
         console.log('err', err)

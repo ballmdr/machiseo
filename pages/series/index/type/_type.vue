@@ -26,8 +26,8 @@ import { getSeriesByType } from '~/assets/js/api'
 import SerieCardGroup from '~/components/series/SerieCardGroup'
 
 export default {
-  components: { SerieCardGroup },  
-  mounted() {
+  components: { SerieCardGroup },
+  mounted () {
     window.onscroll = () => {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
       if (bottomOfWindow) {
@@ -37,22 +37,22 @@ export default {
             if (newSeries.length < this.limit) {
               this.empty = true
             }
-            for (let i=0;i<newSeries.length;i++) {
+            for (let i = 0; i < newSeries.length; i++) {
               this.series.push(newSeries[i])
             }
-          })      
-        }    
+          })
+        }
       }
     }
   },
-  async asyncData({ params }) {
+  async asyncData ({ params }) {
     let offset = 0
     let limit = 9
     let empty = false
     const type = params.type
     const series = await getSeriesByType(offset, limit, type)
     offset += 9
-        if (series.length < limit) {
+    if (series.length < limit) {
       empty = true
     }
     return { empty, offset, limit, type, series }

@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    path() {
+    path () {
       let str = this.ep.field_series_episode.path.alias
       str = str.replace('/series/', '')
       return str
@@ -51,7 +51,7 @@ export default {
   },
   watch: {
     currentEp () {
-      let container = this.$el.querySelector("#ep-show-container")
+      let container = this.$el.querySelector('#ep-show-container')
       container.scrollTop = 0
     }
   }

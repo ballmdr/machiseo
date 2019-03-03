@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { getSeriesByYear } from '~/assets/js/api'
+// import { getSeriesByYear } from '~/assets/js/api'
 import moment from 'moment'
 
 export default {
@@ -97,7 +97,7 @@ export default {
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018' },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
@@ -110,7 +110,7 @@ export default {
     }
   },
   methods: {
-    addVote(index) {
+    addVote (index) {
       this.listVote.unshift(this.series[index])
       this.series.splice(index, 1)
     },
@@ -122,9 +122,8 @@ export default {
       this.confirmDialog = true
     },
     async checkValidIp (ip) {
-
       // final round check 1 ip 1 time
-      const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/final/last/ip', {ip: ip })
+      const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/final/last/ip', { ip: ip })
       console.log('last vote', lastVote)
       if (lastVote === null || lastVote.length === 0) {
         return true
@@ -156,38 +155,38 @@ export default {
       if (this.listVote.length > 1) {
         this.checkDialog = true
       } else if (this.listVote.length === 0) {
-        this.$toast.error("เลือกซีรีส์ก่อนจ้า")
+        this.$toast.error('เลือกซีรีส์ก่อนจ้า')
       } else {
-        this.$toast.success("กำลังโหวต รอก่อนจ้า")
-        //const ip = await this.$axios.$get("https://ipinfo.io")
-        //const ip = ''
+        this.$toast.success('กำลังโหวต รอก่อนจ้า')
+        // const ip = await this.$axios.$get("https://ipinfo.io")
+        // const ip = ''
         let ip = await this.$axios.$get(process.env.voteServer + '/getip')
-        ip = ip.split(",")
+        ip = ip.split(',')
         ip = { ip: ip[0] }
         console.log(ip)
         const time = moment().format()
-        //if (true) {
+        // if (true) {
         if (await this.checkValidIp(ip.ip)) {
           const bucket = {
             serie: this.listVote[0]._id,
             ip: ip,
             time: time
           }
-          
+
           try {
             await this.$axios.post(process.env.voteServer + '/vote/final/add', bucket)
-            //for (let i=0;i<bucket.series.length;i++) {
+            // for (let i=0;i<bucket.series.length;i++) {
             await this.$axios.put(process.env.voteServer + '/vote/final/series/score/add/' + bucket.serie)
-            //}
+            // }
             this.$toast.success('โหวตสำเร็จ')
             this.listVote = []
-            this.$router.push('/vote/2018-result') 
+            this.$router.push('/vote/2018-result')
           } catch (e) {
             this.$toast.error(e)
-          } 
+          }
         } else {
           this.$toast.error('โหวตได้ครั้งเดียวจ้า')
-        } 
+        }
       }
     }
   },

@@ -1,7 +1,7 @@
 import apiClient from '~/assets/js/apiClient'
 import jsonapiParse from 'jsonapi-parse'
 const prefix = '/jsonapi'
-const findRouterPath = "/router/translate-path?path="
+const findRouterPath = '/router/translate-path?path='
 
 export async function searchSeries (query) {
   const { data } = await apiClient.get(prefix + '/series?filter[status][value]=1&filter[title][operator]=CONTAINS&filter[title][value]=' + query + '&include=field_poster')
@@ -34,86 +34,86 @@ export async function getCelebById (id) {
 }
 
 export async function getSerieByPath (path) {
-  const uri = findRouterPath + "/series/" + path
-  const { data } = await apiClient.post('/subrequests?_format=json', 
-  [
-    {
-      "requestId": "router",
-      "action": "view",
-      "uri": uri,
-      "headers": {"Accept": "application/vnd.application+json"}
-    },
-    {
-      "requestId": "node",
-      "action": "view",
-      "uri": "/jsonapi/series/{{router.body@$.entity.uuid}}?include=field_poster,field_celeb,field_celeb.field_celeb_profile,field_series_type,field_serie_year,field_channel",
-      "Accept": "application/json",
-      "waitFor": ["router"]
-    }
-  ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
+  const uri = findRouterPath + '/series/' + path
+  const { data } = await apiClient.post('/subrequests?_format=json',
+    [
+      {
+        'requestId': 'router',
+        'action': 'view',
+        'uri': uri,
+        'headers': { 'Accept': 'application/vnd.application+json' }
+      },
+      {
+        'requestId': 'node',
+        'action': 'view',
+        'uri': '/jsonapi/series/{{router.body@$.entity.uuid}}?include=field_poster,field_celeb,field_celeb.field_celeb_profile,field_series_type,field_serie_year,field_channel',
+        'Accept': 'application/json',
+        'waitFor': ['router']
+      }
+    ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 
 export async function getSmallSerieByPath (path) {
-  const uri = findRouterPath + "/series/" + path
-  const { data } = await apiClient.post('/subrequests?_format=json', 
-  [
-    {
-      "requestId": "router",
-      "action": "view",
-      "uri": uri,
-      "headers": {"Accept": "application/vnd.application+json"}
-    },
-    {
-      "requestId": "node",
-      "action": "view",
-      "uri": "/jsonapi/series/{{router.body@$.entity.uuid}}?sort=-nid",
-      "Accept": "application/json",
-      "waitFor": ["router"]
-    }
-  ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
-  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data 
+  const uri = findRouterPath + '/series/' + path
+  const { data } = await apiClient.post('/subrequests?_format=json',
+    [
+      {
+        'requestId': 'router',
+        'action': 'view',
+        'uri': uri,
+        'headers': { 'Accept': 'application/vnd.application+json' }
+      },
+      {
+        'requestId': 'node',
+        'action': 'view',
+        'uri': '/jsonapi/series/{{router.body@$.entity.uuid}}?sort=-nid',
+        'Accept': 'application/json',
+        'waitFor': ['router']
+      }
+    ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
+  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 
 export async function getAllEpisodesBySeriesPath (path) {
-  const uri = findRouterPath + "/series/" + path
-  const { data } = await apiClient.post('/subrequests?_format=json', 
-  [
-    {
-      "requestId": "router",
-      "action": "view",
-      "uri": uri,
-      "headers": {"Accept": "application/vnd.application+json"}
-    },
-    {
-      "requestId": "node",
-      "action": "view",
-      "uri": "/jsonapi/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]={{router.body@$.entity.uuid}}&sort=-nid&include=field_thumbnail,field_img_streaming",
-      "Accept": "application/json",
-      "waitFor": ["router"]
-    }
-  ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
-  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data  
+  const uri = findRouterPath + '/series/' + path
+  const { data } = await apiClient.post('/subrequests?_format=json',
+    [
+      {
+        'requestId': 'router',
+        'action': 'view',
+        'uri': uri,
+        'headers': { 'Accept': 'application/vnd.application+json' }
+      },
+      {
+        'requestId': 'node',
+        'action': 'view',
+        'uri': '/jsonapi/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]={{router.body@$.entity.uuid}}&sort=-nid&include=field_thumbnail,field_img_streaming',
+        'Accept': 'application/json',
+        'waitFor': ['router']
+      }
+    ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
+  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 
 export async function getCelebByPath (path, env) {
-  const uri = findRouterPath + "/celebs/" + path
-  const { data } = await apiClient.post('/subrequests?_format=json', 
-  [
-    {
-      "requestId": "router",
-      "action": "view",
-      "uri": uri,
-      "headers": {"Accept": "application/vnd.application+json"}
-    },
-    {
-      "requestId": "node",
-      "action": "view",
-      "uri": "/jsonapi/celebs/{{router.body@$.entity.uuid}}?include=field_celeb_profile,field_other_img,field_series_actors,field_series_actors.field_poster",
-      "Accept": "application/json",
-      "waitFor": ["router"]
-    }
-  ], { auth: { username: env.userDrupal, password: env.passDrupal }})
+  const uri = findRouterPath + '/celebs/' + path
+  const { data } = await apiClient.post('/subrequests?_format=json',
+    [
+      {
+        'requestId': 'router',
+        'action': 'view',
+        'uri': uri,
+        'headers': { 'Accept': 'application/vnd.application+json' }
+      },
+      {
+        'requestId': 'node',
+        'action': 'view',
+        'uri': '/jsonapi/celebs/{{router.body@$.entity.uuid}}?include=field_celeb_profile,field_other_img,field_series_actors,field_series_actors.field_poster',
+        'Accept': 'application/json',
+        'waitFor': ['router']
+      }
+    ], { auth: { username: env.userDrupal, password: env.passDrupal } })
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 

@@ -19,7 +19,7 @@
 import { getYoutubeId } from '~/assets/js/util'
 
 export default {
-  props: ['posters','trailors', 'otherImgs'],
+  props: ['posters', 'trailors', 'otherImgs'],
   data () {
     return {
       bigScreen: null,
@@ -49,7 +49,7 @@ export default {
       this.playList.push(tmp)
     }
     len = this.otherImgs.length
-    for (let i =0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
       const tmp = {
         code: '<img src="' + process.env.baseUrl + this.otherImgs[i].url + '" height="100%">',
         thumbnail: process.env.baseUrl + this.otherImgs[i].url,

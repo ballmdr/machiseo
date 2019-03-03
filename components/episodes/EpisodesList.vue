@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import { getEpisodesBySerie } from '~/assets/js/api'
+// import { getEpisodesBySerie } from '~/assets/js/api'
 import EpisodeCard from '~/components/episodes/EpisodeCard'
 import EpisodeShow from '~/components/episodes/EpisodeShow'
 
 export default {
   components: { EpisodeCard, EpisodeShow },
-  data () {  
+  data () {
     return {
       showDialog: false,
       loading: true,
@@ -40,7 +40,7 @@ export default {
       this.currentEp = index
     }
   },
-  mounted() {
+  mounted () {
     if (this.$store.state.episodes.ep.length > 0) {
       this.loading = false
     }

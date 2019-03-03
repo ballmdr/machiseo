@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getUserObj } from '~/assets/js/util'
+// import { getUserObj } from '~/assets/js/util'
 
 export default {
   data () {
@@ -38,14 +38,14 @@ export default {
     }
   },
   methods: {
-    setScore(selectedScore) {
+    setScore (selectedScore) {
       this.currentScore = selectedScore
     },
-    async updateUser(){
-      const tmp_user = await this.$axios.$get(process.env.restMongoUrl + '/users/' + this.$store.getters['users/subId'])
-      if (tmp_user.length > 0){
+    async updateUser () {
+      const tmpUser = await this.$axios.$get(process.env.restMongoUrl + '/users/' + this.$store.getters['users/subId'])
+      if (tmpUser.length > 0) {
         /* User exists -> update user */
-        await this.$axios.$put(process.env.restMongoUrl + '/users/update/' + tmp_user[0]._id, this.$store.getters['users/getUser'])
+        await this.$axios.$put(process.env.restMongoUrl + '/users/update/' + tmpUser[0]._id, this.$store.getters['users/getUser'])
       } else {
         /* User not exists -> create user */
         await this.$axios.$post(process.env.restMongoUrl + '/users/create', this.$store.getters['users/getUser'])
@@ -61,11 +61,11 @@ export default {
         tag: []
       }
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/create', this.reviewObj)
-      //this.$store.dispatch('reviews/setReview', this.reviewObj)
+      // this.$store.dispatch('reviews/setReview', this.reviewObj)
       this.clearForm()
       this.$emit('reviewUpdateNew')
     },
-    clearForm(){
+    clearForm () {
       this.currentScore = 0
       this.review_text = ''
       this.tag = []

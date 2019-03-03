@@ -1,22 +1,32 @@
 
 export const state = () => ({
-    review: null
+  review: null,
+  likeReview: []
 })
 
 export const getters = {
-    getReview(state){
-        return state.review
-    }
+  getReview (state) {
+    return state.review
+  },
+  likeReview (state) {
+    return state.likeReview
+  }
 }
 
 export const mutations = {
-    setReview(state, payload){
-        state.review = payload
-    }
+  setReview (state, payload) {
+    state.review = payload
+  },
+  setLikeReview (state, payload) {
+    state.likeReview = payload
+  }
 }
 
 export const actions = {
-    setReview({ commit }, review){
-        commit('setReview', review)
-    }
+  setReview ({ commit }, review) {
+    commit('setReview', review)
+  },
+  setIpLike ({ commit }, likeReview) {
+    commit('setLikeReview', likeReview)
+  }
 }

@@ -22,9 +22,9 @@
           <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
         </div>
         <div class="icon-action">
-          <span><v-btn icon @click="like"><v-icon color="red">far fa-kiss-wink-heart</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
+          <v-btn v-if="!liked" icon @click="like"><v-icon color="red">far fa-kiss-wink-heart</v-icon></v-btn>{{ review.like }}
           <!--<span><v-btn icon @click="dislike"><v-icon small>thumb_down</v-icon></v-btn>{{ review.dislike }}&nbsp;&nbsp;</span>-->
-          <span><v-btn icon @click="showReply"><v-icon small>far fa-comments</v-icon></v-btn>{{ review.reply }}</span>
+          <v-btn icon @click="showReply"><v-icon small>far fa-comments</v-icon></v-btn>{{ review.reply }}
         </div>
       </v-flex>
     </v-layout>
@@ -92,7 +92,7 @@ export default {
     }
   },
   computed: {
-    canAccess() {
+    canAccess () {
       if (this.$auth.$state.loggedIn) {
         if (this.review.sub_id === this.$store.getters['users/subId']) {
           return true
@@ -100,22 +100,32 @@ export default {
       } else {
         return false
       }
+    },
+    liked () {
+      const likeId = this.$store.getters['reviews/likeReview']
+      if (this.isInArray(this.review_id, likeId.review_like)) {
+        return true
+      } else {
+        return false
+      }
     }
   },
-  mounted() {
-    const ip = await this.$axios.$get(process.env.restMongoUrl + '/getip')
-    
+  mounted () {
+    console.log('likeReview', this.$store.getters['reviews/likeReview'])
   },
-  methods: {    
-    setScore(score){
+  methods: {
+    isInArray (value, array) {
+      return array.indexOf(value) > -1
+    },
+    setScore (score) {
       this.currentScore = score
     },
-    replyRemove(index){
+    replyRemove (index) {
       this.$toast.success('ลบตอบกลับแล้ว')
       this.replies.splice(index, 1)
       this.review.reply--
     },
-    async replyUpdateLatest(newReply) {
+    async replyUpdateLatest (newReply) {
       const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/latest/' + this.review._id)
       this.$toast.success('ตอบรีวิวแล้ว')
       this.new = true
@@ -129,7 +139,7 @@ export default {
         return false
       }
     },
-    async showReply() {
+    async showReply () {
       if (!this.replyCardDialog) {
         this.replies = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/' + this.review._id)
       }
@@ -139,17 +149,13 @@ export default {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/like/' + this.review._id)
       this.review.like++
     },
-    async dislike() {
-      await this.$axios.$put(process.env.restMongoUrl + '/reviews/dislike/' + this.review._id)
-      this.review.dislike++
-    },
     async reviewEditSubmit () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/edit',
-      { 
-        _id: this.review._id, 
-        review_text: this.newReviewText,
-        score: this.currentScore
-      })
+        {
+          _id: this.review._id,
+          review_text: this.newReviewText,
+          score: this.currentScore
+        })
       this.$toast.success('แก้ไขรีวิวแล้ว')
       this.reviewEditDialog = false
       this.review.score = this.currentScore

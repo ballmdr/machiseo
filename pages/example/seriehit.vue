@@ -37,11 +37,11 @@ export default {
     del (index) {
       this.series.splice(index, 1)
     },
-    addSerie() {
+    addSerie () {
       this.series.push({ path: '', score: '', rank: '' })
     },
     async serieHitSave () {
-      for (let i=0;i<this.series.length;i++) {
+      for (let i = 0; i < this.series.length; i++) {
         const router = await this.$axios.get('/router/translate-path?path=' + this.series[i].path)
         const res = await getSerieCelebByUuid(router.data.entity.uuid)
         console.log(res)

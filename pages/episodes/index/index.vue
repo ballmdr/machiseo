@@ -44,7 +44,7 @@ export default {
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
@@ -57,14 +57,14 @@ export default {
     }
   },
   methods: {
-    async showEp(index) {
+    async showEp (index) {
       this.epDialog = true
       this.ep = this.episodes[index]
       const res = await getImgStreamingByUuid(this.ep.uuid)
       this.imgStreaming = res.field_img_streaming
     }
   },
-  mounted() {
+  mounted () {
     window.onscroll = () => {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
       if (bottomOfWindow) {
@@ -74,10 +74,10 @@ export default {
             if (newEpisodes.length < this.limit) {
               this.empty = true
             }
-            for (let i=0;i<newEpisodes.length;i++) {
+            for (let i = 0; i < newEpisodes.length; i++) {
               this.episodes.push(newEpisodes[i])
             }
-          })      
+          })
         }
       }
     }
@@ -88,7 +88,7 @@ export default {
     let empty = false
     const episodes = await getAllEpisodes(offset, limit)
     if (episodes.length < limit) {
-      empty = true 
+      empty = true
     }
     offset += 12
     const ep = episodes[0]

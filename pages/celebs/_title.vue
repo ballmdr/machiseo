@@ -67,7 +67,7 @@ export default {
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: this.baseUrl + this.celeb.field_celeb_profile.url },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: this.celeb.title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: this.baseUrl + this.celeb.field_celeb_profile.url },
@@ -79,7 +79,7 @@ export default {
       ]
     }
   },
-  async asyncData({ params, env }) {
+  async asyncData ({ params, env }) {
     const celeb = await getCelebByPath(params.title, env)
     return { celeb }
   }

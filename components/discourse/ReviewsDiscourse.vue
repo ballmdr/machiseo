@@ -48,13 +48,13 @@ export default {
         return false
       }
     },
-    async reviewSave() {
+    async reviewSave () {
       const tmpHeaders = this.$axios.defaults.headers
       this.$axios.defaults.headers = {
-        "Accept": "application/json"
+        'Accept': 'application/json'
       }
       const res = await this.$axios.$get(process.env.discourseUrl + '/u/by-external/' + this.$auth.$state.user.sub + '.json')
-      const lastPost = await this.$axios.$post(process.env.discourseUrl + '/posts?api_key=' + process.env.discourseAPI + '&api_username=' + res.user.username, 
+      const lastPost = await this.$axios.$post(process.env.discourseUrl + '/posts?api_key=' + process.env.discourseAPI + '&api_username=' + res.user.username,
         {
           topic_id: this.reviews[0].topic_id,
           raw: this.review_text

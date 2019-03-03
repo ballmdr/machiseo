@@ -32,9 +32,9 @@
         }
       }
     },
-    mounted() {
+    mounted () {
       console.log(
-        'This is current swiper instance object', this.mySwiper, 
+        'This is current swiper instance object', this.mySwiper,
         'I will slideTo banners 3')
     }
   

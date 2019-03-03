@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    async replySubmit() {
+    async replySubmit () {
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/reply/add', this.reply)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/add/' + this.reply.review_id)
       this.reply.replyText = ''

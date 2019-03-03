@@ -50,7 +50,7 @@
 <script>
 export default {
   props: ['reply', 'review_id'],
-  data() {
+  data () {
     return {
       confirmDel: false,
       replyEditDialog: false,
@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    canAccess() {
+    canAccess () {
       if (this.$auth.$state.loggedIn) {
         if (this.reply.user[0].sub_id === this.$store.getters['users/subId']) {
           return true
@@ -69,12 +69,12 @@ export default {
     }
   },
   methods: {
-    async replyDel() {
+    async replyDel () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/hide/' + this.reply._id)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/del/' + this.review_id)
       this.$emit('replyDelete')
     },
-    async replyEditSubmit() {
+    async replyEditSubmit () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/edit', {
         _id: this.reply._id,
         replyText: this.newReplyText

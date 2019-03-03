@@ -1,11 +1,11 @@
 export function getYoutubeId (url) {
-  var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  var match = url.match(regExp);
+  var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+  var match = url.match(regExp)
 
-  if (match && match[2].length == 11) {
-    return match[2];
+  if (match && match[2].length === 11) {
+    return match[2]
   } else {
-    return 'error';
+    return 'error'
   }
 }
 
@@ -21,16 +21,16 @@ export function getSerieObj (serie) {
   return tmp
 }
 
-export function getUserObj(auth) {
+export function getUserObj (auth) {
   const user = {}
   switch (auth.$state.strategy) {
-    case "facebook":
+    case 'facebook':
       user.sub_id = auth.$state.strategy + '|' + auth.$state.user.id
       user.name = auth.$state.user.name
       user.picture = auth.$state.user.picture.data.url
       user.email = auth.$state.user.email
       break
-    case "google":
+    case 'google':
       user.sub_id = auth.$state.strategy + '|' + auth.$state.user.sub
       user.name = auth.$state.user.name
       user.picture = auth.$state.user.picture

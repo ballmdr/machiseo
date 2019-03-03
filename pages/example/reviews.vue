@@ -19,13 +19,13 @@ import ReviewCard from '~/components/reviews/ReviewCard'
 import ReviewLogin from '~/components/reviews/ReviewLogin'
 
 export default {
-  data() {
+  data () {
     return {
       newReviewUpdates: []
     }
   },
   components: { ReviewForm, ReviewCard, ReviewLogin },
-  async fetch({ app, store }) {
+  async fetch ({ app, store }) {
     if (!store.state.users.userDone && app.$auth.loggedIn) {
       const res = await app.$axios.$get(process.env.restMongoUrl + '/users/sub/' + app.$auth.$state.user.sub)
       if (res.length > 0) {
@@ -41,7 +41,7 @@ export default {
     return { reviews }
   },
   methods: {
-    async updateLatest() {
+    async updateLatest () {
       const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest')
       this.newReviewUpdates.unshift(res[0])
     }
