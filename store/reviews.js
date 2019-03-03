@@ -19,7 +19,7 @@ export const mutations = {
   },
   setLikeReview (state, payload) {
     for (let i=0;i<payload.length;i++) {
-      state.likeReview.push(payload[0].review_like)
+      state.likeReview.push(payload[i].review_like)
     }
   }
 }
