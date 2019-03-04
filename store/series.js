@@ -24,7 +24,7 @@ export const getters = {
   getSerie (state) {
     return state.serie
   },
-  nid (state) {
+  getNid (state) {
     return state.serie.nid
   }
 }

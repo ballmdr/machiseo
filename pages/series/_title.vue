@@ -140,8 +140,8 @@ export default {
   async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
     // const serie = store.getters['series/getSerie']
-    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
     store.dispatch('series/setSerie', serie)
+    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
     return { serie, reviews }
   },
   async fetch ({ app, params, store }) {
