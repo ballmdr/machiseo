@@ -1,7 +1,6 @@
 <template>
   <v-card color="primary">
     <v-card-title>
-      <v-btn @click="auth0" large color="warning"><span style="color:black">เข้าสู่ระบบเพื่อรีวิว</span></v-btn>
       <v-btn @click="github">github</v-btn> 
       <v-btn @click="google">google</v-btn>
       <v-btn @click="facebook">facebook</v-btn>
@@ -12,13 +11,14 @@
 <script>
 export default {
   methods: {
-    async auth0 () {
-      await this.$auth.loginWith('auth0')
+    setStorage () {
+      localStorage.setItem("ori_url", window.location.pathname)
     },
     async github () {
       await this.$auth.loginWith('github')
     },
     async google () {
+      this.setStorage()
       await this.$auth.loginWith('google')
     },
     async facebook () {
