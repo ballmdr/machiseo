@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     async replyDel () {
+      
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/hide/' + this.reply._id)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/del/' + this.review_id)
       this.$emit('replyDelete')

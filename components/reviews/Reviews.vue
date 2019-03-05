@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <review-form v-if="$auth.$state.loggedIn" :reviewSerie="reviewSerie" @reviewUpdateNew="updateLatest"></review-form>
+      <review-form v-if="$auth.$state.loggedIn" @reviewUpdateNew="updateLatest"></review-form>
       <review-login v-else></review-login>
     </v-flex>
     <v-flex xs12 v-for="(review, index) in reviews" :key="review._id">
@@ -34,8 +34,8 @@ export default {
       }
     },
     async updateLatest () {
-      console.log(process.env.restMongoUrl + '/reviews/latest/' + this.$store.getters['series/nid'])
-      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest/' + this.$store.getters['series/nid'])
+      // console.log(process.env.restMongoUrl + '/reviews/latest/' + this.$store.getters['series/getNid'])
+      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest/' + this.$store.getters['series/getNid'])
       this.new = true
       this.$toast.success('รีวิวของคุณมีค่า ขอบคุณที่ร่วมรีวิว')
       // this.reviews.unshift(this.$store.getters['reviews/getReview'])

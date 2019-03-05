@@ -306,7 +306,7 @@ app.put('/reviews/reply/hide/:id', (req, res) => {
   db.collection('review_replies').updateOne({ _id: new ObjectID(req.params.id) },
     { $set:
       {
-        show: '1'
+        show: '0'
       }
     }, (err, result) => {
       if (err) throw err

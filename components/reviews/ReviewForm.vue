@@ -54,7 +54,7 @@ export default {
     async reviewSave () {
       this.updateUser()
       this.reviewObj = {
-        serie_id: String(this.$store.getters['series/nid']),
+        serie_id: String(this.$store.getters['series/getNid']),
         sub_id: this.$store.getters['users/subId'],
         review_text: this.review_text,
         score: this.currentScore,
