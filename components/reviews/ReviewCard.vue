@@ -78,6 +78,7 @@
 <script>
 import ReplyCard from '~/components/reviews/ReplyCard'
 import ReplyForm from '~/components/reviews/ReplyForm'
+import { voteUpdate } from '~/assets/js/api'
 
 export default {
   components: { ReplyCard, ReplyForm },
@@ -159,6 +160,7 @@ export default {
           review_text: this.newReviewText,
           score: this.currentScore
         })
+      voteUpdate(this.$store.getters['series/getNid'], this.currentScore)
       this.$toast.success('แก้ไขรีวิวแล้ว')
       this.reviewEditDialog = false
       this.review.score = this.currentScore

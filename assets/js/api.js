@@ -3,6 +3,17 @@ import jsonapiParse from 'jsonapi-parse'
 const prefix = '/jsonapi'
 const findRouterPath = '/router/translate-path?path='
 
+export async function voteUpdate (nid, point) {
+  await apiClient.post('/entity/vote?_format=json',
+  {    
+    "type": "serie_review",
+    "entity_type": ["node"],
+    "entity_id": [nid],
+    "value": [point],
+    "value_type": ["points"]
+  })
+}
+
 export async function searchSeries (query) {
   const { data } = await apiClient.get(prefix + '/series?filter[status][value]=1&filter[title][operator]=CONTAINS&filter[title][value]=' + query + '&include=field_poster')
   return jsonapiParse.parse(data).data

@@ -7,10 +7,6 @@
     <v-divider dark></v-divider>
     <v-card-actions>
       <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>
-      <!--<v-btn @click="setScore(1)" :class="{'selecting': currentScore == 1}">1</v-btn>
-      <v-btn @click="setScore(2)" :class="{'selecting': currentScore == 2}">2</v-btn>
-      <v-btn @click="setScore(3)" :class="{'selecting': currentScore == 3}">3</v-btn>
-      <v-btn @click="setScore(4)" :class="{'selecting': currentScore == 4}">4</v-btn>-->
     </v-card-actions>
     <v-card-text>
       <v-textarea
@@ -27,6 +23,7 @@
 
 <script>
 // import { getUserObj } from '~/assets/js/util'
+import { voteUpdate } from '~/assets/js/api'
 
 export default {
   data () {
@@ -62,6 +59,7 @@ export default {
       }
       await this.$axios.$post(process.env.restMongoUrl + '/reviews/create', this.reviewObj)
       // this.$store.dispatch('reviews/setReview', this.reviewObj)
+      await voteUpdate(this.reviewObj.serie_id, this.currentScore)
       this.clearForm()
       this.$emit('reviewUpdateNew')
     },
