@@ -174,7 +174,6 @@ app.post('/reviews/create', (req, res) => {
       score: req.body.score,
       tag: req.body.tag,
       like: 0,
-      dislike: 0,
       reply: 0,
       created_at: new Date(),
       updated_at: new Date(),
