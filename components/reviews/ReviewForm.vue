@@ -3,7 +3,7 @@
     <v-card-title>
       <v-avatar size="38"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $store.getters['users/name'] }}</span>
     </v-card-title>
-    <v-btn @click="$auth.logout()">Logout</v-btn>
+    <logout></logout>
     <v-divider dark></v-divider>
     <v-card-actions>
     &nbsp;&nbsp;ให้เรตติ้ง <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>
@@ -25,6 +25,7 @@
 <script>
 // import { getUserObj } from '~/assets/js/util'
 import { voteUpdate } from '~/assets/js/api'
+import Logout from '~/components/users/Logout'
 
 export default {
   data () {
@@ -34,6 +35,9 @@ export default {
       user: {},
       reviewObj: {}
     }
+  },
+  components: {
+    Logout
   },
   methods: {
     setScore (selectedScore) {
