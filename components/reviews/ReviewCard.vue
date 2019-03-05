@@ -17,13 +17,13 @@
           <v-card-actions>
             <v-rating v-model="currentScore" color="yellow" half-increments medium></v-rating>
           </v-card-actions>
-          <v-textarea v-model="newReviewText"></v-textarea>
+          <v-textarea v-model="newReviewText" color="yellow"></v-textarea>
           <v-btn round color="warning" @click="reviewEditSubmit"><span style="color:black">แก้ไขรีวิว</span></v-btn>
           <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
         </div>
         <div class="icon-action">
-          <v-btn v-if="!liked" icon @click="like"><v-icon color="red">far fa-kiss-wink-heart</v-icon></v-btn>
-          <v-btn v-else icon><v-icon color="red">fas fa-kiss-wink-heart</v-icon></v-btn>
+          <v-btn v-if="!liked" icon @click="like"><v-icon color="red">far fa-heart</v-icon></v-btn>
+          <v-btn v-else icon><v-icon color="red">fas fa-heart</v-icon></v-btn>
           {{ review.like }}
           <!--<span><v-btn icon @click="dislike"><v-icon small>thumb_down</v-icon></v-btn>{{ review.dislike }}&nbsp;&nbsp;</span>-->
           <v-btn icon @click="showReply"><v-icon small>far fa-comments</v-icon></v-btn>{{ review.reply }}
@@ -33,15 +33,15 @@
   </div>
   <!-- end main card -->
 
-  <!-- begin dialog -->
+  <!-- begin reply card -->
   <v-flex xs8 offset-xs2 v-if="replyCardDialog">
     <v-layout column>
+      <v-flex xs12 v-for="(reply, index) in replies" :key="reply._id">
+        <reply-card class="animated" :class="{fadeInUp:isNew(index)}" :reply="reply" :review_id="review._id" @replyDelete="replyRemove(index)"></reply-card>
+      </v-flex>
       <v-flex xs12>
         <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id" @replyUpdate="replyUpdateLatest()" @replyClose="showReply"></reply-form>
         <review-login v-else></review-login>
-      </v-flex>
-      <v-flex xs12 v-for="(reply, index) in replies" :key="reply._id">
-        <reply-card class="animated" :class="{fadeInDown:isNew(index)}" :reply="reply" :review_id="review._id" @replyDelete="replyRemove(index)"></reply-card>
       </v-flex>
     </v-layout>
   </v-flex>
@@ -108,7 +108,6 @@ export default {
   },
   mounted () {
     const likeReview = this.$store.getters['reviews/likeReview']
-    console.log(likeReview)
     if (likeReview.includes(this.review._id)) {
       this.liked = true
     } else {
@@ -132,7 +131,7 @@ export default {
       this.$toast.success('ตอบรีวิวแล้ว')
       this.new = true
       this.review.reply++
-      this.replies.unshift(res[0])
+      this.replies.push(res[0])
     },
     isNew (index) {
       if (this.new && index === 0) {

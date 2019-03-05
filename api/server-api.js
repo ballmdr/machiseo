@@ -50,6 +50,15 @@ app.get('/reviews/ip-like', (req, res) => {
   })
 })
 
+app.get('/reviews/ip-reply-like', (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  // var ip = req.params.ip
+  db.collection('ip_reply_like').find( { ip: ip }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.post('/reviews/ip-like/create/:id', (req, res) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   db.collection('ip_like').insertOne(
@@ -60,6 +69,19 @@ app.post('/reviews/ip-like/create/:id', (req, res) => {
       if (err) throw err
       res.status(200).send(result)
     })
+})
+
+app.post('/reviews/ip-reply-like/create/:id', (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  db.collection('ip_reply_like').insertOne(
+    {
+      ip: ip,
+      reply_like: req.params.id
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    }
+  )
 })
 
 app.get('/series_hit', (req, res) => {
@@ -238,6 +260,18 @@ app.put('/reviews/like/:id', (req, res) => {
     })
 })
 
+app.put('/reviews/reply/like/:id', (req, res) => {
+  db.collection('review_replies').updateOne({ _id: new ObjectID(req.params.id) },
+    { $inc:
+      {
+        like: 1
+      }
+    }, (err, result) => {
+      if (err) throw err
+      res.status(200).send(result)
+    })
+})
+
 /** review end */
 
 app.get('/reviews/replies/latest/:review_id', (req, res) => {
@@ -281,6 +315,7 @@ app.post('/reviews/reply/add', (req, res) => {
       sub_id: req.body.sub_id,
       review_id: new ObjectID(req.body.review_id),
       show: '1',
+      like: 0,
       created_at: new Date(),
       updated_at: new Date()
     }, (err, result) => {

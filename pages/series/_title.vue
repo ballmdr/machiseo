@@ -148,6 +148,8 @@ export default {
     await store.dispatch('episodes/setEp', params.title)
     const likeReview = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-like')
     store.dispatch('reviews/setIpLike', likeReview)
+    const likeReply = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-reply-like')
+    store.dispatch('reviews/setReplyLike', likeReply)
   }
 }
 </script>

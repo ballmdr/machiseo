@@ -6,15 +6,16 @@
     <v-btn @click="$auth.logout()">Logout</v-btn>
     <v-divider dark></v-divider>
     <v-card-actions>
-      <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>
+    &nbsp;&nbsp;ให้เรตติ้ง <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>
     </v-card-actions>
     <v-card-text>
       <v-textarea
         dark
-        flat
+        box
+        auto-grow
         v-model="review_text"
         label="เขียนรีวิว"
-        outline
+        color="yellow"
       ></v-textarea>
       <v-btn large round color="warning" @click="reviewSave"><span style="color:black">โพสต์รีวิว</span></v-btn>
     </v-card-text>

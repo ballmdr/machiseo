@@ -7,8 +7,11 @@
       <v-flex xs10>
         <div>{{ reply.user[0].name }}</div>
         <div v-show="!replyEditDialog">{{ reply.replyText }}</div>
+        <v-btn v-if="!liked" icon @click="like" small><v-icon color="red" small>far fa-heart</v-icon></v-btn>
+        <v-btn v-else icon small><v-icon color="red" small>fas fa-heart</v-icon></v-btn>
+        {{ reply.like }}
         <div v-show="replyEditDialog">
-          <v-textarea v-model="newReplyText"></v-textarea>
+          <v-textarea v-model="newReplyText" color="yellow"></v-textarea>
           <v-btn round color="warning" @click="replyEditSubmit"><span style="color:black">แก้ไข</span></v-btn>
           <v-btn round color="danger" @click="replyEditDialog = false">ยกเลิก</v-btn>
         </div>
@@ -54,7 +57,8 @@ export default {
     return {
       confirmDel: false,
       replyEditDialog: false,
-      newReplyText: this.reply.replyText
+      newReplyText: this.reply.replyText,
+      liked: false
     }
   },
   computed: {
@@ -68,9 +72,22 @@ export default {
       }
     }
   },
+  mounted() {
+    const likeReply = this.$store.getters['reviews/likeReply']
+    if (likeReply.includes(this.reply._id)) {
+      this.liked = true
+    } else {
+      this.liked = false
+    }
+  },
   methods: {
+    async like () {
+      await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/like/' + this.reply._id)
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/ip-reply-like/create/' + this.reply._id)
+      this.reply.like++
+      this.liked = true
+    },
     async replyDel () {
-      
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/reply/hide/' + this.reply._id)
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/replyCount/del/' + this.review_id)
       this.$emit('replyDelete')

@@ -1,7 +1,8 @@
 
 export const state = () => ({
   review: null,
-  likeReview: []
+  likeReview: [],
+  likeReply: []
 })
 
 export const getters = {
@@ -10,6 +11,9 @@ export const getters = {
   },
   likeReview (state) {
     return state.likeReview
+  },
+  likeReply (state) {
+    return state.likeReply
   }
 }
 
@@ -21,6 +25,11 @@ export const mutations = {
     for (let i=0;i<payload.length;i++) {
       state.likeReview.push(payload[i].review_like)
     }
+  },
+  setLikeReply (state, payload) {
+    for (let i=0;i<payload.length;i++) {
+      state.likeReply.push(payload[i].reply_like)
+    }
   }
 }
 
@@ -30,5 +39,8 @@ export const actions = {
   },
   setIpLike ({ commit }, likeReview) {
     commit('setLikeReview', likeReview)
+  },
+  setReplyLike ( {commit }, likeReply) {
+    commit('setLikeReply', likeReply)
   }
 }

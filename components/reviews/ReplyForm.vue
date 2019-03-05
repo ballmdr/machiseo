@@ -2,7 +2,7 @@
   <div>
     <div>
       <v-avatar size="28"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>
-      <v-textarea label="ตอบรีวิว" v-model="reply.replyText"></v-textarea>
+      <v-textarea style="margin-top:10px;" box auto-grow dark color="yellow" label="ตอบรีวิว" v-model="reply.replyText"></v-textarea>
     </div>
     <div>
       <v-btn round color="danger" @click="$emit('replyClose')">ยกเลิก</v-btn>
