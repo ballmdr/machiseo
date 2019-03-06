@@ -1,5 +1,10 @@
 export const state = () => ({
-  user: null
+  user: {
+    nid: '',
+    subId: '',
+    picture: '',
+    name: ''
+  }
 })
 
 export const getters = {
