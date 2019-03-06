@@ -118,7 +118,6 @@ export default {
     }
   },
   mounted () {
-    console.log('path', window.location.pathname)
     window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {

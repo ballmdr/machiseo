@@ -12,7 +12,9 @@
       <v-flex xs10>
         <div>รีวิวโดย&nbsp;{{ review.user[0].name }}</div>
         <div><v-rating v-model="currentScore" color="yellow" half-increments small readonly></v-rating></div>
-        <div v-show="!reviewEditDialog" class="review-text">{{ review.review_text }}</div>
+        <div v-show="!reviewEditDialog" class="review-text" v-html="filterdText"></div>
+        <a v-show="less && !notFilter" @click="less = false" style="color: orange">เพิ่มเติม</a>
+        <a v-show="!less && !notFilter" @click="less = true" style="color: orange">ซ่อน</a>
         <div v-show="reviewEditDialog" class="review-text">
           <v-card-actions>
             <v-rating v-model="currentScore" color="yellow" half-increments medium></v-rating>
@@ -79,6 +81,7 @@
 import ReplyCard from '~/components/reviews/ReplyCard'
 import ReplyForm from '~/components/reviews/ReplyForm'
 import { voteUpdate } from '~/assets/js/api'
+import { nl2br } from '~/assets/js/util'
 
 export default {
   components: { ReplyCard, ReplyForm },
@@ -92,7 +95,20 @@ export default {
       replies: [],
       newReviewText: this.review.review_text,
       currentScore: this.review.score,
-      liked: false
+      liked: false,
+      filterdText: this.review.review_text,
+      less: null,
+      filter: 10,
+      notFilter: null
+    }
+  },
+  watch: {
+    less: function () {
+      if (this.less) {
+        this.filterdText = this.$options.filters.truncate(this.review.review_text, 10, '...')
+      } else {
+        this.filterdText = this.review.review_text
+      }
     }
   },
   computed: {
@@ -107,6 +123,13 @@ export default {
     }
   },
   mounted () {
+    this.review.review_text = nl2br(this.review.review_text)
+    if (this.review.review_text.length < this.filter) {
+      this.less = false
+      this.notFilter = true
+    } else {
+      this.less = true
+    }
     const likeReview = this.$store.getters['reviews/likeReview']
     if (likeReview.includes(this.review._id)) {
       this.liked = true
