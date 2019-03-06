@@ -98,7 +98,7 @@ export default {
       liked: false,
       filterdText: this.review.review_text,
       less: null,
-      filter: 10,
+      filter: 30,
       notFilter: null
     }
   },
