@@ -12,6 +12,7 @@
             </v-flex>
             <v-flex xs12 sm6 md8>
               <v-card-title>
+                <div v-show="isAdmin"><v-rating v-model="serieScore" color="yellow" half-increments hover></v-rating>{{ serieScore }}</div>
                 <h1>{{ serie.title }}</h1>
               </v-card-title>
               <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
@@ -82,6 +83,7 @@ import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
+import { voteUpdate } from '~/assets/js/api'
 
 export default {
   components: { EpisodesList, CelebsCast, ViuWidget, Reviews },
@@ -90,7 +92,13 @@ export default {
     return {
       discourseReviews: [],
       discourseTopicUrl: null,
-      baseUrl: process.env.baseUrl
+      baseUrl: process.env.baseUrl,
+      isAdmin: null
+    }
+  },
+  watch: {
+    serieScore: async function () {
+      await voteUpdate(this.$store.getters['series/getNid'], this.serieScore)
     }
   },
   head () {
@@ -118,7 +126,11 @@ export default {
     }
   },
   mounted () {
-    console.log('path', window.location.pathname)
+    if (process.env.adminSubId === this.$store.getters['users/subId']) {
+      this.isAdmin = true
+    } else {
+      this.isAdmin = false
+    }
     window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {
@@ -143,7 +155,12 @@ export default {
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
-    return { serie, reviews }
+    let serieScore = await app.$axios.$get('/vote/serie/result/' + serie.nid + '?_format=json')
+    if (typeof (serieScore) !== 'undefined')
+      serieScore = serieScore[1].value[0].value
+    else 
+      serieScore = 0
+    return { serie, reviews, serieScore }
   },
   async fetch ({ app, params, store }) {
     await store.dispatch('episodes/setEp', params.title)

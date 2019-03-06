@@ -1,6 +1,8 @@
 
 export const state = () => ({
-  serie: null,
+  serie: {
+    nid: ''
+  },
   title: ''
 })
 
