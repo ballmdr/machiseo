@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { getSeriesByYear } from '~/assets/js/api'
+// import { getSeriesByYear } from '~/assets/js/api'
 
 export default {
   data () {
@@ -75,7 +75,7 @@ export default {
     }
   },
   methods: {
-    addVote(index) {
+    addVote (index) {
       this.listVote.unshift(this.series[index])
       this.series.splice(index, 1)
     },
@@ -91,9 +91,9 @@ export default {
       if (this.listVote.length > 10) {
         this.checkDialog = true
       } else if (this.listVote.length === 0) {
-        this.$toast.error("เลือกซีรีส์ก่อนจ้า")
+        this.$toast.error('เลือกซีรีส์ก่อนจ้า')
       } else {
-        this.$toast.show("กำลังโหวต รอก่อนจ้า")
+        this.$toast.show('กำลังโหวต รอก่อนจ้า')
         if (this.author === '') {
           this.author = 'ไม่ระบุชื่อ'
         }
@@ -103,7 +103,7 @@ export default {
         }
         try {
           await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
-          for (let i=0;i<bucket.series.length;i++) {
+          for (let i = 0; i < bucket.series.length; i++) {
             await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
           }
           this.$toast.success('โหวตสำเร็จ')
@@ -114,7 +114,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     console.log('series', this.series)
   },
   async asyncData ({ app, env }) {

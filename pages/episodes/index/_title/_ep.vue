@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { getEpisodesBySerie, getSmallSerieByPath } from '~/assets/js/api'
+// import { getEpisodesBySerie, getSmallSerieByPath } from '~/assets/js/api'
 import EpisodesList from '~/components/episodes/EpisodesList'
 
 export default {
@@ -22,7 +22,7 @@ export default {
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },

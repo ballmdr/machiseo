@@ -47,6 +47,7 @@
     "nodemon": "^1.11.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "vue-masonry-css": "^1.0.3"
+    "vue-masonry-css": "^1.0.3",
+    "event-stream": ">=4.0.0"
   }
 }

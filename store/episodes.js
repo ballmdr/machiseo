@@ -5,10 +5,10 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setEp(state, payload) {
+  setEp (state, payload) {
     state.ep = payload
   },
-  setDialog(state, payload) {
+  setDialog (state, payload) {
     state.showDialog = payload
   }
 }

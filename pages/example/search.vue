@@ -71,8 +71,8 @@ export default {
   watch: {
     search (val) {
       // Items have already been loaded
-      //if (this.items.length > 0) return
-      if (this.model !== null || (typeof(this.model) !== 'undefined') ) return
+      // if (this.items.length > 0) return
+      if (this.model !== null || (typeof (this.model) !== 'undefined')) return
       // Items have already been requested
       if (this.isLoading) return
 

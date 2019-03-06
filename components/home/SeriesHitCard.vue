@@ -51,7 +51,7 @@ export default {
       baseUrl: process.env.baseUrl
     }
   },
-  mounted() {
+  mounted () {
     /*
     const tmpHeaders = this.$axios.defaults.headers
     this.$axios.defaults.headers = {
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     celebName (name) {
-      const res = name.split(" ")
+      const res = name.split(' ')
       return res[0]
     }
   }

@@ -14,7 +14,7 @@ import CelebCard from '~/components/celebs/CelebCard'
 export default {
   props: ['celebs'],
   components: { CelebCard },
-  mounted() {
+  mounted () {
     console.log(this.celebs)
   },
   data () {

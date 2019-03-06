@@ -72,7 +72,7 @@ export default {
       seriesChannel: []
     }
   },
-  mounted() {
+  mounted () {
     getSeriesType().then(seriesType => {
       this.seriesType = seriesType
     })

@@ -30,7 +30,7 @@ export default {
   props: ['episodes'],
   components: { EpisodeCardPoster, EpisodeShowOne },
   methods: {
-    async showEp(index) {
+    async showEp (index) {
       this.epDialog = true
       this.ep = this.episodes[index]
       this.currentEp = index

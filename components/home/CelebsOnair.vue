@@ -14,9 +14,9 @@ import CelebCard from '~/components/celebs/CelebCard'
 export default {
   components: { CelebCard },
   props: ['series'],
-  mounted() {
-    for (let i=0;i<this.series.length;i++) {
-      if (this.series[i].field_celeb.length > 0){
+  mounted () {
+    for (let i = 0; i < this.series.length; i++) {
+      if (this.series[i].field_celeb.length > 0) {
         this.celebs.push(this.series[i].field_celeb[0])
         this.celebs.push(this.series[i].field_celeb[1])
       }

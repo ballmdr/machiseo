@@ -14,9 +14,9 @@
 import NavBar from '~/components/NavBar'
 import Footer from '~/components/Footer'
 
-  export default {
-    components: { NavBar, 'footer-com': Footer }
-  }
+export default {
+  components: { NavBar, 'footer-com': Footer }
+}
 </script>
 
 <style>

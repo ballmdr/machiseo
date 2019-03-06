@@ -20,17 +20,17 @@ export default {
   },
   props: ['review'],
   methods: {
-    async likePost(){
+    async likePost () {
       const tmpHeaders = this.$axios.defaults.headers
       this.$axios.defaults.headers = {
-        "Accept": "application/json"
+        'Accept': 'application/json'
       }
       const user = await this.$axios.$get(process.env.discourseUrl + '/u/by-external/' + this.$auth.$state.user.sub + '.json')
       this.$axios.$post(process.env.discourseUrl + '/post_actions?api_key=' + process.env.discourseAPI + '&api_username=' + user.user.username,
-      {
-        id: this.review.id,
-        post_action_type_id: 2
-      }).then((res) => {
+        {
+          id: this.review.id,
+          post_action_type_id: 2
+        }).then((res) => {
         this.like++
       }).catch((err) => {
         console.log(err.response.data)
@@ -39,11 +39,11 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.review)
     if (this.review.actions_summary.length > 0) {
       this.like = this.review.actions_summary[0].count
-    }   
+    }
     this.avatar = this.review.avatar_template.replace(/{size}/gi, '90')
   }
 }

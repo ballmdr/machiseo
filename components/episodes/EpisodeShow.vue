@@ -38,14 +38,14 @@
 <script>
 export default {
   props: ['currentEp'],
-  data() {
+  data () {
     return {
       baseUrl: process.env.baseUrl
     }
   },
   watch: {
     currentEp () {
-      let container = this.$el.querySelector("#ep-show-container")
+      let container = this.$el.querySelector('#ep-show-container')
       container.scrollTop = 0
     }
   }

@@ -132,8 +132,8 @@ export default {
     dialog: false,
     rating: 10
   }),
-  async asyncData({ app }) {
-    const series = await app.$axios.$get('/series?_format=json', { auth: { username: process.env.userDrupal, password: process.env.passDrupal }})
+  async asyncData ({ app }) {
+    const series = await app.$axios.$get('/series?_format=json', { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
     return { series }
   },
   methods: {

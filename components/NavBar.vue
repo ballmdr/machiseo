@@ -47,9 +47,9 @@ export default {
       menuItems: [
         { icon: 'fas fa-home', title: 'หน้าแรก', to: '/' },
         { icon: 'fas fa-film', title: 'ซีรีส์เกาหลี', to: '/series' },
-        { icon: 'fas fa-book-reader', title: 'สปอยด์รายตอน', to: '/episodes'},
-        { icon: 'fas fa-poll-h', title: 'โหวตซีรีส์แห่งปี 2018', to: '/vote/2018'},
-        { icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result'}
+        { icon: 'fas fa-book-reader', title: 'สปอยด์รายตอน', to: '/episodes' },
+        { icon: 'fas fa-poll-h', title: 'โหวตซีรีส์แห่งปี 2018', to: '/vote/2018' },
+        { icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }
       ],
       miniVariant: true,
       title: 'มาชิสซอ Machiseo.com',
@@ -58,7 +58,7 @@ export default {
       model: null,
       search: null,
       baseUrl: process.env.baseUrl
-    } 
+    }
   },
   watch: {
     model () {
@@ -69,7 +69,7 @@ export default {
     search (val) {
       // Items have already been loaded
       if (this.items.length > 0) return
-      //if (this.model !== null || (typeof(this.model) !== 'undefined') ) return
+      // if (this.model !== null || (typeof(this.model) !== 'undefined') ) return
       // Items have already been requested
       if (this.isLoading) return
 
@@ -87,11 +87,11 @@ export default {
     }
   },
   methods: {
-    async logout() {
-      const res = await this.$auth.logout('auth0')
+    async logout () {
+      await this.$auth.logout('auth0')
     },
-    async auth0() {
-      const res = await this.$auth.loginWith('auth0')
+    async auth0 () {
+      await this.$auth.loginWith('auth0')
     }
   }
 }

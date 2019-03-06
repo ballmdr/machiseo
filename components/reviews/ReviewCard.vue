@@ -1,84 +1,84 @@
 <template>
 <div>
   <div>
-    <v-card-title v-if="review.user.length > 0">
-      <v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar>
-      <v-chip color="success" v-if="review.recommend"><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_up</v-icon>&nbsp;แนะนำ</v-chip>
-      <v-chip color="error" v-else><strong>&nbsp;{{ review.user[0].name }}</strong>&nbsp;<v-icon>thumb_down</v-icon>&nbsp;ไม่แนะนำ</v-chip>
-      <v-spacer></v-spacer>
-      <v-menu v-if="canAccess" name="more" bottom left>
-        <v-btn
-          slot="activator"
-          dark
-          icon
-        >
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile @click="reviewEditDialog = true">
-            <v-list-tile-title>แก้ไข</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="confirmDel = true">
-            <v-list-tile-title>ลบ</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </v-card-title>
-    <v-card-text v-show="!reviewEditDialog">{{ review.reviewText }}</v-card-text>
-    <div v-show="reviewEditDialog">
-      <v-textarea v-model="newReviewText"></v-textarea>
-      <v-btn flat round color="success" @click="vote(true)"><v-icon :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
-      <v-btn flat round color="error" @click="vote(false)"><v-icon :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
-      <v-btn round color="warning" @click="reviewEditSubmit"><span style="color:black">แก้ไขรีวิว</span></v-btn>
-      <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
-    </div>
-    <v-card-actions>
-      <span><v-btn icon @click="voteReview"><v-icon small>thumb_up</v-icon></v-btn>{{ review.like }}&nbsp;&nbsp;</span>
-      <span><v-btn icon @click="showReply"><v-icon small>comment</v-icon></v-btn>{{ review.replyCount }}</span>
-    </v-card-actions>
-  </div>
-  <v-flex xs8 offset-xs2 v-if="replyCardDialog">
-    <v-layout column>
-      <v-flex xs12>
-        <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id" @replyUpdate="replyUpdateLatest($event)"></reply-form>
-        <review-login v-else></review-login>
+    <v-layout columns v-if="review.user.length > 0">
+      <v-flex xs2 class="text-xs-right">
+        <div><v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar></div>
+        <div v-if="canAccess">
+          <div><v-btn icon @click="reviewEditDialog = true" small><v-icon small>far fa-edit</v-icon></v-btn></div>
+          <div><v-btn icon @click="confirmDel = true" small><v-icon small>far fa-trash-alt</v-icon></v-btn></div>
+        </div>
       </v-flex>
-      <v-flex xs12 v-for="(reply, index) in replies" :key="reply._id">
-        <reply-card class="animated" :class="{fadeInDown:isNew(index)}" :reply="reply" :review_id="review._id" @replyDelete="replyRemove(index)"></reply-card>
+      <v-flex xs10>
+        <div>รีวิวโดย&nbsp;{{ review.user[0].name }}</div>
+        <div><v-rating v-model="currentScore" color="yellow" half-increments small readonly></v-rating></div>
+        <div v-show="!reviewEditDialog" class="review-text">{{ review.review_text }}</div>
+        <div v-show="reviewEditDialog" class="review-text">
+          <v-card-actions>
+            <v-rating v-model="currentScore" color="yellow" half-increments medium></v-rating>
+          </v-card-actions>
+          <v-textarea v-model="newReviewText" color="yellow"></v-textarea>
+          <v-btn round color="warning" @click="reviewEditSubmit"><span style="color:black">แก้ไขรีวิว</span></v-btn>
+          <v-btn round color="danger" @click="reviewEditDialog = false">ยกเลิก</v-btn>
+        </div>
+        <div class="icon-action">
+          <v-btn v-if="!liked" icon @click="like"><v-icon color="red">far fa-heart</v-icon></v-btn>
+          <v-btn v-else icon><v-icon color="red">fas fa-heart</v-icon></v-btn>
+          {{ review.like }}
+          <!--<span><v-btn icon @click="dislike"><v-icon small>thumb_down</v-icon></v-btn>{{ review.dislike }}&nbsp;&nbsp;</span>-->
+          <v-btn icon @click="showReply"><v-icon small>far fa-comments</v-icon></v-btn>{{ review.reply }}
+        </div>
       </v-flex>
     </v-layout>
-    </v-flex>
-      <v-dialog
-        v-model="confirmDel"
-        max-width="290"
-      >
-        <v-card>
-          <v-card-title class="headline">แน่ใจหรือไม่ว่าจะลบ</v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="green darken-1"
-              flat="flat"
-              @click="confirmDel = false"
-            >
-              ยกเลิก
-            </v-btn>
-            <v-btn
-              color="red darken-1"
-              flat="flat"
-              @click="reviewDel"
-            >
-              ยืนยันการลบ
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+  </div>
+  <!-- end main card -->
+
+  <!-- begin reply card -->
+  <v-flex xs8 offset-xs2 v-if="replyCardDialog">
+    <v-layout column>
+      <v-flex xs12 v-for="(reply, index) in replies" :key="reply._id">
+        <reply-card class="animated" :class="{fadeInUp:isNew(index)}" :reply="reply" :review_id="review._id" @replyDelete="replyRemove(index)"></reply-card>
+      </v-flex>
+      <v-flex xs12>
+        <reply-form v-if="$auth.$state.loggedIn" :review_id="review._id" @replyUpdate="replyUpdateLatest()" @replyClose="showReply"></reply-form>
+        <review-login v-else></review-login>
+      </v-flex>
+    </v-layout>
+  </v-flex>
+
+  <!-- confirm dialog -->
+  <v-dialog
+    v-model="confirmDel"
+    max-width="290"
+  >
+    <v-card>
+      <v-card-title class="headline">ยืนยันการลบ</v-card-title>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="green darken-1"
+          flat="flat"
+          @click="confirmDel = false"
+        >
+          ยกเลิก
+        </v-btn>
+        <v-btn
+          color="red darken-1"
+          flat="flat"
+          @click="reviewDel"
+        >
+          ยืนยันการลบ
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
   </div>
 </template>
 
 <script>
 import ReplyCard from '~/components/reviews/ReplyCard'
 import ReplyForm from '~/components/reviews/ReplyForm'
+import { voteUpdate } from '~/assets/js/api'
 
 export default {
   components: { ReplyCard, ReplyForm },
@@ -90,16 +90,15 @@ export default {
       reviewEditDialog: false,
       replyCardDialog: false,
       replies: [],
-      upvote: false,
-      downvote: false,
-      newRecommend: this.review.recommend,
-      newReviewText: this.review.reviewText
+      newReviewText: this.review.review_text,
+      currentScore: this.review.score,
+      liked: false
     }
   },
   computed: {
-    canAccess() {
+    canAccess () {
       if (this.$auth.$state.loggedIn) {
-        if (this.review.user[0].sub === this.$auth.$state.user.sub) {
+        if (this.review.sub_id === this.$store.getters['users/subId']) {
           return true
         }
       } else {
@@ -107,27 +106,32 @@ export default {
       }
     }
   },
-  mounted() {
-    if (this.review.recommend) {
-      this.upvote = true
-      this.downvote = false
+  mounted () {
+    const likeReview = this.$store.getters['reviews/likeReview']
+    if (likeReview.includes(this.review._id)) {
+      this.liked = true
     } else {
-      this.upvote = false
-      this.downvote = true
+      this.liked = false
     }
   },
-  methods: {    
-    replyRemove(index){
+  methods: {
+    isInArray (value, array) {
+      return array.indexOf(value) > -1
+    },
+    setScore (score) {
+      this.currentScore = score
+    },
+    replyRemove (index) {
       this.$toast.success('ลบตอบกลับแล้ว')
       this.replies.splice(index, 1)
-      this.review.replyCount--
+      this.review.reply--
     },
-    async replyUpdateLatest(newReply) {
+    async replyUpdateLatest (newReply) {
       const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/latest/' + this.review._id)
       this.$toast.success('ตอบรีวิวแล้ว')
       this.new = true
-      this.review.replyCount++
-      this.replies.unshift(res[0])
+      this.review.reply++
+      this.replies.push(res[0])
     },
     isNew (index) {
       if (this.new && index === 0) {
@@ -136,41 +140,33 @@ export default {
         return false
       }
     },
-    vote (bias) {
-      if (bias) {
-        this.upvote = true
-        this.downvote = false
-        this.newRecommend = true
-      } else {
-        this.upvote = false
-        this.downvote = true
-        this.newRecommend = false
-      }
-    },
-    async showReply() {
+    async showReply () {
       if (!this.replyCardDialog) {
         this.replies = await this.$axios.$get(process.env.restMongoUrl + '/reviews/replies/' + this.review._id)
       }
       this.replyCardDialog = !this.replyCardDialog
     },
-    async voteReview () {
-      await this.$axios.$put(process.env.restMongoUrl + '/reviews/vote/' + this.review._id)
+    async like () {
+      await this.$axios.$put(process.env.restMongoUrl + '/reviews/like/' + this.review._id)
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/ip-like/create/' + this.review._id)
       this.review.like++
+      this.liked = true
     },
     async reviewEditSubmit () {
       await this.$axios.$put(process.env.restMongoUrl + '/reviews/edit',
-      { 
-        _id: this.review._id, 
-        reviewText: this.newReviewText,
-        recommend: this.newRecommend
-      })
+        {
+          _id: this.review._id,
+          review_text: this.newReviewText,
+          score: this.currentScore
+        })
+      voteUpdate(this.$store.getters['series/getNid'], this.currentScore)
       this.$toast.success('แก้ไขรีวิวแล้ว')
       this.reviewEditDialog = false
-      this.review.recommend = this.newRecommend
-      this.review.reviewText = this.newReviewText
+      this.review.score = this.currentScore
+      this.review.review_text = this.newReviewText
     },
     async reviewDel () {
-      await this.$axios.$delete(process.env.restMongoUrl + '/reviews/delete/' + this.review._id)
+      await this.$axios.$put(process.env.restMongoUrl + '/reviews/hide/' + this.review._id)
       this.$emit('delReview')
     }
   }
@@ -180,5 +176,16 @@ export default {
 <style scoped>
 .no-vote {
   color: grey;
-}                                          
+}                   
+.selecting {
+  color: green;
+}                   
+.review-text {
+  padding-top: 20px;
+}    
+.icon-action {
+  margin-top:20px;
+  margin-left: -15px;
+  margin-bottom: 15px;
+}
 </style> 

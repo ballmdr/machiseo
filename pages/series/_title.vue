@@ -68,7 +68,7 @@
         </v-flex> -->
         <v-flex xs12>
           <h2>รีวิวจากผู้ชม</h2>
-          <reviews :reviewSerie="serie"></reviews>
+          <reviews :reviews="reviews"></reviews>
         </v-flex>
       </v-flex>
       <v-flex xs12 sm4 class="text-xs-center"><adsbygoogle /></v-flex>
@@ -85,6 +85,7 @@ import Reviews from '~/components/reviews/Reviews'
 
 export default {
   components: { EpisodesList, CelebsCast, ViuWidget, Reviews },
+  middleware: 'user-auth',
   data () {
     return {
       discourseReviews: [],
@@ -104,7 +105,7 @@ export default {
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: this.baseUrl + this.serie.field_poster[0].url },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com'},
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: this.serie.title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: this.baseUrl + this.serie.field_poster[0].url },
@@ -116,9 +117,11 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
+    console.log('path', window.location.pathname)
     window.onscroll = () => { return false }
-    if (this.serie.field_topic !== null) {
+    // console.log('serie2', this.serie2)
+    /* if (this.serie.field_topic !== null) {
       const tmpHeaders = this.$axios.defaults.headers
       this.$axios.defaults.headers = {
         "Accept": "application/json"
@@ -133,15 +136,21 @@ export default {
         .catch(err => {
           console.log('err', err.response.data)
         })
-    }
+    } */
   },
-  async asyncData ({ params, env, store }) {
+  async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
-    await store.dispatch('series/setSerie', params.title)
-    return { serie }
+    // const serie = store.getters['series/getSerie']
+    store.dispatch('series/setSerie', serie)
+    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
+    return { serie, reviews }
   },
-  async fetch ({ params, store }) {
+  async fetch ({ app, params, store }) {
     await store.dispatch('episodes/setEp', params.title)
+    const likeReview = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-like')
+    store.dispatch('reviews/setIpLike', likeReview)
+    const likeReply = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-reply-like')
+    store.dispatch('reviews/setReplyLike', likeReply)
   }
 }
 </script>

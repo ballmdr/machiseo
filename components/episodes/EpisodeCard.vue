@@ -8,7 +8,7 @@
 <script>
 export default {
   props: ['ep'],
-  data() {
+  data () {
     return {
       baseUrl: process.env.baseUrl
     }

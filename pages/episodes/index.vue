@@ -20,7 +20,7 @@ export default {
     }
   },
   computed: {
-    root() {
+    root () {
       if (Object.keys(this.$route.params).length === 0) {
         return true
       } else {

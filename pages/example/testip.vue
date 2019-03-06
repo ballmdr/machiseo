@@ -9,7 +9,7 @@ export default {
       ip: null
     }
   },
-  async mounted() {
+  async mounted () {
     this.ip = await this.$axios.$get(process.env.voteServer + '/getip')
   }
 }

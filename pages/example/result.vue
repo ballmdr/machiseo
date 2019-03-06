@@ -22,7 +22,7 @@ export default {
       baseUrl: process.env.baseUrl
     }
   },
-  mounted() {
+  mounted () {
     console.log('all vote', this.votes)
   },
   async asyncData ({ app, env }) {

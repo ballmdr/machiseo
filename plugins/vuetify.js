@@ -1,4 +1,8 @@
+
+
 import Vue from 'vue'
+Vue.config.devtools = true
+
 import {
   Vuetify,
   VApp,

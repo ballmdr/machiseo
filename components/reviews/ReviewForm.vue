@@ -1,76 +1,78 @@
 <template>
   <v-card color="primary" >
     <v-card-title>
-      <v-avatar size="38"><v-img :src="$auth.$state.user.picture"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $auth.$state.user.name }}</span>
+      <v-avatar size="38"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $store.getters['users/name'] }}</span>
     </v-card-title>
-    <v-btn @click="$auth.logout()">Logout</v-btn>
+    <logout></logout>
     <v-divider dark></v-divider>
+    <v-card-actions>
+    &nbsp;&nbsp;ให้เรตติ้ง <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>
+    </v-card-actions>
     <v-card-text>
       <v-textarea
         dark
-        flat
+        box
+        auto-grow
         v-model="review_text"
         label="เขียนรีวิว"
-        required
-        outline
+        color="yellow"
       ></v-textarea>
-      <v-card-actions>
-      คุณแนะนำซีรีส์เรื่องนี้หรือไม่&nbsp;
-      <v-btn flat round color="success" @click="vote(true)"><v-icon large :disabled="!upvote">thumb_up</v-icon> <span :class="{'no-vote': !upvote}">แนะนำ</span></v-btn>
-      <v-btn flat round color="error" @click="vote(false)"><v-icon large :disabled="!downvote">thumb_down</v-icon> <span :class="{'no-vote': !downvote}">ไม่แนะนำ</span></v-btn>
       <v-btn large round color="warning" @click="reviewSave"><span style="color:black">โพสต์รีวิว</span></v-btn>
-      </v-card-actions>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+// import { getUserObj } from '~/assets/js/util'
+import { voteUpdate } from '~/assets/js/api'
+import Logout from '~/components/users/Logout'
+
 export default {
-  props: ['reviewSerie'],
   data () {
     return {
+      currentScore: 0,
       review_text: '',
-      recommend: null,
-      upvote: false,
-      downvote: false
+      user: {},
+      reviewObj: {}
     }
   },
+  components: {
+    Logout
+  },
   methods: {
-    vote (bias) {
-      if (bias) {
-        this.upvote = true
-        this.downvote = false
-        this.recommend = true
+    setScore (selectedScore) {
+      this.currentScore = selectedScore
+    },
+    async updateUser () {
+      const tmpUser = await this.$axios.$get(process.env.restMongoUrl + '/users/' + this.$store.getters['users/subId'])
+      if (tmpUser.length > 0) {
+        /* User exists -> update user */
+        await this.$axios.$put(process.env.restMongoUrl + '/users/update/' + tmpUser[0]._id, this.$store.getters['users/getUser'])
       } else {
-        this.upvote = false
-        this.downvote = true
-        this.recommend = false
+        /* User not exists -> create user */
+        await this.$axios.$post(process.env.restMongoUrl + '/users/create', this.$store.getters['users/getUser'])
       }
     },
     async reviewSave () {
-      this.reviewSerie.user_sub = this.$auth.$state.user.sub
-      this.reviewSerie.reviewText = this.review_text,
-      this.reviewSerie.recommend = this.recommend
-      await this.$axios.$post(process.env.restMongoUrl + '/reviews/add', this.reviewSerie)
-      let votePoint = 0
-      if (this.recommend) {
-        votePoint = 1
-      } else {
-        votePoint = -1
+      this.updateUser()
+      this.reviewObj = {
+        serie_id: String(this.$store.getters['series/getNid']),
+        sub_id: this.$store.getters['users/subId'],
+        review_text: this.review_text,
+        score: this.currentScore,
+        tag: []
       }
-      await this.$axios.$post('/entity/vote?_format=json',
-      {
-        "type": "serie_review",
-        "entity_type": ["node"],
-        "entity_id": [this.reviewSerie.nid],
-        "value": [votePoint],
-        "value_type": ["points"]
-      })
-      this.review_text = ''
-      this.upvote = false
-      this.downvote = false
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/create', this.reviewObj)
+      // this.$store.dispatch('reviews/setReview', this.reviewObj)
+      await voteUpdate(this.reviewObj.serie_id, this.currentScore)
+      this.clearForm()
       this.$emit('reviewUpdateNew')
     },
+    clearForm () {
+      this.currentScore = 0
+      this.review_text = ''
+      this.tag = []
+    }
   }
 }
 </script>
@@ -79,5 +81,8 @@ export default {
 <style scoped>
 .no-vote {
   color: grey;
-}                                          
+}      
+.selecting {
+  color: green;
+}                                    
 </style> 
