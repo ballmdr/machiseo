@@ -12,7 +12,7 @@
             </v-flex>
             <v-flex xs12 sm6 md8>
               <v-card-title>
-                <h1>{{ serie.title }}</h1><v-rating value="serieScore" color="yellow" half-increments></v-rating>{{ serieScore }}
+                <h1>{{ serie.title }}</h1><v-rating v-model="serieScore" color="yellow" half-increments></v-rating>{{ serieScore }}
               </v-card-title>
               <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
               <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
