@@ -4,11 +4,7 @@
       <serie-card-group :series="series"></serie-card-group>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
-      <v-progress-circular v-if="!empty"
-        indeterminate
-        color="amber"
-      ></v-progress-circular>
-      <v-icon v-else>remove_circle_outline</v-icon>
+      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </v-flex>
   </v-layout>
 </template>
@@ -19,32 +15,31 @@ import { getSeriesListWithYear } from '~/assets/js/api'
 
 export default {
   components: { SerieCardGroup },
-  mounted () {
-    window.onscroll = () => {
-      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        if (!this.empty) {
-          getSeriesListWithYear(this.offset, this.limit, this.year[this.index]).then(newSeries => {
-            this.offset += 9
-            if (newSeries.length < this.limit) {
-              if (this.index < this.year.length) {
-                this.index++
-                this.offset = 0
-              } else {
-                this.empty = true
-              }
+  methods: {
+    infiniteHandler($state) {
+      if (!this.empty) {
+        getSeriesListWithYear(this.offset, this.limit, this.year[this.index]).then(newSeries => {
+          this.offset += 9
+          if (newSeries.length < this.limit) {
+            if (this.index < this.year.length) {
+              this.index++
+              this.offset = 0
+            } else {
+              this.empty = true
+              $state.complete()
             }
-            for (let i = 0; i < newSeries.length; i++) {
-              this.series.push(newSeries[i])
-            }
-          })
-        }
+          }
+          for (let i = 0; i < newSeries.length; i++) {
+            this.series.push(newSeries[i])
+          }
+          $state.loaded()
+        })
       }
     }
   },
   async asyncData () {
     let offset = 0
-    let limit = 100
+    let limit = 9
     let empty = false
     let year = ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', 'ก่อน%202010']
     let index = 0

@@ -12,11 +12,7 @@
       <serie-card-group :series="series"></serie-card-group>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
-      <v-progress-circular v-if="!empty"
-        indeterminate
-        color="amber"
-      ></v-progress-circular>
-      <v-icon v-else>remove_circle_outline</v-icon>
+      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </v-flex>
   </v-layout>
 </template>
@@ -27,21 +23,20 @@ import SerieCardGroup from '~/components/series/SerieCardGroup'
 
 export default {
   components: { SerieCardGroup },
-  mounted () {
-    window.onscroll = () => {
-      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        if (!this.empty) {
-          getSeriesByType(this.offset, this.limit, this.type).then(newSeries => {
-            this.offset += 9
-            if (newSeries.length < this.limit) {
-              this.empty = true
-            }
-            for (let i = 0; i < newSeries.length; i++) {
-              this.series.push(newSeries[i])
-            }
-          })
-        }
+  methods: {
+    infiniteHandler($state) {
+      if (!this.empty) {
+        getSeriesByType(this.offset, this.limit, this.type).then(newSeries => {
+          this.offset += 9
+          if (newSeries.length < this.limit) {
+            this.empty = true
+            $state.complete()
+          }
+          for (let i = 0; i < newSeries.length; i++) {
+            this.series.push(newSeries[i])
+          }
+          $state.loaded()
+        })
       }
     }
   },
