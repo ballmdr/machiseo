@@ -82,7 +82,7 @@ import CelebsCast from '~/components/series/CelebsCast'
 import { getSerieByPath } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
-import { voteUpdate } from '~/assets/js/api'
+import { voteUpdate, voteResult } from '~/assets/js/api'
 
 export default {
   components: { EpisodesList, CelebsCast, ViuWidget, Reviews },
@@ -118,6 +118,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.serie)
     window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {
@@ -142,16 +143,13 @@ export default {
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
-    console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
-    let serieScore = await app.$axios.$get('/vote/serie/result/' + serie.nid + '?_format=json')
-    console.log('serieScore', serieScore)
+    //console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
+    let serieScore = await voteResult(serie.nid)
     if (serieScore.length > 1) {
-      console.log('serie score', serieScore)
-      serieScore = serieScore[1].value[0].value
+      serieScore = serieScore[1].value[0].value 
     }
     else {
       serieScore = 0
-      console.log('serie score', serieScore)
     }
     return { serie, reviews, serieScore }
   },

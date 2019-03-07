@@ -14,6 +14,12 @@ export async function voteUpdate (nid, point) {
   })
 }
 
+export async function voteResult (nid) {
+  const { data } = await apiClient.get('/vote/serie/result/' + nid + '?_format=json')
+  return data
+  //return jsonapiParse.parse(data).data
+}
+
 export async function searchSeries (query) {
   const { data } = await apiClient.get(prefix + '/series?filter[status][value]=1&filter[title][operator]=CONTAINS&filter[title][value]=' + query + '&include=field_poster')
   return jsonapiParse.parse(data).data
