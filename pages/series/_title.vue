@@ -90,8 +90,6 @@ export default {
   middleware: 'user-auth',
   data () {
     return {
-      discourseReviews: [],
-      discourseTopicUrl: null,
       baseUrl: process.env.baseUrl,
       isAdmin: null
     }
@@ -155,11 +153,17 @@ export default {
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
+    console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
     let serieScore = await app.$axios.$get('/vote/serie/result/' + serie.nid + '?_format=json')
-    if (typeof (serieScore) !== 'undefined')
+    console.log('serieScore', serieScore)
+    if (serieScore.length > 1) {
+      console.log('serie score', serieScore)
       serieScore = serieScore[1].value[0].value
-    else 
+    }
+    else {
       serieScore = 0
+      console.log('serie score', serieScore)
+    }
     return { serie, reviews, serieScore }
   },
   async fetch ({ app, params, store }) {
