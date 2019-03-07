@@ -44,7 +44,7 @@ export default {
   },
   async asyncData () {
     let offset = 0
-    let limit = 9
+    let limit = 100
     let empty = false
     let year = ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', 'ก่อน%202010']
     let index = 0
