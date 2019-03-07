@@ -11,7 +11,7 @@
     </v-card-text>
     <v-card-title style="height:150px">
       <nuxt-link :to="serie.path.alias"><strong class="headline">{{ serie.title }}</strong></nuxt-link>
-      <v-rating v-model="serieScore" small color="yellow lighten-3" half-increments readonly></v-rating>
+      <v-rating v-model="serieScore" small color="yellow" half-increments readonly></v-rating>
       <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
     </v-card-title>
     
