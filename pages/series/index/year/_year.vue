@@ -12,7 +12,7 @@
       <serie-card-group :series="series"></serie-card-group>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
-      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      <infinite-loading :identifier="infiniteId" @infinite="infiniteHandler"></infinite-loading>
     </v-flex>
   </v-layout>
 </template>
@@ -23,6 +23,11 @@ import SerieCardGroup from '~/components/series/SerieCardGroup'
 
 export default {
   components: { SerieCardGroup },
+  data () {
+    return {
+      infiniteId: +new Date()
+    }
+  },
   methods: {
     infiniteHandler($state) {
       if (!this.empty) {
@@ -37,8 +42,13 @@ export default {
           }
           $state.loaded()
         })
+      } else {
+        $state.complete()
       }
     }
+  },
+  mounted() {
+    this.infiniteId += 1;
   },
   async asyncData ({ params }) {
     let offset = 0
