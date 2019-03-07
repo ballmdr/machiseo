@@ -12,8 +12,7 @@
             </v-flex>
             <v-flex xs12 sm6 md8>
               <v-card-title>
-                <div v-show="isAdmin"><v-rating v-model="serieScore" color="yellow" half-increments hover></v-rating>{{ serieScore }}</div>
-                <h1>{{ serie.title }}</h1>
+                <h1>{{ serie.title }}</h1><v-rating value="serieScore" color="yellow" half-increments></v-rating>{{ serieScore }}
               </v-card-title>
               <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
               <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
@@ -94,11 +93,6 @@ export default {
       isAdmin: null
     }
   },
-  watch: {
-    serieScore: async function () {
-      await voteUpdate(this.$store.getters['series/getNid'], this.serieScore)
-    }
-  },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'เรื่องย่อ : ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
@@ -124,11 +118,6 @@ export default {
     }
   },
   mounted () {
-    if (process.env.adminSubId === this.$store.getters['users/subId']) {
-      this.isAdmin = true
-    } else {
-      this.isAdmin = false
-    }
     window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {
