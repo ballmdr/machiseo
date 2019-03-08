@@ -2,7 +2,20 @@
 <div class="container animated slideInDown">
   <div v-show="isAdmin"><v-rating @click.native="vote()" v-model="serieScore" color="yellow" half-increments hover background-color="white"></v-rating>{{ serieScore }}</div>
   <br><br><br>
-  <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
+
+  <v-card dark class="movie box hvr-underline-reveal"
+      style="cursor:pointer;"
+      @click.native="$router.push(serie.path.alias)">
+    <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].url"></v-img>
+    <v-card-title class="box-caption">
+      <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
+      <v-rating v-model="serieScore" color="yellow" half-increments readonly></v-rating>
+    </v-card-title>
+    <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
+    <v-card-actions><v-spacer></v-spacer><small v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</small></v-card-actions>
+  </v-card>
+
+ <!-- <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
       style="cursor:pointer;width:350px;"
       @click.native="$router.push(serie.path.alias)">
     <v-card-text class="card-media">
@@ -10,12 +23,12 @@
       <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
     </v-card-text>
     <v-card-title style="height:150px">
-      <nuxt-link :to="serie.path.alias"><strong class="headline">{{ serie.title }}</strong></nuxt-link>
+      <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
       <v-rating v-model="serieScore" small color="yellow" half-increments readonly></v-rating>
       <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
     </v-card-title>
     
-  </v-card>
+  </v-card> -->
 </div>
 </template>
 
@@ -55,76 +68,29 @@ export default {
 </script>
 
 <style scoped>
-
-.u-float-right {
-  float: right;
+.box{
+  max-width: 500px;
 }
+.box-caption{
 
-.u-clearfix:before,
-.u-clearfix:after {
-  content: " ";
-  display: table;
+
 }
-
-.u-clearfix:after {
-  clear: both;
+.movie{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+39,1e1b26+53&0+38,1+55 */
+background: -moz-linear-gradient(top,  rgba(255,255,255,0) 38%, rgba(255,255,255,0.06) 39%, rgba(30,27,38,0.88) 53%, rgba(30,27,38,1) 55%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 38%,rgba(255,255,255,0.06) 39%,rgba(30,27,38,0.88) 53%,rgba(30,27,38,1) 55%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(255,255,255,0) 38%,rgba(255,255,255,0.06) 39%,rgba(30,27,38,0.88) 53%,rgba(30,27,38,1) 55%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#1e1b26',GradientType=0 ); /* IE6-9 */
 }
-
-.u-clearfix {
-  *zoom: 1;
+.movie-img{
+  z-index:111 !important;
+  -webkit-mask-image: 
+    -webkit-gradient(linear, left top, left bottom, 
+    color-stop(0.00,  rgba(0,0,0,1)),
+    color-stop(0.35,  rgba(0,0,0,1)),
+    color-stop(0.50,  rgba(0,0,0,1)),
+    color-stop(0.65,  rgba(0,0,0,1)),
+    color-stop(0.85,  rgba(0,0,0,0.6)),
+    color-stop(1.00,  rgba(0,0,0,0)));
 }
-
-.u-flex-center {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-
-.container {
-  margin: 25px auto;
-  width: 100%;
-}
-
-
-.card-media {
-  float: left;
-  padding: 0 0 25px 25px;
-  position: relative;
-  width: 145px;
-}
-
-.card-media-img {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
-  float: left;
-  margin-top: -25px;
-  position: relative;
-  width: 100%;
-}
-
-.card-media-preview {
-  background-color: #00AEA2;
-  border-radius: 50%;
-  bottom: 11px;
-  box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
-  cursor: pointer;
-  height: 30px;
-  opacity: 0;
-  position: absolute;
-  left: 70px;
-  transform: translateY(5px);
-  transition: all 300ms ease-out;
-  width: 30px;
-  z-index: 3;
-}
-
-
-.card-body {
-  float: left;
-  padding: 25px 25px 25px 20px;
-  width: 415px;
-}
-
 </style>
