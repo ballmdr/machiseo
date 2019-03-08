@@ -6,7 +6,7 @@
     <logout></logout>
     <v-divider dark></v-divider>
     <v-card-actions>
-    &nbsp;&nbsp;ให้เรตติ้ง <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>
+    &nbsp;&nbsp;ให้เรตติ้ง <v-rating v-model="currentScore" color="yellow" half-increments hover></v-rating>{{ currentScore }}/5
     </v-card-actions>
     <v-card-text>
       <v-textarea
