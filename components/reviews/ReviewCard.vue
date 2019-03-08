@@ -105,7 +105,7 @@ export default {
   watch: {
     less: function () {
       if (this.less) {
-        this.filterdText = this.$options.filters.truncate(this.review.review_text, 50, '...')
+        this.filterdText = this.$options.filters.truncate(this.review.review_text, 300, '...')
       } else {
         this.filterdText = this.review.review_text
       }
