@@ -1,9 +1,9 @@
 <template>
     <div>
-        <v-btn @click="auth0" icon>auth</v-btn>
-        <v-btn @click="facebook" icon><v-icon>fab fa-facebook-f</v-icon></v-btn>
-        <!--<v-btn @click="twitter" icon><v-icon>fab fa-twitter</v-icon></v-btn>-->
-        <v-btn @click="google" icon><v-icon>fab fa-google</v-icon></v-btn>
+        <v-btn @click="auth0">เข้าสู่ระบบ</v-btn>
+       <!-- <v-btn @click="facebook" icon><v-icon>fab fa-facebook-f</v-icon></v-btn>
+        <v-btn @click="twitter" icon><v-icon>fab fa-twitter</v-icon></v-btn>
+        <v-btn @click="google" icon><v-icon>fab fa-google</v-icon></v-btn>-->
     </div>
 </template>
 
