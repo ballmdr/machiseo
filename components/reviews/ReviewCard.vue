@@ -98,14 +98,14 @@ export default {
       liked: false,
       filterdText: this.review.review_text,
       less: null,
-      filter: 30,
+      filter: 500,
       notFilter: null
     }
   },
   watch: {
     less: function () {
       if (this.less) {
-        this.filterdText = this.$options.filters.truncate(this.review.review_text, 500, '...')
+        this.filterdText = this.$options.filters.truncate(this.review.review_text, this.filter, '...')
       } else {
         this.filterdText = this.review.review_text
       }
