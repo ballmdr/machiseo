@@ -125,7 +125,7 @@ export default {
   },
   mounted () {
     //console.log(this.serie)
-    window.onscroll = () => { return false }
+    //window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {
       const tmpHeaders = this.$axios.defaults.headers
