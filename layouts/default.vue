@@ -2,7 +2,7 @@
   <v-app dark>
     <nav-bar></nav-bar>
     <v-content>
-      <v-container grid-list-xl>
+      <v-container grid-list-md>
         <nuxt />
       </v-container>
     </v-content>
@@ -23,6 +23,11 @@ export default {
 .application {
   font-family: 'Kanit', sans-serif;
   font-size: 16px;
+  color: #9ab !important;
+  background-color: #2c3440 !important;
+}
+h1, h2, h3, h4 {
+  color: white !important;
 }
 .container {
   max-width: 1200px;

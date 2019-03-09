@@ -5,7 +5,7 @@
       <v-btn icon dark @click="$emit('closeDialog')"><v-icon>far fa-times-circle</v-icon></v-btn>
     </v-toolbar>
     <v-layout :column="$vuetify.breakpoint.smAndDown">
-      <v-flex xs8 sm8 md7 style="background-color:black;">
+      <v-flex xs8 sm8 md7 style="background-color:white; max-height:220px;">
         <v-carousel hide-delimiters
           style="max-height:280px;"
           next-icon="far fa-arrow-alt-circle-right"

@@ -12,17 +12,22 @@
             </v-flex>
             <v-flex xs12 sm6 md8>
               <v-card-title>
-                <h1>{{ serie.title }}</h1>
-                <v-rating v-model="serieScore" color="yellow" half-increments readonly large></v-rating>{{ serieScore }}
+                <v-layout row wrap>
+                  <v-flex xs12><h1>{{ serie.title }}</h1></v-flex>
+                  <v-flex xs12 d-flex>
+                    <v-rating style="max-width:200px;" v-model="serieScore"  color="yellow" half-increments readonly></v-rating>
+                    <span class="grey--text text--lighten-2 caption mr-2">({{ serieScore | round(4) }})</span>
+                  </v-flex>
+                </v-layout>
               </v-card-title>
-              <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name }}</v-btn>
-              <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name }}</v-btn>
-              <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name }}</v-btn>
+              <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name | escape }}</v-btn>
+              <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name | escape }}</v-btn>
+              <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name | escape }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
                 <v-layout column>   
                   <v-flex xs12><p v-html="serie.body.processed"></p></v-flex>
-                  <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-40px;">
+                  <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-20px;">
                     <div style="font-size:26px;">ดูซับไทยที่</div>
                     <a :href="serie.field_viu" target="_blank" rel="nofollow">
                       <img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'">
@@ -119,7 +124,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.serie)
+    //console.log(this.serie)
     window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {

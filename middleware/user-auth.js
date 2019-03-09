@@ -1,7 +1,7 @@
 export default function ({ store, app }) {
-  console.log('auth', app.$auth)
+  //console.log('auth', app.$auth)
   if (app.$auth.$state.loggedIn) {
-    console.log('login')
+    //console.log('login')
     const user = {}
     switch (app.$auth.$state.strategy) {
       case 'auth0':
@@ -17,7 +17,7 @@ export default function ({ store, app }) {
         user.email = app.$auth.$state.user.email
         break
       case 'google':
-        user.sub_id = app.$auth.$state.strategy + '|' + app.$auth.$state.user.sub
+        user.sub_id = app.$auth.$state.strategy + '-oauth2|' + app.$auth.$state.user.sub
         user.name = app.$auth.$state.user.name
         user.picture = app.$auth.$state.user.picture
         user.email = app.$auth.$state.user.email

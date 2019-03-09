@@ -15,7 +15,7 @@
             v-for="type in seriesType"
             :key="type.id"
           >
-          <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/type/' + type.name">{{ type.name }}</v-btn>
+          <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/type/' + type.name">{{ type.name | escape }}</v-btn>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -34,7 +34,7 @@
             v-for="year in seriesYear"
             :key="year.id"
           >
-            <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/year/' + year.name">{{ year.name }}</v-btn>
+            <v-btn flat style="width:100%;margin:0" nuxt :to="'/series/year/' + year.name">{{ year.name | escape }}</v-btn>
           </v-list-tile>
         </v-list>
       </v-menu>

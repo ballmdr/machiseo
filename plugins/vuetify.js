@@ -83,6 +83,10 @@ Vue.use(Vuetify, {
     infoBgcolor: colors.grey.lighten2,
     bgText: colors.grey.lighten4,
     subTitle: colors.grey.darken2,
-    bodyBg: '#ff5638'
+    bodyBg: '#2c3440',
+    text: '#9ab',
+    facebook: '#4267b2',
+    twitter: '#1da1f2',
+    google: '#db4437'
   }
 })

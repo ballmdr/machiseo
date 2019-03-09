@@ -173,6 +173,7 @@ app.put('/users/update/:_id', (req, res) => {
 app.get('/reviews/:nid', (req, res) => {
   db.collection('reviews').aggregate([
     { $match: { 'serie_id': req.params.nid, 'show': '1' } },
+    { $sort: { 'like': -1 } },
     { $lookup:
       {
         from: 'users',
@@ -372,6 +373,7 @@ app.put('/reviews/reply/edit', (req, res) => {
       res.status(200).send(result)
     })
 })
+
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
