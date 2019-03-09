@@ -29,7 +29,8 @@
     </v-layout>
     <v-card-actions class="primary white--text">
       <v-spacer></v-spacer>
-      <v-btn round @click="$router.push('/episodes/' + path)"><v-icon>far fa-list-alt</v-icon>&nbsp;ดูทุกตอน</v-btn>
+      <!--<v-btn round @click="$router.push('/episodes/' + path)"><v-icon>far fa-list-alt</v-icon>&nbsp;ดูทุกตอน</v-btn>-->
+      <v-btn round @click="$router.push('/series/' + path)"><v-icon>far fa-list-alt</v-icon>&nbsp;ดูทุกตอน</v-btn>
     </v-card-actions>
   </v-card>
 </template>

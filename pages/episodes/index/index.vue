@@ -1,14 +1,10 @@
 <template>
   <v-layout row wrap>
-    <v-flex class="hvr-grow" xs12 sm6 md4 v-for="(episode, index) in episodes" :key="episode.id" @click="showEp(index)">
+    <v-flex class="hvr-reveal" xs12 sm6 md4 v-for="(episode, index) in episodes" :key="episode.id" @click="showEp(index)">
       <episode-card-poster :ep="episode"></episode-card-poster>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
-      <v-progress-circular v-if="!empty"
-        indeterminate
-        color="amber"
-      ></v-progress-circular>
-      <v-icon v-else>remove_circle_outline</v-icon>
+      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </v-flex>
     <v-dialog fullscreen  v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
       <episode-show-one :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
@@ -62,35 +58,32 @@ export default {
       this.ep = this.episodes[index]
       const res = await getImgStreamingByUuid(this.ep.uuid)
       this.imgStreaming = res.field_img_streaming
-    }
-  },
-  mounted () {
-    window.onscroll = () => {
-      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        if (!this.empty) {
-          getAllEpisodes(this.offset, this.limit).then(newEpisodes => {
-            this.offset += 9
-            if (newEpisodes.length < this.limit) {
-              this.empty = true
-            }
-            for (let i = 0; i < newEpisodes.length; i++) {
-              this.episodes.push(newEpisodes[i])
-            }
-          })
-        }
+    },
+    infiniteHandler($state) {
+      if (!this.empty) {
+        getAllEpisodes(this.offset, this.limit).then(newEpisodes => {
+          this.offset += 9
+          if (newEpisodes.length < this.limit) {
+            this.empty = true
+            $state.complete()
+          }
+          for (let i = 0; i < newEpisodes.length; i++) {
+            this.episodes.push(newEpisodes[i])
+          }
+          $state.loaded()
+        })
       }
     }
   },
   async asyncData () {
     let offset = 0
-    let limit = 12
+    let limit = 9
     let empty = false
     const episodes = await getAllEpisodes(offset, limit)
     if (episodes.length < limit) {
       empty = true
     }
-    offset += 12
+    offset += 9
     const ep = episodes[0]
     return { empty, offset, limit, episodes, ep }
   }
