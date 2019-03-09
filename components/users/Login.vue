@@ -1,12 +1,12 @@
 <template>
     <v-layout column>
       <v-flex xs12>
-        ปุ่มหลัก <v-btn @click="auth0"  color="white"><v-icon color="facebook">fab fa-facebook-f</v-icon>&nbsp;&nbsp;&nbsp;<v-icon color="twitter">fab fa-twitter</v-icon>&nbsp;&nbsp;<v-icon color="google">fab fa-google</v-icon></v-btn>
+        <v-btn @click="auth0"  color="white"><v-icon color="facebook">fab fa-facebook-f</v-icon>&nbsp;&nbsp;&nbsp;<v-icon color="twitter">fab fa-twitter</v-icon>&nbsp;&nbsp;<v-icon color="google">fab fa-google</v-icon></v-btn>
       </v-flex>
-      <v-flex xs12>
+      <!--<v-flex xs12>
         ปุ่มสำรอง <v-btn @click="facebook" icon color="facebook"><v-icon>fab fa-facebook</v-icon></v-btn>
         <v-btn @click="google" icon color="google"><v-icon>fab fa-google</v-icon></v-btn>
-      </v-flex>
+      </v-flex>-->
     </v-layout>
 </template>
 
