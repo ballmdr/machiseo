@@ -21,8 +21,9 @@ export default {
 
 <style>
 .application {
-  font-family: 'Kanit', sans-serif;
-  font-size: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-size: 14px;
   color: #9ab !important;
   background-color: #2c3440 !important;
 }

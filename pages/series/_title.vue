@@ -3,7 +3,7 @@
     <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12> 
       <div class="container">
-        <v-card color="primary" class="u-clearfix">
+        <v-card color="primary" class="u-clearfix" style="color: black">
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
@@ -25,10 +25,10 @@
               <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name | escape }}</v-btn>
               <v-divider dark></v-divider>
               <v-card-text>
-                <v-layout column>   
-                  <v-flex xs12><p v-html="serie.body.processed"></p></v-flex>
+                <v-layout column>
+                  <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex>
                   <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-20px;">
-                    <div style="font-size:26px;">ดูซับไทยที่</div>
+                    <div style="font-size:20px;">ดูซับไทยที่</div>
                     <a :href="serie.field_viu" target="_blank" rel="nofollow">
                       <img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'">
                     </a>
@@ -55,13 +55,13 @@
         <v-flex xs12 v-if="serie.field_web_review !== null">
           <v-card color="primary">
             <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
-            <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
+            <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
-            <v-card-text><p v-text="serie.field_synopsis"></p></v-card-text>
+            <v-card-text><p style="color:#9ab" v-text="serie.field_synopsis"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
