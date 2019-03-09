@@ -170,8 +170,12 @@ export default {
       this.replyCardDialog = !this.replyCardDialog
     },
     async like () {
-      await this.$axios.$put(process.env.restMongoUrl + '/reviews/like/' + this.review._id)
-      await this.$axios.$post(process.env.restMongoUrl + '/reviews/ip-like/create/' + this.review._id)
+      //await this.$axios.$put(process.env.restMongoUrl + '/reviews/like/' + this.review._id)
+      let ip = await this.$axios.$get(process.env.restMongoUrl + '/getip')
+      console.log('ip before', ip)
+      ip = ip.split(',')
+      console.log('ip', ip)
+      await this.$axios.$post(process.env.restMongoUrl + '/reviews/ip-like/create', { ip: ip[0], review_id: this.review._id } )
       this.review.like++
       this.liked = true
     },

@@ -59,12 +59,12 @@ app.get('/reviews/ip-reply-like', (req, res) => {
   })
 })
 
-app.post('/reviews/ip-like/create/:id', (req, res) => {
-  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+app.post('/reviews/ip-like/create', (req, res) => {
+  //var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   db.collection('ip_like').insertOne(
     {
-      ip: ip,
-      review_like: req.params.id
+      ip: req.body.ip,
+      review_like: req.body.review_id
     }, (err, result) => {
       if (err) throw err
       res.status(200).send(result)
