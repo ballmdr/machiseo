@@ -43,7 +43,6 @@ app.get('/getip', (req, res) => {
 
 app.get('/reviews/ip-like', (req, res) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  // var ip = req.params.ip
   db.collection('ip_like').find( { ip: ip }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
@@ -52,7 +51,7 @@ app.get('/reviews/ip-like', (req, res) => {
 
 app.get('/reviews/ip-reply-like', (req, res) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  // var ip = req.params.ip
+  var ip = req.params.ip
   db.collection('ip_reply_like').find( { ip: ip }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
@@ -60,10 +59,10 @@ app.get('/reviews/ip-reply-like', (req, res) => {
 })
 
 app.post('/reviews/ip-like/create', (req, res) => {
-  //var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   db.collection('ip_like').insertOne(
     {
-      ip: req.body.ip,
+      ip: ip,
       review_like: req.body.review_id
     }, (err, result) => {
       if (err) throw err
