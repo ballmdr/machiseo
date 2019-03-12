@@ -114,7 +114,7 @@ export default {
   computed: {
     canAccess () {
       if (this.$auth.$state.loggedIn) {
-        if (this.review.sub_id === this.$store.getters['users/subId']) {
+        if (this.review.sub_id === this.$store.getters['users/subId'] || this.$store.getters['users/getIsAdmin']) {
           return true
         }
       } else {

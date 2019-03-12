@@ -24,5 +24,8 @@ export default function ({ store, app }) {
         break
     }
     store.dispatch('users/setUser', user)
+    if (process.env.adminSubId === user.sub_id) {
+      store.dispatch('users/setAdmin')
+    }
   }
 }

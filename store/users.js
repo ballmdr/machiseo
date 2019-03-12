@@ -4,7 +4,8 @@ export const state = () => ({
     subId: '',
     picture: '',
     name: ''
-  }
+  },
+  isAdmin: false
 })
 
 export const getters = {
@@ -19,17 +20,26 @@ export const getters = {
   },
   name (state) {
     return state.user.name
+  },
+  getIsAdmin (state) {
+    return state.isAdmin
   }
 }
 
 export const mutations = {
   setUser (state, payload) {
     state.user = payload
+  },
+  setAdmin (state) {
+    state.isAdmin = true
   }
 }
 
 export const actions = {
   setUser ({ commit }, userObj) {
     commit('setUser', userObj)
+  },
+  setAdmin ( { commit }) {
+    commit('setAdmin')
   }
 }

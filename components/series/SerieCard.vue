@@ -1,35 +1,35 @@
 <template>
-<div class="container animated slideInDown">
-  <div v-show="isAdmin"><v-rating @click.native="vote()" v-model="serieScore" color="yellow" half-increments hover background-color="white"></v-rating>{{ serieScore }}</div>
-  <br><br><br>
+  <div class="container animated slideInDown">
+    <div v-show="isAdmin"><v-rating @click.native="vote()" v-model="serieScore" color="yellow" half-increments hover background-color="white"></v-rating>{{ serieScore }}</div>
+    <br><br><br>
 
-  <v-card dark class="movie box hvr-underline-reveal"
-      style="cursor:pointer;"
-      @click.native="$router.push(serie.path.alias)">
-    <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].url"></v-img>
-    <v-card-title class="box-caption">
-      <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
-      <v-rating dense v-model="serieScore" color="yellow" half-increments readonly></v-rating>
-    </v-card-title>
-    <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
-    <v-card-actions><v-spacer></v-spacer><small v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</small></v-card-actions>
-  </v-card>
-
- <!-- <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
-      style="cursor:pointer;width:350px;"
-      @click.native="$router.push(serie.path.alias)">
-    <v-card-text class="card-media">
-      <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
+    <v-card dark class="movie box hvr-underline-reveal"
+        style="cursor:pointer;"
+        @click.native="$router.push(serie.path.alias)">
+      <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].url"></v-img>
+      <v-card-title class="box-caption">
+        <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
+        <v-rating dense v-model="serieScore" color="yellow" half-increments readonly></v-rating>
+      </v-card-title>
       <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
-    </v-card-text>
-    <v-card-title style="height:150px">
-      <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
-      <v-rating v-model="serieScore" small color="yellow" half-increments readonly></v-rating>
-      <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
-    </v-card-title>
-    
-  </v-card> -->
-</div>
+      <v-card-actions><v-spacer></v-spacer><small v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</small></v-card-actions>
+    </v-card>
+
+  <!-- <v-card color="primary" class="card u-clearfix hvr-grow-shadow"
+        style="cursor:pointer;width:350px;"
+        @click.native="$router.push(serie.path.alias)">
+      <v-card-text class="card-media">
+        <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
+        <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
+      </v-card-text>
+      <v-card-title style="height:150px">
+        <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
+        <v-rating v-model="serieScore" small color="yellow" half-increments readonly></v-rating>
+        <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
+      </v-card-title>
+      
+    </v-card> -->
+  </div>
 </template>
 
 <script>
@@ -47,15 +47,11 @@ export default {
   methods: {
     async vote () {
       await voteUpdate(this.serie.nid, this.serieScore)
-      console.log('vote')
+      //console.log('vote')
     }
   },
   async mounted () {
-    if (process.env.adminSubId === this.$store.getters['users/subId']) {
-      this.isAdmin = true
-    } else {
-      this.isAdmin = false
-    }
+    this.isAdmin = this.$store.getters['users/getIsAdmin']
     let serieScore = await voteResult(this.serie.nid)
     if (serieScore.length > 1) {
       this.serieScore = serieScore[1].value[0].value 
