@@ -169,6 +169,41 @@ app.put('/users/update/:_id', (req, res) => {
 /** end user management */
 
 /** review begin */
+app.get('/series/:nid', (req, res) => {
+  db.collection('series').find( { serie_id: req.params.nid }).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+app.post('/series/create', (req, res) => {
+  db.collection('series').insertOne({
+    serie_id: req.body.serie_id,
+    uuid: req.body.uuid,
+    title: req.body.title,
+    poster: req.body.poster,
+    path: req.body.path
+  }, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+app.get('/reviews', (req, res) => {
+  db.collection('reviews').aggregate([
+    { $sort: { '_id': -1 } },
+    { $lookup:
+      {
+        from: 'users',
+        localField: 'sub_id',
+        foreignField: 'sub_id',
+        as: 'user'
+      }
+    }
+  ]).toArray((err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 app.get('/reviews/:nid', (req, res) => {
   db.collection('reviews').aggregate([
     { $match: { 'serie_id': req.params.nid, 'show': '1' } },
