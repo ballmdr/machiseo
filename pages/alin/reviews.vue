@@ -1,50 +1,21 @@
 <template>
-  <v-layout column>
-    <v-flex xs12>
-      <review-form v-if="$auth.$state.loggedIn" @reviewUpdateNew="updateLatest"></review-form>
-      <review-login v-else></review-login>
-    </v-flex>
-    <v-flex xs12 v-for="(newReviewUpdate, index) in newReviewUpdates" :key="index">
-      <div class="animated pulse"><review-card :review="newReviewUpdate"></review-card></div>
-    </v-flex>
-    <v-flex xs12 v-for="review in reviews" :key="review._id">
-      <review-card :review="review"></review-card>
+  <v-layout row wrap>
+    <h2>จำนวนทั้งหมด {{ reviews.length }}</h2>
+    <v-flex xs6 v-for="(review, index) in reviews" :key="index">
+      <review-serie :review="review"></review-serie>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import ReviewForm from '~/components/reviews/ReviewForm'
-import ReviewCard from '~/components/reviews/ReviewCard'
-import ReviewLogin from '~/components/reviews/ReviewLogin'
+import ReviewSerie from '~/components/reviews/ReviewSerie'
 
 export default {
-  data () {
-    return {
-      newReviewUpdates: []
-    }
-  },
-  components: { ReviewForm, ReviewCard, ReviewLogin },
-  async fetch ({ app, store }) {
-    if (!store.state.users.userDone && app.$auth.loggedIn) {
-      const res = await app.$axios.$get(process.env.restMongoUrl + '/users/sub/' + app.$auth.$state.user.sub)
-      if (res.length > 0) {
-        await app.$axios.$put(process.env.restMongoUrl + '/users/update/' + res[0]._id, app.$auth.$state.user)
-      } else {
-        await app.$axios.$post(process.env.restMongoUrl + '/users/create', app.$auth.$state.user)
-      }
-      store.dispatch('users/setUserDone')
-    }
-  },
-  async asyncData ({ app }) {
-    const reviews = await app.$axios.$get(process.env.restMongoUrl + '/reviews')
+  components: { ReviewSerie },
+  middleware: ['user-auth'],
+  async asyncData ({ app, env }) {
+    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews')
     return { reviews }
-  },
-  methods: {
-    async updateLatest () {
-      const res = await this.$axios.$get(process.env.restMongoUrl + '/reviews/latest')
-      this.newReviewUpdates.unshift(res[0])
-    }
   }
 }
 </script>
