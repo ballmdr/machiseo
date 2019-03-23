@@ -8,7 +8,6 @@
       <h1>มุมฟังเพลง OST อัพเดทล่าสุด</h1>
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
-    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12 class="text-xs-center">
       <h1><nuxt-link to="/series/touch-your-heart">ตัวอย่างซีรีส์เกาหลี Touch Your Heart</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
@@ -17,7 +16,6 @@
       <h1>ช่วงนี้อะไรโคตรฮิต <v-icon large style="margin-bottom:10px;">fab fa-hotjar</v-icon></h1>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
-    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <h1>เรื่องอะไรออนแอร์ <v-icon large style="margin-bottom:10px;">fas fa-broadcast-tower</v-icon></h1>
       <series-onair :series="onair"></series-onair>

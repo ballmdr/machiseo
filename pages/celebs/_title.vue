@@ -1,7 +1,6 @@
 <template>
 <v-container>
   <v-layout row wrap>
-    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs10 sm5 md4>
       <div class="wrapper">
         <div class="profile">
@@ -18,7 +17,6 @@
           </div>
         </div>
       </div>
-      <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     </v-flex>
     <v-flex xs12 sm7 md8 d-flex>
       <v-layout row wrap>
@@ -28,7 +26,6 @@
       </v-layout>
     </v-flex>
   </v-layout>
-  <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
   <v-layout>
     <v-flex xs12 d-flex>
       <masonry
