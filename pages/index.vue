@@ -40,8 +40,8 @@ export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud },
   data () {
     return {
-      widgetId: '124437',
-      widgetTitle: 'Touch Your Heart',
+      widgetId: '136996',
+      widgetTitle: 'Her Private Life',
       soundId: '4767794'
     }
   },
