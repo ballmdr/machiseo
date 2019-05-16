@@ -42,25 +42,25 @@
         </v-card>
       </div>
     </v-flex>
-    <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
-      <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
-    </v-flex>
     <v-flex xs12>
       <h2>ดารานักแสดง</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
     </v-flex>
     <v-layout row wrap>
       <v-flex xs12 sm8>
-        <v-flex xs12 v-if="serie.field_web_review !== null">
-          <v-card color="primary">
-            <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
-            <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
-          </v-card>
+        <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
+          <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
         </v-flex>
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
             <v-card-text><p style="color:#9ab" v-text="serie.field_synopsis"></p></v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex xs12 v-if="serie.field_web_review !== null">
+          <v-card color="primary">
+            <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
+            <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
@@ -76,6 +76,12 @@
           <reviews :reviews="reviews"></reviews>
         </v-flex>
       </v-flex>
+      <v-flex xs12 sm4>
+        <v-flex xs12 v-if="articles !== 404">
+          <h2>ฉากเด็ดในเรื่อง</h2>
+          <articles-list :articles="articles"></articles-list>
+        </v-flex>
+      </v-flex>
     </v-layout>
   </v-layout>
 </template>
@@ -83,13 +89,14 @@
 <script>
 import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
-import { getSerieByPath } from '~/assets/js/api'
+import { getSerieByPath, getSeriesArticlesById } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
 import { voteUpdate, voteResult } from '~/assets/js/api'
+import ArticlesList from '~/components/series/ArticlesList'
 
 export default {
-  components: { EpisodesList, CelebsCast, ViuWidget, Reviews },
+  components: { EpisodesList, CelebsCast, ViuWidget, Reviews, ArticlesList },
   middleware: 'user-auth',
   data () {
     return {
@@ -122,7 +129,8 @@ export default {
     }
   },
   mounted () {
-    //console.log(this.serie)
+    //console.log('articles', this.articles)
+    //console.log('series mounted ', this.serie)
     //window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {
@@ -144,18 +152,21 @@ export default {
   },
   async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
+    //console.log(serie)
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
     //console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
     let serieScore = await voteResult(serie.nid)
     if (serieScore.length > 1) {
-      serieScore = serieScore[1].value[0].value 
+      serieScore = serieScore[1].value[0].value   
     }
     else {
       serieScore = 0
     }
-    return { serie, reviews, serieScore }
+    //console.log('nid', serie.nid)
+    const articles = await getSeriesArticlesById(serie.nid)
+    return { serie, reviews, serieScore, articles }
   },
   async fetch ({ app, params, store }) {
     await store.dispatch('episodes/setEp', params.title)
