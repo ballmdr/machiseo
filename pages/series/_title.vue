@@ -77,7 +77,7 @@
         </v-flex>
       </v-flex>
       <v-flex xs12 sm4>
-        <v-flex xs12 v-if="articles !== 404">
+        <v-flex xs12 v-if="articles.length > 0">
           <h2>ฉากเด็ดในเรื่อง</h2>
           <articles-list :articles="articles"></articles-list>
         </v-flex>
@@ -129,7 +129,7 @@ export default {
     }
   },
   mounted () {
-    //console.log('articles', this.articles)
+    console.log('articles', this.articles)
     //console.log('series mounted ', this.serie)
     //window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
