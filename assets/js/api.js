@@ -14,6 +14,30 @@ export async function voteUpdate (nid, point) {
   })
 }
 
+export async function getSeriesArticlesById (id) {
+  let res = null
+  try {
+    const { data } = await apiClient.get(prefix + '/articles?filter[field_series_main]=' + id + '&include=field_thumbnail_article')
+    //console.log('data in api ', data)
+    res = data
+  }
+  catch (err) {
+    //console.log('err', err.response.status)
+    res = err.response.status
+  }
+
+  if (res == 404) {
+    return res
+  } else {
+    return jsonapiParse.parse(res).data
+  }
+}
+
+export async function getArticleById (id) {
+  const { data } = await apiClient.get(prefix + '/articles?filter[nid]=' + id)
+  return jsonapiParse.parse(data).data
+}
+
 export async function voteResult (nid) {
   const { data } = await apiClient.get('/vote/serie/result/' + nid + '?_format=json')
   return data
@@ -55,7 +79,13 @@ export async function getCelebById (id) {
   return jsonapiParse.parse(data).data
 }
 
-export async function getSerieByPath (path) {
+export async function getUuidByPath (path) {
+  const uri = findRouterPath + path
+  const router = await apiClient.get(uri)
+  return router.data.entity.uuid
+}
+
+export async function getSerieByPath (path, env) {
   const uri = findRouterPath + '/series/' + path
   const { data } = await apiClient.post('/subrequests?_format=json',
     [
@@ -72,9 +102,10 @@ export async function getSerieByPath (path) {
         'Accept': 'application/json',
         'waitFor': ['router']
       }
-    ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
+    ], { auth: { username: env.userDrupal, password: env.passDrupal } })
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
+
 
 export async function getSmallSerieByPath (path) {
   const uri = findRouterPath + '/series/' + path
