@@ -10,7 +10,7 @@
           <donut-chart :data="doughnutChartData" :options="{ legend: { display: false }, maintainAspectRatio: false }"></donut-chart>
           <v-layout row wrap>
             <v-flex @click="$router.push(score.path)" class="hvr-reveal" xs6 sm3 md2 lg2 v-for="(score, index) in scoreList" :key="score._id">
-              <v-img style="cursor:pointer;border-radius:15px;" :src="baseUrl + score.poster"></v-img>
+              <v-img style="cursor:pointer;border-radius:15px;" :src="checkUrl(score.poster)"></v-img>
               <div>#{{ index+1 }} : {{ score.score }} คะแนน</div>
             </v-flex>
           </v-layout>
@@ -54,7 +54,17 @@ export default {
   components: { DonutChart },
   data () {
     return {
-      baseUrl: process.env.baseUrl
+
+    }
+  },
+  methods:{
+    checkUrl(url) {
+      const link = url.split('://')
+      if (link[0] !== 'https'){
+        return process.env.cdnUrl + url
+      } else {
+        return url
+      }
     }
   },
   head () {

@@ -1,6 +1,6 @@
 <template>
   <div class="text-xs-center" @click="$router.push(serie.path.alias)" style="cursor:pointer">
-    <v-img :src="baseUrl + serie.field_poster[0].url" class="poster"></v-img>
+    <v-img :src="poster_img" class="poster"></v-img>
     <span style="font-weight:bold;"><nuxt-link :to="serie.path.alias">{{ serie.title }}</nuxt-link></span>
   </div>
 </template>
@@ -10,7 +10,13 @@ export default {
   props: ['serie'],
   data () {
     return {
-      baseUrl: process.env.baseUrl
+      poster_img: this.serie.field_poster[0].url
+    }
+  },
+  mounted(){
+    const link = this.poster_img.split('://')
+    if (link[0] !== 'https') {
+      this.poster_img = process.env.cdnUrl + this.poster_img
     }
   }
 }
