@@ -22,12 +22,12 @@
       <nuxt-link :to="serie.path.alias"><h3>{{ serie.title }}</h3></nuxt-link>
       <v-layout row wrap>
         <v-flex xs4 style="cursor:pointer;" @click="$router.push(serie.path.alias)">
-          <v-img contain max-width="150" class="elevation-6" style="border-radius:12px;" :src="base_url + serie.field_poster[0].url"></v-img>
+          <v-img contain max-width="150" class="elevation-6" style="border-radius:12px;" :src="checkUrl(serie.field_poster[0].url)"></v-img>
         </v-flex>
         <v-flex xs8>
           <v-layout row wrap>
             <v-flex xs6 v-for="celeb in serie.field_celeb" :key=celeb.uuid>
-              <v-avatar><v-img :src="base_url + celeb.field_celeb_profile.url"></v-img></v-avatar> {{ celeb.title | celebTitle  }}
+              <v-avatar><v-img :src="checkUrl(celeb.field_celeb_profile.url)"></v-img></v-avatar> {{ celeb.title | celebTitle  }}
             </v-flex>
           </v-layout>
         </v-flex>
@@ -47,7 +47,7 @@ import ArticlesList from '~/components/series/ArticlesList'
 export default {
   data () {
     return {
-      base_url: process.env.cdnUrl
+
     }
   },
   components: { ArticlesList },
@@ -56,6 +56,16 @@ export default {
       if (!value) return ''
       const str = value.split(' ')
       return str[0]
+    }
+  },
+  methods: {
+    checkUrl(url) {
+      const link = url.split('://')
+      if (link[0] !== 'https'){
+        return process.env.cdnUrl + url
+      } else {
+        return url
+      }
     }
   },
   head () {

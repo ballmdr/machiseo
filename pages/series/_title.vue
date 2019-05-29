@@ -29,7 +29,7 @@
                   <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-20px;">
                     <div style="font-size:20px;">ดูซับไทยที่</div>
                     <a :href="serie.field_viu" target="_blank" rel="nofollow">
-                      <img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="baseUrl + '/sites/default/files/viu_logo_new.png'">
+                      <img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="checkUrl('/sites/default/files/viu_logo_new.png')">
                     </a>
                   </v-flex>
                 </v-layout>
