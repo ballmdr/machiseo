@@ -4,7 +4,7 @@
     <v-flex xs10 sm5 md4>
       <div class="wrapper">
         <div class="profile">
-          <v-avatar size="200"><v-img :src="baseUrl + celeb.field_celeb_profile.url"></v-img></v-avatar>
+          <v-avatar size="200"><v-img :src="profile_img"></v-img></v-avatar>
           <h3 class="name">{{ celeb.title }}</h3>
           <p class="description" v-html="celeb.body.processed"></p>
         </div>
@@ -33,7 +33,7 @@
         :gutter="{default: '30px', 700: '15px'}"
         >
         <div v-for="(img, index) in celeb.field_other_img" :key="index">
-          <img :src="baseUrl + img.url" class="card-media-img"/>
+          <img :src="checkUrl(img.url)" class="card-media-img"/>
         </div>
       </masonry>
     </v-flex>
@@ -49,9 +49,20 @@ export default {
   components: { PosterCard },
   data () {
     return {
-      baseUrl: process.env.baseUrl
+
     }
   },
+  methods:{
+    checkUrl(url) {
+      const link = url.split('://')
+      if (link[0] !== 'https'){
+        return process.env.cdnUrl + url
+      } else {
+        return url
+      }
+    }
+  },
+
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'ประวัติดารา : ' + this.celeb.title
@@ -78,7 +89,12 @@ export default {
   },
   async asyncData ({ params, env }) {
     const celeb = await getCelebByPath(params.title, env)
-    return { celeb }
+    let profile_img = celeb.field_celeb_profile.url
+    const link = profile_img.split('://')
+    if (link[0] !== 'https') {
+      profile_img = env.cdnUrl + profile_img
+    }
+    return { celeb, profile_img }
   }
 }
 </script>

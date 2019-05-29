@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       reviews: [],
-      baseUrl: process.env.baseUrl
+      baseUrl: process.env.cdnUrl
     }
   },
   mounted () {

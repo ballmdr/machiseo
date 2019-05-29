@@ -6,7 +6,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
-                <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
+                <v-img :src="checkUrl(serie.field_poster[0].url)" class="card-media-img"></v-img>
               </v-card-text>
             </v-flex>
             <v-flex xs12 sm6 md8>
@@ -100,8 +100,17 @@ export default {
   middleware: 'user-auth',
   data () {
     return {
-      baseUrl: process.env.baseUrl,
       isAdmin: null
+    }
+  },
+  methods:{
+    checkUrl(url) {
+      const link = url.split('://')
+      if (link[0] !== 'https'){
+        return process.env.cdnUrl + url
+      } else {
+        return url
+      }
     }
   },
   head () {
@@ -129,8 +138,6 @@ export default {
     }
   },
   mounted () {
-    console.log('articles', this.articles)
-    //console.log('series mounted ', this.serie)
     //window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {

@@ -17,6 +17,15 @@ export function getYoutubeId (url) {
   }
 }
 
+export function checkUrl (url) {
+  const link = url.split('://')
+  if (link[0] !== 'https'){
+    return process.env.cdnUrl + url
+  } else {
+    return url
+  }
+}
+
 export function getSerieObj (serie) {
   const tmp = {
     uuid: serie.uuid,

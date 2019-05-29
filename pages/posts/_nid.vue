@@ -47,7 +47,7 @@ import ArticlesList from '~/components/series/ArticlesList'
 export default {
   data () {
     return {
-      base_url: process.env.baseUrl
+      base_url: process.env.cdnUrl
     }
   },
   components: { ArticlesList },
