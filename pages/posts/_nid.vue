@@ -34,7 +34,7 @@
       </v-layout>
     </v-flex>
     <v-flex xs12 v-if="articles.length > 0">
-      <h2>ฉากเด็ดในเรื่อง</h2>
+      <h2>รวมฉากเด็ดและฉากน่าประทับใจ</h2>
       <articles-list :articles="articles"></articles-list>
     </v-flex>
   </v-layout>
