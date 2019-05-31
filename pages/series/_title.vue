@@ -116,19 +116,20 @@ export default {
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'รีวิว สปอยด์ เรื่องย่อ: ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
+    const image = this.checkUrl(this.serie.field_poster[0].url)
     return {
       title: this.serie.title,
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', content: 'รีวิว สปอยด์ เรื่องย่อ' + this.serie.title },
+        { hid: 'og_title', name: 'og:title', content: 'รีวิว สปอยด์ เรื่องย่อ ' + this.serie.title },
         { hid: 'og_description', name: 'og:description', content: synopsis },
-        { hid: 'og_image', name: 'og:image', content: this.checkUrl(this.serie.field_poster[0].url) },
+        { hid: 'og_image', name: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', content: canonical },
         { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: this.serie.title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
-        { hid: 'twitter_image', name: 'twitter:image', content: this.checkUrl(this.serie.field_poster[0].url) },
+        { hid: 'twitter_image', name: 'twitter:image', content: image },
         { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
         { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
       ],
