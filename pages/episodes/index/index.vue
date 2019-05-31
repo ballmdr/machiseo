@@ -26,21 +26,11 @@ export default {
       baseUrl: process.env.baseUrl
     }
   },
-  methods:{
-    checkUrl(url) {
-      const link = url.split('://')
-      if (link[0] !== 'https'){
-        return process.env.cdnUrl + url
-      } else {
-        return url
-      }
-    }
-  },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'สปอยด์ : ' + this.$options.filters.truncate(this.ep.body.processed, 150)
     const title = 'สปอยด์รายตอน - ซีรีส์เกาหลี'
-    const image = checkUrl(this.ep.field_thumbnail.url)
+    const image = this.checkUrl(this.ep.field_thumbnail.url)
     return {
       title: title,
       meta: [
@@ -63,6 +53,14 @@ export default {
     }
   },
   methods: {
+    checkUrl(url) {
+      const link = url.split('://')
+      if (link[0] !== 'https'){
+        return process.env.cdnUrl + url
+      } else {
+        return url
+      }
+    },
     async showEp (index) {
       this.epDialog = true
       this.ep = this.episodes[index]
