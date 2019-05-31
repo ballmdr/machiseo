@@ -1,7 +1,8 @@
 <template>
-  <v-card @click="$router.push(serie.path)" style="cursor:pointer;max-height:300px;" class="hvr-grow">
+  <v-card @click="$router.push(serie.path)" style="cursor:pointer;max-height:300px;" class="hvr-bob">
     <v-toolbar dense color="primary"><span style="font-weight:bold;">#{{ serie.rank }} : <nuxt-link :to="serie.path">{{ serie.title }}</nuxt-link>&nbsp;</span>     
       <v-spacer></v-spacer>
+      <v-icon large style="margin-bottom:10px;" color="red">fab fa-hotjar</v-icon>
       <v-progress-circular
       :rotate="360"
       size="60"

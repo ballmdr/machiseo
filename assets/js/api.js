@@ -17,7 +17,26 @@ export async function voteUpdate (nid, point) {
 export async function getSeriesArticlesById (id) {
   let res = null
   try {
-    const { data } = await apiClient.get(prefix + '/articles?filter[field_series_main]=' + id + '&include=field_thumbnail_article')
+    const { data } = await apiClient.get(prefix + '/articles?filter[field_series_main]=' + id + '&include=field_thumbnail_article&sort=-nid')
+    //console.log('data in api ', data)
+    res = data
+  }
+  catch (err) {
+    //console.log('err', err.response.status)
+    res = err.response.status
+  }
+
+  if (res == 404) {
+    return res
+  } else {
+    return jsonapiParse.parse(res).data
+  }
+}
+
+export async function getSeriesArticles () {
+  let res = null
+  try {
+    const { data } = await apiClient.get(prefix + '/articles?page[limit]=4&include=field_thumbnail_article&sort=-nid')
     //console.log('data in api ', data)
     res = data
   }
