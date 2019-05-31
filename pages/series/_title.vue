@@ -115,13 +115,13 @@ export default {
   },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'เรื่องย่อ : ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
+    const synopsis = 'รีวิว สปอยด์ เรื่องย่อ: ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     return {
       title: this.serie.title,
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', content: this.serie.title + ' - มาชิสซอ' },
+        { hid: 'og_title', name: 'og:title', content: 'รีวิว สปอยด์ เรื่องย่อ' + this.serie.title },
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: this.checkUrl(this.serie.field_poster[0].url) },
         { hid: 'og_url', name: 'og:url', content: canonical },
