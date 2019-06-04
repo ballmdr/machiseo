@@ -43,14 +43,16 @@
       </div>
     </v-flex>
     <v-flex xs12>
+      <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
+        <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
+      </v-flex>
+    </v-flex>
+    <!-- <v-flex xs12>
       <h2>ดารานักแสดง</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
-    </v-flex>
+    </v-flex> -->
     <v-layout row wrap>
       <v-flex xs12 sm8>
-        <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
-          <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
-        </v-flex>
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
@@ -80,8 +82,8 @@
           <reviews :reviews="reviews"></reviews>
         </v-flex>
       </v-flex>
-      <v-flex xs12 sm4>
-
+      <v-flex xs12 sm4 class="text-xs-center">
+        <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
       </v-flex>
     </v-layout>
   </v-layout>
@@ -95,9 +97,10 @@ import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
 import { voteUpdate, voteResult } from '~/assets/js/api'
 import ArticlesList from '~/components/series/ArticlesList'
+import CelebsListVertical from '~/components/series/CelebsListVertical'
 
 export default {
-  components: { EpisodesList, CelebsCast, ViuWidget, Reviews, ArticlesList },
+  components: { EpisodesList, CelebsCast, ViuWidget, Reviews, ArticlesList, CelebsListVertical },
   middleware: 'user-auth',
   data () {
     return {
