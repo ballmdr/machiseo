@@ -36,7 +36,7 @@ export async function getSeriesArticlesById (id) {
 export async function getSeriesArticles () {
   let res = null
   try {
-    const { data } = await apiClient.get(prefix + '/articles?page[limit]=4&include=field_thumbnail_article&sort=-nid')
+    const { data } = await apiClient.get(prefix + '/articles?page[limit]=6&include=field_thumbnail_article&sort=-nid')
     //console.log('data in api ', data)
     res = data
   }

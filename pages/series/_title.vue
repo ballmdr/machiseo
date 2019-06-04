@@ -67,6 +67,10 @@
           <h2>สปอยด์รายตอน</h2>
           <episodes-list></episodes-list>
         </v-flex>
+        <v-flex xs12 v-if="articles.length > 0">
+          <h2>ฉากเด็ดและฉากประทับใจในเรื่อง</h2>
+          <articles-list :articles="articles"></articles-list>
+        </v-flex>
        <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
@@ -77,10 +81,7 @@
         </v-flex>
       </v-flex>
       <v-flex xs12 sm4>
-        <v-flex xs12 v-if="articles.length > 0">
-          <h2>ฉากเด็ดในเรื่อง</h2>
-          <articles-list :articles="articles"></articles-list>
-        </v-flex>
+
       </v-flex>
     </v-layout>
   </v-layout>
