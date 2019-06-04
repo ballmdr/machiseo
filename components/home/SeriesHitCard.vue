@@ -18,13 +18,13 @@
         <v-img
         max-width="300"
         style="border-radius:10px;" 
-        :src="baseUrl + serie.poster"
+        :src="checkUrl(serie.poster)"
         ></v-img>
       </v-flex>
       <v-flex xs7>
         <h3>คู่พระนาง</h3>
         <v-flex xs12 v-for="celeb in serie.celebs" :key="celeb.uuid">
-          <div><v-avatar size="50"><v-img :src="baseUrl + celeb.profile"></v-img></v-avatar>
+          <div><v-avatar size="50"><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
           {{ celebName(celeb.title) }}
           </div>
         </v-flex>
@@ -48,8 +48,7 @@ export default {
   props: ['serie'],
   data () {
     return {
-      reviews: [],
-      baseUrl: process.env.cdnUrl
+      reviews: []
     }
   },
   mounted () {
@@ -72,6 +71,14 @@ export default {
     celebName (name) {
       const res = name.split(' ')
       return res[0]
+    },
+    checkUrl(url) {
+      const link = url.split('://')
+      if (link[0] !== 'https'){
+        return process.env.cdnUrl + url
+      } else {
+        return url
+      }
     }
   }
 }
