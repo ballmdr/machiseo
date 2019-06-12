@@ -13,7 +13,7 @@
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
     <v-flex xs12 sm6 class="text-xs-center">
-      <h1><nuxt-link to="/series/her-private-life">ตัวอย่างซีรีส์เกาหลี Her Private Life</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
+      <h1><nuxt-link to="/series/angel%E2%80%99s-last-mission-love">ตัวอย่างซีรีส์เกาหลี Angel's last mission: love</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
