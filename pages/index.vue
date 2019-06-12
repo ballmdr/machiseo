@@ -45,8 +45,8 @@ export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
-      widgetId: '136996',
-      widgetTitle: 'Her Private Life',
+      widgetId: '147446',
+      widgetTitle: 'Angel’s Last Mission: Love',
       soundId: '4767794'
     }
   },
