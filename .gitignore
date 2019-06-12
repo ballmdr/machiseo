@@ -9,6 +9,7 @@ yarn-error.log*
 package-lock.json*
 yarn.lock*
 nuxt.config.js
+Python/
 
 # Runtime data
 pids

@@ -1,6 +1,6 @@
-<template> 
+<template>
   <v-layout column>
-    <v-flex xs12> 
+    <v-flex xs12>
       <div class="container">
         <v-card color="primary" class="u-clearfix" style="color: black">
           <v-layout row wrap>
