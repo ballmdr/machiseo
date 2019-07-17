@@ -13,7 +13,7 @@
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
     <v-flex xs12 sm6 class="text-xs-center">
-      <h1><nuxt-link to="/series/angel%E2%80%99s-last-mission-love">ตัวอย่างซีรีส์เกาหลี Angel's last mission: love</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
+      <h1><nuxt-link to="/series/hotel-del-luna">ตัวอย่างซีรีส์เกาหลี Hotel Del Luna</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
@@ -45,8 +45,8 @@ export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
-      widgetId: '147446',
-      widgetTitle: 'Angel’s Last Mission: Love',
+      widgetId: '181828',
+      widgetTitle: 'Hotel Del Luna',
       soundId: '4767794'
     }
   },
