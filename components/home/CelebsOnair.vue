@@ -18,7 +18,8 @@ export default {
     for (let i = 0; i < this.series.length; i++) {
       if (this.series[i].field_celeb.length > 0) {
         this.celebs.push(this.series[i].field_celeb[0])
-        this.celebs.push(this.series[i].field_celeb[1])
+        if (typeof this.series[i].field_celeb[1] !== 'undefined')
+          this.celebs.push(this.series[i].field_celeb[1])
       }
     }
   },
