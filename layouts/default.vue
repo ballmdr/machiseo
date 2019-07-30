@@ -3,7 +3,9 @@
     <nav-bar></nav-bar>
     <v-content>
       <v-container grid-list-md>
+        <adsbygoogle />
         <nuxt />
+        <adsbygoogle />
       </v-container>
     </v-content>
   <footer-com></footer-com>
