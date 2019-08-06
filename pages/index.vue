@@ -9,7 +9,7 @@
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
     <v-flex xs12 sm6>
-      <h1>มุมฟังเพลง OST อัพเดทล่าสุด</h1>
+      <h1>เพลงประกอบละครอัพเดทล่าสุด</h1>
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
     <v-flex xs12 sm6 class="text-xs-center">

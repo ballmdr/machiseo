@@ -5,11 +5,11 @@
       <v-btn icon dark @click="$emit('closeDialog')"><v-icon>far fa-times-circle</v-icon></v-btn>
     </v-toolbar>
     <v-layout :column="$vuetify.breakpoint.smAndDown">
-      <v-flex xs12 sm8 md7 style="background-color:black;">
-        <v-carousel 
-        style="max-height:280px;" hide-delimiters
-        next-icon="far fa-arrow-alt-circle-right"
-        prev-icon="far fa-arrow-alt-circle-left"
+      <v-flex xs12 sm6 md6 style="background-color:black;">
+        <v-carousel
+          style="max-height:280px;" hide-delimiters
+          next-icon="far fa-arrow-alt-circle-right"
+          prev-icon="far fa-arrow-alt-circle-left"
         >
           <v-carousel-item
             style="background-color:black;"
@@ -21,7 +21,7 @@
           </v-carousel-item>
         </v-carousel>
       </v-flex>
-      <v-flex xs12 sm8 md5 style="overflow:auto;" id="ep-show-container">
+      <v-flex xs12 sm6 md6 style="overflow:auto;max-height:450px;" id="ep-show-container">
         <v-card-text style="padding:25px;">
           <p v-html="ep.body.processed"></p>
         </v-card-text>
