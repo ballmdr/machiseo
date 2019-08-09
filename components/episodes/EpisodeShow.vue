@@ -5,7 +5,7 @@
       <v-btn icon dark @click="$emit('closeDialog')"><v-icon>far fa-times-circle</v-icon></v-btn>
     </v-toolbar>
     <v-layout :column="$vuetify.breakpoint.smAndDown">
-      <v-flex xs8 sm8 md7 style="background-color:white; max-height:220px;">
+      <v-flex xs12 sm6 md6 style="background-color:white; max-height:220px;">
         <v-carousel hide-delimiters
           style="max-height:280px;"
           next-icon="far fa-arrow-alt-circle-right"
@@ -21,7 +21,7 @@
           </v-carousel-item>
         </v-carousel>
       </v-flex>
-      <v-flex xs8 sm8 md5 style="overflow:auto;" id="ep-show-container">
+      <v-flex xs12 sm6 md6 style="overflow:auto;max-height:450px;" id="ep-show-container">
         <v-card-text style="padding:25px;">
           <p v-html="$store.state.episodes.ep[currentEp].body.processed"></p>
         </v-card-text>
