@@ -5,7 +5,7 @@ const findRouterPath = '/router/translate-path?path='
 
 export async function voteUpdate (nid, point) {
   await apiClient.post('/entity/vote?_format=json',
-  {    
+  {
     "type": "serie_review",
     "entity_type": ["node"],
     "entity_id": [nid],
@@ -168,6 +168,7 @@ export async function getAllEpisodesBySeriesPath (path) {
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 
+
 export async function getCelebByPath (path, env) {
   const uri = findRouterPath + '/celebs/' + path
   const { data } = await apiClient.post('/subrequests?_format=json',
@@ -237,6 +238,10 @@ export async function getEpisodesBySerie (uuid) {
 export async function getLatestEpisodes (limit = 5) {
   const { data } = await apiClient.get(prefix + '/episodes?page[limit]=' + limit + '&sort=-nid&include=field_thumbnail,field_series_episode,field_series_episode.field_poster')
   return jsonapiParse.parse(data).data
+}
+
+export async function getEpisodesById (nid) {
+
 }
 
 export async function getSeriesOnair () {
