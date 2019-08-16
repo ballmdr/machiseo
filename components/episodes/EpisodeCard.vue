@@ -18,11 +18,11 @@ export default {
 <style scoped>
 .episode .number {
   position: absolute;
-  bottom: -8px;
-  left: -4%;
-  background: #303030;
+  bottom: 0;
+  left: 0;
+  background: orange;
   padding: 5px 10px;
-  color: #FFFFFF;
+  color: black;
   border-radius: 10px;
   font-size: 14px;
   font-weight: 600;

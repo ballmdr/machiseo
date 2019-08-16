@@ -50,6 +50,9 @@ export default {
       soundId: '4767794'
     }
   },
+  mounted(){
+    console.log(this.episodes)
+  },
   async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes(10)
     const onair = await getSeriesOnair()
