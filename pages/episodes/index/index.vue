@@ -1,28 +1,22 @@
 <template>
   <v-layout row wrap>
-    <v-flex class="hvr-reveal" xs12 sm6 md4 v-for="(episode, index) in episodes" :key="episode.id" @click="showEp(index)">
-      <episode-card-poster :ep="episode"></episode-card-poster>
+    <v-flex class="hvr-reveal" xs12 sm6 md4 v-for="ep in episodes" :key="ep.id" style="padding:10px">
+      <episode-card-poster :ep="ep"></episode-card-poster>
     </v-flex>
     <v-flex xs12 class="text-xs-center">
       <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </v-flex>
-    <v-dialog fullscreen  v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
-      <episode-show-one :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
-    </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import { getAllEpisodes, getImgStreamingByUuid } from '~/assets/js/api'
 import EpisodeCardPoster from '~/components/episodes/EpisodeCardPoster'
-import EpisodeShowOne from '~/components/episodes/EpisodeShowOne'
 
 export default {
-  components: { EpisodeCardPoster, EpisodeShowOne },
+  components: { EpisodeCardPoster },
   data () {
     return {
-      epDialog: false,
-      imgStreaming: null,
       baseUrl: process.env.baseUrl
     }
   },

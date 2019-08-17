@@ -1,8 +1,8 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm8>
-      <v-card class="node-card" light>
-        <v-card-title class="grey">
+      <v-card class="node-card" dark>
+        <v-card-title class="bg-gradient">
           <v-layout row wrap>
             <v-flex xs4 sm3 @click="$router.push(serie.path.alias)" style="cursor:pointer;">
               <v-img contain max-width="150" max-height="200" :src="checkUrl(serie.field_poster[0].url)" class="card-media-img"></v-img>
@@ -26,7 +26,7 @@
           <v-img style="margin:auto" :src="baseUrl + item.url" ></v-img>
           </v-carousel-item>
         </v-carousel>
-        <v-card-text><h1 class="headline black--text">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
+        <v-card-text><h1 class="headline">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
         <v-card-text v-html="ep_body"></v-card-text>
       </v-card>
     </v-flex>
@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted(){
-    console.log(this.episodes)
+    //console.log(this.episodes)
   },
   async asyncData ({ params, store, env }) {
     const episodes = await getAllEpisodesBySeriesPath(params.slug)
@@ -121,6 +121,10 @@ export default {
 </script>
 
 <style scoped>
+.bg-gradient{
+background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 28%, rgba(121,82,179,1) 91%, rgba(121,82,179,1) 100%);
+}
 .poster-right{
   text-align: right;
 }

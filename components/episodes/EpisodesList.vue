@@ -3,23 +3,23 @@
     <v-flex class="hvr-grow" xs6 sm4 v-for="ep in episodes" :key="ep.id"
       style="cursor:pointer"
     >
-      <nuxt-link :to="getEpPath(ep.title)"><episode-card :ep="ep"></episode-card></nuxt-link>
+      <nuxt-link :to="getEpPath(ep.title)">
+        <v-card dark class="episode">
+          <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
+          <div class="number">ตอนที่ {{ ep.title }}</div>
+        </v-card>
+      </nuxt-link>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-// import { getEpisodesBySerie } from '~/assets/js/api'
-import EpisodeCard from '~/components/episodes/EpisodeCard'
-
 
 export default {
   props: ['episodes'],
-  components: { EpisodeCard },
   data () {
     return {
-      loading: true,
-      currentEp: 0
+      baseUrl: process.env.baseUrl
     }
   },
   methods: {
@@ -32,3 +32,16 @@ export default {
 }
 </script>
 
+<style scoped>
+.episode .number {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: orange;
+  padding: 5px 10px;
+  color: black;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+</style>
