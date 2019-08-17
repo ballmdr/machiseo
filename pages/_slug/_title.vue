@@ -86,6 +86,8 @@ export default {
         { property: 'og:title', content: title },
         { property: 'og:description', content: synopsis.replace(/<\/?[^>]+(>|$)/g, "") },
         { property: 'og:image', content: image },
+        { property: 'og:image:width', content: "900" },
+        { property: 'og:image:height', content: '500' },
         { property: 'og:url', content: canonical },
         { property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
