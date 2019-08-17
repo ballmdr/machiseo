@@ -6,7 +6,7 @@
           <v-card-title style="height:200px;"><div style="margin:auto;font-size:24px;">ดูทั้งหมด</div></v-card-title>
         </v-card>
       </div>
-      <div class="swiper-slide" v-for="(ep, index) in episodes" :key="ep.id" @click="showEp(index)">
+      <div class="swiper-slide" v-for="ep in episodes" :key="ep.id">
         <episode-card-poster :ep="ep"></episode-card-poster>
       </div>
       <div class="swiper-slide">
@@ -15,20 +15,16 @@
         </v-card>
       </div>
     </div>
-    <v-dialog fullscreen v-model="epDialog" transition="dialog-bottom-transition" scrollable max-width="900px">
-      <episode-show-one :currentEp="currentEp" :ep="ep" :imgStreaming="imgStreaming" @closeDialog="epDialog = false"></episode-show-one>
-    </v-dialog>
   </div>
 </template>
 
 <script>
 import { getImgStreamingByUuid } from '~/assets/js/api'
 import EpisodeCardPoster from '~/components/episodes/EpisodeCardPoster'
-import EpisodeShowOne from '~/components/episodes/EpisodeShowOne'
 
 export default {
   props: ['episodes'],
-  components: { EpisodeCardPoster, EpisodeShowOne },
+  components: { EpisodeCardPoster },
   methods: {
     async showEp (index) {
       this.epDialog = true
@@ -36,6 +32,11 @@ export default {
       this.currentEp = index
       const res = await getImgStreamingByUuid(this.ep.uuid)
       this.imgStreaming = res.field_img_streaming
+    },
+    getEpPath (serie_path, ep_title) {
+      const link = serie_path
+      const path = link.split('/')
+      return '/' + path[2] + '/' + ep_title
     }
   },
   data () {

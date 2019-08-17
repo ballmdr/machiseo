@@ -1,8 +1,8 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm8>
-      <v-card class="node-card" light>
-        <v-card-title class="grey">
+      <v-card class="node-card" dark>
+        <v-card-title class="bg-gradient">
           <v-layout row wrap>
             <v-flex xs4 sm3 @click="$router.push(serie.path.alias)" style="cursor:pointer;">
               <v-img contain max-width="150" max-height="200" :src="checkUrl(serie.field_poster[0].url)" class="card-media-img"></v-img>
@@ -26,7 +26,7 @@
           <v-img style="margin:auto" :src="baseUrl + item.url" ></v-img>
           </v-carousel-item>
         </v-carousel>
-        <v-card-text><h1 class="headline black--text">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
+        <v-card-text><h1 class="headline">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
         <v-card-text v-html="ep_body"></v-card-text>
       </v-card>
     </v-flex>
@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted(){
-
+    //console.log(this.episodes)
   },
   async asyncData ({ params, store, env }) {
     const episodes = await getAllEpisodesBySeriesPath(params.slug)
@@ -72,6 +72,32 @@ export default {
     const ep_body = episodes[ep_index].body.processed
     const img_streaming = episodes[ep_index].field_img_streaming
     return { episodes, ep_index, serie, ep_title, ep_body, img_streaming }
+  },
+  head () {
+    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const synopsis = this.$options.filters.truncate(this.ep_body, 150)
+    const image = this.checkUrl(this.episodes[this.ep_index].field_thumbnail.url)
+    const title = 'สปอยด์ ' + this.serie.title + ' ตอนที่ ' + this.ep_title
+    return {
+      title: title,
+      meta: [
+        { hid: 'description', name: 'description', content: synopsis },
+        { hid: 'og_type', name: 'og:type', content: 'article' },
+        { hid: 'og_title', name: 'og:title', content: title },
+        { hid: 'og_description', name: 'og:description', content: synopsis },
+        { hid: 'og_image', name: 'og:image', content: image },
+        { hid: 'og_url', name: 'og:url', content: canonical },
+        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'twitter_title', name: 'twitter:title', content: title },
+        { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
+        { hid: 'twitter_image', name: 'twitter:image', content: image },
+        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+      ],
+      link: [
+        { rel: 'canonical', href: canonical }
+      ]
+    }
   },
   methods:{
     checkUrl(url) {
@@ -95,6 +121,10 @@ export default {
 </script>
 
 <style scoped>
+.bg-gradient{
+background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 28%, rgba(121,82,179,1) 91%, rgba(121,82,179,1) 100%);
+}
 .poster-right{
   text-align: right;
 }

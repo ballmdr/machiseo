@@ -66,20 +66,8 @@
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-          <h2>สปอยด์รายตอน</h2>
-          <!--<episodes-list :episodes="episodes"></episodes-list>-->
-          <v-layout row wrap>
-            <v-flex class="hvr-grow" xs6 sm4 v-for="ep in episodes" :key="ep.id"
-              style="cursor:pointer"
-            >
-              <nuxt-link :to="getEpPath(ep.title)">
-                <v-card dark class="episode">
-                  <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
-                  <div class="number">ตอนที่ {{ ep.title }}</div>
-                </v-card>
-              </nuxt-link>
-            </v-flex>
-          </v-layout>
+          <h2>สปอยด์รายตอน {{ serie.title }}</h2>
+          <episodes-list :episodes="episodes"></episodes-list>
         </v-flex>
         <v-flex xs12 v-if="articles.length > 0">
           <h2>ฉากเด็ดและฉากประทับใจในเรื่อง</h2>
@@ -109,10 +97,10 @@ import Reviews from '~/components/reviews/Reviews'
 import { voteUpdate, voteResult } from '~/assets/js/api'
 import ArticlesList from '~/components/series/ArticlesList'
 import CelebsListVertical from '~/components/series/CelebsListVertical'
-import EpisodeCard from '~/components/episodes/EpisodeCard'
+import EpisodesList from '~/components/episodes/EpisodesList'
 
 export default {
-  components: { EpisodeCard, CelebsCast, ViuWidget, Reviews, ArticlesList, CelebsListVertical },
+  components: { EpisodesList, CelebsCast, ViuWidget, Reviews, ArticlesList, CelebsListVertical },
   middleware: 'user-auth',
   data () {
     return {
@@ -128,11 +116,6 @@ export default {
       } else {
         return url
       }
-    },
-    getEpPath (url) {
-      const link = this.$store.state.series.serie.path.alias
-      const path = link.split('/')
-      return '/' + path[2] + '/' + url
     }
   },
   head () {
@@ -240,15 +223,5 @@ export default {
   border-radius: 12px;
   margin-left: 10px;
 }
-.episode .number {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: orange;
-  padding: 5px 10px;
-  color: black;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-}
+
 </style>
