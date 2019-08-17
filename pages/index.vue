@@ -51,7 +51,7 @@ export default {
     }
   },
   mounted(){
-    console.log(this.episodes)
+    //console.log(this.episodes)
   },
   async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes(10)
