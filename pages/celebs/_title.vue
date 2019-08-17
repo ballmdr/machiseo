@@ -71,7 +71,7 @@ export default {
     return {
       title: title,
       meta: [
-        { hid: 'description', name: 'description', content: synopsis },
+        { hid: 'description', name: 'description', content: synopsis.replace(/<\/?[^>]+(>|$)/g, "") },
         { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
         { hid: 'og_title', name: 'og:title', property: 'og:title', content: title },
         { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
@@ -79,7 +79,7 @@ export default {
         { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
         { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
-        { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
+        { hid: 'twitter_description', name: 'twitter:description', content: synopsis.replace(/<\/?[^>]+(>|$)/g, "") },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
         { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
         { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
