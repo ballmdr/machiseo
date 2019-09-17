@@ -17,7 +17,7 @@
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
     <v-flex xs12 sm6 class="text-xs-center">
-      <h2><nuxt-link to="/series/hotel-del-luna">ตัวอย่าง Hotel Del Luna</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h2>
+      <h2><nuxt-link to="/series/flower-crew-joseon-marriage-agency">ตัวอย่าง Flower Crew</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h2>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
@@ -45,8 +45,8 @@ export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
-      widgetId: '181828',
-      widgetTitle: 'Hotel Del Luna',
+      widgetId: '212858',
+      widgetTitle: 'Flower Crew: Joseon Marriage Agency',
       soundId: '4767794'
     }
   },
