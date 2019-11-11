@@ -187,6 +187,22 @@ app.post('/series/create', (req, res) => {
     res.status(200).send(result)
   })
 })
+// app.get('/reviews', (req, res) => {
+//   db.collection('reviews').aggregate([
+//     { $sort: { '_id': -1 } },
+//     { $lookup:
+//       {
+//         from: 'users',
+//         localField: 'sub_id',
+//         foreignField: 'sub_id',
+//         as: 'user'
+//       }
+//     }
+//   ]).toArray((err, result) => {
+//     if (err) throw err
+//     res.status(200).send(result)
+//   })
+// })
 app.get('/reviews', (req, res) => {
   db.collection('reviews').aggregate([
     { $sort: { '_id': -1 } },
@@ -197,13 +213,21 @@ app.get('/reviews', (req, res) => {
         foreignField: 'sub_id',
         as: 'user'
       }
-    }
+    },
+    { $lookup:
+      {
+        from: 'series',
+        localField: 'serie_id',
+        foreignField: 'serie_id',
+        as: 'serie'
+      }
+    },
+    { $limit: 10 }
   ]).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
-
 app.get('/reviews/:nid', (req, res) => {
   db.collection('reviews').aggregate([
     { $match: { 'serie_id': req.params.nid, 'show': '1' } },
