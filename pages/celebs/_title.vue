@@ -65,20 +65,22 @@ export default {
 
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'ประวัติดารา : ' + this.celeb.title
+    const synopsis = 'ประวัติ ' + this.celeb.title + ' ผลงาน อินสตาแกรม ทวิตเตอร์'
+    const title = this.celeb.title + ' ประวัติ ผลงาน อินสตาแกรม ทวิตเตอร์'
+    const image = this.checkUrl(this.celeb.field_celeb_profile.url)
     return {
-      title: this.celeb.title,
+      title: title,
       meta: [
-        { hid: 'description', name: 'description', content: synopsis },
-        { hid: 'og_type', name: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', content: this.celeb.title + ' - มาชิสซอ' },
-        { hid: 'og_description', name: 'og:description', content: synopsis },
-        { hid: 'og_image', name: 'og:image', content: this.checkUrl(this.celeb.field_celeb_profile.url) },
-        { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
-        { hid: 'twitter_title', name: 'twitter:title', content: this.celeb.title },
-        { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
-        { hid: 'twitter_image', name: 'twitter:image', content: this.checkUrl(this.celeb.field_celeb_profile.url) },
+        { hid: 'description', name: 'description', content: synopsis.replace(/<\/?[^>]+(>|$)/g, "") },
+        { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
+        { hid: 'og_title', name: 'og:title', property: 'og:title', content: title },
+        { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
+        { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
+        { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
+        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'twitter_title', name: 'twitter:title', content: title },
+        { hid: 'twitter_description', name: 'twitter:description', content: synopsis.replace(/<\/?[^>]+(>|$)/g, "") },
+        { hid: 'twitter_image', name: 'twitter:image', content: image },
         { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
         { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
       ],

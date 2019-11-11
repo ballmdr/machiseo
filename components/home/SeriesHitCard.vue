@@ -22,7 +22,7 @@
         ></v-img>
       </v-flex>
       <v-flex xs7>
-        <h3>คู่พระนาง</h3>
+        <h3>นักแสดงนำ</h3>
         <v-flex xs12 v-for="celeb in serie.celebs" :key="celeb.uuid">
           <div><v-avatar size="50"><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
           {{ celebName(celeb.title) }}

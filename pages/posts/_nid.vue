@@ -72,19 +72,20 @@ export default {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.article[0].body.processed, 150)
     const title = this.article[0].title + ' - ' + this.serie.title
+    const image = this.checkUrl(this.serie.field_poster[0].url)
     return {
       title: title,
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
-        { hid: 'og_type', name: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', content: title },
-        { hid: 'og_description', name: 'og:description', content: synopsis },
-        { hid: 'og_image', name: 'og:image', content: this.checkUrl(this.serie.field_poster[0].url) },
-        { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
+        { hid: 'og_title', name: 'og:title', property: 'og:title', content: title },
+        { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
+        { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
+        { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
+        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
-        { hid: 'twitter_image', name: 'twitter:image', content: this.checkUrl(this.serie.field_poster[0].url) },
+        { hid: 'twitter_image', name: 'twitter:image', content: image },
         { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
         { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
       ],

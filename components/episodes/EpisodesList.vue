@@ -1,50 +1,47 @@
 <template>
   <v-layout row wrap>
-    <v-flex v-if="loading">
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        color="purple"
-        indeterminate
-      ></v-progress-circular>
+    <v-flex class="hvr-grow" xs6 sm4 v-for="ep in episodes" :key="ep.id"
+      style="cursor:pointer"
+    >
+      <nuxt-link :to="getEpPath(ep.title)">
+        <v-card dark class="episode">
+          <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
+          <div class="number">ตอนที่ {{ ep.title }}</div>
+        </v-card>
+      </nuxt-link>
     </v-flex>
-    <v-flex v-else class="hvr-grow" xs6 sm4 v-for="(ep, index) in $store.state.episodes.ep" :key="ep.id" style="cursor:pointer" @click="showEp(index)">
-      <episode-card :ep="ep"></episode-card>
-    </v-flex>
-    <v-dialog fullscreen transition="dialog-bottom-transition" v-model="showDialog" scrollable>
-      <episode-show @closeDialog="showDialog = false" :currentEp="currentEp"></episode-show>
-    </v-dialog>
   </v-layout>
 </template>
 
 <script>
-// import { getEpisodesBySerie } from '~/assets/js/api'
-import EpisodeCard from '~/components/episodes/EpisodeCard'
-import EpisodeShow from '~/components/episodes/EpisodeShow'
 
 export default {
-  components: { EpisodeCard, EpisodeShow },
+  props: ['episodes'],
   data () {
     return {
-      showDialog: false,
-      loading: true,
-      currentEp: 0
+      baseUrl: process.env.baseUrl
     }
   },
   methods: {
-    closeEpDialog () {
-      this.epDialog = false
-    },
-    showEp (index) {
-      this.showDialog = true
-      this.currentEp = index
-    }
-  },
-  mounted () {
-    if (this.$store.state.episodes.ep.length > 0) {
-      this.loading = false
+    getEpPath (url) {
+      const link = this.$store.state.series.serie.path.alias
+      const path = link.split('/')
+      return '/' + path[2] + '/' + url
     }
   }
 }
 </script>
 
+<style scoped>
+.episode .number {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: orange;
+  padding: 5px 10px;
+  color: black;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+</style>

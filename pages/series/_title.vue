@@ -66,8 +66,8 @@
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-          <h2>สปอยด์รายตอน</h2>
-          <episodes-list></episodes-list>
+          <h2>สปอยด์รายตอน {{ serie.title }}</h2>
+          <episodes-list :episodes="episodes"></episodes-list>
         </v-flex>
         <v-flex xs12 v-if="articles.length > 0">
           <h2>ฉากเด็ดและฉากประทับใจในเรื่อง</h2>
@@ -90,21 +90,22 @@
 </template>
 
 <script>
-import EpisodesList from '~/components/episodes/EpisodesList'
 import CelebsCast from '~/components/series/CelebsCast'
-import { getSerieByPath, getSeriesArticlesById } from '~/assets/js/api'
+import { getSerieByPath, getSeriesArticlesById, getAllEpisodesBySeriesPath } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
 import { voteUpdate, voteResult } from '~/assets/js/api'
 import ArticlesList from '~/components/series/ArticlesList'
 import CelebsListVertical from '~/components/series/CelebsListVertical'
+import EpisodesList from '~/components/episodes/EpisodesList'
 
 export default {
   components: { EpisodesList, CelebsCast, ViuWidget, Reviews, ArticlesList, CelebsListVertical },
   middleware: 'user-auth',
   data () {
     return {
-      isAdmin: null
+      isAdmin: null,
+      baseUrl: process.env.baseUrl
     }
   },
   methods:{
@@ -125,12 +126,12 @@ export default {
       title: this.serie.title,
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
-        { hid: 'og_type', name: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', content: 'รีวิว สปอยด์ เรื่องย่อ ' + this.serie.title },
-        { hid: 'og_description', name: 'og:description', content: synopsis },
-        { hid: 'og_image', name: 'og:image', content: image },
-        { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
+        { hid: 'og_title', name: 'og:title', property: 'og:title', content: 'รีวิว สปอยด์ เรื่องย่อ ' + this.serie.title },
+        { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
+        { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
+        { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
+        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: this.serie.title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
@@ -164,6 +165,7 @@ export default {
   },
   async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
+    const episodes = await getAllEpisodesBySeriesPath(params.title)
     //console.log(serie)
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
@@ -171,17 +173,17 @@ export default {
     //console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
     let serieScore = await voteResult(serie.nid)
     if (serieScore.length > 1) {
-      serieScore = serieScore[1].value[0].value   
+      serieScore = serieScore[1].value[0].value
     }
     else {
       serieScore = 0
     }
     //console.log('nid', serie.nid)
     const articles = await getSeriesArticlesById(serie.nid)
-    return { serie, reviews, serieScore, articles }
+    return { serie, reviews, serieScore, articles, episodes }
   },
   async fetch ({ app, params, store }) {
-    await store.dispatch('episodes/setEp', params.title)
+    //await store.dispatch('episodes/setEp', params.title)
     const likeReview = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-like')
     store.dispatch('reviews/setIpLike', likeReview)
     const likeReply = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-reply-like')
@@ -221,4 +223,5 @@ export default {
   border-radius: 12px;
   margin-left: 10px;
 }
+
 </style>

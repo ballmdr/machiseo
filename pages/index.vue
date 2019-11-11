@@ -1,31 +1,31 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <h1>อ่านสปอยด์ <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h1>
+      <h2>สปอยด์ล่าสุด <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h2>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
     <v-flex xs12>
-      <h1>ซีรีส์ฮอต</h1>
+      <h2>ซีรีส์ฮิต</h2>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
+    <v-flex xs12>
+      <h2>ฉากแนะนำ</h2>
+      <articles-list :articles="articles"></articles-list>
+    </v-flex>
     <v-flex xs12 sm6>
-      <h1>เพลงประกอบละครอัพเดทล่าสุด</h1>
+      <h2>OST อัพเดท</h2>
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
     <v-flex xs12 sm6 class="text-xs-center">
-      <h1><nuxt-link to="/series/hotel-del-luna">ตัวอย่างซีรีส์เกาหลี Hotel Del Luna</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h1>
+      <h2><nuxt-link to="/series/flower-crew-joseon-marriage-agency">ตัวอย่าง Flower Crew</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h2>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
     <v-flex xs12>
-      <h1>รวมฉากเด็ดและฉากน่าประทับใจ</h1>
-      <articles-list :articles="articles"></articles-list>
-    </v-flex>
-    <v-flex xs12>
-      <h1>เรื่องอะไรออนแอร์</h1>
+      <h2>ซีรีส์ออนแอร์</h2>
       <series-onair :series="onair"></series-onair>
     </v-flex>
     <v-flex xs12>
-      <h1>ดาราที่กำลังมีผลงาน</h1>
+      <h2>ดารา</h2>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
   </v-layout>
@@ -45,10 +45,13 @@ export default {
   components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
-      widgetId: '181828',
-      widgetTitle: 'Hotel Del Luna',
+      widgetId: '212858',
+      widgetTitle: 'Flower Crew: Joseon Marriage Agency',
       soundId: '4767794'
     }
+  },
+  mounted(){
+    //console.log(this.episodes)
   },
   async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes(10)
@@ -61,5 +64,28 @@ export default {
 </script>
 
 <style scoped>
+/* The hero image */
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.ytimg.com/vi/YubXq6Fh4S0/maxresdefault.jpg");
 
+  /* Set a specific height */
+  height: 300px;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
 </style>
