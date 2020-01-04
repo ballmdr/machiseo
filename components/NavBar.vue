@@ -48,7 +48,7 @@ export default {
         { icon: 'fas fa-home', title: 'หน้าแรก', to: '/' },
         { icon: 'fas fa-film', title: 'ซีรีส์เกาหลี', to: '/series' },
         { icon: 'fas fa-book-reader', title: 'สปอยด์รายตอน', to: '/episodes' },
-        { icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }
+        /*{ icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }*/
       ],
       miniVariant: true,
       title: 'มาชิสซอ Machiseo.com',
