@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <nav-bar></nav-bar>
-    <v-content>
+    <v-content class="preventcopy">
       <v-container grid-list-md>
         <adsbygoogle />
         <nuxt />
@@ -41,5 +41,12 @@ a {
   text-decoration: none;
   color: white;
 }
-
+.preventcopy {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 </style>
