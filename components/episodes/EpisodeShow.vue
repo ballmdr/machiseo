@@ -1,6 +1,6 @@
 <template>
   <v-card light>
-    <v-toolbar flat class="primary white--text font-weight-bold title">สปอยด์ {{ $store.state.series.serie.title }} ตอนที่ {{ $store.state.episodes.ep[currentEp].title }}
+    <v-toolbar flat class="primary white--text font-weight-bold title">สปอยล์ {{ $store.state.series.serie.title }} ตอนที่ {{ $store.state.episodes.ep[currentEp].title }}
       <v-spacer></v-spacer>
       <v-btn icon dark @click="$emit('closeDialog')"><v-icon>far fa-times-circle</v-icon></v-btn>
     </v-toolbar>
