@@ -6,7 +6,7 @@
     <v-card dark class="movie box hvr-underline-reveal"
         style="cursor:pointer;"
         @click.native="$router.push(serie.path.alias)">
-      <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].url"></v-img>
+      <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].uri.url"></v-img>
       <v-card-title class="box-caption">
         <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
         <v-rating dense v-model="serieScore" color="yellow" half-increments readonly></v-rating>
@@ -19,7 +19,7 @@
         style="cursor:pointer;width:350px;"
         @click.native="$router.push(serie.path.alias)">
       <v-card-text class="card-media">
-        <v-img :src="baseUrl + serie.field_poster[0].url" class="card-media-img"></v-img>
+        <v-img :src="baseUrl + serie.field_poster[0].uri.url" class="card-media-img"></v-img>
         <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
       </v-card-text>
       <v-card-title style="height:150px">
@@ -51,10 +51,11 @@ export default {
     }
   },
   async mounted () {
+    console.log(this.serie)
     this.isAdmin = this.$store.getters['users/getIsAdmin']
     let serieScore = await voteResult(this.serie.nid)
     if (serieScore.length > 1) {
-      this.serieScore = serieScore[1].value[0].value 
+      this.serieScore = serieScore[1].value[0].value
     }
     else {
       this.serieScore = 0

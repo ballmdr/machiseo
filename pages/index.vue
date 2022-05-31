@@ -51,6 +51,7 @@ export default {
     }
   },
   mounted(){
+    //console.log(this.articles)
     //console.log(this.episodes)
   },
   async asyncData ({ app, env }) {

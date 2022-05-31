@@ -34,22 +34,8 @@ export async function getSeriesArticlesById (id) {
 }
 
 export async function getSeriesArticles () {
-  let res = null
-  try {
-    const { data } = await apiClient.get(prefix + '/articles?page[limit]=6&include=field_thumbnail_article&sort=-nid')
-    //console.log('data in api ', data)
-    res = data
-  }
-  catch (err) {
-    //console.log('err', err.response.status)
-    res = err.response.status
-  }
-
-  if (res == 404) {
-    return res
-  } else {
-    return jsonapiParse.parse(res).data
-  }
+  const { data } = await apiClient.get(prefix + '/articles?page[limit]=6&include=field_thumbnail_article&sort=-nid')
+  return jsonapiParse.parse(data).data
 }
 
 export async function getArticleById (id) {
