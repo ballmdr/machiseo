@@ -48,10 +48,10 @@
       </v-flex>
     </v-flex>
   -->
-    <!-- <v-flex xs12>
+    <v-flex xs12>
       <h2>ดารานักแสดง</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
-    </v-flex> -->
+    </v-flex>
     <v-layout row wrap>
       <v-flex xs12 sm8>
         <v-flex xs12>
@@ -84,9 +84,10 @@
           <reviews :reviews="reviews"></reviews>
         </v-flex>
       </v-flex>
-      <v-flex xs12 sm4 class="text-xs-center">
+  <!--  <v-flex xs12 sm4 class="text-xs-center">
         <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
       </v-flex>
+    -->
     </v-layout>
   </v-layout>
 </template>
@@ -167,6 +168,7 @@ export default {
   },
   async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
+    //console.log(serie)
     //const episodes = await getAllEpisodesBySeriesPath(params.title)
     const episodes = await getEpisodesBySerie(serie.id)
     //console.log(episodes)

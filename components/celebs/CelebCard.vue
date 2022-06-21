@@ -22,7 +22,6 @@ export default {
     }
   },
   mounted(){
-    //console.log(this.celeb)
     const link = this.profile_img.split('://')
     if (link[0] !== 'https') {
       this.profile_img = process.env.cdnUrl + this.profile_img

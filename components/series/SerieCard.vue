@@ -51,7 +51,6 @@ export default {
     }
   },
   async mounted () {
-    console.log(this.serie)
     this.isAdmin = this.$store.getters['users/getIsAdmin']
     let serieScore = await voteResult(this.serie.nid)
     if (serieScore.length > 0) {
