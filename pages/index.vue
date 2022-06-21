@@ -8,11 +8,12 @@
       <h2>ซีรีส์ฮิต</h2>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
-    <v-flex xs12>
+   <!-- <v-flex xs12>
       <h2>ฉากแนะนำ</h2>
       <articles-list :articles="articles"></articles-list>
     </v-flex>
-    <v-flex xs12 sm6>
+   -->
+  <!--  <v-flex xs12 sm6>
       <h2>OST อัพเดท</h2>
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
@@ -20,6 +21,7 @@
       <h2><nuxt-link to="/series/when-weather-fine">When the Weather is Fine</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h2>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
+  -->
     <v-flex xs12>
       <h2>ซีรีส์ออนแอร์</h2>
       <series-onair :series="onair"></series-onair>
@@ -58,8 +60,8 @@ export default {
     const episodes = await getLatestEpisodes(10)
     const onair = await getSeriesOnair()
     const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
-    const articles = await getSeriesArticles()
-    return { episodes, onair, seriesHit, articles }
+    //const articles = await getSeriesArticles()
+    return { episodes, onair, seriesHit }
   }
 }
 </script>

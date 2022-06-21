@@ -11,7 +11,7 @@
         <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
         <v-rating dense v-model="serieScore" color="yellow" half-increments readonly></v-rating>
       </v-card-title>
-      <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
+      <v-card-actions v-if="serie.field_episode_series.length > 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
       <v-card-actions><v-spacer></v-spacer><small v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</small></v-card-actions>
     </v-card>
 
@@ -54,7 +54,7 @@ export default {
     console.log(this.serie)
     this.isAdmin = this.$store.getters['users/getIsAdmin']
     let serieScore = await voteResult(this.serie.nid)
-    if (serieScore.length > 1) {
+    if (serieScore.length > 0) {
       this.serieScore = serieScore[1].value[0].value
     }
     else {

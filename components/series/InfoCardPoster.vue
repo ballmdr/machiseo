@@ -42,8 +42,8 @@ export default {
     len = this.posters.length
     for (let i = 0; i < len; i++) {
       const tmp = {
-        code: '<img src="' + process.env.baseUrl + this.posters[i].url + '" height="100%">',
-        thumbnail: process.env.baseUrl + this.posters[i].url,
+        code: '<img src="' + process.env.baseUrl + this.posters[i].uri.url + '" height="100%">',
+        thumbnail: process.env.baseUrl + this.posters[i].uri.url,
         type: 'img'
       }
       this.playList.push(tmp)
@@ -51,8 +51,8 @@ export default {
     len = this.otherImgs.length
     for (let i = 0; i < len; i++) {
       const tmp = {
-        code: '<img src="' + process.env.baseUrl + this.otherImgs[i].url + '" height="100%">',
-        thumbnail: process.env.baseUrl + this.otherImgs[i].url,
+        code: '<img src="' + process.env.baseUrl + this.otherImgs[i].uri.url + '" height="100%">',
+        thumbnail: process.env.baseUrl + this.otherImgs[i].uri.url,
         type: 'img'
       }
       this.playList.push(tmp)

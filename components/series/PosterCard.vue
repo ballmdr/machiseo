@@ -10,14 +10,14 @@ export default {
   props: ['serie'],
   data () {
     return {
-      poster_img_ori: this.serie.field_poster[0].uri.url
+      poster_img: this.serie.field_poster[0].uri.url
     }
   },
   mounted(){
-    //console.log(this.serie)
-    const link = this.poster_img_ori.split('://')
+    const link = this.poster_img.split('://')
     if (link[0] !== 'https') {
-      this.poster_img = process.env.cdnUrl + this.poster_img_ori
+      this.poster_img = process.env.cdnUrl + this.poster_img
+    } else {
     }
   }
 }

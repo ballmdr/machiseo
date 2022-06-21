@@ -1,6 +1,6 @@
 <template>
   <v-card dark class="episode">
-    <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
+    <v-img :src="baseUrl + ep.field_thumbnail.uri.url"></v-img>
     <div class="number">ตอนที่ {{ ep.title }}</div>
   </v-card>
 </template>
@@ -12,6 +12,9 @@ export default {
     return {
       baseUrl: process.env.baseUrl
     }
+  } ,
+  mounted() {
+    //console.log(this.ep)
   }
 }
 </script>

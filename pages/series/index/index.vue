@@ -41,7 +41,7 @@ export default {
     let offset = 0
     let limit = 9
     let empty = false
-    let year = ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', 'ก่อน%202010']
+    let year = ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', 'ก่อน%202010']
     let index = 0
     let series = await getSeriesListWithYear(offset, limit, year[index])
     if (series.length < limit) {

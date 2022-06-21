@@ -6,7 +6,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
-                <v-img :src="checkUrl(serie.field_poster[0].url)" class="card-media-img"></v-img>
+                <v-img :src="checkUrl(serie.field_poster[0].uri.url)" class="card-media-img"></v-img>
               </v-card-text>
             </v-flex>
             <v-flex xs12 sm6 md8>
@@ -42,11 +42,12 @@
         </v-card>
       </div>
     </v-flex>
-    <v-flex xs12>
+  <!--  <v-flex xs12>
       <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
         <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
       </v-flex>
     </v-flex>
+  -->
     <!-- <v-flex xs12>
       <h2>ดารานักแสดง</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
@@ -69,16 +70,17 @@
           <h2>สปอยด์รายตอน {{ serie.title }}</h2>
           <episodes-list :episodes="episodes"></episodes-list>
         </v-flex>
-        <v-flex xs12 v-if="articles.length > 0">
+      <!--  <v-flex xs12 v-if="articles.length > 0">
           <h2>ฉากเด็ดและฉากประทับใจในเรื่อง</h2>
           <articles-list :articles="articles"></articles-list>
         </v-flex>
+      -->
        <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex> -->
         <v-flex xs12>
-          <h2>รีวิวจากผู้ชม</h2>
+          <h2>รีวิว</h2>
           <reviews :reviews="reviews"></reviews>
         </v-flex>
       </v-flex>
@@ -91,7 +93,7 @@
 
 <script>
 import CelebsCast from '~/components/series/CelebsCast'
-import { getSerieByPath, getSeriesArticlesById, getAllEpisodesBySeriesPath } from '~/assets/js/api'
+import { getSerieByPath, getSeriesArticlesById, getEpisodesBySerie } from '~/assets/js/api'
 import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
 import { voteUpdate, voteResult } from '~/assets/js/api'
@@ -121,7 +123,7 @@ export default {
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'รีวิว สปอยด์ เรื่องย่อ: ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
-    const image = this.checkUrl(this.serie.field_poster[0].url)
+    const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {
       title: this.serie.title,
       meta: [
@@ -165,8 +167,9 @@ export default {
   },
   async asyncData ({ app, params, env, store }) {
     const serie = await getSerieByPath(params.title, env)
-    const episodes = await getAllEpisodesBySeriesPath(params.title)
-    //console.log(serie)
+    //const episodes = await getAllEpisodesBySeriesPath(params.title)
+    const episodes = await getEpisodesBySerie(serie.id)
+    //console.log(episodes)
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
@@ -179,8 +182,8 @@ export default {
       serieScore = 0
     }
     //console.log('nid', serie.nid)
-    const articles = await getSeriesArticlesById(serie.nid)
-    return { serie, reviews, serieScore, articles, episodes }
+    //const articles = await getSeriesArticlesById(serie.nid)
+    return { serie, reviews, serieScore, episodes }
   },
   async fetch ({ app, params, store }) {
     //await store.dispatch('episodes/setEp', params.title)
