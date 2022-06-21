@@ -18,13 +18,13 @@ export default {
   props: ['celeb'],
   data () {
     return {
-      profile_img: this.celeb.field_celeb_profile.url
+      profile_img: this.celeb.field_celeb_profile.uri.url
     }
   },
   mounted(){
-    const link = this.celeb.field_celeb_profile.url.split('://')
+    const link = this.profile_img.split('://')
     if (link[0] !== 'https') {
-      this.profile_img = process.env.cdnUrl + this.celeb.field_celeb_profile.url
+      this.profile_img = process.env.cdnUrl + this.profile_img
     }
   }
 }

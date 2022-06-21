@@ -5,7 +5,7 @@
     >
       <nuxt-link :to="getEpPath(ep.title)">
         <v-card dark class="episode">
-          <v-img :src="baseUrl + ep.field_thumbnail.url"></v-img>
+          <v-img :src="baseUrl + ep.field_thumbnail.uri.url"></v-img>
           <div class="number">ตอนที่ {{ ep.title }}</div>
         </v-card>
       </nuxt-link>

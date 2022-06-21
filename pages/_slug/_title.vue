@@ -5,7 +5,7 @@
         <v-card-title class="bg-gradient">
           <v-layout row wrap>
             <v-flex xs4 sm3 @click="$router.push(serie.path.alias)" style="cursor:pointer;">
-              <v-img contain max-width="150" max-height="200" :src="checkUrl(serie.field_poster[0].url)" class="card-media-img"></v-img>
+              <v-img contain max-width="150" max-height="200" :src="checkUrl(serie.field_poster[0].uri.url)" class="card-media-img"></v-img>
             </v-flex>
             <v-flex xs8 sm9>
               <nuxt-link :to="serie.path.alias"><h2 class="primary--text">{{ serie.title }}</h2></nuxt-link>
@@ -23,7 +23,7 @@
             :key="i"
           >
           <v-chip color="warning" class="numpic" style="color:black">{{ i+1 }}/{{ episodes[ep_index].field_img_streaming.length }}</v-chip>
-          <v-img style="margin:auto" :src="baseUrl + item.url" ></v-img>
+          <v-img style="margin:auto" :src="baseUrl + item.uri.url" ></v-img>
           </v-carousel-item>
         </v-carousel>
         <v-card-text><h1 class="headline">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getAllEpisodesBySeriesPath, getSerieByPath } from '~/assets/js/api'
+import { getEpisodesBySerie, getSerieByPath } from '~/assets/js/api'
 import EpisodeCard from '~/components/episodes/EpisodeCard'
 
 export default {
@@ -59,8 +59,9 @@ export default {
     //console.log(this.episodes)
   },
   async asyncData ({ params, store, env }) {
-    const episodes = await getAllEpisodesBySeriesPath(params.slug)
+    //const episodes = await getAllEpisodesBySeriesPath(params.slug)
     const serie = await getSerieByPath(params.slug, env)
+    const episodes = await getEpisodesBySerie(serie.id)
     await store.dispatch('episodes/setEpWithData', episodes)
     await store.dispatch('series/setSerie', serie)
     let ep_index = null
@@ -68,6 +69,8 @@ export default {
       if (el.title === params.title)
         ep_index = index
     })
+    console.log(episodes)
+    console.log('dd')
     const ep_title = params.title
     const ep_body = episodes[ep_index].body.processed
     const img_streaming = episodes[ep_index].field_img_streaming
@@ -76,7 +79,7 @@ export default {
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.ep_body, 150)
-    const image = this.checkUrl(this.episodes[this.ep_index].field_thumbnail.url)
+    const image = this.checkUrl(this.episodes[this.ep_index].field_thumbnail.uri.url)
     const title = 'สปอยด์ ' + this.serie.title + ' ตอนที่ ' + this.ep_title
     return {
       title: title,

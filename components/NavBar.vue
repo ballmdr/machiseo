@@ -32,7 +32,7 @@
          <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
        </v-btn>
        <v-toolbar-title>{{ title }}</v-toolbar-title>
-       <v-spacer></v-spacer><v-icon color='yellow'>fas fa-flask</v-icon> <small>Beta V2.0</small>
+       <v-spacer></v-spacer><v-icon color='yellow'>fas fa-flask</v-icon> <small>Beta V2.9</small>
      </v-toolbar>
  </span>
  </template>

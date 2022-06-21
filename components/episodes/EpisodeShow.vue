@@ -17,7 +17,7 @@
             :key="i"
           >
           <v-chip color="warning" class="numpic" style="color:black">{{ i+1 }}/{{$store.state.episodes.ep[currentEp].field_img_streaming.length}}</v-chip>
-          <v-img :src="baseUrl + item.url" style="max-width:500px;margin:auto;"></v-img>
+          <v-img :src="baseUrl + item.uri.url" style="max-width:500px;margin:auto;"></v-img>
           </v-carousel-item>
         </v-carousel>
       </v-flex>

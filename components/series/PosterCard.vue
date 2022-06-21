@@ -10,13 +10,14 @@ export default {
   props: ['serie'],
   data () {
     return {
-      poster_img: this.serie.field_poster[0].url
+      poster_img: this.serie.field_poster[0].uri.url
     }
   },
   mounted(){
     const link = this.poster_img.split('://')
     if (link[0] !== 'https') {
       this.poster_img = process.env.cdnUrl + this.poster_img
+    } else {
     }
   }
 }

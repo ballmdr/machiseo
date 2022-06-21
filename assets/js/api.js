@@ -34,22 +34,8 @@ export async function getSeriesArticlesById (id) {
 }
 
 export async function getSeriesArticles () {
-  let res = null
-  try {
-    const { data } = await apiClient.get(prefix + '/articles?page[limit]=6&include=field_thumbnail_article&sort=-nid')
-    //console.log('data in api ', data)
-    res = data
-  }
-  catch (err) {
-    //console.log('err', err.response.status)
-    res = err.response.status
-  }
-
-  if (res == 404) {
-    return res
-  } else {
-    return jsonapiParse.parse(res).data
-  }
+  const { data } = await apiClient.get(prefix + '/articles?page[limit]=6&include=field_thumbnail_article&sort=-nid')
+  return jsonapiParse.parse(data).data
 }
 
 export async function getArticleById (id) {
@@ -58,7 +44,7 @@ export async function getArticleById (id) {
 }
 
 export async function voteResult (nid) {
-  const { data } = await apiClient.get('/vote/serie/result/' + nid + '?_format=json')
+  const { data } = await apiClient.get('/vote/serie/result/' + nid)
   return data
   //return jsonapiParse.parse(data).data
 }
@@ -160,17 +146,19 @@ export async function getAllEpisodesBySeriesPath (path) {
       {
         'requestId': 'node',
         'action': 'view',
-        'uri': '/jsonapi/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]={{router.body@$.entity.uuid}}&sort=-nid&include=field_thumbnail,field_img_streaming',
+        'uri': '/jsonapi/episodes?filter[field_series_episode.id]={{router.body@$.entity.uuid}}&sort=-nid&include=field_thumbnail,field_img_streaming',
         'Accept': 'application/json',
         'waitFor': ['router']
       }
     ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
+
   return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 
 
 export async function getCelebByPath (path, env) {
   const uri = findRouterPath + '/celebs/' + path
+  //console.log(path)
   const { data } = await apiClient.post('/subrequests?_format=json',
     [
       {
@@ -231,7 +219,8 @@ export async function getSeriesByChannel (offset = 0, limit = 10, channel) {
 }
 
 export async function getEpisodesBySerie (uuid) {
-  const { data } = await apiClient.get(prefix + '/episodes?_format=api_json&filter[field_series_episode][condition][path]=field_series_episode.uuid&filter[field_series_episode][condition][value]=' + uuid + '&include=field_thumbnail,field_img_streaming,field_series_korea')
+  const url = prefix + '/episodes/?filter[field_series_episode.id]=' + uuid + '&include=field_thumbnail,field_img_streaming,field_series_korea&sort=-nid'
+  const { data } = await apiClient.get(url)
   return jsonapiParse.parse(data).data
 }
 
