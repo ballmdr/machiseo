@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap justify-center align-center>
-    <v-flex d-flex xs6 sm5 md4 lg4 v-for="serie in seriesHit" :key="serie.uuid" >
+    <v-flex d-flex xs12 sm5 md4 lg4 v-for="serie in seriesHit" :key="serie.uuid" >
       <series-hit-card :serie="serie"></series-hit-card>
     </v-flex>
   </v-layout>

@@ -48,18 +48,18 @@ export default {
         this.series[i].title = res.title
         this.series[i].uuid = res.id
         this.series[i].nid = res.nid
-        this.series[i].poster = res.field_poster[0].url
+        this.series[i].poster = res.field_poster[0].uri.url
         this.series[i].topic_id = res.field_topic
         this.series[i].celebs = [
           {
             uuid: res.field_celeb[0].uuid,
-            profile: res.field_celeb[0].field_celeb_profile.url,
+            profile: res.field_celeb[0].field_celeb_profile.uri.url,
             path: res.field_celeb[0].path.alias,
             title: res.field_celeb[0].title
           },
           {
             uuid: res.field_celeb[1].uuid,
-            profile: res.field_celeb[1].field_celeb_profile.url,
+            profile: res.field_celeb[1].field_celeb_profile.uri.url,
             path: res.field_celeb[1].path.alias,
             title: res.field_celeb[1].title
           }
