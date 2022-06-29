@@ -1,27 +1,26 @@
 <template>
-  <v-card @click="$router.push(serie.path)" style="cursor:pointer;" class="hvr-bob">
+  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class="hvr-bob">
     <v-img
       height="200px"
       :src="checkUrl(serie.cover)"
     >
-      <v-container>
         <v-layout>
           <v-flex xs12>
-            <span class="headline font-weight-bold font-italic">{{ serie.title }}</span>
+            <v-chip class="title purple font-weight-bold font-italic">{{ serie.title }}</v-chip>
           </v-flex>
         </v-layout>
-      </v-container>
+
     </v-img>
     <v-card-title>
       <v-flex xs6 v-for="celeb in serie.celebs" :key="celeb.uuid">
-        <div><v-avatar size="50"><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
+        <div><v-avatar><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
           {{ celebName(celeb.title) }}
         </div>
       </v-flex>
     </v-card-title>
-    <v-card-actions>
+   <!-- <v-card-actions>
       <v-btn flat color="orange text-xs-right">อ่านสปลอยล์</v-btn>
-    </v-card-actions>
+    </v-card-actions>-->
   </v-card>
       <!--
   <v-card @click="$router.push(serie.path)" style="cursor:pointer;max-height:300px;" class="hvr-bob">
