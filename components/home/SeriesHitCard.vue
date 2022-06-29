@@ -1,12 +1,12 @@
 <template>
-  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class="hvr-bob">
+  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
     <v-img
       height="200px"
       :src="checkUrl(serie.cover)"
     >
         <v-layout>
           <v-flex xs12>
-            <v-chip class="title purple font-weight-bold font-italic">{{ serie.title }}</v-chip>
+            <v-chip class="title orange font-weight-bold font-italic">{{ serie.title }}</v-chip>
           </v-flex>
         </v-layout>
 

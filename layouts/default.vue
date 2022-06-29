@@ -2,7 +2,7 @@
   <v-app dark>
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
-      <v-container grid-list-md>
+      <v-container grid-list-md style="max-width:1005px;">
         <adsbygoogle />
         <nuxt />
       </v-container>

@@ -6,6 +6,7 @@
     </v-flex>
     <v-flex xs12>
       <h2>ซีรีส์ฮิต</h2>
+      <v-divider></v-divider>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
    <!-- <v-flex xs12>
@@ -24,10 +25,12 @@
   -->
     <v-flex xs12>
       <h2>ซีรีส์ออนแอร์</h2>
+      <v-divider></v-divider>
       <series-onair :series="onair"></series-onair>
     </v-flex>
     <v-flex xs12>
       <h2>ดารา</h2>
+      <v-divider></v-divider>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
   </v-layout>
