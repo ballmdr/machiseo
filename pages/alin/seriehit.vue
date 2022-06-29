@@ -7,6 +7,7 @@
             <v-flex xs1 class="text-xs-right"><v-text-field v-model="serie.rank"></v-text-field></v-flex>
             <v-flex xs4><v-text-field v-model="serie.path" label="path"></v-text-field></v-flex>
             <v-flex xs1><v-text-field v-model="serie.score" label="score %"></v-text-field></v-flex>
+            <v-flex xs4><v-text-field v-model="serie.cover" label="Cover"></v-text-field></v-flex>
             <v-flex xs1><v-btn flat small color="warning" round @click="del(index)">ลบ</v-btn></v-flex>
             <v-flex xs5><span v-text="serie.title"></span></v-flex>
           </v-layout>
@@ -38,7 +39,7 @@ export default {
       this.series.splice(index, 1)
     },
     addSerie () {
-      this.series.push({ path: '', score: '', rank: '' })
+      this.series.push({ path: '', score: '', rank: '', cover: '' })
     },
     async serieHitSave () {
       for (let i = 0; i < this.series.length; i++) {
@@ -50,20 +51,24 @@ export default {
         this.series[i].nid = res.nid
         this.series[i].poster = res.field_poster[0].uri.url
         this.series[i].topic_id = res.field_topic
-        this.series[i].celebs = [
-          {
-            uuid: res.field_celeb[0].uuid,
-            profile: res.field_celeb[0].field_celeb_profile.uri.url,
-            path: res.field_celeb[0].path.alias,
-            title: res.field_celeb[0].title
-          },
-          {
-            uuid: res.field_celeb[1].uuid,
-            profile: res.field_celeb[1].field_celeb_profile.uri.url,
-            path: res.field_celeb[1].path.alias,
-            title: res.field_celeb[1].title
-          }
-        ]
+        this.series[i].celebs = res.field_celeb
+        console.log(this.series[i])
+        let celeb_length = Object.keys(this.series[i].celebs).length
+        if (celeb_length > 4) {
+          celeb_length = 4
+        }
+
+        this.series[i].celebs = []
+        for  (let j = 0;j < celeb_length; j++) {
+          this.series[i].celebs.push(
+            {
+              uuid: res.field_celeb[j].uuid,
+              profile: res.field_celeb[j].field_celeb_profile.uri.url,
+              path: res.field_celeb[j].path.alias,
+              title: res.field_celeb[j].title
+            }
+          )
+        }
         await this.$axios.get(process.env.restMongoUrl + '/series_hit/clear')
         await this.$axios.post(process.env.restMongoUrl + '/series_hit/save', this.series)
         const { data } = await this.$axios.get(process.env.restMongoUrl + '/series_hit')
