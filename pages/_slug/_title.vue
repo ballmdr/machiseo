@@ -23,7 +23,7 @@
             :key="i"
           >
           <v-chip color="warning" class="numpic" style="color:black">{{ i+1 }}/{{ episodes[ep_index].field_img_streaming.length }}</v-chip>
-          <v-img style="margin:auto" :src="baseUrl + item.uri.url" ></v-img>
+          <v-img contain style="margin:auto" :src="baseUrl + item.uri.url" ></v-img>
           </v-carousel-item>
         </v-carousel>
         <v-card-text><h1 class="headline">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
@@ -69,8 +69,8 @@ export default {
       if (el.title === params.title)
         ep_index = index
     })
-    console.log(episodes)
-    console.log('dd')
+    //console.log(episodes)
+    //console.log('dd')
     const ep_title = params.title
     const ep_body = episodes[ep_index].body.processed
     const img_streaming = episodes[ep_index].field_img_streaming

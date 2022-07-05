@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex class="hvr-grow" xs6 sm4 v-for="ep in episodes" :key="ep.id"
+    <v-flex class="hvr-grow" xs12 sm4 v-for="ep in episodes" :key="ep.id"
       style="cursor:pointer"
     >
       <nuxt-link :to="getEpPath(ep.title)">
