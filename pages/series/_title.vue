@@ -62,7 +62,7 @@
         </v-flex>
         <v-flex xs12 v-if="serie.field_web_review !== null">
           <v-card color="primary">
-            <v-card-title><h2>รีวิวจากเว็บ</h2></v-card-title>
+            <v-card-title><h2>รีวิวจากแอดมิน</h2></v-card-title>
             <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
@@ -79,10 +79,11 @@
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex> -->
-        <v-flex xs12>
+  <!--    <v-flex xs12>
           <h2>รีวิว</h2>
           <reviews :reviews="reviews"></reviews>
         </v-flex>
+        -->
       </v-flex>
   <!--  <v-flex xs12 sm4 class="text-xs-center">
         <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
