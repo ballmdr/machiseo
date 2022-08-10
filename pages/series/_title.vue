@@ -85,6 +85,9 @@
         </v-flex>
         -->
       </v-flex>
+      <v-flex xs12 sm4>
+         <div><adsbygoogle /></div>
+      </v-flex>
   <!--  <v-flex xs12 sm4 class="text-xs-center">
         <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
       </v-flex>

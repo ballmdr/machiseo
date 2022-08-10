@@ -26,8 +26,11 @@
           <v-img contain style="margin:auto" :src="baseUrl + item.uri.url" ></v-img>
           </v-carousel-item>
         </v-carousel>
-        <v-card-text><h1 class="headline">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
-        <v-card-text v-html="ep_body"></v-card-text>
+        <v-card-text><h1 class="headline">สปอยล์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
+        <div><adsbygoogle /></div>
+        <v-card-text v-html="ep_body">
+        </v-card-text>
+        <div><adsbygoogle /></div>
       </v-card>
     </v-flex>
     <v-flex xs12 sm4>
