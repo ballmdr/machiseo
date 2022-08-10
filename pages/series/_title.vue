@@ -66,8 +66,9 @@
             <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
+        <v-flex xs12><div><adsbygoogle /></div></v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-          <h2>สปอยด์รายตอน {{ serie.title }}</h2>
+          <h2>สปอยล์รายตอน {{ serie.title }}</h2>
           <episodes-list :episodes="episodes"></episodes-list>
         </v-flex>
       <!--  <v-flex xs12 v-if="articles.length > 0">
