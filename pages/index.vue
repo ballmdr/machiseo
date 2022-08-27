@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex x12 class="box">
-      <h1>สปอยล์ซีรีส์เกาหลี อัพเดทซีรีส์เกาหลี</h1>
+      <h1>สปอยล์ซีรีส์เกาหลี อัพเดทซีรีย์เกาหลี</h1>
     </v-flex>
     <v-flex xs12 class="box">
       <h2>สปอยล์ซีรีส์เกาหลีตอนล่าสุด <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h2>

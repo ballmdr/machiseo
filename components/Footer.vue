@@ -1,35 +1,38 @@
 <template>
-      <v-bottom-nav
-        fixed="true"
-        :active.sync="bottomNav"
-        :value="true"
-        color="orange"
-      >
-        <v-btn
-          color="purple"
-          flat
-          value="home"
-        >
-          <span>หน้าแรก</span>
-          <v-icon>home</v-icon>
-        </v-btn>
-  
-        <v-btn
-          color="purple"
-          flat
-          value="series"
-        >
-          <span>รวมซีรีส์</span>
-          <v-icon>movie</v-icon>
-        </v-btn>
-  
-        <v-btn
-          color="purple"
-          flat
-          value="spoil"
-        >
-          <span>สปอยล์ล่าสุด</span>
-          <v-icon>book</v-icon>
-        </v-btn>
-      </v-bottom-nav>
+  <v-bottom-nav
+    fixed="true"
+    :active.sync="bottomNav"
+    :value="true"
+    color="purple"
+  >
+    <v-btn
+      color="orange"
+      flat
+      value="home"
+      to="/"
+    >
+      <span>หน้าแรก</span>
+      <v-icon>home</v-icon>
+    </v-btn>
+
+    <v-btn
+      color="orange"
+      flat
+      value="series"
+      to="/series"
+    >
+      <h5>ซีรีย์เกาหลี</h5>
+      <v-icon>movie</v-icon>
+    </v-btn>
+
+    <v-btn
+      color="orange"
+      flat
+      value="spoil"
+      to="/episodes"
+    >
+      <span>สปอยล์ล่าสุด</span>
+      <v-icon>book</v-icon>
+    </v-btn>
+  </v-bottom-nav>
 </template>

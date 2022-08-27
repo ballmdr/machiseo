@@ -28,7 +28,7 @@
         </v-carousel>
         <v-card-text><h1 class="headline">สปอยล์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
         <div><adsbygoogle /></div>
-        <v-card-text v-html="ep_body" style="color:#fff;line-height:30px;">
+        <v-card-text v-html="ep_body" style="line-height:30px;">
         </v-card-text>
         <div><adsbygoogle /></div>
       </v-card>

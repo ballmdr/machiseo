@@ -11,7 +11,7 @@ export default {
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'สปอยล์ : ' + this.$options.filters.truncate(this.$store.state.episodes.ep[0].body.processed, 150)
-    const title = 'สปอยล์ : ' + this.$store.state.series.serie.title + ' - ซีรีส์เกาหลี'
+    const title = 'สปอยล์ : ' + this.$store.state.series.serie.title + ' - ซีรีส์เกาหลี ซีรีย์เกาหลี'
     const image = process.env.baseUrl + this.$store.state.episodes.ep[0].field_thumbnail.url
     return {
       title: title,
