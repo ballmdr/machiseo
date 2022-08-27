@@ -1,5 +1,6 @@
 <template>
   <v-layout row wrap justify-center>
+    <h1>ซีรีย์เกาหลี</h1>
     <v-flex x12>
       <serie-card-group :series="series"></serie-card-group>
     </v-flex>
@@ -15,6 +16,20 @@ import { getSeriesListWithYear } from '~/assets/js/api'
 
 export default {
   components: { SerieCardGroup },
+  head () {
+    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const synopsis = 'เรื่องย่อซีรีย์เกาหลี อ่านสปอยล์รายตอน นักแสดง ตัวละคร'
+    const title = 'ซีรีย์เกาหลี ซีรีส์เกาหลี เรื่องย่อ สปอยล์รายตอน นักแสดง ตัวละคร'
+    return {
+      title: title,
+      meta: [
+        { hid: 'description', name: 'description', content: synopsis },
+      ],
+      link: [
+        { rel: 'canonical', href: canonical }
+      ]
+    }
+  },
   methods: {
     infiniteHandler($state) {
       if (!this.empty) {
