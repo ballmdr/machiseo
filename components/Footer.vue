@@ -1,3 +1,35 @@
 <template>
-  <div></div>
+      <v-bottom-nav
+        fixed="true"
+        :active.sync="bottomNav"
+        :value="true"
+        color="orange"
+      >
+        <v-btn
+          color="purple"
+          flat
+          value="home"
+        >
+          <span>หน้าแรก</span>
+          <v-icon>home</v-icon>
+        </v-btn>
+  
+        <v-btn
+          color="purple"
+          flat
+          value="series"
+        >
+          <span>รวมซีรีส์</span>
+          <v-icon>movie</v-icon>
+        </v-btn>
+  
+        <v-btn
+          color="purple"
+          flat
+          value="spoil"
+        >
+          <span>สปอยล์ล่าสุด</span>
+          <v-icon>book</v-icon>
+        </v-btn>
+      </v-bottom-nav>
 </template>

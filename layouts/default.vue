@@ -2,11 +2,12 @@
   <v-app dark>
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
-      <v-container grid-list-md style="max-width:1005px;">
+      <v-container grid-list-md >
         <adsbygoogle />
         <nuxt />
       </v-container>
     </v-content>
+  <div class="before-foot"></div>
   <footer-com></footer-com>
   </v-app>
 </template>
@@ -21,10 +22,15 @@ export default {
 </script>
 
 <style>
+.before-foot {
+  margin-bottom: 50px;
+  display: block;
+  height: 100px;
+}
 .application {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
-  font-size: 14px;
+  font-size: 16px;
   color: #9ab !important;
   background-color: #2c3440 !important;
 }

@@ -8,7 +8,7 @@
               <v-img contain max-width="150" max-height="200" :src="checkUrl(serie.field_poster[0].uri.url)" class="card-media-img"></v-img>
             </v-flex>
             <v-flex xs8 sm9>
-              <nuxt-link :to="serie.path.alias"><h2 class="primary--text">{{ serie.title }}</h2></nuxt-link>
+              <nuxt-link :to="serie.path.alias"><h1 class="primary--text">{{ serie.title }}</h1></nuxt-link>
               <small v-html="serie.body.processed"></small>
             </v-flex>
           </v-layout>
@@ -23,11 +23,14 @@
             :key="i"
           >
           <v-chip color="warning" class="numpic" style="color:black">{{ i+1 }}/{{ episodes[ep_index].field_img_streaming.length }}</v-chip>
-          <v-img contain style="margin:auto" :src="baseUrl + item.uri.url" ></v-img>
+          <v-img  style="margin:auto" :src="baseUrl + item.uri.url" ></v-img>
           </v-carousel-item>
         </v-carousel>
-        <v-card-text><h1 class="headline">สปอยด์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
-        <v-card-text v-html="ep_body"></v-card-text>
+        <v-card-text><h1 class="headline">สปอยล์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
+        <div><adsbygoogle /></div>
+        <v-card-text v-html="ep_body" style="color:#fff;line-height:30px;">
+        </v-card-text>
+        <div><adsbygoogle /></div>
       </v-card>
     </v-flex>
     <v-flex xs12 sm4>
@@ -80,7 +83,7 @@ export default {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.ep_body, 150)
     const image = this.checkUrl(this.episodes[this.ep_index].field_thumbnail.uri.url)
-    const title = 'สปอยด์ ' + this.serie.title + ' ตอนที่ ' + this.ep_title
+    const title = 'สปอยล์ ' + this.serie.title + ' ตอนที่ ' + this.ep_title
     return {
       title: title,
       meta: [
