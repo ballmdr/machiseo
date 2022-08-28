@@ -72,7 +72,7 @@ export default {
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'ประวัติดารา ' + this.celeb.title + ' ผลงาน อินสตาแกรม ทวิตเตอร์'
-    const title = this.celeb.title + ' ประวัติ ผลงาน อินสตาแกรม ทวิตเตอร์'
+    const title = this.celeb.title
     return {
       title: title,
       meta: [

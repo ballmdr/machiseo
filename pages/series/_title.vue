@@ -2,7 +2,7 @@
   <v-layout column>
     <v-flex xs12>
       <div class="container">
-        <v-card color="primary" class="u-clearfix" style="color: black">
+        <v-card color="primary" class="u-clearfix">
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
@@ -25,7 +25,7 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <v-layout column>
-                  <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex>
+                  <v-flex xs12 ><p style="color:rgb(153, 170, 187) !important" v-html="serie.body.processed"></p></v-flex>
                   <h4>ดู {{ serie.title }} ซับไทย ได้ที่</h4>
                   <v-layout row wrap>
                     <v-flex v-if="serie.field_viu !== null">
@@ -71,7 +71,7 @@
     </v-flex>
   -->
     <v-flex xs12>
-      <h2>ดารานักแสดง</h2>
+      <h2>ดารา นักแสดง {{ serie.title}}</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
     </v-flex>
     <v-layout row wrap>
@@ -82,16 +82,14 @@
             <v-card-text><p style="color:#9ab" v-text="serie.field_synopsis"></p></v-card-text>
           </v-card>
         </v-flex>
+        <v-flex xs12 sm8>
+          <div><adsbygoogle /></div>
+        </v-flex>
         <v-flex xs12 v-if="serie.field_web_review !== null">
           <v-card color="primary">
             <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
             <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
-        </v-flex>
-        <v-flex xs12><div><adsbygoogle /></div></v-flex>
-        <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-          <h2>สปอยล์รายตอน {{ serie.title }}</h2>
-          <episodes-list :episodes="episodes"></episodes-list>
         </v-flex>
       <!--  <v-flex xs12 v-if="articles.length > 0">
           <h2>ฉากเด็ดและฉากประทับใจในเรื่อง</h2>
@@ -108,14 +106,15 @@
         </v-flex>
         -->
       </v-flex>
-      <v-flex xs12 sm4>
-         <div><adsbygoogle /></div>
-      </v-flex>
   <!--  <v-flex xs12 sm4 class="text-xs-center">
         <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
       </v-flex>
     -->
     </v-layout>
+    <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+      <h2>สปอย {{ serie.title }} ทุกตอน</h2>
+      <episodes-list :episodes="episodes"></episodes-list>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -150,14 +149,14 @@ export default {
   },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'รีวิว สปอยล์ เรื่องย่อ: ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
+    const synopsis = 'รีวิว สปอยล์ เรื่องย่อ ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {
-      title: this.serie.title,
+      title: this.serie.title + ' สปอย เรื่องย่อ นักแสดง',
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', property: 'og:title', content: 'รีวิว สปอยล์ เรื่องย่อ ' + this.serie.title },
+        { hid: 'og_title', name: 'og:title', property: 'og:title', content: 'สปอยล์ เรื่องย่อ ' + this.serie.title },
         { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
@@ -244,7 +243,7 @@ export default {
 }
 
 .container {
-  margin: 25px auto;
+  margin: auto;
   width: 100%;
 }
 
