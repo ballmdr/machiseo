@@ -84,12 +84,13 @@
         </v-flex>
         <v-flex xs12 v-if="serie.field_web_review !== null">
           <v-card color="primary">
-            <v-card-title><h2>รีวิวจากแอดมิน</h2></v-card-title>
+            <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
             <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
+        <v-flex xs12><div><adsbygoogle /></div></v-flex>
         <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-          <h2>สปอยด์รายตอน {{ serie.title }}</h2>
+          <h2>สปอยล์รายตอน {{ serie.title }}</h2>
           <episodes-list :episodes="episodes"></episodes-list>
         </v-flex>
       <!--  <v-flex xs12 v-if="articles.length > 0">
@@ -106,6 +107,9 @@
           <reviews :reviews="reviews"></reviews>
         </v-flex>
         -->
+      </v-flex>
+      <v-flex xs12 sm4>
+         <div><adsbygoogle /></div>
       </v-flex>
   <!--  <v-flex xs12 sm4 class="text-xs-center">
         <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
@@ -146,14 +150,14 @@ export default {
   },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'รีวิว สปอยด์ เรื่องย่อ: ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
+    const synopsis = 'รีวิว สปอยล์ เรื่องย่อ: ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {
       title: this.serie.title,
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', property: 'og:title', content: 'รีวิว สปอยด์ เรื่องย่อ ' + this.serie.title },
+        { hid: 'og_title', name: 'og:title', property: 'og:title', content: 'รีวิว สปอยล์ เรื่องย่อ ' + this.serie.title },
         { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },

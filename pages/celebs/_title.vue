@@ -5,7 +5,7 @@
       <div class="wrapper">
         <div class="profile">
           <v-avatar size="200"><v-img :src="profile_img"></v-img></v-avatar>
-          <h3 class="name">{{ celeb.title }}</h3>
+          <h1 class="name">{{ celeb.title }}</h1>
           <p class="description" v-html="celeb.body.processed"></p>
         </div>
         <div class="social-icons">
@@ -16,10 +16,14 @@
             <a target="_blank" :href="'https://www.twitter.com/' + celeb.field_twitter"><i class="fab fa-twitter"></i></a>
           </div>
         </div>
+      <adsbygoogle />
       </div>
     </v-flex>
     <v-flex xs12 sm7 md8 d-flex>
       <v-layout row wrap>
+        <v-flex xs12>
+          <h2>ซีรีย์เกาหลีที่ {{ celeb.title }} แสดง</h2>
+        </v-flex>
         <v-flex class="hvr-float" xs6 sm6 md4 v-for="serie in celeb.field_series_actors" :key="serie.id" style="cursor:pointer">
           <poster-card :serie="serie"></poster-card>
         </v-flex>
@@ -67,7 +71,7 @@ export default {
 
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'ประวัติ ' + this.celeb.title + ' ผลงาน อินสตาแกรม ทวิตเตอร์'
+    const synopsis = 'ประวัติดารา ' + this.celeb.title + ' ผลงาน อินสตาแกรม ทวิตเตอร์'
     const title = this.celeb.title + ' ประวัติ ผลงาน อินสตาแกรม ทวิตเตอร์'
     return {
       title: title,

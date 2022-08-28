@@ -1,11 +1,14 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12>
-      <h2>สปอยด์ล่าสุด <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h2>
+    <v-flex x12 class="box">
+      <h1>สปอยล์ซีรีส์เกาหลี อัพเดทซีรีย์เกาหลี</h1>
+    </v-flex>
+    <v-flex xs12 class="box">
+      <h2>สปอยล์ซีรีส์เกาหลีตอนล่าสุด <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h2>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
-    <v-flex xs12>
-      <h2>ซีรีส์ฮิต</h2>
+    <v-flex xs12 class="box">
+      <h2>ซีรีส์เกาหลีฮิตในตอนนี้</h2>
       <v-divider></v-divider>
       <series-hit :seriesHit="seriesHit"></series-hit>
     </v-flex>
@@ -23,13 +26,13 @@
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
   -->
-    <v-flex xs12>
-      <h2>ซีรีส์ออนแอร์</h2>
+    <v-flex xs12 class="box">
+      <h2>ซีรีส์เกาหลีออนแอร์</h2>
       <v-divider></v-divider>
       <series-onair :series="onair"></series-onair>
     </v-flex>
-    <v-flex xs12>
-      <h2>ดารา</h2>
+    <v-flex xs12 class="box">
+      <h2>ดาราเกาหลีที่กำลังออนแอร์</h2>
       <v-divider></v-divider>
       <celebs-onair :series="onair"></celebs-onair>
     </v-flex>
@@ -71,6 +74,10 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  margin-bottom:30px;
+}
+
 /* The hero image */
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
