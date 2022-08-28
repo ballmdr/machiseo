@@ -26,12 +26,34 @@
               <v-card-text>
                 <v-layout column>
                   <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex>
-                  <v-flex xs12 v-if="serie.field_viu !== null" style="margin-top:-20px;">
-                    <div style="font-size:20px;">ดูซับไทยที่</div>
-                    <a :href="serie.field_viu" target="_blank" rel="nofollow">
-                      <img style="max-width:170px;margin-top:-20px;margin-left:30px;" :src="checkUrl('/sites/default/files/viu_logo_new.png')">
-                    </a>
-                  </v-flex>
+                  <h4>ดู {{ serie.title }} ซับไทย ได้ที่</h4>
+                  <v-layout row wrap>
+                    <v-flex v-if="serie.field_viu !== null">
+                      <a :href="serie.field_viu" target="_blank" rel="nofollow">
+                        <img class="logo_subthai" src="/viu.png">
+                      </a>
+                    </v-flex>                    
+                    <v-flex v-if="serie.field_netflix !== null">
+                      <a :href="serie.field_netflix" target="_blank" rel="nofollow">
+                        <img class="logo_subthai" src="/netflix.png">
+                      </a>
+                    </v-flex>                    
+                    <v-flex v-if="serie.field_disney !== null">
+                      <a :href="serie.field_disney" target="_blank" rel="nofollow">
+                        <img class="logo_subthai" src="/disney.png">
+                      </a>
+                    </v-flex>
+                    <v-flex v-if="serie.field_wetv !== null">
+                      <a :href="serie.field_wetv" target="_blank" rel="nofollow">
+                        <img class="logo_subthai" src="/wetv.png">
+                      </a>
+                    </v-flex>
+                    <v-flex v-if="serie.field_iqiyi !== null">
+                      <a :href="serie.field_iqiyi" target="_blank" rel="nofollow">
+                        <img class="logo_subthai" src="/iqiyi.png">
+                      </a>
+                    </v-flex>
+                  </v-layout>
                 </v-layout>
               </v-card-text>
             </v-flex>
@@ -185,6 +207,7 @@ export default {
       serieScore = 0
     }
     //console.log('nid', serie.nid)
+    //console.log(serie)
     //const articles = await getSeriesArticlesById(serie.nid)
     return { serie, reviews, serieScore, episodes }
   },
@@ -199,6 +222,9 @@ export default {
 </script>
 
 <style scoped>
+.logo_subthai{
+  max-width:75px;
+}
 .u-clearfix:before,
 .u-clearfix:after {
   content: " ";
