@@ -2,13 +2,12 @@
   <div class="container animated slideInDown">
     <div v-show="isAdmin"><v-rating @click.native="vote()" v-model="serieScore" color="yellow" half-increments hover background-color="white"></v-rating>{{ serieScore }}</div>
     <br><br><br>
-
     <v-card dark class="movie box hvr-underline-reveal"
         style="cursor:pointer;"
         @click.native="$router.push(serie.path.alias)">
       <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].uri.url"></v-img>
       <v-card-title class="box-caption">
-        <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
+        <nuxt-link :to="serie.path.alias"><h4>{{ serie.title }}</h4></nuxt-link>
         <v-rating dense v-model="serieScore" color="yellow" half-increments readonly></v-rating>
       </v-card-title>
       <v-card-actions v-if="serie.field_episode_series.length > 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
@@ -75,7 +74,6 @@ background: linear-gradient(to bottom,  rgba(255,255,255,0) 38%,rgba(255,255,255
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#1e1b26',GradientType=0 ); /* IE6-9 */
 }
 .movie-img{
-  z-index:111 !important;
   -webkit-mask-image: 
     -webkit-gradient(linear, left top, left bottom, 
     color-stop(0.00,  rgba(0,0,0,1)),

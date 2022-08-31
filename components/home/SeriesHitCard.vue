@@ -4,14 +4,11 @@
       height="200px"
       :src="checkUrl(serie.cover)"
     >
-        <v-layout>
-          <v-flex xs12>
-            <v-chip class="title orange font-weight-bold font-italic">{{ serie.title }}</v-chip>
-          </v-flex>
-        </v-layout>
-
     </v-img>
-    <v-card-title>
+       <v-card-title primary-title>
+          <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
+        </v-card-title>
+    <v-card-title primary-title>
       <v-flex xs6 v-for="celeb in serie.celebs" :key="celeb.uuid">
         <div><v-avatar><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
           {{ celebName(celeb.title) }}

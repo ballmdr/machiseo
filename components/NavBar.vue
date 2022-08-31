@@ -32,7 +32,7 @@
          <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
        </v-btn>
        <v-toolbar-title>{{ title }}</v-toolbar-title>
-       <v-spacer></v-spacer><v-icon color='yellow'>fas fa-flask</v-icon> <small>Beta V2.9</small>
+       <v-spacer></v-spacer>
      </v-toolbar>
  </span>
  </template>
@@ -46,12 +46,12 @@ export default {
       drawer: false,
       menuItems: [
         { icon: 'fas fa-home', title: 'หน้าแรก', to: '/' },
-        { icon: 'fas fa-film', title: 'ซีรีส์เกาหลี', to: '/series' },
-        { icon: 'fas fa-book-reader', title: 'สปอยด์รายตอน', to: '/episodes' },
+        { icon: 'fas fa-film', title: 'ซีรีย์เกาหลี', to: '/series' },
+        { icon: 'fas fa-book-reader', title: 'สปอยซีรีย์เกาหลี', to: '/episodes' },
         /*{ icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }*/
       ],
       miniVariant: true,
-      title: 'มาชิสซอ Machiseo.com',
+      title: 'มาชิสซอ',
       isLoading: false,
       items: [],
       model: null,
@@ -95,3 +95,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

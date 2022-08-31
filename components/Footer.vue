@@ -1,38 +1,40 @@
 <template>
-  <v-bottom-nav
-    fixed="true"
-    :active.sync="bottomNav"
-    :value="true"
-    color="purple"
-  >
-    <v-btn
-      color="orange"
-      flat
-      value="home"
-      to="/"
+  <v-layout row>
+    <v-bottom-nav
+      fixed="true"
+      :active.sync="bottomNav"
+      :value="true"
+      color="purple"
     >
-      <span>หน้าแรก</span>
-      <v-icon>home</v-icon>
-    </v-btn>
+      <v-btn
+        color="orange"
+        flat
+        value="home"
+        to="/"
+      >
+        <span>หน้าแรก</span>
+        <v-icon>home</v-icon>
+      </v-btn>
 
-    <v-btn
-      color="orange"
-      flat
-      value="series"
-      to="/series"
-    >
-      <h5>ซีรีย์เกาหลี</h5>
-      <v-icon>movie</v-icon>
-    </v-btn>
+      <v-btn
+        color="orange"
+        flat
+        value="series"
+        to="/series"
+      >
+        <h5>ซีรีย์เกาหลี</h5>
+        <v-icon>movie</v-icon>
+      </v-btn>
 
-    <v-btn
-      color="orange"
-      flat
-      value="spoil"
-      to="/episodes"
-    >
-      <span>สปอยล์ล่าสุด</span>
-      <v-icon>book</v-icon>
-    </v-btn>
-  </v-bottom-nav>
+      <v-btn
+        color="orange"
+        flat
+        value="spoil"
+        to="/episodes"
+      >
+        <span>สปอยล์ล่าสุด</span>
+        <v-icon>book</v-icon>
+      </v-btn>
+    </v-bottom-nav>
+  </v-layout>
 </template>

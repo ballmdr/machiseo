@@ -7,6 +7,48 @@
         <nuxt />
       </v-container>
     </v-content>
+    <v-footer
+      dark
+      height="auto"
+    >
+      <v-card
+        class="flex"
+        flat
+      >
+      <v-card-text>
+        <v-layout row wrap>
+          <v-flex xs12 sm5 md4 lg4>
+            <ul class="footer-link-list">
+              <li><nuxt-link to="/series">ซีรีย์เกาหลี</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2020">ซีรีย์เกาหลี 2020</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2021">ซีรีย์เกาหลี 2021</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2022">ซีรีย์เกาหลี 2022</nuxt-link></li>
+            </ul>
+          </v-flex>
+          <v-flex xs12 sm5 md4 lg4>
+            <ul class="footer-link-list">
+              <li><nuxt-link to="/series/my-roommate-gumiho">My roommate is a gumiho</nuxt-link></li>
+              <li><nuxt-link to="/series/mr-queen">Mr Queen</nuxt-link></li>
+              <li><nuxt-link to="/series/moon-lovers">Moon Lovers</nuxt-link></li>
+              <li><nuxt-link to="/series/18-again">18 Again</nuxt-link></li>
+              <li><nuxt-link to="/series/doom-your-service">Doom at your service</nuxt-link></li>
+              <li><nuxt-link to="/series/vincenzo">Vincenzo</nuxt-link></li>
+              <li><nuxt-link to="/series/it%E2%80%99s-okay-not-be-okay">It's ok to not be ok</nuxt-link></li>
+              <li><nuxt-link to="/series/crash-landing-you">Crash landing on you</nuxt-link></li>
+              <li><nuxt-link to="/series/police-university">Police University</nuxt-link></li>
+              <li><nuxt-link to="/series/touch-your-heart">Touch your heart</nuxt-link></li>
+              <li><nuxt-link to="/series/beauty-inside">The beauty inside</nuxt-link></li>
+              <li><nuxt-link to="/series/crowned-clown">The crowned clown</nuxt-link></li>
+              <li><nuxt-link to="/series/veil">The veil</nuxt-link></li>
+              <li><nuxt-link to="/series/while-you-were-sleeping">While you were sleeping</nuxt-link></li>
+              <li><nuxt-link to="/series/emperor-owner-mask">The emperor: owner of the mask</nuxt-link></li>
+              <li><nuxt-link to="/series/suspicious-partner">Suspicious partner</nuxt-link></li>
+            </ul>
+          </v-flex>
+        </v-layout>
+      </v-card-text>
+      </v-card>
+    </v-footer>
   <div class="before-foot"></div>
   <footer-com></footer-com>
   </v-app>
@@ -16,12 +58,16 @@
 import NavBar from '~/components/NavBar'
 import Footer from '~/components/Footer'
 
+
 export default {
   components: { NavBar, 'footer-com': Footer }
 }
 </script>
 
 <style>
+ul.footer-link-list {
+  list-style-type: none;
+}
 .before-foot {
   margin-bottom: 50px;
   display: block;

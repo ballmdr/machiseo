@@ -165,7 +165,8 @@ export default {
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
         { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' },
+        { hid: 'twitter_card', name: 'twitter:card', content: 'summary' }
       ],
       link: [
         { rel: 'canonical', href: canonical }

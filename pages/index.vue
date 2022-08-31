@@ -8,9 +8,13 @@
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
     <v-flex xs12 class="box">
-      <h2>ซีรีส์เกาหลีฮิตในตอนนี้</h2>
+      <h2>ซีรีย์เกาหลี แนะนำ</h2>
       <v-divider></v-divider>
-      <series-hit :seriesHit="seriesHit"></series-hit>
+        <v-layout row wrap justify-center align-center>
+          <v-flex xs12 sm5 md4 lg4 v-for="serie in seriesHit" :key="serie.uuid" >
+            <series-hit-card :serie="serie" ></series-hit-card>
+          </v-flex>
+        </v-layout>
     </v-flex>
    <!-- <v-flex xs12>
       <h2>ฉากแนะนำ</h2>
@@ -27,21 +31,21 @@
     </v-flex>
   -->
     <v-flex xs12 class="box">
-      <h2>ซีรีส์เกาหลีออนแอร์</h2>
+      <h2>ซีรีส์เกาหลีใหม่</h2>
       <v-divider></v-divider>
       <series-onair :series="onair"></series-onair>
     </v-flex>
-    <v-flex xs12 class="box">
+   <!-- <v-flex xs12 class="box">
       <h2>ดาราเกาหลีที่กำลังออนแอร์</h2>
       <v-divider></v-divider>
       <celebs-onair :series="onair"></celebs-onair>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 
 <script>
 import { getLatestEpisodes, getSeriesOnair, getSeriesArticles } from '~/assets/js/api'
-import SeriesHit from '~/components/home/SeriesHit'
+import SeriesHitCard from '~/components/home/SeriesHitCard'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
 import CelebsOnair from '~/components/home/CelebsOnair'
@@ -50,7 +54,7 @@ import SoundCloud from '~/components/home/SoundCloud'
 import ArticlesList from '~/components/series/ArticlesList'
 
 export default {
-  components: { SeriesHit, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
+  components: { SeriesHitCard, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
       widgetId: '247279',
