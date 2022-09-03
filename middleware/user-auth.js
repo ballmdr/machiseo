@@ -1,4 +1,5 @@
 export default function ({ store, app }) {
+
   //console.log('auth', app.$auth)
   if (app.$auth.$state.loggedIn) {
     //console.log('login')

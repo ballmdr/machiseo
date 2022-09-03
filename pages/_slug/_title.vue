@@ -126,7 +126,7 @@ export default {
       this.img_streaming = this.episodes[index].field_img_streaming
       this.num_pic = 0
       //window.scrollTo(0,0, behavior: 'smooth')
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 500, behavior: 'smooth' })
     }
   },
 }
