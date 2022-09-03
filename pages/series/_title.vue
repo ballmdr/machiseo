@@ -19,9 +19,15 @@
                   </v-flex>
                 </v-layout>
               </v-card-title>
-              <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name | escape }}</v-btn>
-              <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name | escape }}</v-btn>
-              <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name | escape }}</v-btn>
+              <span v-if="serie.field_series_type.length > 0">
+                <v-btn small nuxt :to="'/series/type/' + type.name" round color="warning" v-for="type in serie.field_series_type" :key="type.id" style="color:black">{{ type.name | escape }}</v-btn>
+              </span>
+              <span v-if="serie.field_channel.name.length > 0">
+                <v-btn small round nuxt :to="'/series/channel/' + serie.field_channel.name" style="padding:0; margin:0">{{ serie.field_channel.name | escape }}</v-btn>
+              </span>
+              <span v-if="serie.field_serie_year.name.length > 0">
+                <v-btn small round nuxt :to="'/series/year/' + serie.field_serie_year.name" style="padding:0; margin:0">{{ serie.field_serie_year.name | escape }}</v-btn>
+              </span>
               <v-divider dark></v-divider>
               <v-card-text>
                 <v-layout column>
@@ -55,6 +61,7 @@
                     </v-flex>
                   </v-layout>
                 </v-layout>
+                <div class="addthis_inline_share_toolbox"></div>
               </v-card-text>
             </v-flex>
             <!--<v-flex xs12 v-if="serie.field_trailor !== null">
@@ -70,7 +77,7 @@
       </v-flex>
     </v-flex>
   -->
-    <v-flex xs12>
+    <v-flex xs12 v-if="serie.field_celeb.length > 0">
       <h2>ดารา นักแสดง {{ serie.title}}</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
     </v-flex>

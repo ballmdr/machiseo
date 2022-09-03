@@ -31,7 +31,6 @@
         <v-card-text v-html="ep_body" style="line-height:30px;">
         </v-card-text>
 
-        <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <div class="addthis_inline_share_toolbox"></div>
             
         <div><adsbygoogle /></div>
