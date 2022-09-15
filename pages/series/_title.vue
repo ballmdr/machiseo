@@ -98,11 +98,11 @@
             <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
-      <!--  <v-flex xs12 v-if="articles.length > 0">
-          <h2>ฉากเด็ดและฉากประทับใจในเรื่อง</h2>
+        <v-flex xs12 v-if="articles.length > 0">
+          <h2>บทความน่าอ่าน {{ serie.title }}</h2>
           <articles-list :articles="articles"></articles-list>
         </v-flex>
-      -->
+      
        <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
@@ -156,7 +156,7 @@ export default {
   },
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'รีวิว สปอยล์ เรื่องย่อ ' + this.$options.filters.truncate(this.serie.field_synopsis, 150)
+    const synopsis = 'เรื่องย่อ ' + this.serie.title + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {
       title: this.serie.title + ' สปอย เรื่องย่อ นักแสดง',
@@ -208,9 +208,9 @@ export default {
     //console.log(episodes)
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
-    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.nid)
+    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.drupal_internal__nid)
     //console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
-    let serieScore = await voteResult(serie.nid)
+    let serieScore = await voteResult(serie.drupal_internal__nid)
     if (serieScore.length > 1) {
       serieScore = serieScore[1].value[0].value
     }
@@ -219,8 +219,15 @@ export default {
     }
     //console.log('nid', serie.nid)
     //console.log(serie)
-    //const articles = await getSeriesArticlesById(serie.nid)
-    return { serie, reviews, serieScore, episodes }
+    const articles = await getSeriesArticlesById(serie.id)
+    //console.log('articles')
+    console.log(articles)
+    //let have_articles = 0
+    //if (typeof(articles) != 'undefined') {
+      //console.log('have articles')
+    //  have_articles = 1
+    //}
+    return { serie, reviews, serieScore, episodes, articles }
   },
   async fetch ({ app, params, store }) {
     //await store.dispatch('episodes/setEp', params.title)

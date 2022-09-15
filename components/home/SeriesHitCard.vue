@@ -1,20 +1,21 @@
 <template>
-  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
-    <v-img
+  <v-card color="orange" @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
+    
+       <v-card-title primary-title>
+          <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
+        </v-card-title>
+        <v-img
       height="200px"
       :src="checkUrl(serie.cover)"
     >
     </v-img>
-       <v-card-title primary-title>
-          <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
-        </v-card-title>
-    <v-card-title primary-title>
+   <!-- <v-card-title primary-title>
       <v-flex xs6 v-for="celeb in serie.celebs" :key="celeb.uuid">
         <div><v-avatar><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
           {{ celebName(celeb.title) }}
         </div>
       </v-flex>
-    </v-card-title>
+    </v-card-title>-->
    <!-- <v-card-actions>
       <v-btn flat color="orange text-xs-right">อ่านสปลอยล์</v-btn>
     </v-card-actions>-->
@@ -72,7 +73,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.serie)
+    //console.log(this.serie)
     /*
     const tmpHeaders = this.$axios.defaults.headers
     this.$axios.defaults.headers = {

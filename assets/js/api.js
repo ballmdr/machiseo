@@ -16,13 +16,14 @@ export async function voteUpdate (nid, point) {
 
 export async function getSeriesArticlesById (id) {
   let res = null
+  console.log('id', id)
   try {
-    const { data } = await apiClient.get(prefix + '/articles?filter[field_series_main]=' + id + '&include=field_thumbnail_article&sort=-nid')
-    //console.log('data in api ', data)
+    const { data } = await apiClient.get(prefix + '/articles?filter[field_series_main.id]=' + id + '&include=field_thumbnail_article')
+    console.log('data in api ', data)
     res = data
   }
   catch (err) {
-    //console.log('err', err.response.status)
+    console.log('err', err.response.status)
     res = err.response.status
   }
 
@@ -88,6 +89,28 @@ export async function getUuidByPath (path) {
   const uri = findRouterPath + path
   const router = await apiClient.get(uri)
   return router.data.entity.uuid
+}
+
+export async function getArticleByPath (path) {
+  console.log(path)
+  const uri = findRouterPath + '/articles/' + path
+  const { data } = await apiClient.post('/subrequests?_format=json',
+    [
+      {
+        'requestId': 'router',
+        'action': 'view',
+        'uri': uri,
+        'headers': { 'Accept': 'application/vnd.application+json' }
+      },
+      {
+        'requestId': 'node',
+        'action': 'view',
+        'uri': '/jsonapi/articles?filter[id]={{router.body@$.entity.uuid}}',
+        'Accept': 'application/json',
+        'waitFor': ['router']
+      }
+    ], { auth: { username: process.env.userDrupal, password: process.env.passDrupal } })
+  return jsonapiParse.parse(JSON.parse(data['node#uri{0}'].body)).data
 }
 
 export async function getSerieByPath (path, env) {

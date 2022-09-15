@@ -27,6 +27,8 @@
           </v-flex>
           <v-flex xs12 sm5 md4 lg4>
             <ul class="footer-link-list">
+              <li><nuxt-link to="/series/law-cafe">The Law Cafe</nuxt-link></li>
+              <li><nuxt-link to="/series/big-mouth">Big Mouth</nuxt-link></li>
               <li><nuxt-link to="/series/my-roommate-gumiho">My roommate is a gumiho</nuxt-link></li>
               <li><nuxt-link to="/series/mr-queen">Mr Queen</nuxt-link></li>
               <li><nuxt-link to="/series/moon-lovers">Moon Lovers</nuxt-link></li>

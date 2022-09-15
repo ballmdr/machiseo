@@ -15,39 +15,40 @@
     </v-flex>
     <v-flex xs12 sm10>
       <v-card>
-        <v-card-text v-html="article[0].body.processed" class='img-width'></v-card-text>
+        <v-card-text v-html="article_body" class='img-width'></v-card-text>
+        <div class="addthis_inline_share_toolbox"></div>
       </v-card>
     </v-flex>
     <v-flex xs12 sm12 md8 style="margin:auto;">
       <nuxt-link :to="serie.path.alias"><h3>{{ serie.title }}</h3></nuxt-link>
       <v-layout row wrap>
         <v-flex xs4 style="cursor:pointer;" @click="$router.push(serie.path.alias)">
-          <v-img contain max-width="150" class="elevation-6" style="border-radius:12px;" :src="checkUrl(serie.field_poster[0].url)"></v-img>
+          <v-img contain max-width="150" class="elevation-6" style="border-radius:12px;" :src="checkUrl(serie.field_poster[0].uri.url)"></v-img>
         </v-flex>
         <v-flex xs8>
           <v-layout row wrap>
             <v-flex xs6 v-for="celeb in serie.field_celeb" :key=celeb.uuid>
-              <v-avatar><v-img :src="checkUrl(celeb.field_celeb_profile.url)"></v-img></v-avatar> {{ celeb.title | celebTitle  }}
+              <v-avatar><v-img :src="checkUrl(celeb.field_celeb_profile.uri.url)"></v-img></v-avatar> {{ celeb.title | celebTitle  }}
             </v-flex>
           </v-layout>
         </v-flex>
       </v-layout>
     </v-flex>
     <v-flex xs12 v-if="articles.length > 0">
-      <h2>รวมฉากเด็ดและฉากน่าประทับใจ</h2>
+      <h2>บทความอื่นๆ</h2>
       <articles-list :articles="articles"></articles-list>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { getArticleById, getSerieCelebByUuid, getSeriesArticlesById } from '~/assets/js/api'
+import { getArticleById, getSerieCelebByUuid, getSeriesArticlesById, getArticleByPath } from '~/assets/js/api'
 import ArticlesList from '~/components/series/ArticlesList'
 
 export default {
   data () {
     return {
-
+      article_body: ''
     }
   },
   components: { ArticlesList },
@@ -56,6 +57,9 @@ export default {
       if (!value) return ''
       const str = value.split(' ')
       return str[0]
+    },
+    bodyFilter: function (value) {
+      return value
     }
   },
   methods: {
@@ -72,7 +76,7 @@ export default {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.article[0].body.processed, 150)
     const title = this.article[0].title + ' - ' + this.serie.title
-    const image = this.checkUrl(this.serie.field_poster[0].url)
+    const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {
       title: title,
       meta: [
@@ -95,13 +99,21 @@ export default {
     }
   },
   mounted() {
-    console.log('article', this.article)
+    
     //console.log('serie', this.serie)
+    this.article_body = this.article[0].body.processed.replaceAll('/sites/', 'https://www.machiseo.net/sites/')
   },
   async asyncData ({ app, params, env, store }) {
-    const article = await getArticleById(params.nid)
+    //console.log('nid', params.nid)
+    //console.log('title', params.title)
+   
+    //const article = await getArticleById(params.nid)
+    const article = await getArticleByPath(params.title)
+    //console.log('article', article)
     const serie = await getSerieCelebByUuid(article[0].field_series_main[0].id)
-    const articles = await getSeriesArticlesById(serie.nid)
+    //console.log('serie', serie)
+    const articles = await getSeriesArticlesById(serie.id)
+    
     return { article, serie, articles }
   }
 }

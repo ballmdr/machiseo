@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-bottom-nav
-      fixed="true"
+      fixed
       :active.sync="bottomNav"
       :value="true"
       color="purple"

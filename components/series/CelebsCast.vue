@@ -15,7 +15,7 @@ export default {
   props: ['celebs'],
   components: { CelebCard },
   mounted () {
-    console.log(this.celebs)
+    //console.log(this.celebs)
   },
   data () {
     return {

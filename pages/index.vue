@@ -16,11 +16,12 @@
           </v-flex>
         </v-layout>
     </v-flex>
-   <!-- <v-flex xs12>
-      <h2>ฉากแนะนำ</h2>
+    <v-flex xs12>
+      <h2>บทความ</h2>
+      <v-divider></v-divider>
       <articles-list :articles="articles"></articles-list>
     </v-flex>
-   -->
+   
   <!--  <v-flex xs12 sm6>
       <h2>OST อัพเดท</h2>
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
@@ -70,9 +71,9 @@ export default {
     const episodes = await getLatestEpisodes(10)
     const onair = await getSeriesOnair()
     const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
-    //const articles = await getSeriesArticles()
+    const articles = await getSeriesArticles()
     //console.log(seriesHit)
-    return { episodes, onair, seriesHit }
+    return { episodes, onair, seriesHit, articles }
   }
 }
 </script>
