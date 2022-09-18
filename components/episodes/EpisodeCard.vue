@@ -1,7 +1,7 @@
 <template>
   <v-card dark class="episode">
     <v-img :src="baseUrl + ep.field_thumbnail.uri.url"></v-img>
-    <div class="number">ตอนที่ {{ ep.title }}</div>
+    <div class="number"><nuxt-link style="color: black !important" :to="ep.path.alias">ตอนที่ {{ ep.title }}</nuxt-link></div>
   </v-card>
 </template>
 

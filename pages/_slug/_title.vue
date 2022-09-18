@@ -41,8 +41,11 @@
         <v-flex xs12>
           <adsbygoogle />
         </v-flex>
-        <v-flex xs6 sm10 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="showEp(index)">
+     <!--   <v-flex xs6 sm10 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="showEp(index)">
           <episode-card :ep="ep"></episode-card>
+        </v-flex> -->
+        <v-flex xs6 sm10 v-for="ep in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="$router.push(ep.path.alias)">
+          <episode-card :ep="ep" ></episode-card>
         </v-flex>
       </v-layout>
     </v-flex>
