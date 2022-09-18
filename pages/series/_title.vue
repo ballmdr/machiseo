@@ -86,7 +86,7 @@
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
-            <v-card-text><p style="color:#9ab" v-text="serie.field_synopsis"></p></v-card-text>
+            <v-card-text><p style="color:#9ab" v-html="serie.field_synopsis"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 sm8>
