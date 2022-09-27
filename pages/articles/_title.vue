@@ -19,20 +19,26 @@
         <div class="addthis_inline_share_toolbox"></div>
       </v-card>
     </v-flex>
-    <v-flex xs12 sm12 md8 style="margin:auto;">
-      <nuxt-link :to="serie.path.alias"><h3>{{ serie.title }}</h3></nuxt-link>
-      <v-layout row wrap>
-        <v-flex xs4 style="cursor:pointer;" @click="$router.push(serie.path.alias)">
-          <v-img contain max-width="150" class="elevation-6" style="border-radius:12px;" :src="checkUrl(serie.field_poster[0].uri.url)"></v-img>
-        </v-flex>
-        <v-flex xs8>
+    <v-flex xs12 sm10 md8 style="margin:auto;" v-if="serie !== ''">
+      <v-card color="purple">
+        <v-card-title>
+          <nuxt-link :to="serie.path.alias"><h3>{{ serie.title }}</h3></nuxt-link>
+        </v-card-title>
+        <v-card-text>
           <v-layout row wrap>
-            <v-flex xs6 v-for="celeb in serie.field_celeb" :key=celeb.uuid>
-              <v-avatar><v-img :src="checkUrl(celeb.field_celeb_profile.uri.url)"></v-img></v-avatar> {{ celeb.title | celebTitle  }}
+            <v-flex xs4 style="cursor:pointer;" @click="$router.push(serie.path.alias)">
+              <v-img contain max-width="150" class="elevation-6" style="border-radius:12px;" :src="checkUrl(serie.field_poster[0].uri.url)"></v-img>
+            </v-flex>
+            <v-flex xs8>
+              <v-layout row wrap>
+                <v-flex xs6 v-for="celeb in serie.field_celeb" :key=celeb.uuid>
+                  <v-avatar><v-img :src="checkUrl(celeb.field_celeb_profile.uri.url)"></v-img></v-avatar> {{ celeb.title | celebTitle  }}
+                </v-flex>
+              </v-layout>
             </v-flex>
           </v-layout>
-        </v-flex>
-      </v-layout>
+        </v-card-text>
+      </v-card>
     </v-flex>
     <v-flex xs12 v-if="articles.length > 0">
       <h2>บทความอื่นๆ</h2>
@@ -75,8 +81,8 @@ export default {
   head () {
     const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.article[0].body.processed, 150)
-    const title = this.article[0].title + ' - ' + this.serie.title
-    const image = this.checkUrl(this.serie.field_poster[0].uri.url)
+    const title = this.article[0].title
+    const image = ''
     return {
       title: title,
       meta: [
@@ -100,7 +106,6 @@ export default {
   },
   mounted() {
     
-    //console.log('serie', this.serie)
     this.article_body = this.article[0].body.processed.replaceAll('/sites/', 'https://www.machiseo.net/sites/')
   },
   async asyncData ({ app, params, env, store }) {
@@ -109,11 +114,17 @@ export default {
    
     //const article = await getArticleById(params.nid)
     const article = await getArticleByPath(params.title)
-    //console.log('article', article)
-    const serie = await getSerieCelebByUuid(article[0].field_series_main[0].id)
-    //console.log('serie', serie)
-    const articles = await getSeriesArticlesById(serie.id)
-    
+
+    let serie = ''
+    let articles = []
+    if (article[0].field_series_main.length > 0) {
+      console.log('>0')
+      serie = await getSerieCelebByUuid(article[0].field_series_main[0].id)
+      articles = await getSeriesArticlesById(serie.id)
+    } else {
+      console.log('<0')
+    }
+
     return { article, serie, articles }
   }
 }

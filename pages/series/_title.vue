@@ -241,7 +241,7 @@ export default {
 
 <style scoped>
 .logo_subthai{
-  max-width:75px;
+  max-width:75px !important;
 }
 .u-clearfix:before,
 .u-clearfix:after {
