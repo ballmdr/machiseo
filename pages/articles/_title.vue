@@ -22,7 +22,7 @@
     <v-flex xs12 sm10 md8 style="margin:auto;" v-if="serie !== ''">
       <v-card color="purple">
         <v-card-title>
-          <NuxtLink :to="serie.path.alias"><h3>{{ serie.title }}</h3></NuxtLink>
+          <nuxt-link :to="serie.path.alias"><h3>{{ serie.title }}</h3></nuxt-link>
         </v-card-title>
         <v-card-text>
           <v-layout row wrap>

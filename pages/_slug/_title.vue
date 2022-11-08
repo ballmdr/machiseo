@@ -8,7 +8,7 @@
               <v-img contain max-width="150" max-height="200" :src="checkUrl(serie.field_poster[0].uri.url)" class="card-media-img"></v-img>
             </v-flex>
             <v-flex xs8 sm9>
-              <NuxtLink :to="serie.path.alias"><h1 class="primary--text">{{ serie.title }}</h1></NuxtLink>
+              <nuxt-link :to="serie.path.alias"><h1 class="primary--text">{{ serie.title }}</h1></nuxt-link>
               <small v-html="serie.body.processed"></small>
             </v-flex>
           </v-layout>
