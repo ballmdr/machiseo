@@ -27,7 +27,7 @@
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
     </v-flex>
     <v-flex xs12 sm6 class="text-xs-center">
-      <h2><nuxt-link to="/series/when-weather-fine">When the Weather is Fine</nuxt-link>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h2>
+      <h2><NuxtLink to="/series/when-weather-fine">When the Weather is Fine</NuxtLink>&nbsp;<v-icon large style="margin-bottom:10px;">fas fa-video</v-icon></h2>
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
   -->

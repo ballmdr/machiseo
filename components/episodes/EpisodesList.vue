@@ -3,12 +3,12 @@
     <v-flex class="hvr-grow" xs12 sm4 v-for="ep in episodes" :key="ep.id"
       style="cursor:pointer"
     >
-      <nuxt-link :to="getEpPath(ep.title)">
+      <NuxtLink :to="getEpPath(ep.title)">
         <v-card dark class="episode">
           <v-img :src="baseUrl + ep.field_thumbnail.uri.url"></v-img>
           <div class="number">ตอนที่ {{ ep.title }}</div>
         </v-card>
-      </nuxt-link>
+      </NuxtLink>
     </v-flex>
   </v-layout>
 </template>

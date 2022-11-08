@@ -49,6 +49,11 @@
                         <img class="logo_subthai" src="/disney.png">
                       </a>
                     </v-flex>
+                    <v-flex v-if="serie.field_prime !== null">
+                      <a :href="serie.field_prime" target="_blank" rel="nofollow">
+                        <img class="logo_subthai" src="/prime.png">
+                      </a>
+                    </v-flex>
                     <v-flex v-if="serie.field_wetv !== null">
                       <a :href="serie.field_wetv" target="_blank" rel="nofollow">
                         <img class="logo_subthai" src="/wetv.png">
@@ -127,7 +132,7 @@
 
 <script>
 import CelebsCast from '~/components/series/CelebsCast'
-import { getSerieByPath, getSeriesArticlesById, getEpisodesBySerie } from '~/assets/js/api'
+import { getSerieByPath, getSeriesArticlesById, getEpisodesBySerie } from '~/assets/js/api.js'
 import ViuWidget from '~/components/series/ViuWidget'
 import Reviews from '~/components/reviews/Reviews'
 import { voteUpdate, voteResult } from '~/assets/js/api'

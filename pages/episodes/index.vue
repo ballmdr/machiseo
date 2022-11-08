@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap justify-center>
     <v-flex xs12>
-      <nuxt-link v-if="!root" :to="$store.state.series.serie.path.alias"><h1>{{ $store.state.series.serie.title }}</h1></nuxt-link>
+      <NuxtLink v-if="!root" :to="$store.state.series.serie.path.alias"><h1>{{ $store.state.series.serie.title }}</h1></NuxtLink>
       <h1 :class="{'grey--text subheading': !root}">สปอยล์รายตอน - ซีรีส์เกาหลี</h1>
     </v-flex>
     <v-flex xs12>

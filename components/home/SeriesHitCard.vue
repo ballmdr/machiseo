@@ -2,7 +2,7 @@
   <v-card color="orange" @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
     
        <v-card-title primary-title>
-          <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
+          <NuxtLink :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></NuxtLink>
         </v-card-title>
         <v-img
       height="200px"
@@ -22,7 +22,7 @@
   </v-card>
       <!--
   <v-card @click="$router.push(serie.path)" style="cursor:pointer;max-height:300px;" class="hvr-bob">
-    <v-toolbar dense color="primary"><span style="font-weight:bold;">อันดับ {{ serie.rank }} : <nuxt-link :to="serie.path">{{ serie.title }}</nuxt-link>&nbsp;</span>     
+    <v-toolbar dense color="primary"><span style="font-weight:bold;">อันดับ {{ serie.rank }} : <NuxtLink :to="serie.path">{{ serie.title }}</NuxtLink>&nbsp;</span>     
       <v-spacer></v-spacer>
    <v-icon large style="margin-bottom:10px;" color="red">fab fa-hotjar</v-icon> 
       <v-progress-circular

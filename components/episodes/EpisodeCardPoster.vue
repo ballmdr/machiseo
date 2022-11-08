@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="getEpPath(ep.field_series_episode.path.alias, ep.title)">
+  <NuxtLink :to="getEpPath(ep.field_series_episode.path.alias, ep.title)">
     <v-card dark flat style="cursor:pointer;margin:10px;">
       <v-img :src="baseUrl + ep.field_thumbnail.uri.url" max-height="200"></v-img>
       <v-card-title class="poster-above" style="height:100px;">
@@ -7,7 +7,7 @@
         <span style="position:absolute;font-weight:bold;margin-top:33px;margin-left:90px;"><div>{{ ep.field_series_episode.title }}</div> ตอนที่ {{ ep.title }}</span>
       </v-card-title>
     </v-card>
-  </nuxt-link>
+  </NuxtLink>
 </template>
 
 <script>

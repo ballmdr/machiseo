@@ -7,7 +7,7 @@
         @click.native="$router.push(serie.path.alias)">
       <v-img class="box movie-img"  :src="baseUrl + serie.field_poster[0].uri.url"></v-img>
       <v-card-title class="box-caption">
-        <nuxt-link :to="serie.path.alias"><h4>{{ serie.title }}</h4></nuxt-link>
+        <NuxtLink :to="serie.path.alias"><h4>{{ serie.title }}</h4></NuxtLink>
         <v-rating dense v-model="serieScore" color="yellow" half-increments readonly></v-rating>
       </v-card-title>
       <v-card-actions v-if="serie.field_episode_series.length > 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
@@ -22,7 +22,7 @@
         <v-card-actions v-if="serie.field_episode_series.length !== 0"><v-spacer></v-spacer><v-icon color="warning">fas fa-book-reader</v-icon>&nbsp;มีสปอยด์</v-card-actions>
       </v-card-text>
       <v-card-title style="height:150px">
-        <nuxt-link :to="serie.path.alias"><strong>{{ serie.title }}</strong></nuxt-link>
+        <NuxtLink :to="serie.path.alias"><strong>{{ serie.title }}</strong></NuxtLink>
         <v-rating v-model="serieScore" small color="yellow" half-increments readonly></v-rating>
         <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
       </v-card-title>
