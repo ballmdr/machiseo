@@ -16,12 +16,12 @@
           </v-flex>
         </v-layout>
     </v-flex>
-    <v-flex xs12>
+<!--   <v-flex xs12>
       <h2>บทความ</h2>
       <v-divider></v-divider>
       <articles-list :articles="articles"></articles-list>
     </v-flex>
-   
+  -->
   <!--  <v-flex xs12 sm6>
       <h2>OST อัพเดท</h2>
       <sound-cloud :soundCloudId="soundId"></sound-cloud>
