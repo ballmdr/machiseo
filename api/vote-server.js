@@ -23,7 +23,7 @@ var db
 MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   auth: {
-    user: 'root',
+    user: 'ballmdr2',
     password: 'M3n17v11',
     authSource: 'admin'
   }
