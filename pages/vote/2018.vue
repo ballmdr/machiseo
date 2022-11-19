@@ -6,7 +6,7 @@
     <v-flex xs12>
       <v-btn nuxt large color="warning" to="/vote/2018-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
     </v-flex>
-    <!--
+
     <v-flex xs12 sm3 md4 d-flex>
       <v-card flat>
         <v-card-text>
@@ -66,7 +66,7 @@
       >
         <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/1 คลิกโหวตตรงนี้ได้เลย</v-chip>
       </v-bottom-nav>
-      -->
+
   </v-layout>
 </template>
 
@@ -152,7 +152,10 @@ export default {
     },
     async voteSave () {
       this.confirmDialog = false
-      if (this.listVote.length > 1) {
+      if (true) {
+        this.$toast.error('ปิดโหวตแล้วจ้า')
+      }
+      else if (this.listVote.length > 1) {
         this.checkDialog = true
       } else if (this.listVote.length === 0) {
         this.$toast.error('เลือกซีรีส์ก่อนจ้า')
@@ -191,7 +194,7 @@ export default {
     }
   },
   async asyncData ({ app, env }) {
-    const series = await app.$axios.$get(env.voteServer + '/vote/final/series')
+    const series = await app.$axios.$get(env.voteServer + '/vote/series')
     return { series }
   }
 }
