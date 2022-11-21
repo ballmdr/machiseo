@@ -20,7 +20,10 @@ app.use(function (req, res, next) {
 })
 
 var db
-MongoClient.connect('mongodb://localhost:27017', {
+var col_series = 'series_2022'
+var col_series_final = 'series_final_2022'
+
+MongoClient.connect('mongodb://89.38.96.193:27017', {
   useNewUrlParser: true,
   auth: {
     user: 'ballmdr2',
@@ -42,14 +45,14 @@ app.get('/getip', (req, res) => {
 })
 
 app.get('/vote/series', (req, res) => {
-  db.collection('series').find().sort({ title: 1 }).toArray((err, result) => {
+  db.collection(col_series).find().sort({ title: 1 }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.get('/vote/final/series', (req, res) => {
-  db.collection('series_final').find().sort({ title: 1 }).toArray((err, result) => {
+  db.collection(col_series_final).find().sort({ title: 1 }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
@@ -63,7 +66,7 @@ app.get('/vote/result/list', (req, res) => {
 })
 
 app.put('/vote/series/score/add/:id', (req, res) => {
-  db.collection('series').updateOne({ _id: new ObjectID(req.params.id) },
+  db.collection(col_series).updateOne({ _id: new ObjectID(req.params.id) },
     { $inc:
     {
       score: 1
@@ -75,7 +78,7 @@ app.put('/vote/series/score/add/:id', (req, res) => {
 })
 
 app.put('/vote/final/series/score/add/:id', (req, res) => {
-  db.collection('series_final').updateOne({ _id: new ObjectID(req.params.id) },
+  db.collection(col_series_final).updateOne({ _id: new ObjectID(req.params.id) },
     { $inc:
     {
       score: 1
@@ -87,35 +90,35 @@ app.put('/vote/final/series/score/add/:id', (req, res) => {
 })
 
 app.get('/vote/series/score', (req, res) => {
-  db.collection('series_final').find().sort({ score: -1 }).limit(10).toArray((err, result) => {
+  db.collection(col_series_final).find().sort({ score: -1 }).limit(10).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.get('/vote/series/score/all', (req, res) => {
-  db.collection('series').find().sort({ score: -1 }).toArray((err, result) => {
+  db.collection(col_series).find().sort({ score: -1 }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.get('/vote/final/series/score', (req, res) => {
-  db.collection('series_final').find().sort({ score: -1 }).limit(10).toArray((err, result) => {
+  db.collection(col_series_final).find().sort({ score: -1 }).limit(10).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.post('/vote/series/add', (req, res) => {
-  db.collection('series').insertOne(req.body, (err, result) => {
+  db.collection(col_series).insertOne(req.body, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.post('/vote/final/series/add', (req, res) => {
-  db.collection('series_final').insertOne(req.body, (err, result) => {
+  db.collection(col_series_final).insertOne(req.body, (err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
@@ -142,14 +145,14 @@ app.post('/vote/add', (req, res) => {
 })
 
 app.post('/vote/final/last/ip', (req, res) => {
-  db.collection('series_vote_final').find({ 'ip.ip': req.body.ip }).toArray((err, result) => {
+  db.collection(col_series_final).find({ 'ip.ip': req.body.ip }).toArray((err, result) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
 app.post('/vote/final/add', (req, res) => {
-  db.collection('series_vote_final').insertOne(
+  db.collection(col_series_final).insertOne(
     {
       series: new ObjectID(req.body.serie),
       ip: req.body.ip,
