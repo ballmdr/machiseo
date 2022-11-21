@@ -35,11 +35,14 @@ export default {
       if (this.path === '') {
         this.$toast.error('ยังไม่ใส่ Path')
       } else {
-        const router = await this.$axios.get('/router/translate-path?path=' + this.path)
+        const url_str = this.path.split('.com')
+        const path2 = url_str[1]
+        //this.$toast.success(path2)
+        const router = await this.$axios.get('/router/translate-path?path=' + path2)
         let serie = await getSerieByUuid(router.data.entity.uuid, '?include=field_poster')
         serie = getSerieObj(serie)
         try {
-          await this.$axios.$post(process.env.voteServer + '/vote/final/series/add', serie)
+          await this.$axios.$post(process.env.voteServer + '/vote/series/add', serie)
           this.$toast.success('เพิ่มแล้ว')
           this.path = ''
           this.series.unshift(serie)
@@ -50,7 +53,7 @@ export default {
     }
   },
   async asyncData ({ app, env }) {
-    const series = await app.$axios.$get(env.voteServer + '/vote/final/series')
+    const series = await app.$axios.$get(env.voteServer + '/vote/series')
     return { series }
   }
 }

@@ -31,7 +31,7 @@ export function getSerieObj (serie) {
     uuid: serie.uuid,
     nid: serie.nid,
     title: serie.title,
-    poster: serie.field_poster[0].url,
+    poster: serie.field_poster[0].uri.url,
     path: serie.path.alias,
     score: 0
   }
