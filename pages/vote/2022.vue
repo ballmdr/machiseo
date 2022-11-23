@@ -1,12 +1,12 @@
 <template>
     <v-layout row wrap>
       <v-flex xs12>
-        <h1>โหวตซีรีส์เกาหลี รอบชิงชนะเลิศปี 2018</h1>
+        <h1>โหวตซีรีส์เกาหลีแห่งปี 2022 รอบคัดเลือก</h1>
       </v-flex>
-      <v-flex xs12>
+    <!--  <v-flex xs12>
         <v-btn nuxt large color="warning" to="/vote/2018-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
       </v-flex>
-  
+      -->
       <v-flex xs12 sm3 md4 d-flex>
         <v-card flat>
           <v-card-text>
@@ -19,16 +19,16 @@
             </v-layout>
             </v-card-text>
             <v-card-actions>
-            <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">{{ listVote.length }}/1 โหวต</v-btn>
+            <v-spacer></v-spacer><v-btn large round color="warning" @click="voteConfirm" style="color:black;margin-bottom:15px;">{{ listVote.length }}/{{ max_vote }} โหวต</v-btn>
             </v-card-actions>
-            <v-card-actions><v-spacer></v-spacer><v-btn color="primary" nuxt to="/vote/2018-result">ดูคะแนนโหวตล่าสุด</v-btn></v-card-actions>
+            <v-card-actions><v-spacer></v-spacer><v-btn color="primary" nuxt to="/vote/2022-result">ดูคะแนนโหวตล่าสุด</v-btn></v-card-actions>
         </v-card>
       </v-flex>
       <v-flex xs12 sm9 md8 class="text-xs-center">
         <v-card flat class="scroll">
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12><h2>โหวตได้คนละ 1 ครั้งเท่านั้น</h2></v-flex>
+              <v-flex xs12><h2>โหวตได้สูงสุด {{ max_vote }} เรื่อง</h2></v-flex>
               <v-flex xs12>คลิกเลือกซีรีส์ที่ชื่นชอบ | ซีรีส์เรียงตามตัวอักษร</v-flex>
                 <v-flex style="cursor:pointer" @click="addVote(index)" class="hvr-reveal" xs6 sm4 md3 lg2 v-for="(serie, index) in series" :key="index">
                     <v-img style="border-radius:15px;margin:auto;" max-width="100" :src="baseUrl + serie.poster"></v-img>
@@ -40,7 +40,7 @@
       </v-flex>
         <v-dialog v-model="checkDialog" persistent max-width="300">
           <v-card color="primary">
-            <v-card-title><span style="font-size: 24px;">เลือกได้เรื่องเดียวจ้า</span></v-card-title>
+            <v-card-title><span style="font-size: 24px;">เลือกได้ไม่เกิน 5 เรื่องจ้า</span></v-card-title>
             <v-card-text>คลิกซีรีส์ที่เลือกเพื่อลบออก</v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -64,14 +64,14 @@
           fixed
           height="40"
         >
-          <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/1 คลิกโหวตตรงนี้ได้เลย</v-chip>
+          <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/{{ max_vote }} คลิกโหวตตรงนี้ได้เลย</v-chip>
         </v-bottom-nav>
   
     </v-layout>
-  </template>
+</template>
   
-  <script>
-  // import { getSeriesByYear } from '~/assets/js/api'
+<script>
+
   import moment from 'moment'
   
   export default {
@@ -82,23 +82,24 @@
         baseUrl: process.env.baseUrl,
         author: '',
         checkDialog: false,
-        confirmDialog: false
+        confirmDialog: false,
+        max_vote: 5
       }
     },
     head () {
       const canonical = `https://www.machiseo.com${this.$route.path}`
-      const synopsis = 'โหวตซีรีส์เกาหลียอดฮิตแห่งปี 2018 กับ มาชิสซอ และโคตรฮิต'
+      const synopsis = 'โหวตสุดยอดซีรีส์เกาหลีแห่งปี 2022 กับ มาชิสซอ และโคตรฮิต'
       return {
-        title: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - มาชิสซอ',
+        title: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - มาชิสซอ',
         meta: [
           { hid: 'description', name: 'description', content: synopsis },
           { hid: 'og_type', name: 'og:type', content: 'article' },
-          { hid: 'og_title', name: 'og:title', content: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - มาชิสซอ' },
+          { hid: 'og_title', name: 'og:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - มาชิสซอ' },
           { hid: 'og_description', name: 'og:description', content: synopsis },
           { hid: 'og_image', name: 'og:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
           { hid: 'og_url', name: 'og:url', content: canonical },
           { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
-          { hid: 'twitter_title', name: 'twitter:title', content: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018' },
+          { hid: 'twitter_title', name: 'twitter:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022' },
           { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
           { hid: 'twitter_image', name: 'twitter:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
           { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
@@ -122,40 +123,41 @@
         this.confirmDialog = true
       },
       async checkValidIp (ip) {
-        // final round check 1 ip 1 time
-        const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/final/last/ip', { ip: ip })
+        //check 1 ip 1 time
+        const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip })
         console.log('last vote', lastVote)
         if (lastVote === null || lastVote.length === 0) {
-          return true
+         return true
         } else {
-          return false
+         return false
         }
   
-        /* check 1 day 1 ip
-        try {
-          const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
-          const now = new moment()
-          if (lastVote.length === 0 || lastVote[0].time == null || lastVote[0].ip == null) {
-            return true
-          } else {
-            const diff = moment.duration(now.diff(lastVote[0].time))
-            if (diff._data.days > 0) {
-              return  true
-            } else {
-              return false
-            }
-          }
-        } catch (e) {
-          return false
-        }
-        */
+        //check 1 day 1 ip
+        // try {
+        //   const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
+        //   const now = new moment()
+        //   //console.log(lastVote)
+        //   if (lastVote.length === 0 || lastVote[0].time == null || lastVote[0].ip == null) {
+        //     return true
+        //   } else {
+        //     const diff = moment.duration(now.diff(lastVote[0].time))
+        //     if (diff._data.days > 0) {
+        //       return  true
+        //     } else {
+        //       return false
+        //     }
+        //   }
+        // } catch (e) {
+        //   console.log(e)
+        // }
+        
       },
       async voteSave () {
         this.confirmDialog = false
-        if (true) {
+        if (false) {
           this.$toast.error('ปิดโหวตแล้วจ้า')
         }
-        else if (this.listVote.length > 1) {
+        else if (this.listVote.length > 5) {
           this.checkDialog = true
         } else if (this.listVote.length === 0) {
           this.$toast.error('เลือกซีรีส์ก่อนจ้า')
@@ -166,24 +168,25 @@
           let ip = await this.$axios.$get(process.env.voteServer + '/getip')
           ip = ip.split(',')
           ip = { ip: ip[0] }
-          console.log(ip)
+          //console.log(ip)
           const time = moment().format()
           // if (true) {
+          console.log(this.listVote)
           if (await this.checkValidIp(ip.ip)) {
             const bucket = {
-              serie: this.listVote[0]._id,
+              series: this.listVote,
               ip: ip,
               time: time
             }
-  
+            console.log(bucket)
             try {
-              await this.$axios.post(process.env.voteServer + '/vote/final/add', bucket)
-              // for (let i=0;i<bucket.series.length;i++) {
-              await this.$axios.put(process.env.voteServer + '/vote/final/series/score/add/' + bucket.serie)
-              // }
+              await this.$axios.post(process.env.voteServer + '/vote/add', bucket)
+              for (let i=0;i<bucket.series.length;i++) {
+                await this.$axios.put(process.env.voteServer + '/vote/series/score/add/' + bucket.series[i]._id)
+              }
               this.$toast.success('โหวตสำเร็จ')
               this.listVote = []
-              this.$router.push('/vote/2018-result')
+              this.$router.push('/vote/2022-result')
             } catch (e) {
               this.$toast.error(e)
             }
@@ -198,10 +201,10 @@
       return { series }
     }
   }
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .dragArea{
     min-height: 50px;	
   }
-  </style>
+</style>
