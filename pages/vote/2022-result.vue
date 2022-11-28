@@ -3,16 +3,16 @@
       <v-flex xs12>
         <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2022</h1> <!-- <small>#ปิดโหวตแล้วจ้า</small> -->
       </v-flex>
-      <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
+
       <v-flex xs12>
-        <v-card>
+        <v-card color="infoBgcolor">
           <v-card-text>
-            <h3>สิบอันดับแรก เรียลไทม์</h3>
-            <donut-chart :data="doughnutChartData" :options="{ legend: { display: false }, maintainAspectRatio: false }"></donut-chart>
+            <h3 style="color:#000 !important">ซีรีส์เกาหลี 2022 สิบอันดับแรก เรียลไทม์</h3>
+              <bar-chart :data="chartData" :options="{ legend: { display: false }, maintainAspectRatio: false }"></bar-chart>
             <v-layout row wrap>
-              <v-flex @click="$router.push(score.path)" class="hvr-reveal" xs6 sm3 md2 lg2 v-for="(score, index) in scoreList" :key="score._id">
-                <v-img style="cursor:pointer;border-radius:15px;" :src="checkUrl(score.poster)"></v-img>
-                <div>#{{ index+1 }} : {{ score.score }} คะแนน</div>
+              <v-flex style="text-align:center" @click="$router.push(score.path)" xs6 sm3 md2 lg2 v-for="(score, index) in scoreList" :key="score._id">
+                <v-img class="poster-thumbnail" :src="checkUrl(score.poster)"></v-img>
+                <v-chip>#{{ index+1 }} : {{ score.score }} คะแนน</v-chip>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -40,7 +40,6 @@
 </template>
   
 <script>
-  import DonutChart from '~/components/DonutChart'
   
   function getRandomColor () {
     const letters = '0123456789ABCDEF'
@@ -52,7 +51,7 @@
   }
   
   export default {
-    components: { DonutChart },
+
     data () {
       return {
   
@@ -99,7 +98,7 @@
       return {
         scoreList,
         scoreAll,
-        doughnutChartData: {
+        chartData: {
           labels: scoreList.map((e) => { return e.title }),
           datasets: [
             {
@@ -111,5 +110,4 @@
       }
     }
   }
-  </script>
-  
+</script>

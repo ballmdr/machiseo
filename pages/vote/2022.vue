@@ -7,12 +7,13 @@
         <v-btn nuxt large color="warning" to="/vote/2018-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
       </v-flex>
       -->
-      <v-flex xs12 sm3 md4 d-flex>
+      <v-flex xs12 sm3 md4 d-flex fixed style="position:sticky">
         <v-card flat>
           <v-card-text>
             <v-layout column>
               <v-flex xs12>คลิกเพื่อลบออก</v-flex>
-              <v-flex class="hvr-reveal text-xs-center" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
+              
+              <v-flex class="text-xs-center" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
                 <v-img style="margin:auto;border-radius:15px;" max-width="150" :src="baseUrl + element.poster"></v-img>
                 {{ element.title }}
               </v-flex>
@@ -126,7 +127,10 @@
         //check 1 ip 1 time
         const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip })
         console.log('last vote', lastVote)
-        if (lastVote === null || lastVote.length === 0) {
+        if (ip == '127.0.0.1') {
+          return true
+        }
+        else if (lastVote === null || lastVote.length === 0) {
          return true
         } else {
          return false
