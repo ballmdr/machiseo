@@ -104,4 +104,9 @@ a {
   -ms-user-select: none;
   user-select: none;
 }
+.poster-thumbnail {
+  cursor:pointer;
+  border-radius:15px;
+  max-height:220px;
+}
 </style>
