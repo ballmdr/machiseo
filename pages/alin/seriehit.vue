@@ -42,38 +42,42 @@ export default {
       this.series.push({ path: '', score: '', rank: '', cover: '' })
     },
     async serieHitSave () {
+      console.log(this.series)
       for (let i = 0; i < this.series.length; i++) {
+        this.series[i].path = '/series/' + this.series[i].path.split('/series/')[1]
+
         const router = await this.$axios.get('/router/translate-path?path=' + this.series[i].path)
         const res = await getSerieCelebByUuid(router.data.entity.uuid)
-        console.log(res)
+        console.log('res', res)
         this.series[i].title = res.title
         this.series[i].uuid = res.id
         this.series[i].nid = res.nid
         this.series[i].poster = res.field_poster[0].uri.url
         this.series[i].topic_id = res.field_topic
         this.series[i].celebs = res.field_celeb
-        console.log(this.series[i])
-        let celeb_length = Object.keys(this.series[i].celebs).length
-        if (celeb_length > 4) {
-          celeb_length = 4
-        }
+        this.series[i].cover = res.field_poster[0].uri.url
+        // let celeb_length = Object.keys(this.series[i].celebs).length
+        // if (celeb_length > 4) {
+        //   celeb_length = 4
+        // }
 
-        this.series[i].celebs = []
-        for  (let j = 0;j < celeb_length; j++) {
-          this.series[i].celebs.push(
-            {
-              uuid: res.field_celeb[j].uuid,
-              profile: res.field_celeb[j].field_celeb_profile.uri.url,
-              path: res.field_celeb[j].path.alias,
-              title: res.field_celeb[j].title
-            }
-          )
-        }
-        await this.$axios.get(process.env.restMongoUrl + '/series_hit/clear')
-        await this.$axios.post(process.env.restMongoUrl + '/series_hit/save', this.series)
-        const { data } = await this.$axios.get(process.env.restMongoUrl + '/series_hit')
-        this.series = data
+        // this.series[i].celebs = []
+        // for  (let j = 0;j < celeb_length; j++) {
+        //   this.series[i].celebs.push(
+        //     {
+        //       uuid: res.field_celeb[j].uuid,
+        //       profile: res.field_celeb[j].field_celeb_profile.uri.url,
+        //       path: res.field_celeb[j].path.alias,
+        //       title: res.field_celeb[j].title
+        //     }
+        //   )
+        // }
       }
+      await this.$axios.get(process.env.restMongoUrl + '/series_hit/clear')
+      await this.$axios.post(process.env.restMongoUrl + '/series_hit/save', this.series)
+      const { data } = await this.$axios.get(process.env.restMongoUrl + '/series_hit')
+      this.series = data
+      
     }
   }
 }

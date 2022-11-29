@@ -1,5 +1,5 @@
 <template>
-  <v-card color="orange" @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
+  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
     
        <v-card-title primary-title>
           <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
