@@ -1,12 +1,12 @@
 <template>
-  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;" class=" hvr-bob">
+  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;">
     
        <v-card-title primary-title>
           <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
         </v-card-title>
         <v-img
       height="200px"
-      :src="checkUrl(serie.cover)"
+      :src="checkUrl(serie.poster)"
     >
     </v-img>
    <!-- <v-card-title primary-title>
