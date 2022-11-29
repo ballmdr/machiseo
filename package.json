@@ -20,6 +20,7 @@
     "@nuxtjs/toast": "^3.2.1",
     "animate.css": "^3.7.2",
     "body-parser": "^1.18.3",
+    "chart.js": "^2.9.4",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "hover.css": "^2.3.2",
