@@ -31,7 +31,7 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <v-layout column>
-                  <v-flex xs12 ><p style="color:rgb(153, 170, 187) !important" v-html="serie.body.processed"></p></v-flex>
+                  <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex>
                   <h4>ดู {{ serie.title }} ซับไทย ได้ที่</h4>
                   <v-layout row wrap>
                     <v-flex v-if="serie.field_viu !== null">
@@ -66,7 +66,7 @@
                     </v-flex>
                   </v-layout>
                 </v-layout>
-                <div class="addthis_inline_share_toolbox"></div>
+               
               </v-card-text>
             </v-flex>
             <!--<v-flex xs12 v-if="serie.field_trailor !== null">
@@ -91,7 +91,7 @@
         <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
-            <v-card-text><p style="color:#9ab" v-html="serie.field_synopsis"></p></v-card-text>
+            <v-card-text><p v-html="serie.field_synopsis"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 sm8>
@@ -100,7 +100,7 @@
         <v-flex xs12 v-if="serie.field_web_review !== null">
           <v-card color="primary">
             <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
-            <v-card-text><p style="color:#9ab" v-html="serie.field_web_review.processed"></p></v-card-text>
+            <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs12 v-if="articles.length > 0">
