@@ -38,62 +38,62 @@
  </template>
 
 <script>
-import { searchSeries } from '~/assets/js/api'
+  //import { searchSeries } from '~/assets/js/api'
 
-export default {
-  data () {
-    return {
-      drawer: false,
-      menuItems: [
-        { icon: 'fas fa-home', title: 'หน้าแรก', to: '/' },
-        { icon: 'fas fa-film', title: 'ซีรีย์เกาหลี', to: '/series' },
-        { icon: 'fas fa-book-reader', title: 'สปอยซีรีย์เกาหลี', to: '/episodes' },
-        /*{ icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }*/
-      ],
-      miniVariant: true,
-      title: 'มาชิสซอ',
-      isLoading: false,
-      items: [],
-      model: null,
-      search: null,
-      baseUrl: process.env.baseUrl
-    }
-  },
-  watch: {
-    model () {
-      if (typeof (this.model) === 'undefined') {
-        this.items = []
+  export default {
+    data () {
+      return {
+        drawer: false,
+        menuItems: [
+          { icon: 'fas fa-home', title: 'หน้าแรก', to: '/' },
+          { icon: 'fas fa-film', title: 'ซีรีย์เกาหลี', to: '/series' },
+          { icon: 'fas fa-book-reader', title: 'สปอยซีรีย์เกาหลี', to: '/episodes' },
+          /*{ icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }*/
+        ],
+        miniVariant: true,
+        title: 'มาชิสซอ',
+        isLoading: false,
+        items: [],
+        model: null,
+        search: null,
+        baseUrl: process.env.baseUrl
       }
     },
-    search (val) {
-      // Items have already been loaded
-      if (this.items.length > 0) return
-      // if (this.model !== null || (typeof(this.model) !== 'undefined') ) return
-      // Items have already been requested
-      if (this.isLoading) return
+    watch: {
+      model () {
+        if (typeof (this.model) === 'undefined') {
+          this.items = []
+        }
+      },
+      search (val) {
+        // Items have already been loaded
+        if (this.items.length > 0) return
+        // if (this.model !== null || (typeof(this.model) !== 'undefined') ) return
+        // Items have already been requested
+        if (this.isLoading) return
 
-      this.isLoading = true
+        this.isLoading = true
 
-      // Lazily load input items
-      searchSeries(this.search)
-        .then(res => {
-          this.items = res
-        })
-        .catch(err => {
-          console.log(err)
-        })
-        .finally(() => (this.isLoading = false))
-    }
-  },
-  methods: {
-    async logout () {
-      await this.$auth.logout('auth0')
+        // Lazily load input items
+        searchSeries(this.search)
+          .then(res => {
+            this.items = res
+          })
+          .catch(err => {
+            console.log(err)
+          })
+          .finally(() => (this.isLoading = false))
+      }
     },
-    async auth0 () {
-      await this.$auth.loginWith('auth0')
+    methods: {
+      async logout () {
+        await this.$auth.logout('auth0')
+      },
+      async auth0 () {
+        await this.$auth.loginWith('auth0')
+      }
     }
   }
-}
 </script>
 
 <style scoped>
