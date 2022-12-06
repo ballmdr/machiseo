@@ -107,6 +107,6 @@ a {
 .poster-thumbnail {
   cursor:pointer;
   border-radius:15px;
-  max-height:220px;
+  max-height:350px;
 }
 </style>
