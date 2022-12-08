@@ -20,7 +20,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
+
       <v-flex xs12>
         <h2>คะแนนทั้งหมด เรียลไทม์</h2>
         <v-card><v-card-text><div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div></v-card-text></v-card>
@@ -40,7 +40,7 @@
       </v-flex> -->
     </v-layout>
 </template>
-  
+
 <script>
 
   function getRandomColor () {
@@ -51,12 +51,12 @@
     }
     return color
   }
-  
+
   export default {
 
     data () {
       return {
-  
+
       }
     },
     methods:{

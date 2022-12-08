@@ -38,12 +38,12 @@
                       <a :href="serie.field_viu" target="_blank" rel="nofollow">
                         <img class="logo_subthai" src="/viu.png">
                       </a>
-                    </v-flex>                    
+                    </v-flex>
                     <v-flex v-if="serie.field_netflix !== null">
                       <a :href="serie.field_netflix" target="_blank" rel="nofollow">
                         <img class="logo_subthai" src="/netflix.png">
                       </a>
-                    </v-flex>                    
+                    </v-flex>
                     <v-flex v-if="serie.field_disney !== null">
                       <a :href="serie.field_disney" target="_blank" rel="nofollow">
                         <img class="logo_subthai" src="/disney.png">
@@ -66,7 +66,7 @@
                     </v-flex>
                   </v-layout>
                 </v-layout>
-               
+
               </v-card-text>
             </v-flex>
             <!--<v-flex xs12 v-if="serie.field_trailor !== null">
@@ -94,9 +94,7 @@
             <v-card-text><p v-html="serie.field_synopsis"></p></v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs12 sm8>
-          <div><adsbygoogle /></div>
-        </v-flex>
+
         <v-flex xs12 v-if="serie.field_web_review !== null">
           <v-card color="primary">
             <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
@@ -107,7 +105,7 @@
           <h2>บทความน่าอ่าน {{ serie.title }}</h2>
           <articles-list :articles="articles"></articles-list>
         </v-flex>
-      
+
        <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>

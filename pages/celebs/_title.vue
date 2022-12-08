@@ -16,7 +16,6 @@
             <a target="_blank" :href="'https://www.twitter.com/' + celeb.field_twitter"><i class="fab fa-twitter"></i></a>
           </div>
         </div>
-      <adsbygoogle />
       </div>
     </v-flex>
     <v-flex xs12 sm7 md8 d-flex>

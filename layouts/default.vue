@@ -3,7 +3,6 @@
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
       <v-container grid-list-md >
-        <adsbygoogle />
         <nuxt />
       </v-container>
     </v-content>

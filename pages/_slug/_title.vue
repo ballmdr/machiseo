@@ -27,18 +27,16 @@
           </v-carousel-item>
         </v-carousel>
         <v-card-text><h1 class="headline">สปอยล์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
-        <div><adsbygoogle /></div>
+
         <v-card-text v-html="ep_body" style="line-height:30px;">
         </v-card-text>
-            
-        <div><adsbygoogle /></div>
+
+
       </v-card>
     </v-flex>
     <v-flex xs12 sm4>
       <v-layout row wrap>
-        <v-flex xs12>
-          <adsbygoogle />
-        </v-flex>
+
      <!--   <v-flex xs6 sm10 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="showEp(index)">
           <episode-card :ep="ep"></episode-card>
         </v-flex> -->
