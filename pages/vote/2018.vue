@@ -86,23 +86,23 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'โหวตซีรีส์เกาหลียอดฮิตแห่งปี 2018 กับ มาชิสซอ และโคตรฮิต'
     return {
-      title: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - มาชิสซอ',
+      title: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - โคตรฮิต!',
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', content: 'article' },
-        { hid: 'og_title', name: 'og:title', content: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - มาชิสซอ' },
+        { hid: 'og_title', name: 'og:title', content: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - โคตรฮิต!' },
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'og_sitename', name: 'og:site_name', content: 'โคตรฮิต! Kodhit.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018' },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
-        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+        { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
       ],
       link: [
         { rel: 'canonical', href: canonical }
@@ -202,6 +202,6 @@ export default {
 
 <style scoped>
 .dragArea{
-  min-height: 50px;	
+  min-height: 50px;
 }
 </style>

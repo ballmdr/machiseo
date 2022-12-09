@@ -3,7 +3,7 @@
     <v-flex xs12>
       <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2018</h1><small>#ปิดโหวตแล้วจ้า</small>
     </v-flex>
-    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
+    <v-flex xs12 class="text-xs-center"></v-flex>
     <v-flex xs12>
       <v-card>
         <v-card-text>
@@ -17,7 +17,6 @@
         </v-card-text>
       </v-card>
     </v-flex>
-    <v-flex xs12 class="text-xs-center"><adsbygoogle /></v-flex>
     <v-flex xs12>
       <h2>ผลโหวตรอบคัดเลือก</h2>
       <v-card><v-card-text><div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div></v-card-text></v-card>
@@ -68,10 +67,10 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
-    const synopsis = 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2018 กับ มาชิสซอ และโคตรฮิต'
+    const canonical = `https://www.kodhit.com${this.$route.path}`
+    const synopsis = 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2018 กับ โคตรฮิต+'
     return {
-      title: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2018 - มาชิสซอ',
+      title: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2018 - โคตรฮิต!',
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', content: 'article' },
@@ -83,8 +82,8 @@ export default {
         { hid: 'twitter_title', name: 'twitter:title', content: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2018' },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
-        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+        { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
       ],
       link: [
         { rel: 'canonical', href: canonical }

@@ -17,7 +17,7 @@ import { getSeriesListWithYear } from '~/assets/js/api'
 export default {
   components: { SerieCardGroup },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'เรื่องย่อซีรีย์เกาหลี อ่านสปอยล์รายตอน นักแสดง ตัวละคร'
     const title = 'ซีรีย์เกาหลี เรื่องย่อ สปอยล์รายตอน นักแสดง ตัวละคร'
     return {

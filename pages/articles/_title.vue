@@ -79,7 +79,7 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.article[0].body.processed, 150)
     const title = this.article[0].title
     const image = ''
@@ -92,12 +92,12 @@ export default {
         { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'โคตรฮิต! Kodhit.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
-        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+        { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
       ],
       link: [
         { rel: 'canonical', href: canonical }
@@ -105,13 +105,13 @@ export default {
     }
   },
   mounted() {
-    
+
     this.article_body = this.article[0].body.processed.replaceAll('/sites/', 'https://www.machiseo.net/sites/')
   },
   async asyncData ({ app, params, env, store }) {
     //console.log('nid', params.nid)
     //console.log('title', params.title)
-   
+
     //const article = await getArticleById(params.nid)
     const article = await getArticleByPath(params.title)
 

@@ -82,7 +82,7 @@ export default {
     return { episodes, ep_index, serie, ep_title, ep_body, img_streaming }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.ep_body, 150)
     const image = this.checkUrl(this.episodes[this.ep_index].field_thumbnail.uri.url)
     const title = 'สปอยล์ ' + this.serie.title + ' ตอนที่ ' + this.ep_title
@@ -97,12 +97,12 @@ export default {
         { property: 'og:image:width', content: "900" },
         { property: 'og:image:height', content: '500' },
         { property: 'og:url', content: canonical },
-        { property: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { property: 'og:site_name', content: 'โคตรฮิต! Kodhit.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis.replace(/<\/?[^>]+(>|$)/g, "") },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
-        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+        { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
       ],
       link: [
         { rel: 'canonical', href: canonical }

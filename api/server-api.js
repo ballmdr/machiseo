@@ -7,6 +7,14 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
 
+const cors = require('cors')
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
+app.use(cors(corsOptions))
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))

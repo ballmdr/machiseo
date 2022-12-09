@@ -9,7 +9,7 @@ import EpisodesList from '~/components/episodes/EpisodesList'
 export default {
   components: { EpisodesList },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'สปอยล์ : ' + this.$options.filters.truncate(this.$store.state.episodes.ep[0].body.processed, 150)
     const title = 'สปอย : ' + this.$store.state.series.serie.title + ' ทุกตอน'
     const image = process.env.baseUrl + this.$store.state.episodes.ep[0].field_thumbnail.url
@@ -22,12 +22,12 @@ export default {
         { hid: 'og_description', name: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+        { hid: 'og_sitename', name: 'og:site_name', content: 'โคตรฮิต! Kodhit.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
-        { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-        { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+        { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+        { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
       ],
       link: [
         { rel: 'canonical', href: canonical }

@@ -1,14 +1,14 @@
 <template>
-  <v-card @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;">
-    
-       <v-card-title primary-title>
-          <nuxt-link :to='serie.path'><h3 class="headline">{{ serie.title }}</h3></nuxt-link>
-        </v-card-title>
-        <v-img
-      height="200px"
+  <v-card  @click="$router.push(serie.path)" style="cursor:pointer;margin:10px;">
+      <v-img
       :src="checkUrl(serie.poster)"
+      style="max-height:300px;"
     >
     </v-img>
+       <v-card-title primary-title>
+          <nuxt-link :to='serie.path'><h3 class="subheadline mb-0">{{ serie.title }}</h3></nuxt-link>
+        </v-card-title>
+
    <!-- <v-card-title primary-title>
       <v-flex xs6 v-for="celeb in serie.celebs" :key="celeb.uuid">
         <div><v-avatar><v-img :src="checkUrl(celeb.profile)"></v-img></v-avatar>
@@ -22,9 +22,9 @@
   </v-card>
       <!--
   <v-card @click="$router.push(serie.path)" style="cursor:pointer;max-height:300px;" class="hvr-bob">
-    <v-toolbar dense color="primary"><span style="font-weight:bold;">อันดับ {{ serie.rank }} : <nuxt-link :to="serie.path">{{ serie.title }}</nuxt-link>&nbsp;</span>     
+    <v-toolbar dense color="primary"><span style="font-weight:bold;">อันดับ {{ serie.rank }} : <nuxt-link :to="serie.path">{{ serie.title }}</nuxt-link>&nbsp;</span>
       <v-spacer></v-spacer>
-   <v-icon large style="margin-bottom:10px;" color="red">fab fa-hotjar</v-icon> 
+   <v-icon large style="margin-bottom:10px;" color="red">fab fa-hotjar</v-icon>
       <v-progress-circular
       :rotate="360"
       size="60"
@@ -37,7 +37,7 @@
     </v-toolbar>
     <v-img
       max-width="300"
-      style="border-radius:10px;" 
+      style="border-radius:10px;"
       :src="checkUrl(serie.poster)"
       >
     </v-img>
@@ -58,8 +58,8 @@
             <span class="subheading" v-html="review.cooked"></span>
           </v-tooltip>
         </p>
-      </v-flex> 
-      
+      </v-flex>
+
 
   </v-card>-->
 </template>

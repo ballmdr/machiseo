@@ -11,7 +11,7 @@
       <h2>ซีรีย์เกาหลี แนะนำ</h2>
       <v-divider></v-divider>
         <v-layout row wrap justify-center align-center>
-          <v-flex xs12 sm5 md4 lg4 v-for="serie in seriesHit" :key="serie.uuid" >
+          <v-flex xs4 sm4 md4 lg2 v-for="serie in seriesHit" :key="serie.uuid" >
             <series-hit-card :serie="serie" ></series-hit-card>
           </v-flex>
         </v-layout>

@@ -12,7 +12,7 @@
           <v-card-text>
             <v-layout column>
               <v-flex xs12>คลิกเพื่อลบออก</v-flex>
-              
+
               <v-flex class="text-xs-center" style="cursor:pointer" xs12 v-for="(element, index) in listVote" :key="index" @click="removeVote(index)">
                 <v-img style="margin:auto;border-radius:15px;" max-width="150" :src="baseUrl + element.poster"></v-img>
                 {{ element.title }}
@@ -67,12 +67,12 @@
         >
           <v-chip color="warning" @click="voteConfirm" style="padding-left:90px;">{{ listVote.length }}/{{ max_vote }} คลิกโหวตตรงนี้ได้เลย</v-chip>
         </v-bottom-nav>
-  
+
     </v-layout>
 </template>
-  
+
 <script>
-  
+
   export default {
     data () {
       return {
@@ -85,23 +85,23 @@
       }
     },
     head () {
-      const canonical = `https://www.machiseo.com${this.$route.path}`
-      const synopsis = 'โหวตสุดยอดซีรีส์เกาหลีแห่งปี 2022 กับ มาชิสซอ และโคตรฮิต'
+      const canonical = `https://www.kodhit.com${this.$route.path}`
+      const synopsis = 'โหวตสุดยอดซีรีส์เกาหลีแห่งปี 2022 กับ โคตรฮิต!'
       return {
-        title: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - มาชิสซอ',
+        title: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - โคตรฮิต!',
         meta: [
           { hid: 'description', name: 'description', content: synopsis },
           { hid: 'og_type', name: 'og:type', content: 'article' },
-          { hid: 'og_title', name: 'og:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - มาชิสซอ' },
+          { hid: 'og_title', name: 'og:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - โคตรฮิต!' },
           { hid: 'og_description', name: 'og:description', content: synopsis },
           { hid: 'og_image', name: 'og:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
           { hid: 'og_url', name: 'og:url', content: canonical },
-          { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+          { hid: 'og_sitename', name: 'og:site_name', content: 'โคตรฮิต+ Kodhit.com' },
           { hid: 'twitter_title', name: 'twitter:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022' },
           { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
           { hid: 'twitter_image', name: 'twitter:image', content: 'https://machiseo.net/sites/default/files/vote-2018.jpg' },
-          { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-          { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+          { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+          { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
         ],
         link: [
           { rel: 'canonical', href: canonical }
@@ -132,7 +132,7 @@
         } else {
          return false
         }
-  
+
         //check 1 day 1 ip
         // try {
         //   const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip.ip })
@@ -151,7 +151,7 @@
         // } catch (e) {
         //   console.log(e)
         // }
-        
+
       },
       async voteSave () {
         this.confirmDialog = false
@@ -200,9 +200,9 @@
     }
   }
 </script>
-  
+
 <style scoped>
   .dragArea{
-    min-height: 50px;	
+    min-height: 50px;
   }
 </style>
