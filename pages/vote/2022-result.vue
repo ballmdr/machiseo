@@ -14,7 +14,7 @@
             <v-layout row wrap>
               <v-flex style="text-align:center" @click="$router.push(score.path)" xs6 sm4 md3 lg3 v-for="(score, index) in scoreList" :key="score._id">
                 <v-img class="poster-thumbnail" :src="checkUrl(score.poster)"></v-img>
-                <v-chip color="orange" style="padding:5px;">#{{ index+1 }} {{ score.title }} <br> {{ score.score }} คะแนน</v-chip>
+                <div style="color:black;"><strong>#{{ index+1 }} <br> {{ score.title }} <br> {{ score.score }} คะแนน</strong></div>
               </v-flex>
             </v-layout>
           </v-card-text>
