@@ -70,10 +70,10 @@
       }
     },
     head () {
-      const canonical = `https://www.machiseo.com${this.$route.path}`
+      const canonical = `https://www.kodhit.com${this.$route.path}`
       const synopsis = 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022 กับ มาชิสซอ และโคตรฮิต'
       return {
-        title: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022 - มาชิสซอ',
+        title: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022 กับ โคตรฮิต!',
         meta: [
           { hid: 'description', name: 'description', content: synopsis },
           { hid: 'og_type', name: 'og:type', content: 'article' },
@@ -81,12 +81,12 @@
           { hid: 'og_description', name: 'og:description', content: synopsis },
           { hid: 'og_image', name: 'og:image', content: 'https://www.machiseo.net/sites/default/files/vote-2022.jpg' },
           { hid: 'og_url', name: 'og:url', content: canonical },
-          { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ Machiseo.com' },
+          { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ kodhit.com' },
           { hid: 'twitter_title', name: 'twitter:title', content: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022' },
           { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
           { hid: 'twitter_image', name: 'twitter:image', content: 'https://www.machiseo.net/sites/default/files/vote-2022.jpg' },
-          { hid: 'twitter_site', name: 'twitter:site', content: '@machiseo' },
-          { hid: 'twitter_creator', name: 'twitter:creator', content: '@machiseo' }
+          { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
+          { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
         ],
         link: [
           { rel: 'canonical', href: canonical }

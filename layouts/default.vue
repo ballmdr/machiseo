@@ -3,6 +3,7 @@
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
       <v-container grid-list-md >
+        <nuxt-link to="/vote/2022"><v-img src="https://cdn.machiseo.net/sites/default/files/vote-2022-banner.jpg"></v-img></nuxt-link>
         <nuxt />
       </v-container>
     </v-content>
@@ -18,10 +19,20 @@
         <v-layout row wrap>
           <v-flex xs12 sm5 md4 lg4>
             <ul class="footer-link-list">
-              <li><nuxt-link to='/series'>ซีรีย์เกาหลี</nuxt-link></li>
-              <li><nuxt-link to="/series/year/2020">ซีรีย์เกาหลี 2020</nuxt-link></li>
-              <li><nuxt-link to="/series/year/2021">ซีรีย์เกาหลี 2021</nuxt-link></li>
-              <li><nuxt-link to="/series/year/2022">ซีรีย์เกาหลี 2022</nuxt-link></li>
+              <li><nuxt-link to='/series'>ซีรีส์เกาหลี</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2022">ซีรีส์เกาหลี 2022</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2021">ซีรีส์เกาหลี 2021</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2020">ซีรีส์เกาหลี 2020</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2019">ซีรีส์เกาหลี 2019</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2018">ซีรีส์เกาหลี 2018</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2017">ซีรีส์เกาหลี 2017</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2016">ซีรีส์เกาหลี 2016</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2015">ซีรีส์เกาหลี 2015</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2014">ซีรีส์เกาหลี 2014</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2013">ซีรีส์เกาหลี 2013</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2012">ซีรีส์เกาหลี 2012</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2011">ซีรีส์เกาหลี 2011</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2010">ซีรีส์เกาหลี 2010</nuxt-link></li>
             </ul>
           </v-flex>
           <v-flex xs12 sm5 md4 lg4>

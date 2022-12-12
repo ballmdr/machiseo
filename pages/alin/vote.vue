@@ -12,6 +12,7 @@
           <v-flex xs3 v-for="serie in series" :key="serie.id">
             <v-img style="border-radius:10px;" :src="baseUrl + serie.poster"></v-img>
             <div v-text="serie.title"></div>
+            <div>{{ serie._id }}</div>
           </v-flex>
         </v-layout>
       </v-container>

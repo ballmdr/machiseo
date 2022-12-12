@@ -1,8 +1,10 @@
 <template>
     <div class="container">
       <h1 v-if="error.statusCode === 404">Page not found</h1>
-      <h1 v-else>An error occurred</h1>
-      <NuxtLink to="/">Home page</NuxtLink>
+      <h1 v-else>เกิดข้อผิดพลาด</h1>
+      <nuxt-link to="/">ไปหน้าแรก</nuxt-link>
+      <nuxt-link to="/series">หน้ารวมซีรีส์</nuxt-link>
+      <nuxt-link to="/episodes">สปอยล์ล่าสุด รวมทุกเรื่อง</nuxt-link>
     </div>
   </template>
 

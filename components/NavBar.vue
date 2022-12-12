@@ -31,7 +31,7 @@
        >
          <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
        </v-btn>
-       <v-toolbar-title>{{ title }}</v-toolbar-title>
+       <v-toolbar-title><nuxt-link to="/">{{ title }}</nuxt-link></v-toolbar-title>
        <v-spacer></v-spacer>
      </v-toolbar>
  </span>
