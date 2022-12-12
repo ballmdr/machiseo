@@ -94,12 +94,12 @@
           { hid: 'og_type', name: 'og:type', content: 'article' },
           { hid: 'og_title', name: 'og:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022 - โคตรฮิต!' },
           { hid: 'og_description', name: 'og:description', content: synopsis },
-          { hid: 'og_image', name: 'og:image', content: 'https://machiseo.net/sites/default/files/vote-2022.jpg' },
+          { hid: 'og_image', name: 'og:image', content: 'https://cdn.machiseo.net/sites/default/files/vote-2022.jpg' },
           { hid: 'og_url', name: 'og:url', content: canonical },
           { hid: 'og_sitename', name: 'og:site_name', content: 'โคตรฮิต+ Kodhit.com' },
           { hid: 'twitter_title', name: 'twitter:title', content: 'โหวตซีรีส์เกาหลีแห่งปี 2022' },
           { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
-          { hid: 'twitter_image', name: 'twitter:image', content: 'https://machiseo.net/sites/default/files/vote-2022.jpg' },
+          { hid: 'twitter_image', name: 'twitter:image', content: 'https://cdn.machiseo.net/sites/default/files/vote-2022.jpg' },
           { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
           { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
         ],
@@ -124,7 +124,7 @@
         //check 1 ip 1 time
         const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip })
         console.log('last vote', lastVote)
-        if (ip == '127.0.0.1') {
+        if (ip == '127.0.0.1' || ip == '183.88.132.215') {
           return true
         }
         else if (lastVote === null || lastVote.length === 0) {
