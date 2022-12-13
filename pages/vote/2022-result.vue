@@ -1,9 +1,26 @@
 <template>
     <v-layout column>
       <v-flex xs12>
-        <h1>ผลโหวตซีรีส์เกาหลีแห่งปี 2022 กับ โคตรฮิต!</h1> <!-- <small>#ปิดโหวตแล้วจ้า</small> -->
-      </v-flex>
 
+        <v-card>
+          <v-card-title><h1>ผลโหวตรอบคัดเลือกล่าสุด ซีรีส์เกาหลีแห่งปี 2022</h1> <small>(ยังโหวตได้อยู่จ้า)</small></v-card-title>
+          <v-card-text>
+            <p><strong>กติการอบคัดเลือก</strong><br>
+            <list>
+            <ol>โหวตได้ 5 เรื่อง</ol>
+            <ol>โหวตได้คนละหนึ่งครั้ง</ol>
+            <ol>การโหวตแบ่งเป็น 2 รอบ รอบคัดเลือก และ รอบชิงชนะเลิศ</ol>
+            <ol>รอบคัดเลือก ระหว่างวันที่ 12 ธันวาคม - 19 ธันวาคม เวลา 21.00 น.</ol>
+            <ol>รอบชิงชนะเลิศ ระหว่างวันที่ 20  ธันวาคม - 27 ธันวาคม เวลา 21.00 น.</ol>
+            </list>
+            </p>
+            <p>
+            ประกาศผลโหวตรอบคัดเลือก ในวันที่ 28 ธันวาคม 2022
+            ในรอบคัดเลือกนี้ จะสามารถ เลือกโหวตซีรีส์ได้ 5 เรื่อง และจะคัดเหลือ 10 เรื่องสุดท้าย เพื่อเข้าไปโหวตต่อในรอบชิงฯ
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-flex>
       <v-flex xs12>
         <v-card color="infoBgcolor">
           <v-card-text>
@@ -20,7 +37,6 @@
           </v-card-text>
         </v-card>
       </v-flex>
-
       <v-flex xs12>
         <h2>คะแนนทั้งหมด เรียลไทม์</h2>
         <v-card><v-card-text><div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div></v-card-text></v-card>
