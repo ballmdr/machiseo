@@ -66,14 +66,13 @@ export default {
   async asyncData ({ params, store, env, redirect }) {
 
     //const episodes = await getAllEpisodesBySeriesPath(params.slug)
-    let serie
-    try {
-      serie = await getSerieByPath(params.slug, env)
-    }
-    catch (ex) {
-      redirect('/')
+    //console.log(params)
+    if (params.slug !== 'series' & typeof(params.title) === 'undefined') {
+      redirect('/series/' + params.slug)
       return 0
     }
+    const  serie = await getSerieByPath(params.slug, env)
+
     const episodes = await getEpisodesBySerie(serie.id)
     await store.dispatch('episodes/setEpWithData', episodes)
     await store.dispatch('series/setSerie', serie)
