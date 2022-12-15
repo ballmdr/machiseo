@@ -63,7 +63,7 @@ export default {
   mounted(){
     //console.log(this.episodes)
   },
-  async asyncData ({ params, store, env }) {
+  async asyncData ({ params, store, env, redirect }) {
 
     //const episodes = await getAllEpisodesBySeriesPath(params.slug)
     let serie
