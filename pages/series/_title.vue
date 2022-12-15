@@ -203,8 +203,14 @@ export default {
         })
     } */
   },
-  async asyncData ({ app, params, env, store }) {
-    const serie = await getSerieByPath(params.title, env)
+  async asyncData ({ app, params, env, store, redirect }) {
+    let serie
+    try {
+      serie = await getSerieByPath(params.title, env)
+    } catch (e) {
+      redirect('/')
+      return 0
+    }
     //console.log(serie)
     //const episodes = await getAllEpisodesBySeriesPath(params.title)
     const episodes = await getEpisodesBySerie(serie.id)
@@ -224,7 +230,6 @@ export default {
     //console.log(serie)
     const articles = await getSeriesArticlesById(serie.id)
     //console.log('articles')
-    console.log(articles)
     //let have_articles = 0
     //if (typeof(articles) != 'undefined') {
       //console.log('have articles')
