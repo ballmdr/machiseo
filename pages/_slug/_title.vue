@@ -27,8 +27,11 @@
           </v-carousel-item>
         </v-carousel>
         <v-card-text><h1 class="headline">สปอยล์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
+
         <v-card-text v-html="ep_body" style="line-height:30px;">
         </v-card-text>
+
+
       </v-card>
     </v-flex>
     <v-flex xs12 sm4>
@@ -60,36 +63,30 @@ export default {
   mounted(){
     //console.log(this.episodes)
   },
-  async asyncData ({ params, store, env, redirect }) {
+  async asyncData ({ params, store, env }) {
+
     //const episodes = await getAllEpisodesBySeriesPath(params.slug)
     let serie
-    let episodes
-    let ep_index
-    let ep_title
-    let ep_body
-    let img_streming
     try {
       serie = await getSerieByPath(params.slug, env)
-      episodes = await getEpisodesBySerie(serie.id)
-      //await store.dispatch('episodes/setEpWithData', episodes)
-      //await store.dispatch('series/setSerie', serie)
-      ep_index = null
-      episodes.forEach((el, index) => {
-        if (el.title === params.title)
-          ep_index = index
-      })
-      //console.log(episodes)
-      //console.log('dd')
-      ep_title = params.title
-      ep_body = episodes[ep_index].body.processed
-      img_streaming = episodes[ep_index].field_img_streaming
-    } catch (e) {
-        //error({ statusCode: 500, message: 'error 500'})
-        redirect('/series/' + params.slug)
     }
-    console.log(serie)
-    //const serie = await getSerieByPath(params.slug, env)
-
+    catch (ex) {
+      redirect('/')
+      return 0
+    }
+    const episodes = await getEpisodesBySerie(serie.id)
+    await store.dispatch('episodes/setEpWithData', episodes)
+    await store.dispatch('series/setSerie', serie)
+    let ep_index = null
+    episodes.forEach((el, index) => {
+      if (el.title === params.title)
+        ep_index = index
+    })
+    //console.log(episodes)
+    //console.log('dd')
+    const ep_title = params.title
+    const ep_body = episodes[ep_index].body.processed
+    const img_streaming = episodes[ep_index].field_img_streaming
     return { episodes, ep_index, serie, ep_title, ep_body, img_streaming }
   },
   head () {
