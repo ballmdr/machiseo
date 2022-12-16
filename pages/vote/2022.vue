@@ -141,7 +141,7 @@
         //check 1 ip 1 time
         const lastVote = await this.$axios.$post(process.env.voteServer + '/vote/last/ip', { ip: ip })
         console.log('last vote', lastVote)
-        if (ip == '127.0.0.1' || ip == '183.88.132.215') {
+        if (ip == '127.0.0.1' || ip == '183.88.132.215' || ip == '183.88.132.3') {
           return true
         }
         else if (lastVote === null || lastVote.length === 0) {
