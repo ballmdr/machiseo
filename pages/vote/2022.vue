@@ -20,11 +20,11 @@
           </v-card-text>
         </v-card>
       </v-flex>
-    <!--  <v-flex xs12>
-        <v-btn nuxt large color="warning" to="/vote/2018-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
+      <v-flex xs12>
+        <v-btn nuxt large color="warning" to="/vote/2022-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
       </v-flex>
-      -->
-      <v-flex xs12 sm3 md3 d-flex fixed style="position:sticky">
+
+      <!-- <v-flex xs12 sm3 md3 d-flex fixed style="position:sticky">
         <v-card flat>
           <v-card-text>
             <v-layout column>
@@ -55,7 +55,7 @@
             </v-layout>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-flex> -->
         <v-dialog v-model="checkDialog" persistent max-width="300">
           <v-card color="primary">
             <v-card-title><span style="font-size: 24px;">เลือกได้ไม่เกิน 5 เรื่องจ้า</span></v-card-title>
