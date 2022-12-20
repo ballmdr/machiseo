@@ -3,7 +3,7 @@
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
       <v-container grid-list-md >
-        <nuxt-link to="/vote/2022-result"><v-img src="https://cdn.machiseo.net/sites/default/files/vote-2022-banner.jpg"></v-img></nuxt-link>
+        <nuxt-link to="/vote/2022"><v-img src="https://cdn.machiseo.net/sites/default/files/vote-final-2022-banner.jpg"></v-img></nuxt-link>
         <nuxt />
       </v-container>
     </v-content>

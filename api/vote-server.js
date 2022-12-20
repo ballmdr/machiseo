@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
 var db
 var col_series = 'series_2022'
 var col_series_final = 'series_final_2022'
-var col_vote = 'series_vote_2022'
+var col_vote = 'series_vote_final_2022'
 
 MongoClient.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,

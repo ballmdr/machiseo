@@ -3,20 +3,17 @@
       <v-flex xs12>
 
         <v-card>
-          <v-card-title><h1>ผลโหวตรอบคัดเลือกล่าสุด ซีรีส์เกาหลีแห่งปี 2022</h1> <small>(ยังโหวตได้อยู่จ้า)</small></v-card-title>
+          <v-card-title><h1>ผลโหวตรอบชิงชนะเลิศ ซีรีส์เกาหลีแห่งปี 2022</h1> <small>(ยังโหวตได้อยู่จ้า)</small></v-card-title>
           <v-card-text>
-            <p><strong>กติการอบคัดเลือก</strong><br>
+            <p><strong>กติการอบชิงชนะเลิศ</strong><br>
             <list>
-            <ol>โหวตได้ 5 เรื่อง</ol>
+            <ol>โหวตได้ 1 เรื่องเท่านั้น</ol>
             <ol>โหวตได้คนละหนึ่งครั้ง</ol>
-            <ol>การโหวตแบ่งเป็น 2 รอบ รอบคัดเลือก และ รอบชิงชนะเลิศ</ol>
-            <ol>รอบคัดเลือก ระหว่างวันที่ 12 ธันวาคม - 19 ธันวาคม เวลา 21.00 น.</ol>
             <ol>รอบชิงชนะเลิศ ระหว่างวันที่ 20  ธันวาคม - 27 ธันวาคม เวลา 21.00 น.</ol>
             </list>
             </p>
             <p>
-            ประกาศผลโหวตรอบคัดเลือก ในวันที่ 28 ธันวาคม 2022
-            ในรอบคัดเลือกนี้ จะสามารถ เลือกโหวตซีรีส์ได้ 5 เรื่อง และจะคัดเหลือ 10 เรื่องสุดท้าย เพื่อเข้าไปโหวตต่อในรอบชิงฯ
+            ประกาศผลโหวตรอบชิงชนะเลิศ ในวันที่ 28 ธันวาคม 2022
             </p>
           </v-card-text>
         </v-card>
@@ -38,7 +35,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12>
-        <h2>คะแนนทั้งหมด เรียลไทม์</h2>
+        <h2>คะแนนจากรอบคัดเลือก</h2>
         <v-card><v-card-text><div v-for="(s,index) in scoreAll" :key="s._id">#{{index+1}} <nuxt-link nuxt :to="s.path" class="hvr-underline-from-left">{{ s.title }}</nuxt-link> | {{ s.score }} คะแนน</div></v-card-text></v-card>
       </v-flex>
       <!--
@@ -95,12 +92,12 @@
           { hid: 'og_type', name: 'og:type', content: 'article' },
           { hid: 'og_title', name: 'og:title', content: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022' },
           { hid: 'og_description', name: 'og:description', content: synopsis },
-          { hid: 'og_image', name: 'og:image', content: 'https://www.machiseo.net/sites/default/files/vote-2022.jpg' },
+          { hid: 'og_image', name: 'og:image', content: 'https://cdn.machiseo.net/sites/default/files/vote-final-2022-poster.jpg' },
           { hid: 'og_url', name: 'og:url', content: canonical },
           { hid: 'og_sitename', name: 'og:site_name', content: 'มาชิสซอ kodhit.com' },
           { hid: 'twitter_title', name: 'twitter:title', content: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022' },
           { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
-          { hid: 'twitter_image', name: 'twitter:image', content: 'https://www.machiseo.net/sites/default/files/vote-2022.jpg' },
+          { hid: 'twitter_image', name: 'twitter:image', content: 'https://cdn.machiseo.net/sites/default/files/vote-final-2022-poster.jpg' },
           { hid: 'twitter_site', name: 'twitter:site', content: '@kodhithd' },
           { hid: 'twitter_creator', name: 'twitter:creator', content: '@kodhithd' }
         ],
@@ -111,7 +108,7 @@
     },
     async asyncData ({ app, env }) {
       // const votes = await app.$axios.$get(env.voteServer + '/vote/result/list')
-      const scoreList = await app.$axios.$get(env.voteServer + '/vote/series/score')
+      const scoreList = await app.$axios.$get(env.voteServer + '/vote/final/series/score')
       const scoreAll = await app.$axios.$get(env.voteServer + '/vote/series/score/all')
       return {
         scoreList,
