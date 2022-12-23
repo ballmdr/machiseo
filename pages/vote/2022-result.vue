@@ -83,7 +83,7 @@
       }
     },
     head () {
-      const canonical = `https://www.kodhit.com${this.$route.path}`
+      const canonical = `https://www.machiseo.com${this.$route.path}`
       const synopsis = 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022 กับ มาชิสซอ และโคตรฮิต'
       return {
         title: 'ผลโหวตล่าสุด ซีรีส์เกาหลีแห่งปี 2022 กับ โคตรฮิต!',

@@ -89,7 +89,7 @@ export default {
     return { episodes, ep_index, serie, ep_title, ep_body, img_streaming }
   },
   head () {
-    const canonical = `https://www.kodhit.com${this.$route.path}`
+    const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.ep_body, 150)
     const image = this.checkUrl(this.episodes[this.ep_index].field_thumbnail.uri.url)
     const title = 'สปอยล์ ' + this.serie.title + ' ตอนที่ ' + this.ep_title

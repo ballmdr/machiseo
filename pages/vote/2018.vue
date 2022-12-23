@@ -86,7 +86,7 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.kodhit.com${this.$route.path}`
+    const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = 'โหวตซีรีส์เกาหลียอดฮิตแห่งปี 2018 กับ มาชิสซอ และโคตรฮิต'
     return {
       title: 'ร่วมโหวตซีรีส์เกาหลีแห่งปี 2018 - โคตรฮิต!',
