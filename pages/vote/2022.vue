@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-      <v-flex xs12>
+      <!-- <v-flex xs12>
         <v-card>
           <v-card-title><h1>โหวตซีรีส์เกาหลีแห่งปี 2022 รอบชิงชนะเลิศ</h1></v-card-title>
           <v-card-text>
@@ -16,11 +16,11 @@
             </p>
           </v-card-text>
         </v-card>
-      </v-flex>
-      <!-- <v-flex xs12>
-        <v-btn nuxt large color="warning" to="/vote/2022-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
       </v-flex> -->
-      <v-flex xs12 sm3 md3 d-flex fixed style="position:sticky">
+      <v-flex xs12>
+        <v-btn nuxt large color="warning" to="/vote/2022-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
+      </v-flex>
+      <!-- <v-flex xs12 sm3 md3 d-flex fixed style="position:sticky">
         <v-card flat>
           <v-card-text>
             <v-layout column>
@@ -37,8 +37,8 @@
             </v-card-actions>
             <v-card-actions><v-spacer></v-spacer><v-btn color="primary" nuxt to="/vote/2022-result">ดูคะแนนโหวตล่าสุด</v-btn></v-card-actions>
         </v-card>
-      </v-flex>
-      <v-flex xs12 sm9 md9 class="text-xs-center">
+      </v-flex> -->
+      <!-- <v-flex xs12 sm9 md9 class="text-xs-center">
         <v-card flat class="scroll">
           <v-card-text>
             <v-layout row wrap>
@@ -51,7 +51,7 @@
             </v-layout>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-flex> -->
         <v-dialog v-model="checkDialog" persistent max-width="300">
           <v-card color="primary">
             <v-card-title><span style="font-size: 24px;">เลือกได้ไม่เกิน {{ max_vote }} เรื่องจ้า</span></v-card-title>

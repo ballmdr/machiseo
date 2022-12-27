@@ -3,8 +3,8 @@
       <v-flex xs12>
 
         <v-card>
-          <v-card-title><h1>ผลโหวตรอบชิงชนะเลิศ ซีรีส์เกาหลีแห่งปี 2022</h1> <small>(ยังโหวตได้อยู่จ้า)</small></v-card-title>
-          <v-card-text>
+          <v-card-title><h1>ผลโหวตรอบชิงชนะเลิศ ซีรีส์เกาหลีแห่งปี 2022</h1> </v-card-title>
+          <!-- <v-card-text>
             <p><strong>กติการอบชิงชนะเลิศ</strong><br>
             <list>
             <ol>โหวตได้ 1 เรื่องเท่านั้น</ol>
@@ -15,7 +15,7 @@
             <p>
             ประกาศผลโหวตรอบชิงชนะเลิศ ในวันที่ 28 ธันวาคม 2022
             </p>
-          </v-card-text>
+          </v-card-text> -->
         </v-card>
       </v-flex>
       <v-flex xs12>
