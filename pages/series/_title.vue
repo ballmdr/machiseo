@@ -185,7 +185,7 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'เรื่องย่อ ' + this.serie.title + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {

@@ -21,7 +21,7 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'สปอยล์ : ' + this.$options.filters.truncate(this.ep.body.processed, 150)
     const title = 'สปอยล์รายตอน - ซีรีส์เกาหลี'
     const image = this.checkUrl(this.ep.field_thumbnail.uri.url)

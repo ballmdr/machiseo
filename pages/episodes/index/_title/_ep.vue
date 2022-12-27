@@ -9,7 +9,7 @@ import EpisodesList from '~/components/episodes/EpisodesList'
 export default {
   components: { EpisodesList },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'สปอยล์ : ' + this.$options.filters.truncate(this.$store.state.episodes.ep[0].body.processed, 150)
     const title = 'สปอย : ' + this.$store.state.series.serie.title + ' ทุกตอน'
     const image = process.env.baseUrl + this.$store.state.episodes.ep[0].field_thumbnail.url

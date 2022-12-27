@@ -79,7 +79,7 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.article[0].body.processed, 150)
     const title = this.article[0].title
     const image = ''

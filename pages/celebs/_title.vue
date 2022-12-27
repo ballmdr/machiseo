@@ -69,7 +69,7 @@ export default {
   },
 
   head () {
-    const canonical = `https://www.machiseo.com${this.$route.path}`
+    const canonical = `https://www.kodhit.com${this.$route.path}`
     const synopsis = 'ประวัติดารา ' + this.celeb.title + ' ผลงาน อินสตาแกรม ทวิตเตอร์'
     const title = this.celeb.title
     return {
