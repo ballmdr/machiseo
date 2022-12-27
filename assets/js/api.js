@@ -22,14 +22,14 @@ export async function voteResult (nid) {
 
 export async function getSeriesArticlesById (id) {
   let res = null
-  console.log('id', id)
+  //console.log('id', id)
   try {
     const { data } = await apiClient.get(prefix + '/articles?filter[field_series_main.id]=' + id + '&include=field_thumbnail_article')
-    console.log('data in api ', data)
+    //console.log('data in api ', data)
     res = data
   }
   catch (err) {
-    console.log('err', err.response.status)
+    //console.log('err', err.response.status)
     res = err.response.status
   }
 
@@ -93,7 +93,7 @@ export async function getUuidByPath (path) {
 }
 
 export async function getArticleByPath (path) {
-  console.log(path)
+  //console.log(path)
   const uri = findRouterPath + '/articles/' + path
   const { data } = await apiClient.post('/subrequests?_format=json',
     [
