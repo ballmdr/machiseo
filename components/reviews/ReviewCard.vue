@@ -1,16 +1,17 @@
 <template>
 <div>
-  <div>
+  <v-card flat style="padding-right:20px;padding-left:10px;padding-top:30px;padding-bottom:10px;margin-bottom:12px;">
     <v-layout columns v-if="review.user.length > 0">
       <v-flex xs2 class="text-xs-right">
-        <div><v-avatar size="38"><v-img :src="review.user[0].picture"></v-img></v-avatar></div>
+        <div><v-avatar size="50"><v-img :src="review.user[0].picture"></v-img></v-avatar></div>
         <div v-if="canAccess">
           <div><v-btn icon @click="reviewEditDialog = true" small><v-icon small>far fa-edit</v-icon></v-btn></div>
           <div><v-btn icon @click="confirmDel = true" small><v-icon small>far fa-trash-alt</v-icon></v-btn></div>
         </div>
       </v-flex>
       <v-flex xs10>
-        <div>รีวิวโดย&nbsp;{{ review.user[0].name }}</div>
+
+        <div>{{ review.user[0].name }}</div>
         <div><v-rating v-model="currentScore" color="yellow" half-increments small readonly></v-rating></div>
         <div v-show="!reviewEditDialog" class="review-text" v-html="filterdText"></div>
         <a v-show="less && !notFilter" @click="less = false" style="color: orange">เพิ่มเติม</a>
@@ -32,7 +33,7 @@
         </div>
       </v-flex>
     </v-layout>
-  </div>
+  </v-card>
   <!-- end main card -->
 
   <!-- begin reply card -->
@@ -131,6 +132,7 @@ export default {
       this.less = true
     }
     const likeReview = this.$store.getters['reviews/likeReview']
+    //console.log('like review', likeReview)
     if (likeReview.includes(this.review._id)) {
       this.liked = true
     } else {
@@ -199,16 +201,16 @@ export default {
 <style scoped>
 .no-vote {
   color: grey;
-}                   
+}
 .selecting {
   color: green;
-}                   
+}
 .review-text {
   padding-top: 20px;
-}    
+}
 .icon-action {
   margin-top:20px;
   margin-left: -15px;
   margin-bottom: 15px;
 }
-</style> 
+</style>

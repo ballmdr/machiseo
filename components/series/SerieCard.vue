@@ -26,7 +26,7 @@
         <v-rating v-model="serieScore" small color="yellow" half-increments readonly></v-rating>
         <div><span v-for="type in serie.field_series_type" :key="type.id">{{ type.name }}&nbsp;</span></div>
       </v-card-title>
-      
+
     </v-card> -->
   </div>
 </template>
@@ -57,7 +57,7 @@ export default {
     }
     else {
       this.serieScore = 0
-    }    
+    }
   }
 }
 </script>
@@ -74,8 +74,8 @@ background: linear-gradient(to bottom,  rgba(255,255,255,0) 38%,rgba(255,255,255
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#1e1b26',GradientType=0 ); /* IE6-9 */
 }
 .movie-img{
-  -webkit-mask-image: 
-    -webkit-gradient(linear, left top, left bottom, 
+  -webkit-mask-image:
+    -webkit-gradient(linear, left top, left bottom,
     color-stop(0.00,  rgba(0,0,0,1)),
     color-stop(0.35,  rgba(0,0,0,1)),
     color-stop(0.50,  rgba(0,0,0,1)),

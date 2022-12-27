@@ -1,16 +1,16 @@
 <template>
-  <v-layout row wrap>
-    <v-flex class="hvr-grow" xs12 sm4 v-for="ep in episodes" :key="ep.id"
-      style="cursor:pointer"
+  <div>
+    <v-card v-for="ep in episodes" :key="ep.id"
+      style="cursor:pointer; margin:15px;"
     >
       <nuxt-link :to="getEpPath(ep.title)">
-        <v-card dark class="episode">
-          <v-img :src="baseUrl + ep.field_thumbnail.uri.url"></v-img>
+        <div class="episode">
+          <v-img :src="baseUrl + ep.field_thumbnail.uri.url" style="max-height:130px"></v-img>
           <div class="number">ตอนที่ {{ ep.title }}</div>
-        </v-card>
+        </div>
       </nuxt-link>
-    </v-flex>
-  </v-layout>
+    </v-card>
+  </div>
 </template>
 
 
@@ -37,7 +37,7 @@ export default {
 .episode .number {
   position: absolute;
   bottom: 0;
-  left: 0;
+  right:0;
   background: orange;
   padding: 5px 10px;
   color: black;

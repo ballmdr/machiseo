@@ -22,7 +22,7 @@ export default {
 .episode .number {
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 0;
   background: orange;
   padding: 5px 10px;
   color: black;

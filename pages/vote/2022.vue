@@ -20,7 +20,6 @@
       <!-- <v-flex xs12>
         <v-btn nuxt large color="warning" to="/vote/2022-result" style="color:black">ปิดโหวตแล้วจ้า คลิกเพื่อดูผลโหวต</v-btn>
       </v-flex> -->
-
       <v-flex xs12 sm3 md3 d-flex fixed style="position:sticky">
         <v-card flat>
           <v-card-text>

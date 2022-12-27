@@ -1,5 +1,5 @@
 <template>
-  <v-card color="primary" >
+  <v-card color="primary" flat >
     <v-card-title>
       <v-avatar size="38"><v-img :src="$store.getters['users/picture']"></v-img></v-avatar>&nbsp;&nbsp;<span class="headline">{{ $store.getters['users/name'] }}</span>
     </v-card-title>
@@ -81,8 +81,8 @@ export default {
 <style scoped>
 .no-vote {
   color: grey;
-}      
+}
 .selecting {
   color: green;
-}                                    
-</style> 
+}
+</style>

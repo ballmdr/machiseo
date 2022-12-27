@@ -5,8 +5,9 @@
       <v-textarea style="margin-top:10px;" box auto-grow dark color="yellow" label="ตอบรีวิว" v-model="reply.replyText"></v-textarea>
     </div>
     <div>
+    <v-btn @click="replySubmit" color="warning" small round><span style="color:black">ตอบรีวิว</span></v-btn>
       <v-btn round color="danger" @click="$emit('replyClose')">ยกเลิก</v-btn>
-      <v-btn @click="replySubmit" color="warning" small round><span style="color:black">ตอบรีวิว</span></v-btn>
+
     </div>
   </div>
 </template>

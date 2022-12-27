@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <v-card flat style="padding-left:20px;padding-top:20px;">
     <v-layout columns v-if="reply.user.length > 0">
       <v-flex xs2 class="text-xs-right">
-        <div><v-avatar size="28"><v-img :src="reply.user[0].picture"></v-img></v-avatar></div>
+        <div><v-avatar size="50"><v-img :src="reply.user[0].picture"></v-img></v-avatar></div>
       </v-flex>
       <v-flex xs10>
-        <div>{{ reply.user[0].name }}</div>
+        <div style="margin-top:10px;margin-bottom:10px">{{ reply.user[0].name }}</div>
         <div v-show="!replyEditDialog">{{ reply.replyText }}</div>
         <v-btn v-if="!liked" icon @click="like" small><v-icon color="red" small>far fa-heart</v-icon></v-btn>
         <v-btn v-else icon small><v-icon color="red" small>fas fa-heart</v-icon></v-btn>
@@ -47,7 +47,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-  </div>
+  </v-card>
 </template>
 
 <script>

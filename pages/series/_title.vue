@@ -2,7 +2,7 @@
   <v-layout column>
     <v-flex xs12>
       <div class="container">
-        <v-card color="primary" class="u-clearfix">
+        <v-card color="primary" flat dark class="u-clearfix">
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
@@ -15,7 +15,7 @@
                   <v-flex xs12><h1>{{ serie.title }}</h1></v-flex>
                   <v-flex xs12 d-flex>
                     <v-rating style="max-width:200px;" v-model="serieScore"  color="yellow" half-increments readonly></v-rating>
-                    <span class="grey--text text--lighten-2 caption mr-2">({{ serieScore | round(4) }})</span>
+                    <!-- <span class="grey--text text--lighten-2 caption mr-2">({{ serieScore | round(4) }})</span> -->
                   </v-flex>
                 </v-layout>
               </v-card-title>
@@ -31,8 +31,9 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <v-layout column>
-                  <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex>
-                  <h4>ดู {{ serie.title }} ซับไทย ได้ที่</h4>
+                  <!-- <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex> -->
+                  <v-flex xs12><p v-html="serie.field_synopsis"></p></v-flex>
+
                   <v-layout row wrap>
                     <v-flex v-if="serie.field_viu !== null">
                       <a :href="serie.field_viu" target="_blank" rel="nofollow">
@@ -85,46 +86,72 @@
     <v-flex xs12 v-if="serie.field_celeb.length > 0">
       <h2>ดารา นักแสดง {{ serie.title}}</h2>
       <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
+    </v-flex><v-flex xs12 v-if="serie.field_web_review !== null">
+          <v-card flat>
+            <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
+            <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
+          </v-card>
     </v-flex>
-    <v-layout row wrap>
-      <v-flex xs12 sm8>
-        <v-flex xs12>
+    <!-- <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+      <h2>สปอย {{ serie.title }} ทุกตอน</h2>
+      <episodes-list :episodes="episodes"></episodes-list>
+    </v-flex> -->
+
+    <v-layout row wrap style="margin-top:20px">
+      <v-flex xs12 md3 style="padding:20px;">
+      <v-card flat dark class="sticky-card">
+        <div><v-img :src="checkUrl(serie.field_poster[0].uri.url)"></v-img></div>
+        <div style="padding:15px" v-html="serie.body.processed"></div>
+      </v-card>
+      </v-flex>
+      <v-flex xs12 md6>
+          <reviews :reviews="reviews"></reviews>
+      </v-flex>
+      <v-flex xs12 md3>
+          <h2>สปอย {{ serie.title }} ทุกตอน</h2>
+          <episodes-list :episodes="episodes"></episodes-list>
+            <!-- <h2>บทความน่าอ่าน {{ serie.title }}</h2>
+            <articles-list :articles="articles"></articles-list> -->
+
+        </v-flex>
+
+    </v-layout>
+    <!-- <v-layout row wrap>
+      <v-flex xs12 sm8> -->
+        <!-- <v-flex xs12>
           <v-card dark>
             <v-card-title><h2>เรื่องย่อ {{ serie.title }}</h2></v-card-title>
             <v-card-text><p v-html="serie.field_synopsis"></p></v-card-text>
           </v-card>
-        </v-flex>
+        </v-flex> -->
 
-        <v-flex xs12 v-if="serie.field_web_review !== null">
-          <v-card color="primary">
+        <!-- <v-flex xs12 v-if="serie.field_web_review !== null">
+          <v-card flat>
             <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
             <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
-        </v-flex>
-        <v-flex xs12 v-if="articles.length > 0">
-          <h2>บทความน่าอ่าน {{ serie.title }}</h2>
-          <articles-list :articles="articles"></articles-list>
-        </v-flex>
+        </v-flex> -->
+
 
        <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
         </v-flex> -->
-  <!--    <v-flex xs12>
-          <h2>รีวิว</h2>
+     <!-- <v-flex xs12>
+        <h2>รีวิว</h2>
           <reviews :reviews="reviews"></reviews>
         </v-flex>
-        -->
-      </v-flex>
+        <v-flex xs12 v-if="articles.length > 0">
+          <h2>บทความน่าอ่าน {{ serie.title }}</h2>
+          <articles-list :articles="articles"></articles-list>
+        </v-flex>
+      </v-flex> -->
   <!--  <v-flex xs12 sm4 class="text-xs-center">
         <celebs-list-vertical :celebs="serie.field_celeb"></celebs-list-vertical>
       </v-flex>
     -->
-    </v-layout>
-    <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-      <h2>สปอย {{ serie.title }} ทุกตอน</h2>
-      <episodes-list :episodes="episodes"></episodes-list>
-    </v-flex>
+    <!-- </v-layout> -->
+
   </v-layout>
 </template>
 
@@ -218,8 +245,9 @@ export default {
     // const serie = store.getters['series/getSerie']
     store.dispatch('series/setSerie', serie)
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.drupal_internal__nid)
-    //console.log('nid', '/vote/serie/result/' + serie.nid + '?_format=json')
+    //console.log('nid', '/vote/serie/result/' + serie.drupal_internal__nid + '?_format=json')
     let serieScore = await voteResult(serie.drupal_internal__nid)
+
     if (serieScore.length > 1) {
       serieScore = serieScore[1].value[0].value
     }
@@ -280,6 +308,11 @@ export default {
   width: 100%;
   border-radius: 12px;
   margin-left: 10px;
+}
+.sticky-card {
+  position: sticky;
+  top: 60px;
+  z-index: 1;
 }
 
 </style>

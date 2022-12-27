@@ -1,7 +1,7 @@
 
 export const state = () => ({
   serie: {
-    nid: ''
+    drupal_internal__nid: ''
   },
   title: ''
 })
@@ -27,6 +27,6 @@ export const getters = {
     return state.serie
   },
   getNid (state) {
-    return state.serie.nid
+    return state.serie.drupal_internal__nid
   }
 }

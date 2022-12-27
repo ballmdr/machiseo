@@ -13,6 +13,12 @@ export async function voteUpdate (nid, point) {
     "value_type": ["points"]
   })
 }
+export async function voteResult (nid) {
+  const { data } = await apiClient.get('/vote/serie/result/' + nid)
+  return data
+  //return jsonapiParse.parse(data).data
+}
+
 
 export async function getSeriesArticlesById (id) {
   let res = null
@@ -44,11 +50,6 @@ export async function getArticleById (id) {
   return jsonapiParse.parse(data).data
 }
 
-export async function voteResult (nid) {
-  const { data } = await apiClient.get('/vote/serie/result/' + nid)
-  return data
-  //return jsonapiParse.parse(data).data
-}
 
 export async function searchSeries (query) {
   const { data } = await apiClient.get(prefix + '/series?filter[status][value]=1&filter[title][operator]=CONTAINS&filter[title][value]=' + query + '&include=field_poster')
