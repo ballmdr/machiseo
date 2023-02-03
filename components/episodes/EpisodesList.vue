@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>สปอยล์</h2>
     <v-card v-for="ep in episodes" :key="ep.id"
       style="cursor:pointer; margin:15px;"
     >

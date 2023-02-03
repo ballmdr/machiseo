@@ -3,7 +3,7 @@
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
       <v-container grid-list-md >
-        <nuxt-link to="/vote/2022-result"><v-img src="https://cdn.machiseo.net/sites/default/files/voteresult2022-banner.jpg"></v-img></nuxt-link>
+        <nuxt-link to="/series/taxi-driver-2"><v-img src="https://cdn.machiseo.net/sites/default/files/taxidriver2.jpg"></v-img></nuxt-link>
         <nuxt />
       </v-container>
     </v-content>
@@ -20,6 +20,7 @@
           <v-flex xs12 sm5 md4 lg4>
             <ul class="footer-link-list">
               <li><nuxt-link to='/series'>ซีรีส์เกาหลี</nuxt-link></li>
+              <li><nuxt-link to="/series/year/2023">ซีรีส์เกาหลี 2023</nuxt-link></li>
               <li><nuxt-link to="/series/year/2022">ซีรีส์เกาหลี 2022</nuxt-link></li>
               <li><nuxt-link to="/series/year/2021">ซีรีส์เกาหลี 2021</nuxt-link></li>
               <li><nuxt-link to="/series/year/2020">ซีรีส์เกาหลี 2020</nuxt-link></li>
@@ -37,6 +38,7 @@
           </v-flex>
           <v-flex xs12 sm5 md4 lg4>
             <ul class="footer-link-list">
+              <li><nuxt-link to="/series/taxi-driver-2">Taxi Driver 2</nuxt-link></li>
               <li><nuxt-link to="/series/reborn-rich">Reborn Rich</nuxt-link></li>
               <li><nuxt-link to="/series/law-cafe">The Law Cafe</nuxt-link></li>
               <li><nuxt-link to="/series/big-mouth">Big Mouth</nuxt-link></li>

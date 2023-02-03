@@ -108,7 +108,7 @@
           <reviews :reviews="reviews"></reviews>
       </v-flex>
       <v-flex xs12 md3>
-          <h2>สปอย {{ serie.title }} ทุกตอน</h2>
+
           <episodes-list :episodes="episodes"></episodes-list>
             <!-- <h2>บทความน่าอ่าน {{ serie.title }}</h2>
             <articles-list :articles="articles"></articles-list> -->
@@ -247,7 +247,7 @@ export default {
     const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.drupal_internal__nid)
     //console.log('nid', '/vote/serie/result/' + serie.drupal_internal__nid + '?_format=json')
     let serieScore = await voteResult(serie.drupal_internal__nid)
-
+    console.log('score', serieScore)
     if (serieScore.length > 1) {
       serieScore = serieScore[1].value[0].value
     }
