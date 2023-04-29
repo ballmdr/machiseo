@@ -56,8 +56,13 @@ export async function searchSeries (query) {
   return jsonapiParse.parse(data).data
 }
 
-export async function getSeriesSticky () {
-  const { data } = await apiClient.get(prefix + '/series?filter[sticky][condition][path]=sticky&filter[sticky][condition][operator]=%3D&filter[sticky][condition][value]=1&page[limit]=5&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+export async function getSeriesSticky (limit=10) {
+  const { data } = await apiClient.get(prefix + '/series?filter[sticky][condition][path]=sticky&filter[sticky][condition][operator]=%3D&filter[sticky][condition][value]=1&page[limit]=' + limit + '&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  return jsonapiParse.parse(data).data
+}
+
+export async function getSeriesOnair () {
+  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&sort=-nid&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
   return jsonapiParse.parse(data).data
 }
 
@@ -255,11 +260,6 @@ export async function getLatestEpisodes (limit = 5) {
 
 export async function getEpisodesById (nid) {
 
-}
-
-export async function getSeriesOnair () {
-  const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&sort=-nid&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
-  return jsonapiParse.parse(data).data
 }
 
 export async function getAllEpisodes (offset = 0, limit = 10) {
