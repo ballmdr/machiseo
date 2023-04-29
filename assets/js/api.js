@@ -61,10 +61,16 @@ export async function getSeriesSticky (limit=10) {
   return jsonapiParse.parse(data).data
 }
 
+export async function getSeriesRecommended (limit=20) {
+  const { data } = await apiClient.get(prefix + '/series?filter[promote][condition][path]=promote&filter[promote][condition][operator]=%3D&filter[promote][condition][value]=1&page[limit]=' + limit + '&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
+  return jsonapiParse.parse(data).data
+}
+
 export async function getSeriesOnair () {
   const { data } = await apiClient.get(prefix + '/series?filter[field_on_air][condition][path]=field_on_air&filter[field_on_air][condition][operator]=%3D&filter[field_on_air][condition][value]=1&sort=-nid&include=field_poster,field_celeb,field_celeb.field_celeb_profile')
   return jsonapiParse.parse(data).data
 }
+
 
 export async function getSerieById_minimal (nid) {
   const { data } = await apiClient.get(prefix + '/series?filter[nid]=' + nid + '&include=field_poster')

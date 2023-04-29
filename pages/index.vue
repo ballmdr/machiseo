@@ -6,13 +6,17 @@
     </v-flex>
     <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 class="box">
-      <h2 class="text_header">ซีรีส์เกาหลีใหม่</h2>
+      <h2 class="text_header">ซีรีส์เกาหลีออนแอร์</h2>
       <series-onair :series="onair"></series-onair>
     </v-flex>
     <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 class="box">
-      <h2 class="text_header">ซีรีส์เกาหลีแนะนำ</h2>
+      <h2 class="text_header">ซีรีส์เกาหลีมาแรง</h2>
       <series-sticky :series="sticky"></series-sticky>
+    </v-flex>
+    <v-flex xs12 class="box">
+      <h2 class="text_header">ซีรีส์เกาหลีแนะนำ</h2>
+      <series-sticky :series="recommended"></series-sticky>
     </v-flex>
 <!--   <v-flex xs12>
       <h2>บทความ</h2>
@@ -39,18 +43,19 @@
 </template>
 
 <script>
-import { getLatestEpisodes, getSeriesOnair, getSeriesSticky, getSeriesArticles } from '~/assets/js/api'
+import { getLatestEpisodes, getSeriesOnair, getSeriesSticky, getSeriesRecommended, getSeriesArticles } from '~/assets/js/api'
 import SeriesHitCard from '~/components/home/SeriesHitCard'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
 import SeriesSticky from '~/components/home/SeriesSticky'
+import SeriesRecommended from '~/components/home/SeriesRecommended'
 import CelebsOnair from '~/components/home/CelebsOnair'
 import ViuWidget from '~/components/series/ViuWidget'
 import SoundCloud from '~/components/home/SoundCloud'
 import ArticlesList from '~/components/series/ArticlesList'
 
 export default {
-  components: { SeriesHitCard, LatestEpisodes, SeriesOnair, SeriesSticky, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
+  components: { SeriesHitCard, LatestEpisodes, SeriesOnair, SeriesSticky, SeriesRecommended, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
       widgetId: '247279',
@@ -66,10 +71,11 @@ export default {
     const episodes = await getLatestEpisodes(10)
     const onair = await getSeriesOnair()
     const sticky = await getSeriesSticky()
+    const recommended = await getSeriesRecommended()
     const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
     const articles = await getSeriesArticles()
-    //console.log(seriesHit)
-    return { episodes, onair, seriesHit, articles, sticky }
+    console.log(typeof(sticky))
+    return { episodes, onair, seriesHit, articles, sticky, recommended }
   }
 }
 </script>
