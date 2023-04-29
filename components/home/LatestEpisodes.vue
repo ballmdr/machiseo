@@ -48,24 +48,20 @@ export default {
       swiperOption: {
         initialSlide: 1,
         slidesPerView: 3.5,
-        spaceBetween: 30,
-        centeredSlides: true,
+        spaceBetween: 0,
+        centeredSlides: false,
         breakpoints: {
           1024: {
-            slidesPerView: 2,
-            spaceBetween: 40
+            slidesPerView: 2.5,
+            spaceBetween: 0
           },
           768: {
-            slidesPerView: 2,
-            spaceBetween: 30
+            slidesPerView: 2.5,
+            spaceBetween: 0
           },
           640: {
-            slidesPerView: 1,
-            spaceBetween: 20
-          },
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10
+            slidesPerView: 1.1,
+            spaceBetween: 0
           }
         }
       }
