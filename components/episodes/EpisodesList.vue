@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <h2>สปอยล์</h2>
-    <v-card v-for="ep in episodes" :key="ep.id"
-      style="cursor:pointer; margin:15px;"
+  <v-layout row wrap>
+    <v-flex class="hvr-grow" xs6 sm4 v-for="ep in episodes" :key="ep.id"
+      style="cursor:pointer"
     >
       <nuxt-link :to="getEpPath(ep.title)">
-        <div class="episode">
-          <v-img :src="baseUrl + ep.field_thumbnail.uri.url" style="max-height:130px"></v-img>
+        <v-card dark class="episode">
+          <v-img :src="baseUrl + ep.field_thumbnail.uri.url"></v-img>
           <div class="number">ตอนที่ {{ ep.title }}</div>
-        </div>
+        </v-card>
       </nuxt-link>
-    </v-card>
-  </div>
+    </v-flex>
+  </v-layout>
 </template>
-
 
 <script>
 

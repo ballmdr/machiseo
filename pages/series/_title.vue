@@ -83,39 +83,31 @@
       </v-flex>
     </v-flex>
   -->
+  <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 v-if="serie.field_celeb.length > 0">
-      <h2>ดารา นักแสดง {{ serie.title}}</h2>
-      <celebs-cast :celebs="serie.field_celeb"></celebs-cast>
-    </v-flex><v-flex xs12 v-if="serie.field_web_review !== null">
-          <v-card flat>
-            <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
-            <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
-          </v-card>
+      <h2 class="text_header">ดารา นักแสดง</h2>
+      <br>
+      <div class="text_header"><celebs-cast :celebs="serie.field_celeb"></celebs-cast></div>
     </v-flex>
-    <!-- <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-      <h2>สปอย {{ serie.title }} ทุกตอน</h2>
-      <episodes-list :episodes="episodes"></episodes-list>
-    </v-flex> -->
-
-    <v-layout row wrap style="margin-top:20px">
-      <v-flex xs12 md3 style="padding:20px;">
-      <v-card flat dark class="sticky-card">
-        <div><v-img :src="checkUrl(serie.field_poster[0].uri.url)"></v-img></div>
-        <div style="padding:15px" v-html="serie.body.processed"></div>
+    <v-flex xs12 v-if="serie.field_web_review !== null">
+      <v-card flat>
+        <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
+        <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
       </v-card>
-      </v-flex>
-      <v-flex xs12 md6>
-          <reviews :reviews="reviews"></reviews>
-      </v-flex>
-      <v-flex xs12 md3>
+    </v-flex>
+    <v-divider style="margin:25px;"></v-divider>
+    <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+      <h2 class="text_header">สปอยทุกตอน</h2>
+      <br>
+      <episodes-list :episodes="episodes"></episodes-list>
+    </v-flex>
 
-          <episodes-list :episodes="episodes"></episodes-list>
-            <!-- <h2>บทความน่าอ่าน {{ serie.title }}</h2>
-            <articles-list :articles="articles"></articles-list> -->
+    <v-flex xs12 v-if="articles.length > 0">
+          <h2>บทความน่าอ่าน {{ serie.title }}</h2>
+          <articles-list :articles="articles"></articles-list>
+    </v-flex>
 
-        </v-flex>
 
-    </v-layout>
     <!-- <v-layout row wrap>
       <v-flex xs12 sm8> -->
         <!-- <v-flex xs12>
@@ -313,6 +305,9 @@ export default {
   position: sticky;
   top: 60px;
   z-index: 1;
+}
+.text_header {
+  text-align: center;
 }
 
 </style>

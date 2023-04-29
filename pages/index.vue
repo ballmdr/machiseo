@@ -1,20 +1,18 @@
 <template>
   <v-layout row wrap>
-    <v-flex x12 class="box">
-      <h1>สปอยล์ซีรีส์เกาหลี อัพเดทซีรีย์เกาหลี</h1>
-    </v-flex>
     <v-flex xs12 class="box">
-      <h2>สปอยล์ซีรีส์เกาหลีตอนล่าสุด <v-icon large style="margin-bottom:10px;">fas fa-book-reader</v-icon></h2>
+      <h2 class="text_header">สปอยล์ซีรีส์เกาหลีตอนล่าสุด</h2>
       <latest-episodes :episodes="episodes"></latest-episodes>
     </v-flex>
+    <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 class="box">
-      <h2>ซีรีย์เกาหลี แนะนำ</h2>
-      <v-divider></v-divider>
-        <v-layout row wrap justify-center align-center>
-          <v-flex xs4 sm4 md4 lg2 v-for="serie in seriesHit" :key="serie.uuid" >
-            <series-hit-card :serie="serie" ></series-hit-card>
-          </v-flex>
-        </v-layout>
+      <h2 class="text_header">ซีรีส์เกาหลีใหม่</h2>
+      <series-onair :series="onair"></series-onair>
+    </v-flex>
+    <v-divider style="margin:25px;"></v-divider>
+    <v-flex xs12 class="box">
+      <h2 class="text_header">ซีรีส์เกาหลีแนะนำ</h2>
+      <series-sticky :series="sticky"></series-sticky>
     </v-flex>
 <!--   <v-flex xs12>
       <h2>บทความ</h2>
@@ -31,11 +29,7 @@
       <viu-widget :vid_id="widgetId" :serie_title="widgetTitle"></viu-widget>
     </v-flex>
   -->
-    <v-flex xs12 class="box">
-      <h2>ซีรีส์เกาหลีใหม่</h2>
-      <v-divider></v-divider>
-      <series-onair :series="onair"></series-onair>
-    </v-flex>
+
    <!-- <v-flex xs12 class="box">
       <h2>ดาราเกาหลีที่กำลังออนแอร์</h2>
       <v-divider></v-divider>
@@ -45,17 +39,18 @@
 </template>
 
 <script>
-import { getLatestEpisodes, getSeriesOnair, getSeriesArticles } from '~/assets/js/api'
+import { getLatestEpisodes, getSeriesOnair, getSeriesSticky, getSeriesArticles } from '~/assets/js/api'
 import SeriesHitCard from '~/components/home/SeriesHitCard'
 import LatestEpisodes from '~/components/home/LatestEpisodes'
 import SeriesOnair from '~/components/home/SeriesOnair'
+import SeriesSticky from '~/components/home/SeriesSticky'
 import CelebsOnair from '~/components/home/CelebsOnair'
 import ViuWidget from '~/components/series/ViuWidget'
 import SoundCloud from '~/components/home/SoundCloud'
 import ArticlesList from '~/components/series/ArticlesList'
 
 export default {
-  components: { SeriesHitCard, LatestEpisodes, SeriesOnair, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
+  components: { SeriesHitCard, LatestEpisodes, SeriesOnair, SeriesSticky, CelebsOnair, ViuWidget, SoundCloud, ArticlesList },
   data () {
     return {
       widgetId: '247279',
@@ -70,17 +65,18 @@ export default {
   async asyncData ({ app, env }) {
     const episodes = await getLatestEpisodes(10)
     const onair = await getSeriesOnair()
+    const sticky = await getSeriesSticky()
     const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
     const articles = await getSeriesArticles()
     //console.log(seriesHit)
-    return { episodes, onair, seriesHit, articles }
+    return { episodes, onair, seriesHit, articles, sticky }
   }
 }
 </script>
 
 <style scoped>
 .box {
-  margin-bottom:30px;
+  margin-bottom:5px;
 }
 
 /* The hero image */
@@ -107,4 +103,9 @@ export default {
   transform: translate(-50%, -50%);
   color: white;
 }
+.text_header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 </style>
+
