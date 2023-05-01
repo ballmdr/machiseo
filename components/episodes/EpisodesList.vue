@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     getEpPath (url) {
-      console.log(this.episodes)
       const link = this.$store.state.series.serie.path.alias
       const path = link.split('/')
       return '/' + path[2] + '/' + url

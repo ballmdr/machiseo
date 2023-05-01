@@ -77,11 +77,11 @@
         </v-card>
       </div>
     </v-flex>
-    <v-flex xs12>
+    <!-- <v-flex xs12>
       <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
         <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
       </v-flex>
-    </v-flex>
+    </v-flex> -->
   <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 v-if="serie.field_celeb.length > 0">
       <h2 class="text_header">ดารา นักแสดง</h2>
@@ -94,6 +94,12 @@
         <v-card-text><p v-html="serie.field_synopsis" class="text-block"></p></v-card-text>
       </v-card>
     </v-flex>
+    <v-flex xs12 v-if="serie.field_spoil_full !== null">
+      <h2 class="text_header">สปอย {{ serie.title }} ทั้งเรื่อง</h2>
+      <v-card flat color="primary">
+        <v-card-text><p v-html="serie.field_spoil_full.processed"></p></v-card-text>
+      </v-card>
+    </v-flex>
     <v-flex xs12 v-if="serie.field_web_review !== null">
       <v-card flat>
         <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
@@ -102,14 +108,14 @@
     </v-flex>
     <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-      <h2 class="text_header">สปอยทุกตอน</h2>
+      <h2 class="text_header">สปอยรายตอน</h2>
       <br>
       <episodes-list :episodes="episodes"></episodes-list>
     </v-flex>
 
     <v-flex xs12 v-if="articles.length > 0">
-          <h2>บทความน่าอ่าน {{ serie.title }}</h2>
-          <articles-list :articles="articles"></articles-list>
+      <h2>บทความน่าอ่าน {{ serie.title }}</h2>
+      <articles-list :articles="articles"></articles-list>
     </v-flex>
 
 
@@ -186,7 +192,7 @@ export default {
     const synopsis = 'เรื่องย่อ ' + this.serie.title + this.$options.filters.truncate(this.serie.field_synopsis, 150)
     const image = this.checkUrl(this.serie.field_poster[0].uri.url)
     return {
-      title: this.serie.title + ' สปอย เรื่องย่อ นักแสดง',
+      title: this.serie.title + ' เรื่องย่อ นักแสดง สปอย',
       meta: [
         { hid: 'description', name: 'description', content: synopsis },
         { hid: 'og_type', name: 'og:type', property: 'og:type', content: 'article' },
