@@ -77,12 +77,11 @@
         </v-card>
       </div>
     </v-flex>
-  <!--  <v-flex xs12>
+    <v-flex xs12>
       <v-flex xs12 class="text-xs-center" v-if="serie.field_viu_widget !== null">
         <viu-widget :vid_id="serie.field_viu_widget" :serie_title="serie.title"></viu-widget>
       </v-flex>
     </v-flex>
-  -->
   <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 v-if="serie.field_celeb.length > 0">
       <h2 class="text_header">ดารา นักแสดง</h2>
@@ -241,8 +240,8 @@ export default {
     //const episodes = await getAllEpisodesBySeriesPath(params.title)
     const episodes = await getEpisodesBySerie(serie.id)
     //console.log(episodes)
-    // const serie = store.getters['series/getSerie']
-    // store.dispatch('series/setSerie', serie)
+    //const serie = store.getters['series/getSerie']
+    store.dispatch('series/setSerie', serie)
     // const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.drupal_internal__nid)
     // //console.log('nid', '/vote/serie/result/' + serie.drupal_internal__nid + '?_format=json')
     // let serieScore = await voteResult(serie.drupal_internal__nid)

@@ -254,7 +254,7 @@ export async function getSeriesByChannel (offset = 0, limit = 10, channel) {
 }
 
 export async function getEpisodesBySerie (uuid) {
-  const url = prefix + '/episodes/?filter[field_series_episode.id]=' + uuid + '&include=field_thumbnail,field_img_streaming,field_series_korea&sort=-nid'
+  const url = prefix + '/episodes/?filter[field_series_episode.id]=' + uuid + '&include=field_thumbnail,field_series_korea&sort=-nid'
   const { data } = await apiClient.get(url)
   return jsonapiParse.parse(data).data
 }
