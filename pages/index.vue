@@ -74,7 +74,7 @@ export default {
     const recommended = await getSeriesRecommended()
     const seriesHit = await app.$axios.$get(env.restMongoUrl + '/series_hit')
     const articles = await getSeriesArticles()
-    console.log(typeof(sticky))
+    //console.log(typeof(sticky))
     return { episodes, onair, seriesHit, articles, sticky, recommended }
   }
 }
