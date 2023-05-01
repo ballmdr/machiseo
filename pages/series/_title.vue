@@ -85,34 +85,39 @@
   <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 v-if="serie.field_celeb.length > 0">
       <h2 class="text_header">ดารา นักแสดง</h2>
-      <div><celebs-cast :celebs="serie.field_celeb"></celebs-cast></div>
+      <div class="text_header"><celebs-cast :celebs="serie.field_celeb"></celebs-cast></div>
     </v-flex>
     <v-divider style="margin:25px;"></v-divider>
-    <v-flex xs12>
-      <h2 class="text_header">เรื่องย่อ {{ serie.title }}</h2>
-      <v-card flat color="primary">
-        <v-card-text><p v-html="serie.field_synopsis" class="text-block"></p></v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex xs12 v-if="serie.field_spoil_full !== null">
-      <h2 class="text_header">สปอย {{ serie.title }} ทั้งเรื่อง</h2>
-      <v-card flat>
-        <v-card-text><p v-html="serie.field_spoil_full.processed"></p></v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex xs12 v-if="serie.field_web_review !== null">
-      <v-card flat>
-        <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
-        <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
-      </v-card>
-    </v-flex>
+    <v-layout row wrap>
+      <v-flex xs6>
+        <v-flex xs12>
+          <h2 class="text_header">เรื่องย่อ {{ serie.title }}</h2>
+          <v-card flat color="primary">
+            <v-card-text><p v-html="serie.field_synopsis" class="text-block"></p></v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex xs12 v-if="serie.field_spoil_full !== null">
+          <h2 class="text_header">สปอย {{ serie.title }} ทั้งเรื่อง</h2>
+          <v-card flat>
+            <v-card-text><p v-html="serie.field_spoil_full.processed"></p></v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex xs12 v-if="serie.field_web_review !== null">
+          <v-card flat>
+            <v-card-title><h2>รีวิว {{ serie.title }}</h2></v-card-title>
+            <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
+          </v-card>
+        </v-flex>
+      </v-flex>
+      <v-flex xs6>
+        <div id="disqus_thread"></div>
+      </v-flex>
+    </v-layout>
     <v-divider style="margin:25px;"></v-divider>
-    <v-flex xs12 v-if="serie.field_episode_series.length > 0">
-      <h2 class="text_header">สปอยรายตอน</h2>
-      <br>
-      <episodes-list :episodes="episodes"></episodes-list>
-    </v-flex>
-
+        <v-flex xs12 v-if="serie.field_episode_series.length > 0">
+          <h2 class="text_header">สปอยรายตอน</h2>
+          <episodes-list :episodes="episodes"></episodes-list>
+        </v-flex>
     <!-- <v-flex xs12 v-if="articles.length > 0">
       <h2>บทความน่าอ่าน {{ serie.title }}</h2>
       <articles-list :articles="articles"></articles-list>
@@ -133,8 +138,6 @@
             <v-card-text><p v-html="serie.field_web_review.processed"></p></v-card-text>
           </v-card>
         </v-flex> -->
-
-
        <!-- <v-flex xs12>
           <h2>รีวิวจากผู้ชม<span v-if="serie.field_topic !== null"> - <a class="hvr-grow warning--text" target="_blank" :href="discourseTopicUrl">โพสท์ในเว็บบอร์ดก็ได้นะ คลิกเลย! <v-icon color="warning">fas fa-external-link-alt</v-icon></a></span></h2>
           <reviews-discourse :reviews="discourseReviews"></reviews-discourse>
@@ -213,7 +216,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.serie)
+    //console.log(this.serie)
     //window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {

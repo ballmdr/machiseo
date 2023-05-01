@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm8>
-      <v-card class="node-card" dark>
+      <v-card class="node-card" flat>
         <v-card-title class="bg-gradient">
           <v-layout row wrap>
             <v-flex xs4 sm3 @click="$router.push(serie.path.alias)" style="cursor:pointer;">
@@ -27,19 +27,16 @@
           </v-carousel-item>
         </v-carousel>
         <v-card-text><h1 class="headline">สปอยล์ {{ serie.title }} ตอนที่ {{ ep_title }}</h1></v-card-text>
-
         <v-card-text v-html="ep_body" style="line-height:30px;">
         </v-card-text>
-
-
       </v-card>
+      <div id="disqus_thread"></div>
     </v-flex>
     <v-flex xs12 sm4>
-      <v-layout row wrap>
-
      <!--   <v-flex xs6 sm10 v-for="(ep, index) in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="showEp(index)">
           <episode-card :ep="ep"></episode-card>
         </v-flex> -->
+      <v-layout row wrap>
         <v-flex xs6 sm10 v-for="ep in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="$router.push(ep.path.alias)">
           <episode-card :ep="ep" ></episode-card>
         </v-flex>
