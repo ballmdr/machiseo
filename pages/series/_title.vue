@@ -113,11 +113,10 @@
       <episodes-list :episodes="episodes"></episodes-list>
     </v-flex>
 
-    <v-flex xs12 v-if="articles.length > 0">
+    <!-- <v-flex xs12 v-if="articles.length > 0">
       <h2>บทความน่าอ่าน {{ serie.title }}</h2>
       <articles-list :articles="articles"></articles-list>
-    </v-flex>
-
+    </v-flex> -->
 
     <!-- <v-layout row wrap>
       <v-flex xs12 sm8> -->
@@ -260,14 +259,14 @@ export default {
     // }
     //console.log('nid', serie.nid)
     //console.log(serie)
-    const articles = await getSeriesArticlesById(serie.id)
+    //const articles = await getSeriesArticlesById(serie.id)
     //console.log('articles')
     //let have_articles = 0
     //if (typeof(articles) != 'undefined') {
       //console.log('have articles')
     //  have_articles = 1
     //}
-    return { serie, episodes, articles }
+    return { serie, episodes }
   },
   async fetch ({ app, params, store }) {
     //await store.dispatch('episodes/setEp', params.title)
