@@ -2,7 +2,7 @@
   <v-layout column>
     <v-flex xs12>
       <div class="container">
-        <v-card color="primary" flat dark class="u-clearfix">
+        <v-card color="primary" flat class="u-clearfix">
           <v-layout row wrap>
             <v-flex xs12 sm6 md4>
               <v-card-text class="card-media">
@@ -14,7 +14,7 @@
                 <v-layout row wrap>
                   <v-flex xs12><h1>{{ serie.title }}</h1></v-flex>
                   <v-flex xs12 d-flex>
-                    <v-rating style="max-width:200px;" v-model="serieScore"  color="yellow" half-increments readonly></v-rating>
+                    <!--<v-rating style="max-width:200px;" v-model="serieScore"  color="yellow" half-increments readonly></v-rating>-->
                     <!-- <span class="grey--text text--lighten-2 caption mr-2">({{ serieScore | round(4) }})</span> -->
                   </v-flex>
                 </v-layout>
@@ -31,8 +31,8 @@
               <v-divider dark></v-divider>
               <v-card-text>
                 <v-layout column>
-                  <!-- <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex> -->
-                  <v-flex xs12><p v-html="serie.field_synopsis"></p></v-flex>
+                  <v-flex xs12 ><p v-html="serie.body.processed"></p></v-flex>
+                  <!--<v-flex xs12><p v-html="serie.field_synopsis"></p></v-flex>-->
 
                   <v-layout row wrap>
                     <v-flex v-if="serie.field_viu !== null">
@@ -86,8 +86,14 @@
   <v-divider style="margin:25px;"></v-divider>
     <v-flex xs12 v-if="serie.field_celeb.length > 0">
       <h2 class="text_header">ดารา นักแสดง</h2>
-      <br>
-      <div class="text_header"><celebs-cast :celebs="serie.field_celeb"></celebs-cast></div>
+      <div><celebs-cast :celebs="serie.field_celeb"></celebs-cast></div>
+    </v-flex>
+    <v-divider style="margin:25px;"></v-divider>
+    <v-flex xs12>
+      <h2 class="text_header">เรื่องย่อ {{ serie.title }}</h2>
+      <v-card flat color="primary">
+        <v-card-text><p v-html="serie.field_synopsis" class="text-block"></p></v-card-text>
+      </v-card>
     </v-flex>
     <v-flex xs12 v-if="serie.field_web_review !== null">
       <v-card flat>
@@ -203,6 +209,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.serie)
     //window.onscroll = () => { return false }
     // console.log('serie2', this.serie2)
     /* if (this.serie.field_topic !== null) {
@@ -235,17 +242,17 @@ export default {
     const episodes = await getEpisodesBySerie(serie.id)
     //console.log(episodes)
     // const serie = store.getters['series/getSerie']
-    store.dispatch('series/setSerie', serie)
-    const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.drupal_internal__nid)
-    //console.log('nid', '/vote/serie/result/' + serie.drupal_internal__nid + '?_format=json')
-    let serieScore = await voteResult(serie.drupal_internal__nid)
-    console.log('score', serieScore)
-    if (serieScore.length > 1) {
-      serieScore = serieScore[1].value[0].value
-    }
-    else {
-      serieScore = 0
-    }
+    // store.dispatch('series/setSerie', serie)
+    // const reviews = await app.$axios.$get(env.restMongoUrl + '/reviews/' + serie.drupal_internal__nid)
+    // //console.log('nid', '/vote/serie/result/' + serie.drupal_internal__nid + '?_format=json')
+    // let serieScore = await voteResult(serie.drupal_internal__nid)
+
+    // if (serieScore.length > 1) {
+    //   serieScore = serieScore[1].value[0].value
+    // }
+    // else {
+    //   serieScore = 0
+    // }
     //console.log('nid', serie.nid)
     //console.log(serie)
     const articles = await getSeriesArticlesById(serie.id)
@@ -255,19 +262,22 @@ export default {
       //console.log('have articles')
     //  have_articles = 1
     //}
-    return { serie, reviews, serieScore, episodes, articles }
+    return { serie, episodes, articles }
   },
   async fetch ({ app, params, store }) {
     //await store.dispatch('episodes/setEp', params.title)
-    const likeReview = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-like')
-    store.dispatch('reviews/setIpLike', likeReview)
-    const likeReply = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-reply-like')
-    store.dispatch('reviews/setReplyLike', likeReply)
+    // const likeReview = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-like')
+    // store.dispatch('reviews/setIpLike', likeReview)
+    // const likeReply = await app.$axios.$get(process.env.restMongoUrl + '/reviews/ip-reply-like')
+    // store.dispatch('reviews/setReplyLike', likeReply)
   }
 }
 </script>
 
 <style scoped>
+.text-block {
+    white-space: pre-line;
+}
 .logo_subthai{
   max-width:75px !important;
 }
@@ -308,6 +318,7 @@ export default {
 }
 .text_header {
   text-align: center;
+  margin-bottom: 10px;
 }
 
 </style>
