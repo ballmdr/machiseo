@@ -96,7 +96,7 @@
     </v-flex>
     <v-flex xs12 v-if="serie.field_spoil_full !== null">
       <h2 class="text_header">สปอย {{ serie.title }} ทั้งเรื่อง</h2>
-      <v-card flat color="primary">
+      <v-card flat>
         <v-card-text><p v-html="serie.field_spoil_full.processed"></p></v-card-text>
       </v-card>
     </v-flex>
