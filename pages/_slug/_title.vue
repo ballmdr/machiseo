@@ -37,7 +37,7 @@
           <episode-card :ep="ep"></episode-card>
         </v-flex> -->
       <v-layout row wrap>
-        <v-flex xs6 sm10 v-for="ep in episodes" :key="ep.id" style="cursor:pointer;margin:auto;" @click="$router.push(ep.path.alias)">
+        <v-flex xs6 sm10 v-for="ep in episodes" :key="ep.id" style="padding:0px;cursor:pointer;margin-bottom:10px;padding-left:5px;" @click="$router.push(ep.path.alias)">
           <episode-card :ep="ep" ></episode-card>
         </v-flex>
       </v-layout>
