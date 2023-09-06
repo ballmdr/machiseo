@@ -79,7 +79,7 @@ export default {
     }
   },
   head () {
-    const canonical = `https://www.kodhit.com${this.$route.path}`
+    const canonical = `https://www.machiseo.com${this.$route.path}`
     const synopsis = this.$options.filters.truncate(this.article[0].body.processed, 150)
     const title = this.article[0].title
     const image = ''
@@ -92,7 +92,7 @@ export default {
         { hid: 'og_description', name: 'og:description', property: 'og:description', content: synopsis },
         { hid: 'og_image', name: 'og:image', property: 'og:image', content: image },
         { hid: 'og_url', name: 'og:url', property: 'og:url', content: canonical },
-        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'โคตรฮิต! Kodhit.com' },
+        { hid: 'og_sitename', name: 'og:site_name', property: 'og:site_name', content: 'มาชิสซอ! Machiseo.com' },
         { hid: 'twitter_title', name: 'twitter:title', content: title },
         { hid: 'twitter_description', name: 'twitter:description', content: synopsis },
         { hid: 'twitter_image', name: 'twitter:image', content: image },
