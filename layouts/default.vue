@@ -3,8 +3,6 @@
     <nav-bar></nav-bar>
     <v-content class="preventcopy">
       <v-container grid-list-md >
-        <nuxt-link to="/series/my-lovely-liar"><v-img src="https://cdn.machiseo.net/sites/default/files/lair_head.jpg"></v-img></nuxt-link>
-        <br>
         <nuxt />
       </v-container>
     </v-content>
