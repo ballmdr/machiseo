@@ -51,7 +51,7 @@
           /*{ icon: 'fas fa-scroll', title: 'ผลโหวตซีรีส์ปี 2018', to: '/vote/2018-result' }*/
         ],
         miniVariant: true,
-        title: 'โคตรฮิต!',
+        title: 'มาชิสซอ',
         isLoading: false,
         items: [],
         model: null,
